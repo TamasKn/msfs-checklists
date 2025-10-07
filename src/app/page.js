@@ -1,4 +1,5 @@
 import ChecklistItems from "./components/main/checklist-items";
+import AircraftInfo from "./components/main/aircraft-info";
 
 export default function Home() {
   return (
@@ -6,6 +7,8 @@ export default function Home() {
       <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
       MSFS Checklists
       </h1>
+
+      <AircraftInfo />
 
       <ChecklistItems />
     </div>

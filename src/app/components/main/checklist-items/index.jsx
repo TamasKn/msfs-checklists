@@ -3,7 +3,6 @@
 
 import { useState } from 'react';
 import { cessnaLongitudeChecklist } from "@/data/cessna-longitude/checklist";
-import { cessnaLongitudeSpecs } from "@/data/cessna-longitude/specs";
 
 export default function ChecklistItems() {
   const [openSections, setOpenSections] = useState([]);
@@ -30,10 +29,7 @@ export default function ChecklistItems() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 mt-12 sm:p-6 lg:p-8">
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-left">
-        {cessnaLongitudeSpecs.name}
-      </h1>
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="space-y-2">
         {cessnaLongitudeChecklist.checklist.map((section, index) => {
           const isOpen = openSections.includes(index);
@@ -69,7 +65,7 @@ export default function ChecklistItems() {
                             onChange={() => handleCheckboxChange(index, itemIndex)}
                             className="h-5 w-5 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 dark:bg-gray-700"
                           />
-                          <label htmlFor={checkboxId} className="ml-3 flex-1 flex justify-between text-sm text-gray-700 dark:text-gray-300">
+                          <label htmlFor={checkboxId} className="ml-3 flex-1 flex justify-between text-gray-700 dark:text-gray-300">
                             <span className="font-medium uppercase">{key}</span>
                             <span className="font-semibold text-gray-900 dark:text-white text-right">{value}</span>
                           </label>
