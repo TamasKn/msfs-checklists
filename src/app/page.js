@@ -5,6 +5,8 @@ import ChecklistItems from "./components/main/checklist-items";
 import AircraftInfo from "./components/main/aircraft-info";
 import AircraftSelector from "./components/main/aircraft-selector";
 import { Aircrafts } from '@/data/aircrafts/aircrafts';
+import github from '/public/github_logo.png';
+import Image from 'next/image';
 
 export default function Home() {
   const [selectedAircraft, setSelectedAircraft] = useState(Aircrafts[0]);
@@ -32,6 +34,11 @@ export default function Home() {
           <ChecklistItems checklist={selectedAircraft.checklist} />
         </>
       )}
+      <footer className="mt-8">
+        <a href="https://github.com/TamasKn/msfs-checklists" target="_blank" rel="noopener noreferrer" className="inline-block text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+          <Image src={github} alt="GitHub logo" width={24} height={24} />
+        </a>
+      </footer>
     </div>
   );
 }
