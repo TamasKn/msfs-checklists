@@ -1,5 +1,4 @@
 export const cessnaLongitudeChecklist = {
-  name: "Cessna Citation Longitude",
   checklist: [
     {
       title: "Before Taxi",
