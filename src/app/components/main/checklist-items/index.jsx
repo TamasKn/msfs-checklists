@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -21,6 +22,10 @@ export default function ChecklistItems() {
       ...prev,
       [key]: !prev[key]
     }));
+  };
+
+  const handleReset = () => {
+    setCheckedItems({});
   };
 
   return (
@@ -76,6 +81,14 @@ export default function ChecklistItems() {
             </div>
           );
         })}
+      </div>
+      <div className="mt-6 flex justify-end">
+        <button
+          onClick={handleReset}
+          className="px-6 py-2 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-600 cursor-pointer"
+        >
+          Reset All
+        </button>
       </div>
     </div>
   );
