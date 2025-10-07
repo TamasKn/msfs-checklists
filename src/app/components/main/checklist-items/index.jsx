@@ -1,8 +1,12 @@
-
 'use client';
 
 import { useState } from 'react';
 import { cessnaLongitudeChecklist } from "@/data/cessna-longitude/checklist";
+import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs';
+
+const CheckmarkIcon = () => (
+  <svg className="w-6 h-6 text-green-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+);
 
 export default function ChecklistItems() {
   const [openSections, setOpenSections] = useState([]);
@@ -30,16 +34,27 @@ export default function ChecklistItems() {
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+      <h1 className="text-xl sm:text-xl font-bold text-gray-900 dark:text-white mb-6 text-left">
+        Checklist
+      </h1>
       <div className="space-y-2">
         {cessnaLongitudeChecklist.checklist.map((section, index) => {
           const isOpen = openSections.includes(index);
+          const isSectionComplete = section.items.every((_, itemIndex) => {
+            const checkboxId = `${index}-${itemIndex}`;
+            return !!checkedItems[checkboxId];
+          });
+
           return (
             <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
               <button
                 onClick={() => toggleSection(index)}
                 className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
               >
-                <span>{section.title}</span>
+                <div className="flex items-center">
+                  <span>{section.title}</span>
+                  {isSectionComplete && <CheckmarkIcon />}
+                </div>
                 <svg
                   className={`w-5 h-5 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}
                   fill="none"
@@ -82,7 +97,7 @@ export default function ChecklistItems() {
       <div className="mt-6 flex justify-end">
         <button
           onClick={handleReset}
-          className="px-6 py-2 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-600 cursor-pointer"
+          className="px-6 py-2 text-white font-semibold rounded-lg focus:outline-none focus:ring-1 focus:ring-offset-2 bg-gray-600 cursor-pointer"
         >
           Reset All
         </button>
