@@ -1,16 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { cessnaLongitudeChecklist } from "@/data/cessna-longitude/checklist";
-import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs';
+import { useState, useEffect } from 'react';
 
 const CheckmarkIcon = () => (
   <svg className="w-6 h-6 text-green-500 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
 );
 
-export default function ChecklistItems() {
+export default function ChecklistItems({ checklist }) {
   const [openSections, setOpenSections] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
+
+  useEffect(() => {
+    setOpenSections([]);
+    setCheckedItems({});
+  }, [checklist]);
 
   const toggleSection = (index) => {
     setOpenSections(prevOpenSections =>
@@ -32,13 +35,14 @@ export default function ChecklistItems() {
     setCheckedItems({});
   };
 
+  if (!checklist) {
+    return null;
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
-      <h1 className="text-xl sm:text-xl font-bold text-gray-900 dark:text-white mb-6 text-left">
-        Checklist
-      </h1>
       <div className="space-y-2">
-        {cessnaLongitudeChecklist.checklist.map((section, index) => {
+        {checklist.checklist.map((section, index) => {
           const isOpen = openSections.includes(index);
           const isSectionComplete = section.items.every((_, itemIndex) => {
             const checkboxId = `${index}-${itemIndex}`;
@@ -97,7 +101,7 @@ export default function ChecklistItems() {
       <div className="mt-6 flex justify-end">
         <button
           onClick={handleReset}
-          className="px-6 py-2 text-white font-semibold rounded-lg focus:outline-none focus:ring-1 focus:ring-offset-2 bg-gray-600 cursor-pointer"
+          className="px-6 py-2 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-600 cursor-pointer"
         >
           Reset All
         </button>

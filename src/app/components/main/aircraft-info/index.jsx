@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs';
 import { explanations } from '@/data/infos/infos';
 
 const InfoIcon = () => (
@@ -19,7 +18,7 @@ const Tooltip = ({ text, children }) => {
   );
 };
 
-export default function AircraftInfo() {
+export default function AircraftInfo({ specs }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const findExplanation = (specTitle) => {
@@ -27,13 +26,14 @@ export default function AircraftInfo() {
     return acronym ? explanations[acronym] : null;
   };
 
+  if (!specs) {
+    return null;
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-left">
-        {cessnaLongitudeSpecs.name}
-      </h1>
       <div className="border border-gray-200 dark:border-gray-700 rounded-lg">
-        {cessnaLongitudeSpecs.specs.map((spec, index) => (
+        {specs.specs.map((spec, index) => (
           <div key={index}>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -59,14 +59,14 @@ export default function AircraftInfo() {
                     return (
                       <li key={itemIndex} className="px-4 py-3 flex justify-between items-center">
                         <div className="flex items-center">
-                          <span className="font-medium text-gray-700 dark:text-gray-300">{key}</span>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{key}</span>
                           {explanation && (
                             <Tooltip text={explanation}>
                               <InfoIcon />
                             </Tooltip>
                           )}
                         </div>
-                        <span className="font-semibold text-gray-900 dark:text-white">{value}</span>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">{value}</span>
                       </li>
                     );
                   })}
