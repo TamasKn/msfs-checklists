@@ -6,11 +6,11 @@ export const cessna172Checklist = {
     {
       title: 'Pre-Flight',
       items: [
-        { Documents: 'CHECK (ARROW)' },
+        { 'Documents': 'CHECK (ARROW)' },
         { 'Control Lock': 'REMOVE' },
         { 'Master Switch': 'ON' },
         { 'Fuel Quantity': 'CHECK' },
-        { Avionics: 'OFF' },
+        { 'Avionics': 'OFF' },
         { 'Master Switch': 'OFF' },
         { 'External Inspection': 'COMPLETE' }
       ]
@@ -21,8 +21,8 @@ export const cessna172Checklist = {
         { 'Parking Brake': 'SET' },
         { 'Fuel Selector': 'BOTH' },
         { 'Fuel Shutoff Valve': 'OPEN' },
-        { Mixture: 'RICH' },
-        { Throttle: 'OPEN 1/4 INCH' }
+        { 'Mixture': 'RICH' },
+        { 'Throttle': 'OPEN 1/4 INCH' }
       ]
     },
     {
@@ -32,9 +32,9 @@ export const cessna172Checklist = {
         { 'Master Switch': 'ON' },
         { 'Beacon Light': 'ON' },
         { 'Fuel Pump': 'ON (for 3-5 sec), then OFF' },
-        { Magnetos: 'START' },
+        { 'Magnetos': 'START' },
         { 'Oil Pressure': 'CHECK GREEN' },
-        { Throttle: '1000 RPM' }
+        { 'Throttle': '1000 RPM' }
       ]
     },
     {
@@ -42,7 +42,7 @@ export const cessna172Checklist = {
       items: [
         { 'Avionics Bus 1 & 2': 'ON' },
         { 'Flight Instruments': 'SET & CHECK' },
-        { Mixture: 'LEAN for taxi' },
+        { 'Mixture': 'LEAN for taxi' },
         { 'Pitot Heat': 'ON' }
       ]
     },
@@ -50,54 +50,54 @@ export const cessna172Checklist = {
       title: 'Run-up / Pre-Takeoff',
       items: [
         { 'Parking Brake': 'SET' },
-        { Throttle: '1800 RPM' },
-        { Magnetos: 'CHECK (max drop 150, diff 50)' },
+        { 'Throttle': '1800 RPM' },
+        { 'Magnetos': 'CHECK (max drop 150, diff 50)' },
         { 'Engine Instruments': 'CHECK GREEN' },
         { 'Amps / Volts': 'CHECK' },
         { 'Flight Controls': 'FREE & CORRECT' },
-        { Throttle: 'IDLE' }
+        { 'Throttle': 'IDLE' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { Flaps: 'SET (0-10 degrees)' },
-        { Trim: 'SET for Takeoff' },
-        { Mixture: 'RICH' },
+        { 'Flaps': 'SET (0-10 degrees)' },
+        { 'Trim': 'SET for Takeoff' },
+        { 'Mixture': 'RICH' },
         { 'Landing Light': 'ON' },
         { 'Strobe Lights': 'ON' },
-        { Transponder: 'ALT' }
+        { 'Transponder': 'ALT' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
-        { Throttle: 'FULL' },
-        { Rotate: '55 KIAS' },
+        { 'Throttle': 'FULL' },
+        { 'Rotate': '55 KIAS' },
         { 'Climb Speed': '74 KIAS (Vy)' }
       ]
     },
     {
       title: 'Climb',
       items: [
-        { Flaps: 'UP (above 60 KIAS)' },
-        { Mixture: 'LEAN (above 3000 ft)' }
+        { 'Flaps': 'UP (above 60 KIAS)' },
+        { 'Mixture': 'LEAN (above 3000 ft)' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { Power: 'SET (2200-2500 RPM)' },
-        { Mixture: 'LEAN' },
-        { Trim: 'SET' }
+        { 'Power': 'SET (2200-2500 RPM)' },
+        { 'Mixture': 'LEAN' },
+        { 'Trim': 'SET' }
       ]
     },
     {
       title: 'Descent',
       items: [
         { 'ATIS/AWOS': 'OBTAIN' },
-        { Altimeter: 'SET' },
-        { Mixture: 'RICHEN' }
+        { 'Altimeter': 'SET' },
+        { 'Mixture': 'RICHEN' }
       ]
     },
     {
@@ -105,35 +105,35 @@ export const cessna172Checklist = {
       items: [
         { 'Seat Belts': 'SECURE' },
         { 'Fuel Selector': 'BOTH' },
-        { Mixture: 'RICH' },
+        { 'Mixture': 'RICH' },
         { 'Landing Light': 'ON' },
-        { Flaps: 'AS REQUIRED' }
+        { 'Flaps': 'AS REQUIRED' }
       ]
     },
     {
       title: 'Landing',
       items: [
-        { Airspeed: '65 KIAS (final)' },
-        { Touchdown: 'MAIN WHEELS FIRST' }
+        { 'Airspeed': '65 KIAS (final)' },
+        { 'Touchdown': 'MAIN WHEELS FIRST' }
       ]
     },
     {
       title: 'After Landing',
       items: [
-        { Flaps: 'UP' },
+        { 'Flaps': 'UP' },
         { 'Strobe Lights': 'OFF' },
         { 'Landing Light': 'OFF' },
         { 'Taxi Light': 'ON' },
-        { Transponder: 'GND or STBY' }
+        { 'Transponder': 'GND or STBY' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
         { 'Parking Brake': 'SET' },
-        { Avionics: 'OFF' },
-        { Mixture: 'IDLE CUT-OFF' },
-        { Magnetos: 'OFF' },
+        { 'Avionics': 'OFF' },
+        { 'Mixture': 'IDLE CUT-OFF' },
+        { 'Magnetos': 'OFF' },
         { 'Master Switch': 'OFF' },
         { 'Control Lock': 'INSTALL' }
       ]

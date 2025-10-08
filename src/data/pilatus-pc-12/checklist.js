@@ -1,130 +1,130 @@
-import { AircraftName } from "@/data/aircrafts/aircraft-names";
+import { AircraftName } from '@/data/aircrafts/aircraft-names'
 
 export const pilatusPc12Checklist = {
   name: AircraftName.PilatusPC12,
   checklist: [
     {
-      title: "Before Engine Start",
+      title: 'Before Engine Start',
       items: [
-        { "Parking Brake": "SET" },
-        { "Control Lock": "REMOVE" },
-        { "Oxygen": "ON & CHECKED" },
-        { "Battery Switches": "ON" },
-        { "Beacon & Nav Lights": "ON" },
-        { "Fuel Quantity": "CHECK" },
+        { 'Parking Brake': 'SET' },
+        { 'Control Lock': 'REMOVE' },
+        { 'Oxygen': 'ON & CHECKED' },
+        { 'Battery Switches': 'ON' },
+        { 'Beacon & Nav Lights': 'ON' },
+        { 'Fuel Quantity': 'CHECK' }
       ]
     },
     {
-      title: "Engine Start",
+      title: 'Engine Start',
       items: [
-        { "Prop Area": "CLEAR" },
-        { "Starter Switch": "PRESS" },
-        { "Condition Lever": "GROUND IDLE (at >12% Ng)" },
-        { "Oil Pressure": "CHECK" },
-        { "Generators 1 & 2": "ON" },
-        { "Avionics 1 & 2": "ON" },
+        { 'Prop Area': 'CLEAR' },
+        { 'Starter Switch': 'PRESS' },
+        { 'Condition Lever': 'GROUND IDLE (at >12% Ng)' },
+        { 'Oil Pressure': 'CHECK' },
+        { 'Generators 1 & 2': 'ON' },
+        { 'Avionics 1 & 2': 'ON' }
       ]
     },
     {
-      title: "Before Taxi",
+      title: 'Before Taxi',
       items: [
-        { "Flaps": "SET 15°" },
-        { "Trims": "SET GREEN" },
-        { "Flight Controls": "CHECK" },
-        { "Inertial Separator": "OPEN" },
-        { "Pressurization": "SET" },
+        { 'Flaps': 'SET 15°' },
+        { 'Trims': 'SET GREEN' },
+        { 'Flight Controls': 'CHECK' },
+        { 'Inertial Separator': 'OPEN' },
+        { 'Pressurization': 'SET' }
       ]
     },
     {
-      title: "Taxi",
+      title: 'Taxi',
       items: [
-        { "Taxi Light": "ON" },
-        { "Brakes": "CHECK" },
-        { "Flight Instruments": "CHECK" },
+        { 'Taxi Light': 'ON' },
+        { 'Brakes': 'CHECK' },
+        { 'Flight Instruments': 'CHECK' }
       ]
     },
     {
-      title: "Before Takeoff",
+      title: 'Before Takeoff',
       items: [
-        { "Flaps": "CONFIRM 15°" },
-        { "Pusher Test": "COMPLETE" },
-        { "Ice Protection": "AS REQUIRED" },
-        { "Transponder": "SET" },
-        { "Condition Lever": "FLIGHT IDLE" },
+        { 'Flaps': 'CONFIRM 15°' },
+        { 'Pusher Test': 'COMPLETE' },
+        { 'Ice Protection': 'AS REQUIRED' },
+        { 'Transponder': 'SET' },
+        { 'Condition Lever': 'FLIGHT IDLE' }
       ]
     },
     {
-      title: "Takeoff",
+      title: 'Takeoff',
       items: [
-        { "Power": "SET TAKEOFF" },
-        { "Rotate": "~80 KIAS" },
-        { "Positive Rate": "GEAR UP" },
+        { 'Power': 'SET TAKEOFF' },
+        { 'Rotate': '~82 KIAS' },
+        { 'Positive Rate': 'GEAR UP' }
       ]
     },
     {
-      title: "After Takeoff / Climb",
+      title: 'After Takeoff / Climb',
       items: [
-        { "Flaps": "UP (at >100 KIAS)" },
-        { "Yaw Damper": "ON" },
-        { "Climb Power": "SET" },
-        { "Pressurization": "MONITOR" },
-        { "Taxi/Landing Lights": "OFF" },
+        { 'Flaps': 'UP (at >100 KIAS)' },
+        { 'Yaw Damper': 'ON' },
+        { 'Climb Power': 'SET' },
+        { 'Pressurization': 'MONITOR' },
+        { 'Taxi/Landing Lights': 'OFF' }
       ]
     },
     {
-      title: "Cruise",
+      title: 'Cruise',
       items: [
-        { "Cruise Power": "SET" },
-        { "Engine Instruments": "MONITOR" },
-        { "Fuel Balance": "MONITOR" },
+        { 'Cruise Power': 'SET' },
+        { 'Engine Instruments': 'MONITOR' },
+        { 'Fuel Balance': 'MONITOR' }
       ]
     },
     {
-      title: "Descent",
+      title: 'Descent',
       items: [
-        { "ATIS": "OBTAIN" },
-        { "Approach Briefing": "COMPLETE" },
-        { "Altimeters": "SET" },
-        { "Pressurization": "SET for landing" },
+        { 'ATIS': 'OBTAIN' },
+        { 'Approach Briefing': 'COMPLETE' },
+        { 'Altimeters': 'SET' },
+        { 'Pressurization': 'SET for landing' }
       ]
     },
     {
-      title: "Approach",
+      title: 'Approach',
       items: [
-        { "Inertial Separator": "OPEN" },
-        { "Landing Gear": "DOWN (<180 KIAS)" },
-        { "Flaps": "AS REQUIRED" },
-        { "Landing/Taxi Lights": "AS REQUIRED" },
+        { 'Inertial Separator': 'OPEN' },
+        { 'Landing Gear': 'DOWN (<180 KIAS)' },
+        { 'Flaps': 'AS REQUIRED' },
+        { 'Landing/Taxi Lights': 'AS REQUIRED' }
       ]
     },
     {
-      title: "Landing",
+      title: 'Landing',
       items: [
-        { "Flaps": "SET 40° (if needed)" },
-        { "Speed": "VREF" },
-        { "Condition Lever": "GROUND IDLE (on touchdown)" },
-        { "Braking / Reverse": "AS REQUIRED" },
+        { 'Flaps': 'SET 40° (if needed)' },
+        { 'Speed': 'VREF' },
+        { 'Condition Lever': 'GROUND IDLE (on touchdown)' },
+        { 'Braking / Reverse': 'AS REQUIRED' }
       ]
     },
     {
-      title: "After Landing",
+      title: 'After Landing',
       items: [
-        { "Condition Lever": "GROUND IDLE" },
-        { "Flaps": "UP" },
-        { "Ice Protection": "OFF" },
-        { "Trims": "RESET" },
-        { "Lights": "SET for taxi" },
+        { 'Condition Lever': 'GROUND IDLE' },
+        { 'Flaps': 'UP' },
+        { 'Ice Protection': 'OFF' },
+        { 'Trims': 'RESET' },
+        { 'Lights': 'SET for taxi' }
       ]
     },
     {
-      title: "Shutdown",
+      title: 'Shutdown',
       items: [
-        { "Parking Brake": "SET" },
-        { "Avionics": "OFF" },
-        { "Generators": "OFF" },
-        { "Condition Lever": "CUT-OFF" },
-        { "Battery Switches": "OFF" },
-        { "Control Lock": "INSTALL" },
+        { 'Parking Brake': 'SET' },
+        { 'Avionics': 'OFF' },
+        { 'Generators': 'OFF' },
+        { 'Condition Lever': 'CUT-OFF' },
+        { 'Battery Switches': 'OFF' },
+        { 'Control Lock': 'INSTALL' }
       ]
     }
   ]

@@ -16,11 +16,11 @@ export const cessnaLongitudeSpecs = {
           'Cruise Speed': '320 KIAS'
         },
         {
-          Range: '3,500 NM'
+          'Range': '3,500 NM'
         },
-        { VMO: '483 KTAS' },
-        { MMO: '0.724' },
-        { VLE: '230 KIAS' },
+        { 'VMO': '483 KTAS' },
+        { 'MMO': '0.724' },
+        { 'VLE': '230 KIAS' },
         { 'VFE (Flaps 1)': '250 KIAS' },
         { 'VFE (Flaps 2)': '230 KIAS' },
         { 'VFE (Flaps Full)': '180 KIAS' },
@@ -31,7 +31,7 @@ export const cessnaLongitudeSpecs = {
           'Maximum Tire Groundspeed': '195 KNT'
         },
         {
-          Payload: '4,000 lb | 1814 kg'
+          'Payload': '4,000 lb | 1814 kg'
         },
         {
           'Maximum Takeoff Weight': '39,500 lb | 17915 kg'
