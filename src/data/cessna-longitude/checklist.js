@@ -1,5 +1,7 @@
+import { AircraftName } from '@/data/aircrafts/aircraft-names';
+
 export const cessnaLongitudeChecklist = {
-  name: "Cessna Citation Longitude",
+  name: AircraftName.CessnaLongitude,
   checklist: [
     {
       title: "Pre-Flight",

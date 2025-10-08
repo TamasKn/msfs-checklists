@@ -1,34 +1,36 @@
+import { AircraftName } from '@/data/aircrafts/aircraft-names'
+
 export const cessnaLongitudeSpecs = {
-  name: "Cessna Citation Longitude",
+  name: AircraftName.CessnaLongitude,
   specs: [
     {
-      title: "Limits & Specs",
+      title: 'Limits & Specs',
       items: [
         {
-          "Maximum Operating Altitude": "45,000 ft",
+          'Maximum Operating Altitude': '45,000 ft'
         },
         {
-          "Cruise Speed": "483 ktas",
+          'Cruise Speed': '320 KTAS'
         },
         {
-          "Range": "3,500 NM",
+          Range: '3,500 NM'
         },
-        {"VMO": "320 kt"},
-        {"MMO": "0.480"},
-        {"VLE": "230 ktas"},
-        {"VFE (Flaps 1)": "250 ktas"},
-        {"VFE (Flaps 2)": "230 ktas"},
-        {"VFE (Flaps Full)": "180 ktas"},
+        { VMO: '483 KTAS' },
+        { MMO: '0.724' },
+        { VLE: '230 KTAS' },
+        { 'VFE (Flaps 1)': '250 KTAS' },
+        { 'VFE (Flaps 2)': '230 KTAS' },
+        { 'VFE (Flaps Full)': '180 KTAS' },
         {
-          "Payload": "4000 lb / 1814 kg",
-        },
-        {
-          "Fuel Capacity": "14,593 lb / 6619 kg",
+          Payload: '4000 lb / 1814 kg'
         },
         {
-          "Fuel Consumption": "816.50 L/hr",
+          'Fuel Capacity': '14,593 lb / 6619 kg'
         },
-      ],
-    },
+        {
+          'Fuel Consumption': '816.50 L/hr'
+        }
+      ]
+    }
   ]
 }
