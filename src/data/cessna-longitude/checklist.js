@@ -53,7 +53,7 @@ export const cessnaLongitudeChecklist = {
         { "Avionics": "CHECK & CONFIGURE" },
         { "Perf INIT": "CONFIGURED" },
         { "Flight Plan": "VERIFIED" },
-        { "Takeoff Trim": "SET (~40%)" },
+        { "Takeoff Trim": "SET (~ +40%)" },
         { "Flaps": "SET for Takeoff" },
         { "Altitude": "SET -> FLC" },
         { "Navigation": "SET -> NAV/HDG" },

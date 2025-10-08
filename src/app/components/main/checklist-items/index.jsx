@@ -26,10 +26,49 @@ export default function ChecklistItems({ checklist }) {
 
   const handleCheckboxChange = (sectionIndex, itemIndex) => {
     const key = `${sectionIndex}-${itemIndex}`;
-    setCheckedItems(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+
+    setCheckedItems(prevCheckedItems => {
+      const newCheckedItems = {
+        ...prevCheckedItems,
+        [key]: !prevCheckedItems[key]
+      };
+
+      // Only proceed if an item was checked (not unchecked)
+      if (newCheckedItems[key]) {
+        const section = checklist.checklist[sectionIndex];
+        const isSectionComplete = section.items.every((_, i) => {
+          const checkboxId = `${sectionIndex}-${i}`;
+          return !!newCheckedItems[checkboxId];
+        });
+
+        if (isSectionComplete) {
+          setOpenSections(prevOpenSections => {
+            // Close current section
+            const newOpenSections = prevOpenSections.filter(i => i !== sectionIndex);
+
+            // Find the next visible section to open
+            let nextSectionIndex = -1;
+            for (let i = sectionIndex + 1; i < checklist.checklist.length; i++) {
+              const nextSection = checklist.checklist[i];
+              const isSectionHidden = autoEngineStartUsed && (nextSection.title === 'Pre-Flight' || nextSection.title === 'Engine Start' || nextSection.title === 'Shutdown');
+              if (!isSectionHidden) {
+                nextSectionIndex = i;
+                break;
+              }
+            }
+
+            // If a next visible section is found, open it.
+            if (nextSectionIndex !== -1 && !newOpenSections.includes(nextSectionIndex)) {
+              newOpenSections.push(nextSectionIndex);
+            }
+
+            return newOpenSections;
+          });
+        }
+      }
+
+      return newCheckedItems;
+    });
   };
 
   const handleReset = () => {
@@ -69,7 +108,7 @@ export default function ChecklistItems({ checklist }) {
             <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
               <button
                 onClick={() => toggleSection(index)}
-                className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+                className={`w-full flex justify-between items-center p-4 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none ${isSectionComplete ? 'bg-green-100 dark:bg-green-950' : ''}`}
               >
                 <div className="flex items-center">
                   <span>{section.title}</span>
