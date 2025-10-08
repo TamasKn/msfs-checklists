@@ -3,13 +3,17 @@ export const explanations = {
     'The maximum certified altitude at which an aircraft is designed to operate. It is determined by structural limitations, engine performance, and pressurization system capabilities. Flying above this altitude can lead to issues with engine power, structural integrity, and maintaining a safe cabin pressure.',
   'Cruise Speed':
     'The typical speed at which an aircraft travels for the majority of its flight. It is optimized for fuel efficiency, balancing speed and fuel consumption to achieve the best performance over a long distance. This speed can vary based on factors like altitude, weight, and wind conditions.',
-  Range:
+  'Range':
     "The maximum distance an aircraft can fly between takeoff and landing. It is typically calculated with a full load of fuel and a specific payload, under standard atmospheric conditions and with no wind. The actual range can be affected by factors such as weather, air traffic control routing, and the aircraft's cruise speed.",
-  VMO: 'Maximum Operating Speed: This is the maximum airspeed at which an aircraft is certified to operate in smooth air. Exceeding VMO can lead to structural damage due to excessive aerodynamic pressure. It\'s often referred to as the "red line" on the airspeed indicator.',
-  MMO: 'Maximum Operating Mach: This is the maximum speed relative to the speed of sound (Mach number) at which an aircraft is certified to operate. At high altitudes, the speed of sound is lower, and the risk is from air compressibility effects creating  shockwaves on control surfaces, which can render them ineffective. MMO is the high-altitude equivalent of VMO.',
-  VLE: 'Maximum Landing Gear Extended Speed: This is the maximum speed at which an aircraft can be safely flown with the landing gear down and locked. Flying faster than this speed can cause damage to the landing gear doors or the gear itself.',
-  VFE: 'Maximum Flap Extended Speed: This is the maximum speed at which an aircraft can be flown with the flaps in a specific extended position. There are often multiple VFE speeds corresponding to different flap settings (e.g., for takeoff, landing). Exceeding VFE can damage the flap structures.',
-  Payload:
+  'VMO':
+    'Maximum Operating Speed: This is the maximum airspeed at which an aircraft is certified to operate in smooth air. Exceeding VMO can lead to structural damage due to excessive aerodynamic pressure. It\'s often referred to as the "red line" on the airspeed indicator.',
+  'MMO':
+    'Maximum Operating Mach: This is the maximum speed relative to the speed of sound (Mach number) at which an aircraft is certified to operate. At high altitudes, the speed of sound is lower, and the risk is from air compressibility effects creating  shockwaves on control surfaces, which can render them ineffective. MMO is the high-altitude equivalent of VMO.',
+  'VLE':
+    'Maximum Landing Gear Extended Speed: This is the maximum speed at which an aircraft can be safely flown with the landing gear down and locked. Flying faster than this speed can cause damage to the landing gear doors or the gear itself.',
+  'VFE':
+    'Maximum Flap Extended Speed: This is the maximum speed at which an aircraft can be flown with the flaps in a specific extended position. There are often multiple VFE speeds corresponding to different flap settings (e.g., for takeoff, landing). Exceeding VFE can damage the flap structures.',
+  'Payload':
     'The carrying capacity of an aircraft, including passengers, cargo, and other non-fuel items. It represents the total weight of everything the aircraft is carrying, excluding the weight of the aircraft itself and its fuel.',
   'Rate of Climb':
     "The aircraft's vertical speed, or how fast it can increase its altitude. It's measured in feet per minute (fpm) and depends on factors like engine power, aircraft weight, and air density. A good rate of climb is crucial for clearing obstacles and reaching an efficient cruising altitude quickly.",
