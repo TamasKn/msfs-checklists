@@ -22,6 +22,10 @@ export default function Home() {
         MSFS Checklists
       </h1>
 
+      <h3 className="text-xl sm:text-xl text-gray-900 dark:text-white mb-6">
+        Simplified checklist for Microsoft Flight Simulator 2024
+      </h3>
+
       <AircraftSelector
         aircrafts={Aircrafts}
         selectedAircraft={selectedAircraft}

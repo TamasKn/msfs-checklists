@@ -9,6 +9,7 @@ const CheckmarkIcon = () => (
 export default function ChecklistItems({ checklist }) {
   const [openSections, setOpenSections] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
+  const [autoEngineStartUsed, setAutoEngineStartUsed] = useState(false);
 
   useEffect(() => {
     setOpenSections([]);
@@ -41,8 +42,23 @@ export default function ChecklistItems({ checklist }) {
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="flex items-center mb-4">
+        <input
+          id="autoEngineStart"
+          type="checkbox"
+          checked={autoEngineStartUsed}
+          onChange={() => setAutoEngineStartUsed(prev => !prev)}
+          className="h-5 w-5 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 dark:bg-gray-700"
+        />
+        <label htmlFor="autoEngineStart" className="ml-3 text-gray-700 dark:text-gray-300">
+          Auto engine start/shutdown used
+        </label>
+      </div>
       <div className="space-y-2">
         {checklist.checklist.map((section, index) => {
+          if (autoEngineStartUsed && (section.title === 'Pre-Flight' || section.title === 'Engine Start' || section.title === 'Shutdown')) {
+            return null;
+          }
           const isOpen = openSections.includes(index);
           const isSectionComplete = section.items.every((_, itemIndex) => {
             const checkboxId = `${index}-${itemIndex}`;

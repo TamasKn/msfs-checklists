@@ -13,7 +13,7 @@ export const cessnaLongitudeChecklist = {
         { "NAV Radios": "SET" },
         { "Altimeter": "SET (Baro)" },
         { "Flaps": "CHECK & SET for Takeoff" },
-        { "Controls": "FREE & CORRECT" }
+        { "Flight Controls": "FREE & CORRECT" }
       ]
     },
     {
@@ -31,16 +31,36 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
+      title: "G5000 PERF",
+      items: [
+        { "Weight and Fuel": "TAKEOFF FOB sync" },
+        { "SPEED Bugs": "ALL, AS REQ" },
+        { "FLAP Speeds": "CHECK" }
+      ]
+    },
+    {
+      title: "G5000 INIT",
+      items: [
+        { "Weather": "SET WIND/TEMP, Use RAT" },
+        { "Takeoff Config": "SET Takeoff Flap" },
+        { "Takeoff Data": "ACCEPT Takeoff Speeds" },
+        { "INIT": "ACCEPT" }
+      ]
+    },
+    {
       title: "Before Taxi",
       items: [
         { "Avionics": "CHECK & CONFIGURE" },
-        { "Flight Plan": "VERIFY" },
-        { "Autopilot": "SET (ALT, HDG, VS, FLC)" },
-        { "Takeoff Trim": "SET" },
-        { "Rudder Trim": "CENTER" },
+        { "Perf INIT": "CONFIGURED" },
+        { "Flight Plan": "VERIFIED" },
+        { "Takeoff Trim": "SET (~40%)" },
         { "Flaps": "SET for Takeoff" },
-        { "Brakes": "CHECK" },
-        { "Taxi Lights": "ON" }
+        { "Altitude": "SET -> FLC" },
+        { "Navigation": "SET -> NAV/HDG" },
+        { "Rudder Trim": "CENTER" },
+        { "Brakes": "CHECK & SET & RETRACTED" },
+        { "Ice Protection": "AS REQUIRED" },
+        { "Lights (Taxi, Rec, AC, WI, TF, PS/SB, EM)": "ON" }
       ]
     },
     {
@@ -49,8 +69,7 @@ export const cessnaLongitudeChecklist = {
         { "Parking Brake": "RELEASE" },
         { "Taxi Clearance": "OBTAINED" },
         { "Brakes & Steering": "CHECK" },
-        { "Flight Controls": "CHECK" },
-        { "Strobe Lights": "ON" }
+        { "Flight Controls": "CHECK" }
       ]
     },
     {
@@ -59,43 +78,47 @@ export const cessnaLongitudeChecklist = {
         { "Runway Alignment": "CONFIRM" },
         { "Flaps": "SET for Takeoff" },
         { "Trim": "CHECK" },
-        { "Landing Lights": "ON" },
-        { "Transponder": "ON (Mode C)" },
+        { "Speedbrakes": "CHECK/RETRACTED" },
+        { "Ice Protection": "CHECK, AS REQ" },
+        { "Transponder": "ON" },
         { "Takeoff Power": "SET" },
+        { "Heading Bug": "SET" },
+        { "SPD KNOB": "FMS" },
         { "Speed Indicators": "CHECK" },
-        { "Autopilot": "ARM if needed" }
+        { "Weather Radar": "AS REQUIRED" },
+        { "LDG, Pulse Lights": "ON" },
+        { "Taxi, WI Lights": "OFF" }
       ]
     },
     {
       title: "Takeoff",
       items: [
         { "Throttles": "TOGA" },
-        { "Airspeed Alive": "CONFIRM" },
-        { "80 KTS": "CHECK" },
-        { "Rotate at VR": "(~110-120 KTS)" },
         { "Positive Rate": "GEAR UP" },
         { "Climb Power": "SET" },
+        { "AP & AT": "ENGAGE, AS REQ" },
         { "Flaps": "RETRACT at Safe Speed" },
-        { "Autopilot": "ENGAGE (if desired)" }
       ]
     },
     {
-      title: "Climb to FL100",
+      title: "Climb",
       items: [
         { "Landing Lights": "OFF" },
-        { "Seat Belt Sign": "AS REQUIRED" },
         { "Autopilot": "MONITOR" },
-        { "Cruise Altitude": "SET" }
+        { "Cruise Altitude": "SET" },
+        { "BARO (above 10,000 ft)": "SET to STD" },
       ]
     },
     {
       title: "Cruise",
       items: [
+        { "WI, PS/SB Lights": "OFF" },
         { "Power Settings": "CHECK" },
         { "Fuel Balance": "MONITOR" },
-        { "Altitude": "MAINTAIN" },
-        { "Weather & ATC": "CHECK" },
-        { "Navigation": "MONITOR" }
+        { "BARO": "SET destination value" },
+        { "Navigation": "SET MINIMUMS + 20 ft / FREQ" },
+        { "Speed Constraints": "IAF (~200 KTS) to FAF (~130 KTS)" },
+        { "Altitude": "SET RWY + 1,000 ft -> VNAV" },
       ]
     },
     {
@@ -103,19 +126,20 @@ export const cessnaLongitudeChecklist = {
       items: [
         { "ATIS & Weather": "CHECK" },
         { "Approach Briefing": "COMPLETE" },
-        { "Autopilot": "SET for Descent" },
-        { "Seat Belt Sign": "ON" },
-        { "Pressurization": "CHECK" }
+        { "SPD KNOB": "FMS" },
+        { "BARO (below 10,000 ft)": "ARM destination value" },
+        { "Approach": "APPR (GS) stdby" },
+        { "WI, PS/SB Lights": "ON" },
       ]
     },
     {
       title: "Approach",
       items: [
-        { "Altimeter": "SET" },
         { "Landing Lights": "ON" },
         { "Flaps": "AS REQUIRED" },
-        { "Gear": "DOWN at Final Approach Fix" },
-        { "Speed": "MANAGE (~130 KTS)" }
+        { "Gear": "DOWN at FAF" },
+        { "Speed": "MANAGE" },
+        { "Approach": "GS armed at FAF" },
       ]
     },
     {
@@ -123,10 +147,9 @@ export const cessnaLongitudeChecklist = {
       items: [
         { "Flaps": "FULL (if needed)" },
         { "Speed": "VREF (~120-130 KTS)" },
-        { "Autopilot": "DISCONNECT before touchdown" },
+        { "AP & AT": "DISCONNECT before touchdown" },
         { "Throttles": "IDLE at 30-50 ft" },
         { "Touchdown": "MAIN GEARS FIRST" },
-        { "Spoilers": "DEPLOY" },
         { "Braking": "APPLY" },
         { "Reverse Thrust": "AS NEEDED" }
       ]
@@ -135,10 +158,9 @@ export const cessnaLongitudeChecklist = {
       title: "After Landing",
       items: [
         { "Speed Below 60 KTS": "STOW REV THRUST" },
-        { "Taxi Lights": "ON" },
-        { "Strobe & Landing Lights": "OFF" },
         { "Flaps": "RETRACT" },
-        { "Transponder": "STBY" }
+        { "Taxi Lights": "ON" },
+        { "LDG, Rec, Pulse, PS/SB Lights": "OFF" },
       ]
     },
     {
@@ -148,7 +170,7 @@ export const cessnaLongitudeChecklist = {
         { "Avionics Master": "OFF" },
         { "Fuel Pumps": "OFF" },
         { "Throttles": "CUTOFF" },
-        { "Beacon Light": "OFF" },
+        { "Lights": "OFF" },
         { "Battery Master": "OFF" }
       ]
     }
