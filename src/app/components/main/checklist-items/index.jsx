@@ -24,6 +24,13 @@ export default function ChecklistItems({ checklist }) {
     );
   };
 
+  // List of sections to skip when auto engine start/shutdown checked
+  const autoEngineStartSkipList = [
+    'Pre-Flight',
+    'Engine Start',
+    'Shutdown',
+  ];
+
   const handleCheckboxChange = (sectionIndex, itemIndex) => {
     const key = `${sectionIndex}-${itemIndex}`;
 
@@ -50,7 +57,7 @@ export default function ChecklistItems({ checklist }) {
             let nextSectionIndex = -1;
             for (let i = sectionIndex + 1; i < checklist.checklist.length; i++) {
               const nextSection = checklist.checklist[i];
-              const isSectionHidden = autoEngineStartUsed && (nextSection.title === 'Pre-Flight' || nextSection.title === 'Engine Start' || nextSection.title === 'Shutdown');
+              const isSectionHidden = autoEngineStartUsed && (autoEngineStartSkipList.includes(nextSection.title));
               if (!isSectionHidden) {
                 nextSectionIndex = i;
                 break;
@@ -95,7 +102,7 @@ export default function ChecklistItems({ checklist }) {
       </div>
       <div className="space-y-2">
         {checklist.checklist.map((section, index) => {
-          if (autoEngineStartUsed && (section.title === 'Pre-Flight' || section.title === 'Engine Start' || section.title === 'Shutdown')) {
+          if (autoEngineStartUsed && (autoEngineStartSkipList.includes(section.title))) {
             return null;
           }
           const isOpen = openSections.includes(index);
