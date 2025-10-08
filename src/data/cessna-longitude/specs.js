@@ -5,24 +5,28 @@ export const cessnaLongitudeSpecs = {
       title: "Limits & Specs",
       items: [
         {
-          "Maximum Operating Altitude": "FL450",
+          "Maximum Operating Altitude": "45,000 ft",
         },
         {
-          "Cruise Speed": "470 kt",
+          "Cruise Speed": "483 ktas",
         },
         {
-          "Range": "3,000 nm",
+          "Range": "3,500 NM",
         },
-        {"VMO (below 8.000ft)": "300 kt"},
-        {"VMO (8.000 to 29.375ft)": "325 kt"},
-        {"VMO (above 29.375ft)": "320 kt"},
-        {"MMO": "0.84"},
-        {"VLE": "200 kt"},
-        {"VFE (Flaps 1)": "200 kt"},
-        {"VFE (Flaps 2)": "185 kt"},
-        {"VFE (Flaps Full)": "160 kt"},
+        {"VMO": "320 kt"},
+        {"MMO": "0.480"},
+        {"VLE": "230 ktas"},
+        {"VFE (Flaps 1)": "250 ktas"},
+        {"VFE (Flaps 2)": "230 ktas"},
+        {"VFE (Flaps Full)": "180 ktas"},
         {
-          "Payload": "4,000 kg",
+          "Payload": "4000 lb / 1814 kg",
+        },
+        {
+          "Fuel Capacity": "14,593 lb / 6619 kg",
+        },
+        {
+          "Fuel Consumption": "816.50 L/hr",
         },
       ],
     },
