@@ -19,12 +19,24 @@ const InfoIcon = () => (
 )
 
 const Tooltip = ({ text, children }) => {
+  const [tooltipVisible, setTooltipVisible] = useState(false)
+
+  const showTooltip = () => setTooltipVisible(true)
+  const hideTooltip = () => setTooltipVisible(false)
+
   return (
-    <div className="relative flex items-center group">
+    <div
+      className="relative flex items-center"
+      onMouseEnter={showTooltip}
+      onMouseLeave={hideTooltip}
+      onClick={() => setTooltipVisible(!tooltipVisible)}
+    >
       {children}
-      <div className="absolute bottom-full mb-2 w-48 sm:w-64 p-2 bg-gray-800 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 left-1/2 -translate-x-1/2">
-        {text}
-      </div>
+      {tooltipVisible && (
+        <div className="absolute bottom-full mb-2 w-48 sm:w-64 p-2 bg-gray-800 text-white text-sm rounded-md transition-opacity duration-300 z-10 left-1/2 -translate-x-1/2">
+          {text}
+        </div>
+      )}
     </div>
   )
 }
