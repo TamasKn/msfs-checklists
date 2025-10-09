@@ -36,31 +36,33 @@ export const cessnaLongitudeChecklist = {
       title: 'G5000 PERF',
       items: [
         { 'Weight and Fuel': 'TAKEOFF FOB sync' },
-        { 'SPEED Bugs': 'ALL, AS REQ' },
-        { 'FLAP Speeds': 'CHECK' }
+        { 'FLAP Speeds': 'CHECK' },
+        { 'TO Data / Weather': 'SET WIND & TEMP, Use RAT' },
+        { 'Takeoff Config': 'SET displayed Flap' },
+        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
+        { 'Speed Bugs': 'ALL, IF NOT DISPLAYED' }
       ]
     },
     {
       title: 'G5000 INIT',
       items: [
-        { 'Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Takeoff Config': 'SET Takeoff Flap' },
-        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
-        { 'INIT': 'ACCEPT' }
+        { 'Flight Initialization': 'All Checked' },
+        { 'INIT': 'ACCEPT INITIALIZATION' }
       ]
     },
     {
       title: 'Before Taxi',
       items: [
-        { 'Avionics': 'CHECK & CONFIGURE' },
-        { 'Perf INIT': 'CONFIGURED' },
         { 'Flight Plan': 'VERIFIED' },
         { 'Takeoff Trim': 'SET (~ +40%)' },
         { 'Flaps': 'SET for Takeoff' },
         { 'Altitude': 'SET -> FLC' },
         { 'Navigation': 'SET -> NAV/HDG' },
+        { 'SPD KNOB': 'FMS' },
         { 'Rudder Trim': 'CENTER' },
         { 'Brakes': 'CHECK & SET & RETRACTED' },
+        { 'Transponder': 'ON' },
+        { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
         { 'Lights (Taxi, Rec, AC, WI, TF, PS/SB, EM)': 'ON' }
       ]
@@ -78,16 +80,10 @@ export const cessnaLongitudeChecklist = {
       title: 'Before Takeoff',
       items: [
         { 'Runway Alignment': 'CONFIRM' },
-        { 'Flaps': 'SET for Takeoff' },
+        { 'Flaps': 'CHECK' },
         { 'Trim': 'CHECK' },
-        { 'Speedbrakes': 'CHECK & RETRACTED' },
-        { 'Ice Protection': 'CHECK, AS REQ' },
-        { 'Transponder': 'ON' },
-        { 'Takeoff Power': 'SET' },
         { 'Heading Bug': 'SET' },
-        { 'SPD KNOB': 'FMS' },
         { 'Speed Indicators': 'CHECK' },
-        { 'Weather Radar': 'AS REQUIRED' },
         { 'LDG, Pulse Lights': 'ON' },
         { 'Taxi, WI Lights': 'OFF' }
       ]
@@ -114,20 +110,29 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Cruise',
       items: [
-        { 'WI, PS/SB Lights': 'OFF' },
+        { 'PS/SB Lights': 'OFF' },
         { 'Power Settings': 'CHECK' },
         { 'Fuel Balance': 'MONITOR' },
         { 'BARO': 'SET destination value' },
-        { 'Navigation': 'SET MINIMUMS + 20 ft / FREQ' },
+        { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
         { 'Speed Constraints': 'IAF (~200 KTS) to FAF (~130 KTS)' },
         { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' }
       ]
     },
     {
-      title: 'Descent',
+      title: 'G5000 PERF',
+      items: [
+        { 'Weight and Fuel': '' },
+        { 'FLAP Speeds': 'CHECK' },
+        { 'Speed Bugs': '' },
+        { 'Landing Data': '' }
+      ]
+    },
+    {
+      title: 'Descent (TOD)',
       items: [
         { 'ATIS & Weather': 'CHECK' },
-        { 'Approach Briefing': 'COMPLETE' },
+        { 'Landing PERF': 'SET' },
         { 'SPD KNOB': 'FMS' },
         { 'BARO (below 10,000 ft)': 'ARM destination value' },
         { 'Approach': 'APPR (GS) stdby' },
@@ -135,8 +140,9 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Approach',
+      title: 'Approach (BOD)',
       items: [
+        { 'CDI Source': 'FMS (RNAV) / LOC1 (ILS) / ??? (VOR)' },
         { 'Landing Lights': 'ON' },
         { 'Flaps': 'AS REQUIRED' },
         { 'Gear': 'DOWN at FAF' },
@@ -147,7 +153,7 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Landing',
       items: [
-        { 'Flaps': 'FULL (if needed)' },
+        { 'Flaps': 'FULL (IF REQ)' },
         { 'Speed': 'VREF (~120-130 KTS)' },
         { 'AP & AT': 'DISCONNECT before touchdown' },
         { 'Throttles': 'IDLE at 30-50 ft' },

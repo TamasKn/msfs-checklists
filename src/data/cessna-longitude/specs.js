@@ -19,7 +19,7 @@ export const cessnaLongitudeSpecs = {
           'Range': '3,500 NM'
         },
         { 'VMO': '483 KTAS' },
-        { 'MMO': '0.724' },
+        { 'MMO': 'M0.840' },
         { 'VLE': '230 KIAS' },
         { 'VFE (Flaps 1)': '250 KIAS' },
         { 'VFE (Flaps 2)': '230 KIAS' },
