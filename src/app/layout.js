@@ -14,15 +14,18 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "MSFS Checklists",
   description: "Checklists for Microsoft Flight Simulator",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${funnelSans.variable} ${geistMono.variable} antialiased`}
+        className={`${funnelSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
       >
-        {children}
+        <div className="w-full min-h-screen flex flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

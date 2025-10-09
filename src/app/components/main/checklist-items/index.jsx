@@ -112,7 +112,7 @@ export default function ChecklistItems({ checklist }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
       <div className="flex items-center mb-4">
         <input
           id="autoEngineStart"
@@ -189,12 +189,12 @@ export default function ChecklistItems({ checklist }) {
                           />
                           <label
                             htmlFor={checkboxId}
-                            className="ml-3 flex-1 text-[.85rem] md:text-[1.2rem] flex justify-between text-gray-700 dark:text-gray-300"
+                            className="ml-3 flex-1 text-sm sm:text-base md:text-lg flex justify-between text-gray-700 dark:text-gray-300 gap-2"
                           >
-                            <span className="font-medium uppercase text-left">
+                            <span className="font-medium uppercase text-left break-words">
                               {key}
                             </span>
-                            <span className="font-medium text-gray-900 dark:text-white text-right">
+                            <span className="font-medium text-gray-900 dark:text-white text-right break-words">
                               {value}
                             </span>
                           </label>

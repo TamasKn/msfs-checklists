@@ -17,12 +17,12 @@ export default function Home() {
   }
 
   return (
-    <div className="text-center p-4 sm:p-6 lg:p-8">
+    <div className="w-full text-center px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
       <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
         MSFS Checklists
       </h1>
 
-      <h3 className="text-xl sm:text-xl text-gray-900 dark:text-white mb-6">
+      <h3 className="text-lg sm:text-xl text-gray-900 dark:text-white mb-6">
         Simplified checklist for Microsoft Flight Simulator 2024
       </h3>
 

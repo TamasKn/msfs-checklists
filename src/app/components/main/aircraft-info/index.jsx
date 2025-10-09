@@ -22,7 +22,7 @@ const Tooltip = ({ text, children }) => {
   return (
     <div className="relative flex items-center group">
       {children}
-      <div className="absolute bottom-full mb-2 w-64 p-2 bg-gray-800 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+      <div className="absolute bottom-full mb-2 w-48 sm:w-64 p-2 bg-gray-800 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 left-1/2 -translate-x-1/2">
         {text}
       </div>
     </div>
@@ -44,7 +44,7 @@ export default function AircraftInfo({ specs }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
       <div className="border border-gray-200 dark:border-gray-700 rounded-lg">
         {specs.specs.map((spec, index) => (
           <div key={index}>
@@ -77,10 +77,10 @@ export default function AircraftInfo({ specs }) {
                     return (
                       <li
                         key={itemIndex}
-                        className="px-4 py-3 flex justify-between items-center"
+                        className="px-2 sm:px-4 py-3 flex justify-between items-center gap-2"
                       >
-                        <div className="flex items-center">
-                          <span className="text-sm text-left font-medium text-gray-700 dark:text-gray-300">
+                        <div className="flex items-center min-w-0">
+                          <span className="text-sm lg:text-[1rem] text-left font-medium text-gray-700 dark:text-gray-300 break-words">
                             {key}
                           </span>
                           {explanation && (
@@ -89,7 +89,7 @@ export default function AircraftInfo({ specs }) {
                             </Tooltip>
                           )}
                         </div>
-                        <span className="text-sm font-semibold text-right text-gray-900 dark:text-white">
+                        <span className="text-sm lg:text-[1rem] font-semibold text-right text-gray-900 dark:text-white break-words">
                           {value}
                         </span>
                       </li>
