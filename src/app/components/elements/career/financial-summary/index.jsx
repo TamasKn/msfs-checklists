@@ -123,15 +123,33 @@ export default function FinancialSummary({ financials, onConfirm }) {
               <div className="ml-11 space-y-1 text-xs">
                 <div className="flex justify-between text-gray-500">
                   <span>• Lease Cost:</span>
-                  <span>€{breakdown.lease.toLocaleString()}</span>
+                  <span>
+                    €
+                    {breakdown.lease.toLocaleString('en-US', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
+                  </span>
                 </div>
                 <div className="flex justify-between text-gray-500">
                   <span>• Insurance:</span>
-                  <span>€{breakdown.insurance.toLocaleString()}</span>
+                  <span>
+                    €
+                    {breakdown.insurance.toLocaleString('en-US', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
+                  </span>
                 </div>
                 <div className="flex justify-between text-gray-500">
                   <span>• Maintenance:</span>
-                  <span>€{breakdown.maintenance.toLocaleString()}</span>
+                  <span>
+                    €
+                    {breakdown.maintenance.toLocaleString('en-US', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
+                  </span>
                 </div>
               </div>
             )}

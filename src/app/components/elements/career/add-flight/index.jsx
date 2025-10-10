@@ -232,16 +232,29 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     const totalReward = basePay + bonus - operationCost
 
-    // Get cost breakdown
+    // Get cost breakdown - round each component and adjust to match total
     const careerData = getAircraftCareerData(newFlight.aircraft)
     const flightHours = duration / 60
+
+    // Calculate raw breakdown values
+    const rawLease = careerData.costs.leasePriceBase * flightHours
+    const rawInsurance = careerData.costs.insuranceBase * flightHours
+    const rawMaintenance = careerData.costs.maintenance.base * flightHours
+
+    // Round each component
+    const roundedLease = Math.round(rawLease * 100) / 100
+    const roundedInsurance = Math.round(rawInsurance * 100) / 100
+    const roundedMaintenance = Math.round(rawMaintenance * 100) / 100
+
+    // Calculate the difference between sum of rounded components and actual total
+    const roundedSum = roundedLease + roundedInsurance + roundedMaintenance
+    const difference = Math.round((operationCost - roundedSum) * 100) / 100
+
+    // Adjust the largest component to match the total exactly
     const breakdown = {
-      lease:
-        Math.round(careerData.costs.leasePriceBase * flightHours * 100) / 100,
-      insurance:
-        Math.round(careerData.costs.insuranceBase * flightHours * 100) / 100,
-      maintenance:
-        Math.round(careerData.costs.maintenance.base * flightHours * 100) / 100
+      lease: roundedLease,
+      insurance: roundedInsurance,
+      maintenance: roundedMaintenance + difference
     }
 
     // Set calculated financials
