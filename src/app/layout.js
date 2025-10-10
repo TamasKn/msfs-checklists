@@ -1,5 +1,6 @@
 import { Geist_Mono, Funnel_Sans } from 'next/font/google'
 import './globals.css'
+import Footer from './components/main/footer'
 
 const funnelSans = Funnel_Sans({
   variable: '--font-funnel-sans',
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
         className={`${funnelSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
       >
         <div className="w-full min-h-screen flex flex-col">{children}</div>
+        <Footer />
       </body>
     </html>
   )
