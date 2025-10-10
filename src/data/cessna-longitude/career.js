@@ -88,8 +88,8 @@ export const cessnaLongitudeCareer = {
   },
   reward: {
     base: 8200, // base reward for a flight
-    perFlightHour: 50, // per flight hour
-    perDistance: 27.35, // per nautical mile
+    perFlightHour: 21.78, // per flight hour
+    perDistance: 9.35, // per nautical mile
     bonus: {
       min: 1000, // minimum total
       max: 4500, // maximum total
@@ -98,7 +98,7 @@ export const cessnaLongitudeCareer = {
   },
   xp: {
     base: 45, // base XP for a flight
-    perDistance: 1.7889, // per nautical mile
+    perDistance: 1.1889, // per nautical mile
     perFlightHour: 28 // per flight hour
   }
 }

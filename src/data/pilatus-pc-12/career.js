@@ -91,8 +91,8 @@ export const pilatusPc12Career = {
     perFlightHour: 35, // per flight hour
     perDistance: 12.5, // per nautical mile
     bonus: {
-      min: 50, // minimum per hour
-      max: 200, // maximum per hour
+      min: 1000, // minimum total
+      max: 4500, // maximum total
       xpMultiplier: 1.022 // multiplier for XP
     }
   },

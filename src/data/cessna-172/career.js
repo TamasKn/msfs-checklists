@@ -87,8 +87,8 @@ export const cessna172Career = {
     perFlightHour: 15, // per flight hour
     perDistance: 3.5, // per nautical mile
     bonus: {
-      min: 20, // minimum per hour
-      max: 80, // maximum per hour
+      min: 1000, // minimum total
+      max: 4500, // maximum total
       xpMultiplier: 1.015 // multiplier for XP
     }
   },
