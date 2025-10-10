@@ -1,5 +1,9 @@
-'use client'
+import CareerComponent from '@/app/components/main/career'
 
 export default function Career() {
-  return <div>Career</div>
+  return (
+    <div>
+      <CareerComponent />
+    </div>
+  )
 }
