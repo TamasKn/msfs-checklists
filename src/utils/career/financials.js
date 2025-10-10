@@ -47,13 +47,12 @@ export const calculateBasePay = (aircraft, jobType, range, duration) => {
   const careerData = getAircraftCareerData(aircraft)
   const flightHours = duration / 60
 
-  // Base reward + (per flight hour * hours) + (per distance * range)
-  const basePay =
-    careerData.reward.base +
-    careerData.reward.perFlightHour * flightHours +
-    careerData.reward.perDistance * range
+  // Base reward per hour + (per flight hour * hours) + (per distance * range)
+  const basePay = careerData.reward.base * flightHours
+  const flightHourPay = careerData.reward.perFlightHour * flightHours
+  const distancePay = careerData.reward.perDistance * range
 
-  return Math.round(basePay * 100) / 100
+  return Math.round((basePay + flightHourPay + distancePay) * 100) / 100
 }
 
 /**
@@ -94,14 +93,13 @@ export const calculateOperationCost = (aircraft, duration) => {
   const careerData = getAircraftCareerData(aircraft)
   const flightHours = duration / 60
 
-  // (Lease + Insurance + Maintenance) * flight hours
+  // (Lease + Insurance) * flight hours
+  const regularMaintenance = careerData.costs.maintenance.base * flightHours
   const operationCost =
-    (careerData.costs.leasePriceBase +
-      careerData.costs.insuranceBase +
-      careerData.costs.maintenance.base) *
+    (careerData.costs.leasePriceBase + careerData.costs.insuranceBase) *
     flightHours
 
-  return Math.round(operationCost * 100) / 100
+  return Math.round((operationCost + regularMaintenance) * 100) / 100
 }
 
 /**
@@ -153,8 +151,8 @@ export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
   const severityMultipliers =
     careerData.costs.maintenance.issueSeverityMultiplier
 
-  // First check: 17% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
-  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.17
+  // First check: 23% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
+  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.23
   const hasMaintenanceIssue = Math.random() < maintenanceOccurrenceChance
 
   // If no maintenance issue occurs, return empty
@@ -165,8 +163,8 @@ export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
     }
   }
 
-  // If maintenance issue occurs, randomly decide how many issues (1 to 4)
-  const numberOfIssues = Math.floor(Math.random() * 4) + 1
+  // If maintenance issue occurs, randomly decide how many issues (1 to 5)
+  const numberOfIssues = Math.floor(Math.random() * 5) + 1
 
   // Get all available issue types
   const allIssueTypes = Object.entries(maintenanceIssues)
