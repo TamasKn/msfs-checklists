@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ButtonLarge from '@/app/components/elements/button-large'
+import ButtonLarge from '@/app/components/micro/button-large'
 
 export default function Home() {
   return (

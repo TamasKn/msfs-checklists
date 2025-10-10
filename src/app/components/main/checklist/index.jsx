@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import ChecklistItems from '@/app/components/elements/checklist-items'
-import AircraftInfo from '@/app/components/elements/aircraft-info'
-import AircraftSelector from '@/app/components/elements/aircraft-selector'
+import ChecklistItems from '@/app/components/elements/checklist/checklist-items'
+import AircraftInfo from '@/app/components/elements/checklist/aircraft-info'
+import AircraftSelector from '@/app/components/elements/checklist/aircraft-selector'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
 
 export default function ChecklistComponent() {
