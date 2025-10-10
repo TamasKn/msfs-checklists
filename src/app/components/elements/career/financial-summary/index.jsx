@@ -144,7 +144,7 @@ export default function FinancialSummary({ financials, onConfirm }) {
                   </span>
                 </div>
                 <div className="flex justify-between text-gray-500">
-                  <span>• Maintenance:</span>
+                  <span>• Regular Maintenance:</span>
                   <span>
                     €
                     {breakdown.maintenance.toLocaleString('en-US', {
@@ -218,35 +218,71 @@ export default function FinancialSummary({ financials, onConfirm }) {
           <div className="border-t-2 border-dashed border-gray-700/50" />
 
           {/* Total Reward */}
-          <div className="bg-gradient-to-r from-green-900/30 via-emerald-900/30 to-green-900/30 rounded-xl p-4 sm:p-5 border-2 border-green-500/50 shadow-lg shadow-green-500/20">
+          <div
+            className={`rounded-xl p-4 sm:p-5 border-2 shadow-lg ${
+              totalReward >= 0
+                ? 'bg-gradient-to-r from-green-900/30 via-emerald-900/30 to-green-900/30 border-green-500/50 shadow-green-500/20'
+                : 'bg-gradient-to-r from-red-900/30 via-rose-900/30 to-red-900/30 border-red-500/50 shadow-red-500/20'
+            }`}
+          >
             <div className="flex justify-between items-center gap-2">
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                <div className="bg-green-500/30 p-2 sm:p-3 rounded-xl flex-shrink-0">
+                <div
+                  className={`p-2 sm:p-3 rounded-xl flex-shrink-0 ${
+                    totalReward >= 0 ? 'bg-green-500/30' : 'bg-red-500/30'
+                  }`}
+                >
                   <svg
-                    className="w-6 h-6 sm:w-8 sm:h-8 text-green-400"
+                    className={`w-6 h-6 sm:w-8 sm:h-8 ${
+                      totalReward >= 0 ? 'text-green-400' : 'text-red-400'
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
+                    {totalReward >= 0 ? (
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    ) : (
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    )}
                   </svg>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-base sm:text-lg font-semibold text-green-300">
-                    Total Reward
+                  <p
+                    className={`text-base sm:text-lg font-semibold ${
+                      totalReward >= 0 ? 'text-green-300' : 'text-red-300'
+                    }`}
+                  >
+                    Total {totalReward >= 0 ? 'Reward' : 'Loss'}
                   </p>
-                  <p className="text-xs text-green-500 hidden sm:block">
-                    Net profit from this flight
+                  <p
+                    className={`text-xs hidden sm:block ${
+                      totalReward >= 0 ? 'text-green-500' : 'text-red-500'
+                    }`}
+                  >
+                    {totalReward >= 0
+                      ? 'Net profit from this flight'
+                      : 'Net loss from this flight'}
                   </p>
                 </div>
               </div>
-              <p className="text-2xl sm:text-4xl font-bold text-green-400 flex-shrink-0">
-                €{totalReward.toLocaleString()}
+              <p
+                className={`text-2xl sm:text-4xl font-bold flex-shrink-0 ${
+                  totalReward >= 0 ? 'text-green-400' : 'text-red-400'
+                }`}
+              >
+                {totalReward >= 0 ? '€' : '-€'}
+                {Math.abs(totalReward).toLocaleString()}
               </p>
             </div>
           </div>
