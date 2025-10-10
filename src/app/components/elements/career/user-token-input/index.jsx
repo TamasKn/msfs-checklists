@@ -73,14 +73,14 @@ export default function UserTokenInput({ onTokenSaved }) {
   }
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-lg p-4 shadow-lg">
-      <form onSubmit={handleTokenSubmit} className="flex flex-col gap-3">
+    <div className="bg-gray-800/95 backdrop-blur-md border border-gray-700/50 rounded-2xl p-6 sm:p-8 shadow-2xl">
+      <form onSubmit={handleTokenSubmit} className="flex flex-col gap-5">
         <div>
           <label
             htmlFor="userToken"
-            className="block text-sm font-medium text-gray-300 mb-2"
+            className="block text-sm font-semibold text-gray-200 mb-3"
           >
-            User Token Required
+            Authentication Token
           </label>
           <input
             type="text"
@@ -89,12 +89,13 @@ export default function UserTokenInput({ onTokenSaved }) {
             value={userToken}
             onChange={handleTokenInputChange}
             placeholder="Enter your authentication token"
-            className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            autoFocus
           />
           {error && (
-            <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
+            <p className="mt-2.5 text-sm text-red-400 flex items-center gap-1.5">
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 flex-shrink-0"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -107,17 +108,20 @@ export default function UserTokenInput({ onTokenSaved }) {
               {error}
             </p>
           )}
+          <p className="mt-2.5 text-xs text-gray-500">
+            Your token is required to access career mode features and sync your flight data.
+          </p>
         </div>
 
         <button
           type="submit"
-          disabled={isLoading}
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+          disabled={isLoading || !userToken.trim()}
+          className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2">
               <svg
-                className="animate-spin h-4 w-4"
+                className="animate-spin h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -138,7 +142,22 @@ export default function UserTokenInput({ onTokenSaved }) {
               Authenticating...
             </span>
           ) : (
-            'Authenticate'
+            <span className="flex items-center justify-center gap-2">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Authenticate & Continue
+            </span>
           )}
         </button>
       </form>

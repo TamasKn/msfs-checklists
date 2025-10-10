@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
-import UserTokenInput from '@/app/components/elements/career/user-token-input'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { JobType } from '@/data/career/jobs'
 import { WeatherType } from '@/data/career/weather'
@@ -28,28 +27,22 @@ const initialFlights = [
 
 /**
  * CareerComponent - Main component for career mode
- * Manages flight history and user authentication
+ * Manages flight history (authentication handled at page level)
  */
 export default function CareerComponent() {
   const [showAddFlight, setShowAddFlight] = useState(false)
   const [flights, setFlights] = useState(initialFlights)
-  const [hasToken, setHasToken] = useState(false)
-
-  useEffect(() => {
-    // Check if user has already saved token
-    const token = localStorage.getItem('user_token')
-    setHasToken(!!token)
-  }, [])
-
-  const handleTokenSaved = () => {
-    setHasToken(true)
-  }
 
   const handleAddFlight = (newFlight) => {
     const newId =
       flights.length > 0 ? Math.max(...flights.map((f) => f.id)) + 1 : 1
     setFlights((prev) => [...prev, { id: newId, ...newFlight }])
     setShowAddFlight(false)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('user_token')
+    window.location.reload()
   }
 
   return (
@@ -65,9 +58,28 @@ export default function CareerComponent() {
               Track your flight history and manage your aviation career
             </p>
           </div>
-          {!hasToken ? (
-            <UserTokenInput onTokenSaved={handleTokenSaved} />
-          ) : (
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={handleLogout}
+              className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                Logout
+              </span>
+            </button>
             <button
               onClick={() => setShowAddFlight(true)}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
@@ -89,7 +101,7 @@ export default function CareerComponent() {
                 New Flight
               </span>
             </button>
-          )}
+          </div>
         </div>
 
         {/* Modal for Add Flight */}
