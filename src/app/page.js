@@ -23,7 +23,7 @@ export default function Home() {
       </h1>
 
       <h3 className="text-lg sm:text-xl text-gray-900 dark:text-white mb-6">
-        Simplified checklist for Microsoft Flight Simulator 2024
+        Customized checklist for Microsoft Flight Simulator 2024
       </h3>
 
       <AircraftSelector
