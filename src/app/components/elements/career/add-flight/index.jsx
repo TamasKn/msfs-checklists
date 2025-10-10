@@ -116,15 +116,22 @@ export default function AddFlight({ onAddFlight, onCancel }) {
           [`${field}Name`]: airportData.name
         }))
       } else {
+        // Handle error response from API
         setErrors((prev) => ({
           ...prev,
-          [field]: 'Airport not found'
+          [field]: response.data.message || 'Airport not found'
         }))
       }
     } catch (error) {
+      // Handle network errors or API errors
+      const errorMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        'Failed to lookup airport'
+
       setErrors((prev) => ({
         ...prev,
-        [field]: error.response?.data?.message || 'Failed to lookup airport'
+        [field]: errorMessage
       }))
     } finally {
       setLookupLoading((prev) => ({ ...prev, [field]: false }))

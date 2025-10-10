@@ -97,17 +97,26 @@ export async function POST(request) {
         `https://airportdb.io/api/v1/airport/${ICAO}?apiToken=${API_KEY}`
       )
       data = await res.json()
+
+      // Check if the production API returned an error
+      if (data.statusCode && data.statusCode !== 200) {
+        return NextResponse.json(
+          { status: 'error', message: 'Airport not found' },
+          { status: data.statusCode }
+        )
+      }
     } else {
-      // Using dummy data for now
+      // Using dummy data for development
       const icaoUpper = ICAO.toUpperCase()
       data = AIRPORT_DATABASE[icaoUpper]
-    }
 
-    if (!data) {
-      return NextResponse.json(
-        { status: 'error', message: 'Airport not found' },
-        { status: 404 }
-      )
+      // If airport not found in dummy database
+      if (!data) {
+        return NextResponse.json(
+          { status: 'error', message: 'Airport not found' },
+          { status: 404 }
+        )
+      }
     }
 
     return NextResponse.json({ status: 'success', data }, { status: 200 })
