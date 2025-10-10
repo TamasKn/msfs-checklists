@@ -138,13 +138,13 @@ export const calculateXP = (aircraft, jobType, range, duration, weather) => {
  * Calculates maintenance issue cost for a flight (randomized based on occurrence chance)
  * @param {string} aircraft - Aircraft name
  * @param {boolean} forceIssue - If true, forces issues to occur at 100% chance (for testing purposes). Default is true.
- *                                Set to false to use actual occurrence chances from career data.
+ *                                Set to false to use actual 30% occurrence chance.
  * @returns {Object} Object containing total cost and breakdown of issues (max 4 issues)
  * @example
  * // For testing (100% chance of issues occurring)
  * calculateMaintenanceIssueCost('A320NEO', true)
  *
- * // For production (uses actual chance percentages)
+ * // For production (30% chance that any issue will occur)
  * calculateMaintenanceIssueCost('A320NEO', false)
  */
 export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
@@ -153,19 +153,30 @@ export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
   const severityMultipliers =
     careerData.costs.maintenance.issueSeverityMultiplier
 
-  // Randomly decide how many issues will occur (1 to 5)
-  const numberOfIssues = Math.floor(Math.random() * 5) + 1
+  // First check: 30% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
+  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.3
+  const hasMaintenanceIssue = Math.random() < maintenanceOccurrenceChance
+
+  // If no maintenance issue occurs, return empty
+  if (!hasMaintenanceIssue) {
+    return {
+      totalCost: 0,
+      issues: []
+    }
+  }
+
+  // If maintenance issue occurs, randomly decide how many issues (1 to 4)
+  const numberOfIssues = Math.floor(Math.random() * 4) + 1
 
   // Get all available issue types
   const allIssueTypes = Object.entries(maintenanceIssues)
 
-  // Filter issues based on occurrence chance (or force all if forceIssue is true)
+  // Filter issues based on their individual occurrence chance
   let eligibleIssues = allIssueTypes.filter(([issueType, issueData]) => {
-    const occurrenceChance = forceIssue ? 1 : issueData.chance
-    return Math.random() < occurrenceChance
+    return Math.random() < issueData.chance
   })
 
-  // If no issues are eligible (unlikely in production, impossible in test mode), return empty
+  // If no issues are eligible after filtering, return empty
   if (eligibleIssues.length === 0) {
     return {
       totalCost: 0,

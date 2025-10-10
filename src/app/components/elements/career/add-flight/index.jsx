@@ -224,10 +224,8 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     const operationCost = calculateOperationCost(newFlight.aircraft, duration)
 
     // Calculate maintenance issues (hidden cost)
-    // Set second parameter to true for testing (100% chance) or false for production (uses actual chances)
     const maintenanceIssueResult = calculateMaintenanceIssueCost(
-      newFlight.aircraft,
-      true // Change to false for production mode
+      newFlight.aircraft
     )
     const maintenanceIssueCost = maintenanceIssueResult.totalCost
 
