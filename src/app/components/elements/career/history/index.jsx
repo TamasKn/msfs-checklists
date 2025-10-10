@@ -94,14 +94,32 @@ export default function FlightHistory({ flights }) {
                     {flight.jobType}
                   </span>
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
-                  <span className="font-mono font-semibold text-blue-400">
-                    {flight.departure}
-                  </span>
-                  <span className="mx-1 text-gray-600">→</span>
-                  <span className="font-mono font-semibold text-purple-400">
-                    {flight.destination}
-                  </span>
+                <td className="px-4 py-4 text-sm text-gray-300">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-semibold text-blue-400">
+                        {flight.departure}
+                      </span>
+                      <span className="text-gray-600">→</span>
+                      <span className="font-mono font-semibold text-purple-400">
+                        {flight.destination}
+                      </span>
+                    </div>
+                    {(flight.departureName || flight.destinationName) && (
+                      <div className="text-xs text-gray-500">
+                        {flight.departureName && (
+                          <div className="truncate max-w-xs">
+                            {flight.departureName}
+                          </div>
+                        )}
+                        {flight.destinationName && (
+                          <div className="truncate max-w-xs">
+                            {flight.destinationName}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-4 text-sm text-gray-300 max-w-xs truncate">
                   {flight.aircraft}

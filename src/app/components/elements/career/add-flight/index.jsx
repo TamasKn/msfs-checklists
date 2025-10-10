@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { JobType } from '@/data/career/jobs'
 import { WeatherType } from '@/data/career/weather'
@@ -11,11 +12,19 @@ import { WeatherType } from '@/data/career/weather'
  * @param {Function} onCancel - Callback when modal is cancelled
  */
 export default function AddFlight({ onAddFlight, onCancel }) {
+  // Get current time in HH:MM format
+  const getCurrentTime = () => {
+    const now = new Date()
+    return now.toTimeString().slice(0, 5)
+  }
+
   const [newFlight, setNewFlight] = useState({
-    startTime: '',
+    startTime: getCurrentTime(),
     jobType: JobType.Cargo,
     departure: '',
+    departureName: '',
     destination: '',
+    destinationName: '',
     aircraft: AircraftName.Cessna172,
     range: 0,
     duration: 0,
@@ -28,6 +37,10 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [lookupLoading, setLookupLoading] = useState({
+    departure: false,
+    destination: false
+  })
 
   // Auto-calculate total reward when values change
   useEffect(() => {
@@ -43,22 +56,77 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   }, [newFlight.base, newFlight.bonus, newFlight.operationCost])
 
   /**
+   * Looks up airport information by ICAO code
+   * @param {string} icao - ICAO code to lookup
+   * @param {string} field - Field name (departure or destination)
+   */
+  const lookupAirport = async (icao, field) => {
+    if (!icao || icao.length !== 4) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: 'ICAO code must be 4 characters'
+      }))
+      return
+    }
+
+    setLookupLoading((prev) => ({ ...prev, [field]: true }))
+    setErrors((prev) => {
+      const newErrors = { ...prev }
+      delete newErrors[field]
+      return newErrors
+    })
+
+    try {
+      const userToken = localStorage.getItem('user_token')
+      const response = await axios.post('/api/airportfinder', {
+        ICAO: icao.toUpperCase(),
+        userToken: userToken
+      })
+
+      if (response.data.status === 'success') {
+        const airportData = response.data.data
+        setNewFlight((prev) => ({
+          ...prev,
+          [field]: airportData.ident,
+          [`${field}Name`]: airportData.name
+        }))
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          [field]: 'Airport not found'
+        }))
+      }
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: error.response?.data?.message || 'Failed to lookup airport'
+      }))
+    } finally {
+      setLookupLoading((prev) => ({ ...prev, [field]: false }))
+    }
+  }
+
+  /**
    * Validates form fields
    * @returns {boolean} - True if form is valid
    */
   const validateForm = () => {
     const newErrors = {}
 
-    if (!newFlight.startTime) {
-      newErrors.startTime = 'Start time is required'
-    }
-
     if (!newFlight.departure || newFlight.departure.length !== 4) {
       newErrors.departure = 'Valid ICAO code required (4 characters)'
     }
 
+    if (!newFlight.departureName) {
+      newErrors.departure = 'Please lookup the departure airport'
+    }
+
     if (!newFlight.destination || newFlight.destination.length !== 4) {
       newErrors.destination = 'Valid ICAO code required (4 characters)'
+    }
+
+    if (!newFlight.destinationName) {
+      newErrors.destination = 'Please lookup the destination airport'
     }
 
     if (!newFlight.range || newFlight.range <= 0) {
@@ -121,6 +189,110 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     onAddFlight(flightData)
     setIsSubmitting(false)
+  }
+
+  /**
+   * Renders airport input field with lookup button
+   */
+  const renderAirportField = (name, label) => {
+    const isLoading = lookupLoading[name]
+    const airportName = newFlight[`${name}Name`]
+
+    return (
+      <div>
+        <label
+          htmlFor={name}
+          className="block text-sm font-semibold text-gray-200 mb-2"
+        >
+          {label}
+        </label>
+        <div className="relative">
+          <input
+            type="text"
+            id={name}
+            name={name}
+            value={newFlight[name]}
+            onChange={handleInputChange}
+            placeholder="e.g., EGLL"
+            maxLength={4}
+            className={`block w-full bg-gray-700/50 border ${
+              errors[name] ? 'border-red-500' : 'border-gray-600'
+            } rounded-lg shadow-sm py-2.5 pl-4 pr-12 text-white placeholder-gray-500 uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200`}
+          />
+          <button
+            type="button"
+            onClick={() => lookupAirport(newFlight[name], name)}
+            disabled={isLoading || !newFlight[name] || newFlight[name].length !== 4}
+            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer disabled:cursor-not-allowed"
+            title="Lookup airport"
+          >
+            {isLoading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-indigo-400"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+            ) : (
+              <svg
+                className={`h-5 w-5 ${
+                  newFlight[name] && newFlight[name].length === 4
+                    ? 'text-indigo-400 hover:text-indigo-300'
+                    : 'text-gray-600'
+                } transition-colors duration-200`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+        {airportName && !errors[name] && (
+          <p className="mt-1.5 text-sm text-green-400 flex items-center gap-1">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {airportName}
+          </p>
+        )}
+        {errors[name] && (
+          <p className="mt-1.5 text-sm text-red-400 flex items-center gap-1">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {errors[name]}
+          </p>
+        )}
+      </div>
+    )
   }
 
   /**
@@ -244,10 +416,42 @@ export default function AddFlight({ onAddFlight, onCancel }) {
             </h3>
           </div>
 
-          {renderInputField('startTime', 'Start Time', 'time')}
+          {/* Start Time - Auto-filled, read-only */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-200 mb-2">
+              Start Time (Auto-filled)
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={newFlight.startTime}
+                readOnly
+                className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <svg
+                  className="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <p className="mt-1.5 text-xs text-gray-500">
+              Current time is automatically recorded
+            </p>
+          </div>
+
           {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
-          {renderInputField('departure', 'Departure (ICAO)', 'text', 'e.g., EGLL', { maxLength: 4 })}
-          {renderInputField('destination', 'Destination (ICAO)', 'text', 'e.g., EHAM', { maxLength: 4 })}
+          {renderAirportField('departure', 'Departure Airport')}
+          {renderAirportField('destination', 'Destination Airport')}
           {renderSelectField('aircraft', 'Aircraft', Object.values(AircraftName))}
           {renderInputField('range', 'Range (NM)', 'number', '0', { min: 0, step: 0.1 })}
           {renderInputField('duration', 'Duration (minutes)', 'number', '0', { min: 0, step: 1 })}
