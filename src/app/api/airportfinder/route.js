@@ -89,15 +89,19 @@ export async function POST(request) {
   }
 
   try {
-    // Uncomment when using real API
-    const res = await fetch(
-      `https://airportdb.io/api/v1/airport/${ICAO}?apiToken=${API_KEY}`
-    )
-    const data = await res.json()
+    let data
 
-    // Using dummy data for now
-    // const icaoUpper = ICAO.toUpperCase()
-    // const data = AIRPORT_DATABASE[icaoUpper]
+    if (process.env.NODE_ENV === 'production') {
+      // production API
+      const res = await fetch(
+        `https://airportdb.io/api/v1/airport/${ICAO}?apiToken=${API_KEY}`
+      )
+      data = await res.json()
+    } else {
+      // Using dummy data for now
+      const icaoUpper = ICAO.toUpperCase()
+      data = AIRPORT_DATABASE[icaoUpper]
+    }
 
     if (!data) {
       return NextResponse.json(
