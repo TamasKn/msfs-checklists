@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import FinancialSummary from '@/app/components/elements/career/financial-summary'
 
 /**
  * Get color classes for job type badge
@@ -25,6 +27,15 @@ const getJobTypeColors = (jobType) => {
  * @param {Array} flights - Array of flight objects
  */
 export default function FlightHistory({ flights }) {
+  const [selectedFlight, setSelectedFlight] = useState(null)
+  const [mounted, setMounted] = useState(false)
+
+  // Ensure component is mounted before using portal
+  useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
   if (!flights || flights.length === 0) {
     return (
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-12 text-center">
@@ -98,6 +109,9 @@ export default function FlightHistory({ flights }) {
               </th>
               <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 XP
+              </th>
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Actions
               </th>
             </tr>
           </thead>
@@ -184,11 +198,56 @@ export default function FlightHistory({ flights }) {
                     {flight.xp ? flight.xp.toLocaleString() : '0'} XP
                   </span>
                 </td>
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-center">
+                  {flight.financialBreakdown ? (
+                    <button
+                      onClick={() => setSelectedFlight(flight)}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 hover:text-indigo-300 border border-indigo-500/50 hover:border-indigo-400/70 rounded-lg transition-all duration-200 cursor-pointer"
+                      title="View Financial Details"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                      <span className="hidden sm:inline">View</span>
+                    </button>
+                  ) : (
+                    <span className="text-gray-600 text-xs">N/A</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Financial Summary Modal - Rendered via Portal */}
+      {mounted &&
+        selectedFlight &&
+        selectedFlight.financialBreakdown &&
+        createPortal(
+          <FinancialSummary
+            financials={selectedFlight.financialBreakdown}
+            onClose={() => setSelectedFlight(null)}
+            viewOnly={true}
+          />,
+          document.body
+        )}
     </div>
   )
 }

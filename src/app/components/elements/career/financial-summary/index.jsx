@@ -3,9 +3,16 @@
 /**
  * FinancialSummary - Shiny popup showing flight financial details
  * @param {Object} financials - Financial breakdown object
- * @param {Function} onConfirm - Callback when user confirms
+ * @param {Function} onConfirm - Callback when user confirms (optional for view-only mode)
+ * @param {Function} onClose - Callback when user closes (for view-only mode)
+ * @param {boolean} viewOnly - If true, shows only close button instead of confirm
  */
-export default function FinancialSummary({ financials, onConfirm }) {
+export default function FinancialSummary({
+  financials,
+  onConfirm,
+  onClose,
+  viewOnly = false
+}) {
   const { basePay, bonus, operationCost, totalReward, xp, breakdown } =
     financials
 
@@ -324,27 +331,51 @@ export default function FinancialSummary({ financials, onConfirm }) {
 
         {/* Action Buttons - Sticky */}
         <div className="p-4 sm:p-6 pt-0 flex flex-col sm:flex-row gap-3 flex-shrink-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-b-2xl">
-          <button
-            onClick={onConfirm}
-            className="flex-1 py-3 px-6 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
-          >
-            <span className="flex items-center justify-center gap-2">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-              Confirm
-            </span>
-          </button>
+          {viewOnly ? (
+            <button
+              onClick={onClose}
+              className="flex-1 py-3 px-6 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+                Close
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={onConfirm}
+              className="flex-1 py-3 px-6 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                Confirm
+              </span>
+            </button>
+          )}
         </div>
       </div>
 

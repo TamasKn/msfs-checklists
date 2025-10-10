@@ -308,7 +308,16 @@ export default function AddFlight({ onAddFlight, onCancel }) {
       bonus: calculatedFinancials.bonus,
       operationCost: calculatedFinancials.operationCost,
       totalReward: calculatedFinancials.totalReward,
-      xp: calculatedFinancials.xp
+      xp: calculatedFinancials.xp,
+      // Save complete financial breakdown for viewing later
+      financialBreakdown: {
+        basePay: calculatedFinancials.basePay,
+        bonus: calculatedFinancials.bonus,
+        operationCost: calculatedFinancials.operationCost,
+        totalReward: calculatedFinancials.totalReward,
+        xp: calculatedFinancials.xp,
+        breakdown: calculatedFinancials.breakdown
+      }
     }
 
     onAddFlight(flightData)
