@@ -98,4 +98,3 @@ export const cessna172Career = {
     perFlightHour: 8 // per flight hour
   }
 }
-

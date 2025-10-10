@@ -102,4 +102,3 @@ export const pilatusPc12Career = {
     perFlightHour: 18 // per flight hour
   }
 }
-

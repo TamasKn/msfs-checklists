@@ -28,11 +28,12 @@ export default function UserTokenInput({ onTokenSaved }) {
   const handleTokenSave = () => {
     localStorage.setItem('user_token', userToken)
 
-    // Initialize user data with name, funds, and XP
+    // Initialize user data with name, funds, XP, and leased aircraft
     const userData = {
       name: userName,
       funds: 0,
-      xp: 0
+      xp: 0,
+      leasedAircraft: []
     }
     localStorage.setItem('user_data', JSON.stringify(userData))
 

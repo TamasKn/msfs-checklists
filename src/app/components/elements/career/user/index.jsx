@@ -10,7 +10,8 @@ const UserComponent = forwardRef((props, ref) => {
   const [userData, setUserData] = useState({
     name: '',
     funds: 0,
-    xp: 0
+    xp: 0,
+    leasedAircraft: []
   })
 
   useEffect(() => {
@@ -40,7 +41,9 @@ const UserComponent = forwardRef((props, ref) => {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     })
-    return amount >= 0 ? `$${formatted}` : `-$${Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    return amount >= 0
+      ? `$${formatted}`
+      : `-$${Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }
 
   return (
@@ -63,17 +66,21 @@ const UserComponent = forwardRef((props, ref) => {
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="text-2xl font-bold text-white">{userData.name || 'Pilot'}</h2>
+          <h2 className="text-2xl font-bold text-white">
+            {userData.name || 'Pilot'}
+          </h2>
           <p className="text-sm text-gray-400">Career Pilot</p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Funds */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-green-500/50 transition-all duration-300">
           <div className="flex items-center gap-3 mb-2">
-            <div className={`${userData.funds >= 0 ? 'bg-green-500/20' : 'bg-red-500/20'} p-2 rounded-lg`}>
+            <div
+              className={`${userData.funds >= 0 ? 'bg-green-500/20' : 'bg-red-500/20'} p-2 rounded-lg`}
+            >
               <svg
                 className={`w-5 h-5 ${userData.funds >= 0 ? 'text-green-400' : 'text-red-400'}`}
                 fill="none"
@@ -89,10 +96,14 @@ const UserComponent = forwardRef((props, ref) => {
               </svg>
             </div>
             <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider">Funds</p>
+              <p className="text-xs text-gray-400 uppercase tracking-wider">
+                Balance
+              </p>
             </div>
           </div>
-          <p className={`text-2xl font-bold font-mono ${userData.funds >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <p
+            className={`text-2xl font-bold font-mono ${userData.funds >= 0 ? 'text-green-400' : 'text-red-400'}`}
+          >
             {formatFunds(userData.funds)}
           </p>
           <p className="text-xs text-gray-500 mt-1">
@@ -119,14 +130,49 @@ const UserComponent = forwardRef((props, ref) => {
               </svg>
             </div>
             <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider">Experience</p>
+              <p className="text-xs text-gray-400 uppercase tracking-wider">
+                Experience
+              </p>
             </div>
           </div>
           <p className="text-2xl font-bold text-indigo-400">
             {userData.xp.toLocaleString()} XP
           </p>
+          <p className="text-xs text-gray-500 mt-1">Total experience earned</p>
+        </div>
+
+        {/* Leased Aircraft */}
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-yellow-500/50 transition-all duration-300">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="bg-yellow-500/20 p-2 rounded-lg">
+              <svg
+                className="w-5 h-5 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                />
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs text-gray-400 uppercase tracking-wider">
+                Available Aircraft
+              </p>
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-yellow-400">
+            {userData.leasedAircraft?.map((aircraft) => aircraft).join(', ') ||
+              ''}
+          </p>
           <p className="text-xs text-gray-500 mt-1">
-            Total experience earned
+            {userData.leasedAircraft?.length === 1
+              ? 'Aircraft leased'
+              : 'No Aircraft'}
           </p>
         </div>
       </div>

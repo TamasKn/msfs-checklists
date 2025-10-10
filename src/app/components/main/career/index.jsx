@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
 import UserComponent from '@/app/components/elements/career/user'
+import LeaseAircraft from '@/app/components/elements/career/lease-aircraft'
 import { updateUserAfterFlight } from '@/utils/career/user-data'
 
 const STORAGE_KEY = 'career_flight_history'
@@ -14,6 +15,7 @@ const STORAGE_KEY = 'career_flight_history'
  */
 export default function CareerComponent() {
   const [showAddFlight, setShowAddFlight] = useState(false)
+  const [showLeaseAircraft, setShowLeaseAircraft] = useState(false)
   const [flights, setFlights] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [userDataKey, setUserDataKey] = useState(0) // Key to force UserComponent re-render
@@ -73,6 +75,14 @@ export default function CareerComponent() {
     window.location.reload()
   }
 
+  /**
+   * Handles lease aircraft completion
+   */
+  const handleLeaseComplete = () => {
+    // Force UserComponent to re-render to show updated funds
+    setUserDataKey((prev) => prev + 1)
+  }
+
   if (isLoading) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center">
@@ -104,7 +114,7 @@ export default function CareerComponent() {
 
   return (
     <div className="w-full min-h-screen px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[95%] mx-auto">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
@@ -138,6 +148,27 @@ export default function CareerComponent() {
               </span>
             </button>
             <button
+              onClick={() => setShowLeaseAircraft(true)}
+              className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                  />
+                </svg>
+                Lease Aircraft
+              </span>
+            </button>
+            <button
               onClick={() => setShowAddFlight(true)}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
@@ -165,6 +196,14 @@ export default function CareerComponent() {
         <div className="mb-8">
           <UserComponent key={userDataKey} ref={userComponentRef} />
         </div>
+
+        {/* Modal for Lease Aircraft */}
+        {showLeaseAircraft && (
+          <LeaseAircraft
+            onClose={() => setShowLeaseAircraft(false)}
+            onLeaseComplete={handleLeaseComplete}
+          />
+        )}
 
         {/* Modal for Add Flight */}
         {showAddFlight && (

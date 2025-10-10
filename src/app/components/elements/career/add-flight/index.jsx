@@ -15,6 +15,7 @@ import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { cessna172Career } from '@/data/cessna-172/career'
 import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
 import FinancialSummary from '@/app/components/elements/career/financial-summary'
+import { getLeasedAircraft } from '@/utils/career/user-data'
 
 /**
  * AddFlight - Modal component for adding new flight entries
@@ -49,6 +50,18 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   })
   const [showFinancialSummary, setShowFinancialSummary] = useState(false)
   const [calculatedFinancials, setCalculatedFinancials] = useState(null)
+  const [leasedAircraft, setLeasedAircraft] = useState([])
+
+  // Load leased aircraft on mount
+  useEffect(() => {
+    const leased = getLeasedAircraft()
+    setLeasedAircraft(leased)
+
+    // Set default aircraft to first leased aircraft if available
+    if (leased.length > 0) {
+      setNewFlight((prev) => ({ ...prev, aircraft: leased[0] }))
+    }
+  }, [])
 
   /**
    * Get aircraft career data
@@ -544,11 +557,35 @@ export default function AddFlight({ onAddFlight, onCancel }) {
             {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
             {renderAirportField('departure', 'Departure Airport')}
             {renderAirportField('destination', 'Destination Airport')}
-            {renderSelectField(
-              'aircraft',
-              'Aircraft',
-              Object.values(AircraftName)
-            )}
+
+            {/* Aircraft - Only show leased aircraft */}
+            <div>
+              <label
+                htmlFor="aircraft"
+                className="block text-sm font-semibold text-gray-200 mb-2"
+              >
+                Aircraft
+              </label>
+              {leasedAircraft.length > 0 ? (
+                <select
+                  id="aircraft"
+                  name="aircraft"
+                  value={newFlight.aircraft}
+                  onChange={handleInputChange}
+                  className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                >
+                  {leasedAircraft.map((aircraft) => (
+                    <option key={aircraft} value={aircraft}>
+                      {aircraft}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div className="block w-full bg-gray-900/50 border border-yellow-600 rounded-lg shadow-sm py-2.5 px-4 text-yellow-400">
+                  No aircraft leased. Please lease an aircraft first.
+                </div>
+              )}
+            </div>
             {renderInputField('range', 'Range (NM)', 'number', '0', {
               min: 0,
               step: 0.1
