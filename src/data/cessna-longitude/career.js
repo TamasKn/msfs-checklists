@@ -10,56 +10,56 @@ export const cessnaLongitudeCareer = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 20000,
-          chance: 0.0084
+          base: 18000,
+          chance: 0.16
         },
         landingGear: {
-          base: 5000,
-          chance: 0.0145
+          base: 5200,
+          chance: 0.23
         },
         fuselage: {
-          base: 3000,
-          chance: 0.095
+          base: 3600,
+          chance: 0.33
         },
         wing: {
-          base: 2000,
-          chance: 0.015
+          base: 4200,
+          chance: 0.26
         },
         empennage: {
-          base: 1000,
-          chance: 0.055
+          base: 2400,
+          chance: 0.29
         },
         electrical: {
-          base: 800,
-          chance: 0.065
+          base: 1650,
+          chance: 0.35
         },
         hydraulic: {
-          base: 700,
-          chance: 0.055
+          base: 1450,
+          chance: 0.30
         },
         pressurization: {
-          base: 600,
-          chance: 0.045
+          base: 1950,
+          chance: 0.28
         },
         avionics: {
-          base: 500,
-          chance: 0.035
+          base: 3200,
+          chance: 0.24
         },
         interior: {
-          base: 200,
-          chance: 0.025
+          base: 1100,
+          chance: 0.38
         },
         lights: {
-          base: 200,
-          chance: 0.045
+          base: 620,
+          chance: 0.40
         },
         navigation: {
-          base: 400,
-          chance: 0.035
+          base: 1850,
+          chance: 0.26
         },
         communication: {
-          base: 100,
-          chance: 0.025
+          base: 1150,
+          chance: 0.36
         }
       },
       issueSeverityMultiplier: {

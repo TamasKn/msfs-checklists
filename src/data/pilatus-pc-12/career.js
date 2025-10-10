@@ -10,56 +10,56 @@ export const pilatusPc12Career = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 15000,
-          chance: 0.01
+          base: 8500,
+          chance: 0.18
         },
         landingGear: {
-          base: 4000,
-          chance: 0.016
+          base: 2800,
+          chance: 0.25
         },
         fuselage: {
-          base: 2500,
-          chance: 0.012
+          base: 1900,
+          chance: 0.31
         },
         wing: {
-          base: 1800,
-          chance: 0.018
+          base: 2200,
+          chance: 0.28
         },
         empennage: {
-          base: 900,
-          chance: 0.06
+          base: 1300,
+          chance: 0.31
         },
         electrical: {
-          base: 700,
-          chance: 0.07
+          base: 950,
+          chance: 0.36
         },
         hydraulic: {
-          base: 600,
-          chance: 0.05
+          base: 820,
+          chance: 0.30
         },
         pressurization: {
-          base: 500,
-          chance: 0.05
+          base: 1100,
+          chance: 0.28
         },
         avionics: {
-          base: 450,
-          chance: 0.038
+          base: 1650,
+          chance: 0.24
         },
         interior: {
-          base: 180,
-          chance: 0.028
+          base: 580,
+          chance: 0.38
         },
         lights: {
-          base: 180,
-          chance: 0.048
+          base: 350,
+          chance: 0.41
         },
         navigation: {
-          base: 350,
-          chance: 0.038
+          base: 980,
+          chance: 0.26
         },
         communication: {
-          base: 90,
-          chance: 0.028
+          base: 620,
+          chance: 0.36
         }
       },
       issueSeverityMultiplier: {

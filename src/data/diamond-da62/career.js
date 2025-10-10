@@ -10,56 +10,56 @@ export const diamondDA62Career = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 12000,
-          chance: 0.008
+          base: 5500,
+          chance: 0.19
         },
         landingGear: {
-          base: 3000,
-          chance: 0.012
+          base: 1800,
+          chance: 0.26
         },
         fuselage: {
-          base: 1800,
-          chance: 0.08
+          base: 1200,
+          chance: 0.30
         },
         wing: {
-          base: 1200,
-          chance: 0.012
+          base: 1400,
+          chance: 0.29
         },
         empennage: {
-          base: 600,
-          chance: 0.045
+          base: 850,
+          chance: 0.32
         },
         electrical: {
-          base: 500,
-          chance: 0.055
+          base: 620,
+          chance: 0.35
         },
         hydraulic: {
-          base: 400,
-          chance: 0.045
+          base: 520,
+          chance: 0.31
         },
         pressurization: {
           base: 0,
           chance: 0
         },
         avionics: {
-          base: 350,
-          chance: 0.03
+          base: 1100,
+          chance: 0.22
         },
         interior: {
-          base: 150,
-          chance: 0.02
+          base: 380,
+          chance: 0.39
         },
         lights: {
-          base: 120,
-          chance: 0.04
+          base: 240,
+          chance: 0.42
         },
         navigation: {
-          base: 250,
-          chance: 0.03
+          base: 680,
+          chance: 0.24
         },
         communication: {
-          base: 80,
-          chance: 0.02
+          base: 420,
+          chance: 0.37
         }
       },
       issueSeverityMultiplier: {

@@ -10,56 +10,56 @@ export const boeing737MaxCareer = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 38000,
-          chance: 0.0092
+          base: 32000,
+          chance: 0.14
         },
         landingGear: {
-          base: 9000,
-          chance: 0.017
+          base: 9500,
+          chance: 0.21
         },
         fuselage: {
-          base: 5500,
-          chance: 0.115
+          base: 6800,
+          chance: 0.36
         },
         wing: {
-          base: 3800,
-          chance: 0.018
+          base: 7500,
+          chance: 0.24
         },
         empennage: {
-          base: 2000,
-          chance: 0.065
+          base: 4400,
+          chance: 0.27
         },
         electrical: {
-          base: 1500,
-          chance: 0.075
+          base: 3000,
+          chance: 0.37
         },
         hydraulic: {
-          base: 1300,
-          chance: 0.065
+          base: 2600,
+          chance: 0.31
         },
         pressurization: {
-          base: 1100,
-          chance: 0.055
+          base: 3600,
+          chance: 0.29
         },
         avionics: {
-          base: 900,
-          chance: 0.045
+          base: 5500,
+          chance: 0.25
         },
         interior: {
-          base: 380,
-          chance: 0.035
+          base: 2000,
+          chance: 0.41
         },
         lights: {
-          base: 320,
-          chance: 0.055
+          base: 1100,
+          chance: 0.44
         },
         navigation: {
-          base: 700,
-          chance: 0.045
+          base: 3400,
+          chance: 0.27
         },
         communication: {
-          base: 200,
-          chance: 0.035
+          base: 2100,
+          chance: 0.39
         }
       },
       issueSeverityMultiplier: {

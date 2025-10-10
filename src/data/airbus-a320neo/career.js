@@ -10,56 +10,56 @@ export const airbusA320neoCareer = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 35000,
-          chance: 0.009
+          base: 28000,
+          chance: 0.15
         },
         landingGear: {
-          base: 8500,
-          chance: 0.016
+          base: 8200,
+          chance: 0.22
         },
         fuselage: {
-          base: 5000,
-          chance: 0.11
+          base: 5800,
+          chance: 0.35
         },
         wing: {
-          base: 3500,
-          chance: 0.017
+          base: 6500,
+          chance: 0.25
         },
         empennage: {
-          base: 1800,
-          chance: 0.062
+          base: 3800,
+          chance: 0.28
         },
         electrical: {
-          base: 1400,
-          chance: 0.072
+          base: 2600,
+          chance: 0.38
         },
         hydraulic: {
-          base: 1200,
-          chance: 0.062
+          base: 2200,
+          chance: 0.32
         },
         pressurization: {
-          base: 1000,
-          chance: 0.052
+          base: 3100,
+          chance: 0.30
         },
         avionics: {
-          base: 850,
-          chance: 0.042
+          base: 4800,
+          chance: 0.26
         },
         interior: {
-          base: 350,
-          chance: 0.032
+          base: 1750,
+          chance: 0.42
         },
         lights: {
-          base: 300,
-          chance: 0.052
+          base: 950,
+          chance: 0.45
         },
         navigation: {
-          base: 650,
-          chance: 0.042
+          base: 2900,
+          chance: 0.28
         },
         communication: {
-          base: 180,
-          chance: 0.032
+          base: 1800,
+          chance: 0.40
         }
       },
       issueSeverityMultiplier: {
