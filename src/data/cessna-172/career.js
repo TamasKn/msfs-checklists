@@ -93,8 +93,8 @@ export const cessna172Career = {
     }
   },
   xp: {
-    base: 10, // base XP for a flight
-    perDistance: 0.5, // per nautical mile
-    perFlightHour: 8 // per flight hour
+    base: 3.5, // base XP for a flight
+    perDistance: 0.175, // per nautical mile
+    perFlightHour: 2.8 // per flight hour
   }
 }

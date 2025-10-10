@@ -97,9 +97,9 @@ export const diamondDA62Career = {
     }
   },
   xp: {
-    base: 18, // base XP for a flight
-    perDistance: 0.65, // per nautical mile
-    perFlightHour: 12 // per flight hour
+    base: 6.3, // base XP for a flight
+    perDistance: 0.2275, // per nautical mile
+    perFlightHour: 4.2 // per flight hour
   }
 }
 

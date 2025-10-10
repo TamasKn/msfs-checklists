@@ -97,8 +97,8 @@ export const cessnaLongitudeCareer = {
     }
   },
   xp: {
-    base: 45, // base XP for a flight
-    perDistance: 1.1889, // per nautical mile
-    perFlightHour: 28 // per flight hour
+    base: 15.75, // base XP for a flight
+    perDistance: 0.416115, // per nautical mile
+    perFlightHour: 9.8 // per flight hour
   }
 }

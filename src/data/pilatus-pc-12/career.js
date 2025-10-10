@@ -97,8 +97,8 @@ export const pilatusPc12Career = {
     }
   },
   xp: {
-    base: 25, // base XP for a flight
-    perDistance: 1.2, // per nautical mile
-    perFlightHour: 18 // per flight hour
+    base: 8.75, // base XP for a flight
+    perDistance: 0.42, // per nautical mile
+    perFlightHour: 6.3 // per flight hour
   }
 }

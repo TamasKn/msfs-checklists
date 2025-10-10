@@ -97,8 +97,8 @@ export const airbusA320neoCareer = {
     }
   },
   xp: {
-    base: 85, // base XP for a flight
-    perDistance: 2.15, // per nautical mile
-    perFlightHour: 52 // per flight hour
+    base: 29.75, // base XP for a flight
+    perDistance: 0.7525, // per nautical mile
+    perFlightHour: 18.2 // per flight hour
   }
 }

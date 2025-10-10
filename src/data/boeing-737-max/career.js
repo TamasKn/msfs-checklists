@@ -97,8 +97,8 @@ export const boeing737MaxCareer = {
     }
   },
   xp: {
-    base: 92, // base XP for a flight
-    perDistance: 2.35, // per nautical mile
-    perFlightHour: 56 // per flight hour
+    base: 32.2, // base XP for a flight
+    perDistance: 0.8225, // per nautical mile
+    perFlightHour: 19.6 // per flight hour
   }
 }

@@ -97,8 +97,8 @@ export const visionJetG2Career = {
     }
   },
   xp: {
-    base: 28, // base XP for a flight
-    perDistance: 0.85, // per nautical mile
-    perFlightHour: 18 // per flight hour
+    base: 9.8, // base XP for a flight
+    perDistance: 0.2975, // per nautical mile
+    perFlightHour: 6.3 // per flight hour
   }
 }
