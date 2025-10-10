@@ -147,14 +147,14 @@ export const calculateXP = (aircraft, jobType, range, duration, weather) => {
  * // For production (uses actual chance percentages)
  * calculateMaintenanceIssueCost('A320NEO', false)
  */
-export const calculateMaintenanceIssueCost = (aircraft, forceIssue = true) => {
+export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
   const careerData = getAircraftCareerData(aircraft)
   const maintenanceIssues = careerData.costs.maintenance.issues
   const severityMultipliers =
     careerData.costs.maintenance.issueSeverityMultiplier
 
-  // Randomly decide how many issues will occur (1 to 4)
-  const numberOfIssues = Math.floor(Math.random() * 4) + 1
+  // Randomly decide how many issues will occur (1 to 5)
+  const numberOfIssues = Math.floor(Math.random() * 5) + 1
 
   // Get all available issue types
   const allIssueTypes = Object.entries(maintenanceIssues)
