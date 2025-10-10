@@ -3,6 +3,24 @@
 import { useState } from 'react'
 
 /**
+ * Get color classes for job type badge
+ * @param {string} jobType - Job type (Cargo, Charter, Airline)
+ * @returns {string} Tailwind CSS classes for the job type badge
+ */
+const getJobTypeColors = (jobType) => {
+  switch (jobType) {
+    case 'Cargo':
+      return 'bg-amber-900/50 text-amber-300 border-amber-700/50'
+    case 'Charter':
+      return 'bg-purple-900/50 text-purple-300 border-purple-700/50'
+    case 'Airline':
+      return 'bg-blue-900/50 text-blue-300 border-blue-700/50'
+    default:
+      return 'bg-indigo-900/50 text-indigo-300 border-indigo-700/50'
+  }
+}
+
+/**
  * FlightHistory - Displays flight history in a modern, responsive table
  * @param {Array} flights - Array of flight objects
  */
@@ -93,7 +111,11 @@ export default function FlightHistory({ flights }) {
                   {flight.startTime}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300 border border-indigo-700/50">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getJobTypeColors(
+                      flight.jobType
+                    )}`}
+                  >
                     {flight.jobType}
                   </span>
                 </td>
@@ -146,8 +168,13 @@ export default function FlightHistory({ flights }) {
                   -€{flight.operationCost.toLocaleString()}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-right">
-                  <span className="text-green-400 font-mono">
-                    €{flight.totalReward.toLocaleString()}
+                  <span
+                    className={`font-mono ${
+                      flight.totalReward >= 0 ? 'text-green-400' : 'text-red-400'
+                    }`}
+                  >
+                    {flight.totalReward >= 0 ? '€' : '-€'}
+                    {Math.abs(flight.totalReward).toLocaleString()}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-right">
