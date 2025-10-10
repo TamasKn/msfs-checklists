@@ -167,10 +167,12 @@ export default function FlightHistory({ flights }) {
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-red-400 text-right font-mono">
                   -€{flight.operationCost.toLocaleString()}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-right">
+                <td className="px-4 py-4 whitespace-nowrap text-base font-bold text-right">
                   <span
-                    className={`font-mono ${
-                      flight.totalReward >= 0 ? 'text-green-400' : 'text-red-400'
+                    className={`inline-flex items-center justify-center px-4 w-full py-1.5 rounded-lg font-mono font-bold border ${
+                      flight.totalReward >= 0
+                        ? 'bg-green-900/30 text-green-400 border-green-700/50'
+                        : 'bg-red-900/30 text-red-400 border-red-700/50'
                     }`}
                   >
                     {flight.totalReward >= 0 ? '€' : '-€'}
