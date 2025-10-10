@@ -1,6 +1,10 @@
 import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { cessna172Career } from '@/data/cessna-172/career'
 import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
+import { diamondDA62Career } from '@/data/diamond-da62/career'
+import { visionJetG2Career } from '@/data/vision-jet-g2/career'
+import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
+import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { WeatherBonus } from '@/data/career/weather'
 import { JobBonusMultiplier } from '@/data/career/jobs'
@@ -12,14 +16,22 @@ import { JobBonusMultiplier } from '@/data/career/jobs'
  */
 const getAircraftCareerData = (aircraftName) => {
   switch (aircraftName) {
-    case AircraftName.CessnaLongitude:
-      return cessnaLongitudeCareer
     case AircraftName.Cessna172:
       return cessna172Career
+    case AircraftName.DiamondDA62:
+      return diamondDA62Career
     case AircraftName.PilatusPC12:
       return pilatusPc12Career
-    default:
+    case AircraftName.VisionJetG2:
+      return visionJetG2Career
+    case AircraftName.CessnaLongitude:
       return cessnaLongitudeCareer
+    case AircraftName.AirbusA320neo:
+      return airbusA320neoCareer
+    case AircraftName.Boeing737Max:
+      return boeing737MaxCareer
+    default:
+      return cessna172Career
   }
 }
 
