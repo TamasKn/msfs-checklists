@@ -134,7 +134,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                   Lease Aircraft
                 </h2>
                 <p className="text-sm text-gray-200 mt-1">
-                  Available Funds: ${userData.funds.toLocaleString()}
+                  Available Funds: €{userData.funds.toLocaleString()}
                 </p>
               </div>
             </div>
@@ -213,13 +213,13 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                         Lease Fee (One-time):
                       </span>
                       <span className="text-yellow-400 font-bold">
-                        ${leaseFee.toLocaleString()}
+                        €{leaseFee.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-400">Hourly Cost:</span>
                       <span className="text-red-400 font-mono">
-                        $
+                        €
                         {(
                           careerData.costs.leasePriceBase +
                           careerData.costs.insuranceBase +
@@ -273,7 +273,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Lease Fee:</span>
                 <span className="text-yellow-400 font-bold">
-                  $
+                  €
                   {calculateLeaseFee(
                     getAircraftCareerData(selectedAircraft)
                   ).toLocaleString()}
@@ -282,13 +282,13 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Current Funds:</span>
                 <span className="text-green-400 font-mono">
-                  ${userData.funds.toLocaleString()}
+                  €{userData.funds.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between text-sm border-t border-gray-700 pt-2">
                 <span className="text-gray-400">Remaining Funds:</span>
                 <span className="text-white font-bold">
-                  $
+                  €
                   {(
                     userData.funds -
                     calculateLeaseFee(getAircraftCareerData(selectedAircraft))

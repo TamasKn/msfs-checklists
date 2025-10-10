@@ -42,8 +42,8 @@ const UserComponent = forwardRef((props, ref) => {
       maximumFractionDigits: 2
     })
     return amount >= 0
-      ? `$${formatted}`
-      : `-$${Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      ? `€${formatted}`
+      : `-€${Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }
 
   return (
@@ -165,12 +165,19 @@ const UserComponent = forwardRef((props, ref) => {
               </p>
             </div>
           </div>
-          <p className="text-2xl font-bold text-yellow-400">
-            {userData.leasedAircraft?.map((aircraft) => aircraft).join(', ') ||
-              ''}
-          </p>
+          <div className="text-sm font-semibold text-yellow-400 space-y-1">
+            {userData.leasedAircraft?.length > 0 ? (
+              userData.leasedAircraft.map((aircraft, index) => (
+                <div key={index} className="truncate">
+                  {aircraft}
+                </div>
+              ))
+            ) : (
+              <div className="text-gray-500 text-xs">No aircraft leased</div>
+            )}
+          </div>
           <p className="text-xs text-gray-500 mt-1">
-            {userData.leasedAircraft?.length === 1
+            {userData.leasedAircraft?.length > 0
               ? 'Aircraft leased'
               : 'No Aircraft'}
           </p>

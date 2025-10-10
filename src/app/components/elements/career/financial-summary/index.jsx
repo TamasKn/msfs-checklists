@@ -63,7 +63,7 @@ export default function FinancialSummary({ financials, onConfirm }) {
                 </div>
               </div>
               <p className="text-2xl font-bold text-blue-400">
-                ${basePay.toLocaleString()}
+                €{basePay.toLocaleString()}
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function FinancialSummary({ financials, onConfirm }) {
                 </div>
               </div>
               <p className="text-2xl font-bold text-purple-400">
-                +${bonus.toLocaleString()}
+                +€{bonus.toLocaleString()}
               </p>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function FinancialSummary({ financials, onConfirm }) {
                 </div>
               </div>
               <p className="text-2xl font-bold text-red-400">
-                -${operationCost.toLocaleString()}
+                -€{operationCost.toLocaleString()}
               </p>
             </div>
             {/* Cost Breakdown */}
@@ -135,15 +135,15 @@ export default function FinancialSummary({ financials, onConfirm }) {
               <div className="ml-11 space-y-1 text-xs">
                 <div className="flex justify-between text-gray-500">
                   <span>• Lease Cost:</span>
-                  <span>${breakdown.lease.toLocaleString()}</span>
+                  <span>€{breakdown.lease.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-gray-500">
                   <span>• Insurance:</span>
-                  <span>${breakdown.insurance.toLocaleString()}</span>
+                  <span>€{breakdown.insurance.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-gray-500">
                   <span>• Maintenance:</span>
-                  <span>${breakdown.maintenance.toLocaleString()}</span>
+                  <span>€{breakdown.maintenance.toLocaleString()}</span>
                 </div>
               </div>
             )}
@@ -181,7 +181,7 @@ export default function FinancialSummary({ financials, onConfirm }) {
                 </div>
               </div>
               <p className="text-4xl font-bold text-green-400">
-                ${totalReward.toLocaleString()}
+                €{totalReward.toLocaleString()}
               </p>
             </div>
           </div>

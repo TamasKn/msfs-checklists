@@ -137,17 +137,17 @@ export default function FlightHistory({ flights }) {
                   {flight.weather}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right font-mono">
-                  ${flight.base.toLocaleString()}
+                  €{flight.base.toLocaleString()}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-emerald-400 text-right font-mono">
-                  +${flight.bonus.toLocaleString()}
+                  +€{flight.bonus.toLocaleString()}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-red-400 text-right font-mono">
-                  -${flight.operationCost.toLocaleString()}
+                  -€{flight.operationCost.toLocaleString()}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-right">
                   <span className="text-green-400 font-mono">
-                    ${flight.totalReward.toLocaleString()}
+                    €{flight.totalReward.toLocaleString()}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-right">
