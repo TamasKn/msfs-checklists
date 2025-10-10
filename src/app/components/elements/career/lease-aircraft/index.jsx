@@ -138,14 +138,14 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex justify-center items-center z-50 p-4">
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-6 border-b border-gray-700/50 rounded-t-2xl">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex justify-center items-center z-50 p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-6xl w-full my-4 sm:my-8 max-h-[95vh] flex flex-col">
+        {/* Header - Sticky */}
+        <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-4 sm:p-6 border-b border-gray-700/50 rounded-t-2xl flex-shrink-0 z-10">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <svg
-                className="w-8 h-8 text-yellow-300"
+                className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-300 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -157,21 +157,21 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                   d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
                 />
               </svg>
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              <div className="min-w-0">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white truncate">
                   Lease Aircraft
                 </h2>
-                <p className="text-sm text-gray-200 mt-1">
+                <p className="text-xs sm:text-sm text-gray-200 mt-0.5 sm:mt-1">
                   Available Funds: €{userData.funds.toLocaleString()}
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-300 hover:text-white transition-colors duration-200"
+              className="text-gray-300 hover:text-white transition-colors duration-200 flex-shrink-0 cursor-pointer"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -187,9 +187,9 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
           </div>
         </div>
 
-        {/* Aircraft Grid */}
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Aircraft Grid - Scrollable */}
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {aircraftList.map((aircraftName) => {
               const careerData = getAircraftCareerData(aircraftName)
               const specsData = getAircraftSpecs(aircraftName)
@@ -203,13 +203,13 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                     isLeased
                       ? 'border-green-500/50'
                       : 'border-gray-700/50 hover:border-indigo-500/50'
-                  } transition-all duration-300 overflow-hidden`}
+                  } transition-all duration-300 overflow-hidden flex flex-col`}
                 >
                   {/* Aircraft Header */}
                   <div
-                    className={`p-4 ${isLeased ? 'bg-green-900/20' : 'bg-gray-900/50'}`}
+                    className={`p-3 sm:p-4 ${isLeased ? 'bg-green-900/20' : 'bg-gray-900/50'}`}
                   >
-                    <h3 className="text-xl font-bold text-white mb-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1 truncate">
                       {aircraftName}
                     </h3>
                     {isLeased && (
@@ -220,13 +220,13 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                   </div>
 
                   {/* Specs */}
-                  <div className="p-4 space-y-2">
+                  <div className="p-3 sm:p-4 space-y-1.5 sm:space-y-2 flex-1">
                     {specsData.specs[0].items.slice(0, 4).map((spec, idx) => {
                       const [key, value] = Object.entries(spec)[0]
                       return (
-                        <div key={idx} className="flex justify-between text-sm">
-                          <span className="text-gray-400">{key}:</span>
-                          <span className="text-gray-200 font-medium">
+                        <div key={idx} className="flex justify-between text-xs sm:text-sm gap-2">
+                          <span className="text-gray-400 truncate">{key}:</span>
+                          <span className="text-gray-200 font-medium flex-shrink-0">
                             {value}
                           </span>
                         </div>
@@ -235,18 +235,18 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                   </div>
 
                   {/* Costs */}
-                  <div className="p-4 border-t border-gray-700/50 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">
+                  <div className="p-3 sm:p-4 border-t border-gray-700/50 space-y-1.5 sm:space-y-2">
+                    <div className="flex justify-between text-xs sm:text-sm gap-2">
+                      <span className="text-gray-400 truncate">
                         Lease Fee (One-time):
                       </span>
-                      <span className="text-yellow-400 font-bold">
+                      <span className="text-yellow-400 font-bold flex-shrink-0">
                         €{leaseFee.toLocaleString()}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Hourly Cost:</span>
-                      <span className="text-red-400 font-mono">
+                    <div className="flex justify-between text-xs sm:text-sm gap-2">
+                      <span className="text-gray-400 truncate">Hourly Cost:</span>
+                      <span className="text-red-400 font-mono flex-shrink-0">
                         €
                         {(
                           careerData.costs.leasePriceBase +
@@ -259,7 +259,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                   </div>
 
                   {/* Action Button */}
-                  <div className="p-4 pt-0">
+                  <div className="p-3 sm:p-4 pt-0">
                     {isLeased ? (
                       <button
                         disabled
@@ -285,37 +285,37 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
       {/* Confirmation Modal */}
       {showConfirmation && selectedAircraft && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-60 p-4">
-          <div className="bg-gray-800 rounded-xl border border-indigo-500/50 shadow-2xl max-w-md w-full p-6">
-            <h3 className="text-xl font-bold text-white mb-4">
+        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-[60] p-4">
+          <div className="bg-gray-800 rounded-xl border border-indigo-500/50 shadow-2xl max-w-md w-full p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
               Confirm Aircraft Lease
             </h3>
-            <p className="text-gray-300 mb-4">
+            <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4">
               Are you sure you want to lease the{' '}
               <span className="font-bold text-indigo-400">
                 {selectedAircraft}
               </span>
               ?
             </p>
-            <div className="bg-gray-900/50 rounded-lg p-4 mb-6 space-y-2">
-              <div className="flex justify-between text-sm">
+            <div className="bg-gray-900/50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 space-y-1.5 sm:space-y-2">
+              <div className="flex justify-between text-xs sm:text-sm gap-2">
                 <span className="text-gray-400">Lease Fee:</span>
-                <span className="text-yellow-400 font-bold">
+                <span className="text-yellow-400 font-bold flex-shrink-0">
                   €
                   {calculateLeaseFee(
                     getAircraftCareerData(selectedAircraft)
                   ).toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs sm:text-sm gap-2">
                 <span className="text-gray-400">Current Funds:</span>
-                <span className="text-green-400 font-mono">
+                <span className="text-green-400 font-mono flex-shrink-0">
                   €{userData.funds.toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between text-sm border-t border-gray-700 pt-2">
+              <div className="flex justify-between text-xs sm:text-sm border-t border-gray-700 pt-1.5 sm:pt-2 gap-2">
                 <span className="text-gray-400">Remaining Funds:</span>
-                <span className="text-white font-bold">
+                <span className="text-white font-bold flex-shrink-0">
                   €
                   {(
                     userData.funds -
@@ -324,7 +324,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                 </span>
               </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <button
                 onClick={handleCancelLease}
                 className="flex-1 py-2.5 px-4 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-200 cursor-pointer"
