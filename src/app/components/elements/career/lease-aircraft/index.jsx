@@ -5,9 +5,17 @@ import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { cessna172Career } from '@/data/cessna-172/career'
 import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
+import { diamondDA62Career } from '@/data/diamond-da62/career'
+import { visionJetG2Career } from '@/data/vision-jet-g2/career'
+import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
+import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs'
 import { cessna172Specs } from '@/data/cessna-172/specs'
 import { pilatusPc12Specs } from '@/data/pilatus-pc-12/specs'
+import { diamondDA62Specs } from '@/data/diamond-da62/specs'
+import { visionJetG2Specs } from '@/data/vision-jet-g2/specs'
+import { airbusA320neoSpecs } from '@/data/airbus-a320neo/specs'
+import { boeing737MaxSpecs } from '@/data/boeing-737-max/specs'
 import {
   getUserData,
   leaseAircraft,
@@ -34,12 +42,20 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
    */
   const getAircraftCareerData = (aircraftName) => {
     switch (aircraftName) {
-      case AircraftName.CessnaLongitude:
-        return cessnaLongitudeCareer
       case AircraftName.Cessna172:
         return cessna172Career
+      case AircraftName.DiamondDA62:
+        return diamondDA62Career
       case AircraftName.PilatusPC12:
         return pilatusPc12Career
+      case AircraftName.VisionJetG2:
+        return visionJetG2Career
+      case AircraftName.CessnaLongitude:
+        return cessnaLongitudeCareer
+      case AircraftName.AirbusA320neo:
+        return airbusA320neoCareer
+      case AircraftName.Boeing737Max:
+        return boeing737MaxCareer
       default:
         return null
     }
@@ -50,12 +66,20 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
    */
   const getAircraftSpecs = (aircraftName) => {
     switch (aircraftName) {
-      case AircraftName.CessnaLongitude:
-        return cessnaLongitudeSpecs
       case AircraftName.Cessna172:
         return cessna172Specs
+      case AircraftName.DiamondDA62:
+        return diamondDA62Specs
       case AircraftName.PilatusPC12:
         return pilatusPc12Specs
+      case AircraftName.VisionJetG2:
+        return visionJetG2Specs
+      case AircraftName.CessnaLongitude:
+        return cessnaLongitudeSpecs
+      case AircraftName.AirbusA320neo:
+        return airbusA320neoSpecs
+      case AircraftName.Boeing737Max:
+        return boeing737MaxSpecs
       default:
         return null
     }
@@ -101,8 +125,12 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
   const aircraftList = [
     AircraftName.Cessna172,
+    AircraftName.DiamondDA62,
     AircraftName.PilatusPC12,
-    AircraftName.CessnaLongitude
+    AircraftName.VisionJetG2,
+    AircraftName.CessnaLongitude,
+    AircraftName.AirbusA320neo,
+    AircraftName.Boeing737Max
   ]
 
   if (!userData) {
