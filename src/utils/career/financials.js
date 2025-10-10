@@ -133,3 +133,87 @@ export const calculateXP = (aircraft, jobType, range, duration, weather) => {
 
   return Math.round(totalXP)
 }
+
+/**
+ * Calculates maintenance issue cost for a flight (randomized based on occurrence chance)
+ * @param {string} aircraft - Aircraft name
+ * @param {boolean} forceIssue - If true, forces issues to occur at 100% chance (for testing purposes). Default is true.
+ *                                Set to false to use actual occurrence chances from career data.
+ * @returns {Object} Object containing total cost and breakdown of issues (max 4 issues)
+ * @example
+ * // For testing (100% chance of issues occurring)
+ * calculateMaintenanceIssueCost('A320NEO', true)
+ *
+ * // For production (uses actual chance percentages)
+ * calculateMaintenanceIssueCost('A320NEO', false)
+ */
+export const calculateMaintenanceIssueCost = (aircraft, forceIssue = true) => {
+  const careerData = getAircraftCareerData(aircraft)
+  const maintenanceIssues = careerData.costs.maintenance.issues
+  const severityMultipliers =
+    careerData.costs.maintenance.issueSeverityMultiplier
+
+  // Randomly decide how many issues will occur (1 to 4)
+  const numberOfIssues = Math.floor(Math.random() * 4) + 1
+
+  // Get all available issue types
+  const allIssueTypes = Object.entries(maintenanceIssues)
+
+  // Filter issues based on occurrence chance (or force all if forceIssue is true)
+  let eligibleIssues = allIssueTypes.filter(([issueType, issueData]) => {
+    const occurrenceChance = forceIssue ? 1 : issueData.chance
+    return Math.random() < occurrenceChance
+  })
+
+  // If no issues are eligible (unlikely in production, impossible in test mode), return empty
+  if (eligibleIssues.length === 0) {
+    return {
+      totalCost: 0,
+      issues: []
+    }
+  }
+
+  // Randomly select up to numberOfIssues from eligible issues
+  const selectedIssues = []
+  const issuesToSelect = Math.min(numberOfIssues, eligibleIssues.length)
+
+  // Shuffle and select random issues
+  const shuffledIssues = [...eligibleIssues].sort(() => Math.random() - 0.5)
+  const finalSelectedIssues = shuffledIssues.slice(0, issuesToSelect)
+
+  let totalCost = 0
+
+  // Calculate cost for each selected issue
+  finalSelectedIssues.forEach(([issueType, issueData]) => {
+    const { base } = issueData
+
+    // Randomly select severity level
+    const severityLevels = Object.keys(severityMultipliers)
+    const randomSeverity =
+      severityLevels[Math.floor(Math.random() * severityLevels.length)]
+    const severityRange = severityMultipliers[randomSeverity]
+
+    // Calculate random multiplier within severity range
+    const multiplier =
+      Math.random() * (severityRange.max - severityRange.min) +
+      severityRange.min
+
+    // Calculate final cost for this issue
+    const issueCost = base * multiplier
+
+    totalCost += issueCost
+
+    selectedIssues.push({
+      type: issueType,
+      severity: randomSeverity,
+      baseCost: base,
+      multiplier: Math.round(multiplier * 100) / 100,
+      cost: Math.round(issueCost * 100) / 100
+    })
+  })
+
+  return {
+    totalCost: Math.round(totalCost * 100) / 100,
+    issues: selectedIssues
+  }
+}

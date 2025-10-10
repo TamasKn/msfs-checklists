@@ -9,7 +9,8 @@ import {
   calculateBasePay,
   calculateBonus,
   calculateOperationCost,
-  calculateXP
+  calculateXP,
+  calculateMaintenanceIssueCost
 } from '@/utils/career/financials'
 import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { cessna172Career } from '@/data/cessna-172/career'
@@ -222,6 +223,14 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     const operationCost = calculateOperationCost(newFlight.aircraft, duration)
 
+    // Calculate maintenance issues (hidden cost)
+    // Set second parameter to true for testing (100% chance) or false for production (uses actual chances)
+    const maintenanceIssueResult = calculateMaintenanceIssueCost(
+      newFlight.aircraft,
+      true // Change to false for production mode
+    )
+    const maintenanceIssueCost = maintenanceIssueResult.totalCost
+
     const xp = calculateXP(
       newFlight.aircraft,
       newFlight.jobType,
@@ -230,7 +239,9 @@ export default function AddFlight({ onAddFlight, onCancel }) {
       newFlight.weather
     )
 
-    const totalReward = basePay + bonus - operationCost
+    // Total operation cost includes maintenance issues
+    const totalOperationCost = operationCost + maintenanceIssueCost
+    const totalReward = basePay + bonus - totalOperationCost
 
     // Get cost breakdown - round each component and adjust to match total
     const careerData = getAircraftCareerData(newFlight.aircraft)
@@ -254,14 +265,16 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     const breakdown = {
       lease: roundedLease,
       insurance: roundedInsurance,
-      maintenance: roundedMaintenance + difference
+      maintenance: roundedMaintenance + difference,
+      maintenanceIssues: maintenanceIssueCost,
+      maintenanceIssueDetails: maintenanceIssueResult.issues
     }
 
     // Set calculated financials
     setCalculatedFinancials({
       basePay,
       bonus,
-      operationCost,
+      operationCost: totalOperationCost,
       totalReward,
       xp,
       breakdown
