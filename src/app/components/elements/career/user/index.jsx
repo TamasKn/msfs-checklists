@@ -176,11 +176,6 @@ const UserComponent = forwardRef((props, ref) => {
               <div className="text-gray-500 text-xs">No aircraft leased</div>
             )}
           </div>
-          <p className="text-xs text-gray-500 mt-1">
-            {userData.leasedAircraft?.length > 0
-              ? 'Aircraft leased'
-              : 'No Aircraft'}
-          </p>
         </div>
       </div>
     </div>
