@@ -153,8 +153,8 @@ export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
   const severityMultipliers =
     careerData.costs.maintenance.issueSeverityMultiplier
 
-  // First check: 30% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
-  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.3
+  // First check: 17% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
+  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.17
   const hasMaintenanceIssue = Math.random() < maintenanceOccurrenceChance
 
   // If no maintenance issue occurs, return empty
