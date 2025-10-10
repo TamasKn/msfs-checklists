@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
 import UserComponent from '@/app/components/elements/career/user'
+import { updateUserAfterFlight } from '@/utils/career/user-data'
 
 const STORAGE_KEY = 'career_flight_history'
 
@@ -15,6 +16,8 @@ export default function CareerComponent() {
   const [showAddFlight, setShowAddFlight] = useState(false)
   const [flights, setFlights] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [userDataKey, setUserDataKey] = useState(0) // Key to force UserComponent re-render
+  const userComponentRef = useRef(null)
 
   // Load flights from localStorage on mount
   useEffect(() => {
@@ -43,13 +46,22 @@ export default function CareerComponent() {
   }, [flights, isLoading])
 
   /**
-   * Adds a new flight to the history
+   * Adds a new flight to the history and updates user data
    * @param {Object} newFlight - Flight data to add
    */
   const handleAddFlight = (newFlight) => {
     const newId =
       flights.length > 0 ? Math.max(...flights.map((f) => f.id)) + 1 : 1
+
+    // Add flight to history
     setFlights((prev) => [...prev, { id: newId, ...newFlight }])
+
+    // Update user funds and XP
+    updateUserAfterFlight(newFlight.totalReward, newFlight.xp)
+
+    // Force UserComponent to re-render by updating key
+    setUserDataKey((prev) => prev + 1)
+
     setShowAddFlight(false)
   }
 
@@ -149,7 +161,10 @@ export default function CareerComponent() {
           </div>
         </div>
 
-        <UserComponent />
+        {/* User Profile Section */}
+        <div className="mb-8">
+          <UserComponent key={userDataKey} ref={userComponentRef} />
+        </div>
 
         {/* Modal for Add Flight */}
         {showAddFlight && (

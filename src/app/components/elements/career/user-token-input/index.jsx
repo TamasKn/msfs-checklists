@@ -10,6 +10,7 @@ import axios from 'axios'
 export default function UserTokenInput({ onTokenSaved }) {
   const [showTokenInput, setShowTokenInput] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [userName, setUserName] = useState('')
   const [userToken, setUserToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -26,13 +27,26 @@ export default function UserTokenInput({ onTokenSaved }) {
 
   const handleTokenSave = () => {
     localStorage.setItem('user_token', userToken)
+
+    // Initialize user data with name, funds, and XP
+    const userData = {
+      name: userName,
+      funds: 0,
+      xp: 0
+    }
+    localStorage.setItem('user_data', JSON.stringify(userData))
+
     setShowTokenInput(false)
     onTokenSaved?.()
   }
 
-  const handleTokenInputChange = (e) => {
-    const { value } = e.target
-    setUserToken(value)
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    if (name === 'userName') {
+      setUserName(value)
+    } else if (name === 'userToken') {
+      setUserToken(value)
+    }
     setError('')
   }
 
@@ -42,6 +56,11 @@ export default function UserTokenInput({ onTokenSaved }) {
   }
 
   const authUser = async () => {
+    if (!userName.trim()) {
+      setError('Name is required')
+      return
+    }
+
     if (!userToken.trim()) {
       setError('Token is required')
       return
@@ -75,6 +94,30 @@ export default function UserTokenInput({ onTokenSaved }) {
   return (
     <div className="bg-gray-800/95 backdrop-blur-md border border-gray-700/50 rounded-2xl p-6 sm:p-8 shadow-2xl">
       <form onSubmit={handleTokenSubmit} className="flex flex-col gap-5">
+        {/* Name Input */}
+        <div>
+          <label
+            htmlFor="userName"
+            className="block text-sm font-semibold text-gray-200 mb-3"
+          >
+            Pilot Name
+          </label>
+          <input
+            type="text"
+            id="userName"
+            name="userName"
+            value={userName}
+            onChange={handleInputChange}
+            placeholder="Enter your pilot name"
+            className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            autoFocus
+          />
+          <p className="mt-2.5 text-xs text-gray-500">
+            This name will be displayed in your career profile.
+          </p>
+        </div>
+
+        {/* Token Input */}
         <div>
           <label
             htmlFor="userToken"
@@ -87,35 +130,36 @@ export default function UserTokenInput({ onTokenSaved }) {
             id="userToken"
             name="userToken"
             value={userToken}
-            onChange={handleTokenInputChange}
+            onChange={handleInputChange}
             placeholder="Enter your authentication token"
             className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-            autoFocus
           />
-          {error && (
-            <p className="mt-2.5 text-sm text-red-400 flex items-center gap-1.5">
-              <svg
-                className="w-4 h-4 flex-shrink-0"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              {error}
-            </p>
-          )}
           <p className="mt-2.5 text-xs text-gray-500">
             Your token is required to access career mode features and sync your flight data.
           </p>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <p className="text-sm text-red-400 flex items-center gap-1.5">
+            <svg
+              className="w-4 h-4 flex-shrink-0"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
-          disabled={isLoading || !userToken.trim()}
+          disabled={isLoading || !userName.trim() || !userToken.trim()}
           className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
         >
           {isLoading ? (
