@@ -78,6 +78,9 @@ export default function FlightHistory({ flights }) {
               <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Total
               </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                XP
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-700/30">
@@ -145,6 +148,11 @@ export default function FlightHistory({ flights }) {
                 <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-right">
                   <span className="text-green-400 font-mono">
                     ${flight.totalReward.toLocaleString()}
+                  </span>
+                </td>
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-right">
+                  <span className="text-indigo-400 font-semibold">
+                    {flight.xp ? flight.xp.toLocaleString() : '0'} XP
                   </span>
                 </td>
               </tr>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
+import UserComponent from '@/app/components/elements/career/user'
 
 const STORAGE_KEY = 'career_flight_history'
 
@@ -147,6 +148,8 @@ export default function CareerComponent() {
             </button>
           </div>
         </div>
+
+        <UserComponent />
 
         {/* Modal for Add Flight */}
         {showAddFlight && (
