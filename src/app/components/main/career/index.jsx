@@ -1,40 +1,50 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
-import { AircraftName } from '@/data/aircrafts/aircraft-names'
-import { JobType } from '@/data/career/jobs'
-import { WeatherType } from '@/data/career/weather'
 
-const initialFlights = [
-  {
-    id: 1,
-    startTime: '14:00',
-    jobType: JobType.Cargo,
-    departure: 'EGLL',
-    departureName: 'London Heathrow Airport',
-    destination: 'EHAM',
-    destinationName: 'Amsterdam Airport Schiphol',
-    aircraft: AircraftName.CessnaLongitude,
-    range: 230,
-    duration: 50,
-    weather: WeatherType.Clear,
-    base: 1500,
-    bonus: 200,
-    operationCost: 300,
-    totalReward: 1400
-  }
-]
+const STORAGE_KEY = 'career_flight_history'
 
 /**
  * CareerComponent - Main component for career mode
- * Manages flight history (authentication handled at page level)
+ * Manages flight history with localStorage persistence
  */
 export default function CareerComponent() {
   const [showAddFlight, setShowAddFlight] = useState(false)
-  const [flights, setFlights] = useState(initialFlights)
+  const [flights, setFlights] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
+  // Load flights from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedFlights = localStorage.getItem(STORAGE_KEY)
+      if (savedFlights) {
+        const parsedFlights = JSON.parse(savedFlights)
+        setFlights(parsedFlights)
+      }
+    } catch (error) {
+      console.error('Failed to load flight history:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  // Save flights to localStorage whenever they change
+  useEffect(() => {
+    if (!isLoading) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(flights))
+      } catch (error) {
+        console.error('Failed to save flight history:', error)
+      }
+    }
+  }, [flights, isLoading])
+
+  /**
+   * Adds a new flight to the history
+   * @param {Object} newFlight - Flight data to add
+   */
   const handleAddFlight = (newFlight) => {
     const newId =
       flights.length > 0 ? Math.max(...flights.map((f) => f.id)) + 1 : 1
@@ -42,9 +52,41 @@ export default function CareerComponent() {
     setShowAddFlight(false)
   }
 
+  /**
+   * Logs out the user
+   */
   const handleLogout = () => {
     localStorage.removeItem('user_token')
     window.location.reload()
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <svg
+            className="animate-spin h-12 w-12 mx-auto mb-4 text-indigo-500"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+          <p className="text-gray-400">Loading flight history...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -65,7 +107,7 @@ export default function CareerComponent() {
               onClick={handleLogout}
               className="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -86,7 +128,7 @@ export default function CareerComponent() {
               onClick={() => setShowAddFlight(true)}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 <svg
                   className="w-5 h-5"
                   fill="none"
