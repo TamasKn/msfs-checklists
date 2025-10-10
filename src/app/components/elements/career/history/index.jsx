@@ -57,28 +57,28 @@ export default function FlightHistory({ flights }) {
               <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Aircraft
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Range (NM)
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Range
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Duration (min)
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Duration
               </th>
               <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Weather
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Base
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Bonus
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Op. Cost
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Operation Cost
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Total
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Total Reward
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 XP
               </th>
             </tr>
@@ -128,10 +128,10 @@ export default function FlightHistory({ flights }) {
                   {flight.aircraft}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
-                  {flight.range}
+                  {flight.range} NM
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
-                  {flight.duration}
+                  {flight.duration} min
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400">
                   {flight.weather}
