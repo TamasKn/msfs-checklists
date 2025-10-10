@@ -177,16 +177,13 @@ export default function FinancialSummary({ financials, onConfirm }) {
                   </div>
                   <div>
                     <p className="text-sm text-orange-400 font-semibold">
-                      Maintenance Issues
+                      Additional Costs
                     </p>
                     <p className="text-xs text-orange-500/80">
                       Unexpected repairs required
                     </p>
                   </div>
                 </div>
-                <p className="text-2xl font-bold text-orange-400">
-                  -€{breakdown.maintenanceIssues.toLocaleString()}
-                </p>
               </div>
               {/* Issue Details */}
               {breakdown.maintenanceIssueDetails &&
