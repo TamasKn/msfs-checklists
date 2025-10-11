@@ -71,8 +71,8 @@ export const visionJetG2Career = {
     base: 1950, // base reward for a flight
     perDistance: 6.8, // per nautical mile
     bonus: {
-      min: 100, // minimum total
-      max: 1000, // maximum total
+      min: 2700, // minimum total
+      max: 5500, // maximum total
       xpMultiplier: 1.022 // multiplier for XP
     }
   },

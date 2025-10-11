@@ -71,8 +71,8 @@ export const boeing737MaxCareer = {
     base: 19200, // base reward for a flight
     perDistance: 19.8, // per nautical mile
     bonus: {
-      min: 2000, // minimum total
-      max: 7000, // maximum total
+      min: 3000, // minimum total
+      max: 11000, // maximum total
       xpMultiplier: 1.035 // multiplier for XP
     }
   },

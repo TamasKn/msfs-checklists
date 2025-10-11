@@ -71,8 +71,8 @@ export const airbusA320neoCareer = {
     base: 18500, // base reward for a flight
     perDistance: 18.2, // per nautical mile
     bonus: {
-      min: 2000, // minimum total
-      max: 7000, // maximum total
+      min: 3000, // minimum total
+      max: 11000, // maximum total
       xpMultiplier: 1.032 // multiplier for XP
     }
   },

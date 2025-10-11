@@ -71,8 +71,8 @@ export const pilatusPc12Career = {
     base: 2800, // base reward for a flight
     perDistance: 12.5, // per nautical mile
     bonus: {
-      min: 1000, // minimum total
-      max: 4500, // maximum total
+      min: 2000, // minimum total
+      max: 6300, // maximum total
       xpMultiplier: 1.022 // multiplier for XP
     }
   },

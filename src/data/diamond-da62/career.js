@@ -71,8 +71,8 @@ export const diamondDA62Career = {
     base: 850, // base reward for a flight
     perDistance: 4.2, // per nautical mile
     bonus: {
-      min: 80, // minimum total
-      max: 450, // maximum total
+      min: 2500, // minimum total
+      max: 4800, // maximum total
       xpMultiplier: 1.018 // multiplier for XP
     }
   },

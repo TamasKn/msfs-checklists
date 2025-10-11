@@ -71,8 +71,8 @@ export const cessnaLongitudeCareer = {
     base: 8200, // base reward for a flight
     perDistance: 9.35, // per nautical mile
     bonus: {
-      min: 1000, // minimum total
-      max: 4500, // maximum total
+      min: 2000, // minimum total
+      max: 7200, // maximum total
       xpMultiplier: 1.027 // multiplier for XP
     }
   },
