@@ -38,7 +38,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     destination: '',
     destinationName: '',
     aircraft: AircraftName.Cessna172,
-    range: 0,
+    range: 1,
     duration: 60,
     weather: WeatherType.Clear
   })
@@ -443,7 +443,8 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     label,
     type = 'text',
     placeholder = '',
-    additionalProps = {}
+    additionalProps = {},
+    info = ''
   ) => (
     <div>
       <label
@@ -464,6 +465,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
         } rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200`}
         {...additionalProps}
       />
+      {info && <p className="mt-1.5 text-xs text-gray-500">{info}</p>}
       {errors[name] && (
         <p className="mt-1.5 text-sm text-red-400 flex items-center gap-1">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -606,8 +608,8 @@ export default function AddFlight({ onAddFlight, onCancel }) {
             </div>
 
             {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
-            {renderAirportField('departure', 'Departure Airport')}
-            {renderAirportField('destination', 'Destination Airport')}
+            {renderAirportField('departure', 'Departure (ICAO)')}
+            {renderAirportField('destination', 'Destination (ICAO)')}
 
             {/* Aircraft - Only show leased aircraft */}
             <div>
@@ -638,13 +640,20 @@ export default function AddFlight({ onAddFlight, onCancel }) {
               )}
             </div>
             {renderInputField('range', 'Range (Nautical Mile)', 'number', '0', {
-              min: 0,
-              step: 0.1
-            })}
-            {renderInputField('duration', 'Duration (minutes)', 'number', '0', {
-              min: 60,
+              min: 1,
               step: 1
             })}
+            {renderInputField(
+              'duration',
+              'Duration (minutes)',
+              'number',
+              '0',
+              {
+                min: 60,
+                step: 1
+              },
+              'The minimum for a flight is 60 minutes.'
+            )}
             {renderSelectField(
               'weather',
               'Weather',
