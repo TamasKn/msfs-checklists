@@ -39,7 +39,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     destinationName: '',
     aircraft: AircraftName.Cessna172,
     range: 0,
-    duration: 0,
+    duration: 60,
     weather: WeatherType.Clear
   })
 
@@ -637,12 +637,12 @@ export default function AddFlight({ onAddFlight, onCancel }) {
                 </div>
               )}
             </div>
-            {renderInputField('range', 'Range (NM)', 'number', '0', {
+            {renderInputField('range', 'Range (Nautical Mile)', 'number', '0', {
               min: 0,
               step: 0.1
             })}
             {renderInputField('duration', 'Duration (minutes)', 'number', '0', {
-              min: 0,
+              min: 60,
               step: 1
             })}
             {renderSelectField(
