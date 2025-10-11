@@ -74,40 +74,40 @@ export default function FlightHistory({ flights }) {
         <table className="min-w-full divide-y divide-gray-700/50">
           <thead className="bg-gray-900/50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Time
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Job
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Route
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Aircraft
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Range
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Duration
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Weather
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Base
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Bonus
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Operation Cost
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Total Reward
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 XP
               </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
@@ -121,10 +121,10 @@ export default function FlightHistory({ flights }) {
                 key={flight.id}
                 className="hover:bg-gray-700/20 transition-colors duration-150"
               >
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300">
+                <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
                   {flight.startTime}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                <td className="px-4 py-4 text-center whitespace-nowrap text-sm">
                   <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getJobTypeColors(
                       flight.jobType
@@ -160,16 +160,16 @@ export default function FlightHistory({ flights }) {
                     )}
                   </div>
                 </td>
-                <td className="px-4 py-4 text-sm text-gray-300 max-w-xs truncate">
+                <td className="px-4 py-4 text-sm whitespace-nowrap text-gray-300 max-w-xs truncate">
                   {flight.aircraft}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
+                <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
                   {flight.range} NM
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-center">
                   {flight.duration} min
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-400 text-center">
                   {flight.weather}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right font-mono">
@@ -181,7 +181,7 @@ export default function FlightHistory({ flights }) {
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-red-400 text-right font-mono">
                   -€{flight.operationCost.toLocaleString()}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-base font-bold text-right">
+                <td className="px-4 py-4 whitespace-nowrap text-base font-bold text-center">
                   <span
                     className={`inline-flex items-center justify-center px-4 w-full py-1.5 rounded-lg font-mono font-bold border ${
                       flight.totalReward >= 0
@@ -193,7 +193,7 @@ export default function FlightHistory({ flights }) {
                     {Math.abs(flight.totalReward).toLocaleString()}
                   </span>
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-right">
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-center">
                   <span className="text-indigo-400 font-semibold">
                     {flight.xp ? flight.xp.toLocaleString() : '0'} XP
                   </span>
