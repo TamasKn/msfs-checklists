@@ -35,7 +35,7 @@ export const pilatusPc12Career = {
         },
         hydraulic: {
           base: 820,
-          chance: 0.30
+          chance: 0.3
         },
         pressurization: {
           base: 1100,
@@ -61,25 +61,6 @@ export const pilatusPc12Career = {
           base: 620,
           chance: 0.36
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -88,7 +69,6 @@ export const pilatusPc12Career = {
   },
   reward: {
     base: 2800, // base reward for a flight
-    perFlightHour: 35, // per flight hour
     perDistance: 12.5, // per nautical mile
     bonus: {
       min: 1000, // minimum total

@@ -35,7 +35,7 @@ export const cessnaLongitudeCareer = {
         },
         hydraulic: {
           base: 1450,
-          chance: 0.30
+          chance: 0.3
         },
         pressurization: {
           base: 1950,
@@ -51,7 +51,7 @@ export const cessnaLongitudeCareer = {
         },
         lights: {
           base: 620,
-          chance: 0.40
+          chance: 0.4
         },
         navigation: {
           base: 1850,
@@ -61,25 +61,6 @@ export const cessnaLongitudeCareer = {
           base: 1150,
           chance: 0.36
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -88,7 +69,6 @@ export const cessnaLongitudeCareer = {
   },
   reward: {
     base: 8200, // base reward for a flight
-    perFlightHour: 21.78, // per flight hour
     perDistance: 9.35, // per nautical mile
     bonus: {
       min: 1000, // minimum total

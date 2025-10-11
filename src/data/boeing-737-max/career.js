@@ -61,25 +61,6 @@ export const boeing737MaxCareer = {
           base: 2100,
           chance: 0.39
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -88,7 +69,6 @@ export const boeing737MaxCareer = {
   },
   reward: {
     base: 19200, // base reward for a flight
-    perFlightHour: 52.5, // per flight hour
     perDistance: 19.8, // per nautical mile
     bonus: {
       min: 2000, // minimum total

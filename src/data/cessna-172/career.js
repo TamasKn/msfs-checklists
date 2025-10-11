@@ -11,7 +11,7 @@ export const cessna172Career = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 3500,
-          chance: 0.20
+          chance: 0.2
         },
         landingGear: {
           base: 1200,
@@ -23,7 +23,7 @@ export const cessna172Career = {
         },
         wing: {
           base: 950,
-          chance: 0.30
+          chance: 0.3
         },
         empennage: {
           base: 650,
@@ -43,7 +43,7 @@ export const cessna172Career = {
         },
         interior: {
           base: 280,
-          chance: 0.40
+          chance: 0.4
         },
         lights: {
           base: 180,
@@ -57,25 +57,6 @@ export const cessna172Career = {
           base: 320,
           chance: 0.38
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -84,7 +65,6 @@ export const cessna172Career = {
   },
   reward: {
     base: 450, // base reward for a flight
-    perFlightHour: 15, // per flight hour
     perDistance: 3.5, // per nautical mile
     bonus: {
       min: 1000, // minimum total

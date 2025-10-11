@@ -19,7 +19,7 @@ export const diamondDA62Career = {
         },
         fuselage: {
           base: 1200,
-          chance: 0.30
+          chance: 0.3
         },
         wing: {
           base: 1400,
@@ -61,25 +61,6 @@ export const diamondDA62Career = {
           base: 420,
           chance: 0.37
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -88,7 +69,6 @@ export const diamondDA62Career = {
   },
   reward: {
     base: 850, // base reward for a flight
-    perFlightHour: 12.5, // per flight hour
     perDistance: 4.2, // per nautical mile
     bonus: {
       min: 80, // minimum total
@@ -102,4 +82,3 @@ export const diamondDA62Career = {
     perFlightHour: 4.2 // per flight hour
   }
 }
-

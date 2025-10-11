@@ -39,7 +39,7 @@ export const airbusA320neoCareer = {
         },
         pressurization: {
           base: 3100,
-          chance: 0.30
+          chance: 0.3
         },
         avionics: {
           base: 4800,
@@ -59,26 +59,7 @@ export const airbusA320neoCareer = {
         },
         communication: {
           base: 1800,
-          chance: 0.40
-        }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
+          chance: 0.4
         }
       }
     },
@@ -88,7 +69,6 @@ export const airbusA320neoCareer = {
   },
   reward: {
     base: 18500, // base reward for a flight
-    perFlightHour: 48.5, // per flight hour
     perDistance: 18.2, // per nautical mile
     bonus: {
       min: 2000, // minimum total

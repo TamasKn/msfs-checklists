@@ -27,7 +27,7 @@ export const visionJetG2Career = {
         },
         empennage: {
           base: 1600,
-          chance: 0.30
+          chance: 0.3
         },
         electrical: {
           base: 1150,
@@ -61,25 +61,6 @@ export const visionJetG2Career = {
           base: 780,
           chance: 0.35
         }
-      },
-      issueSeverityMultiplier: {
-        // multiplier for issue cost
-        minor: {
-          min: 0.7,
-          max: 1.1
-        },
-        medium: {
-          min: 1.1,
-          max: 1.4
-        },
-        major: {
-          min: 1.5,
-          max: 2.9
-        },
-        critical: {
-          min: 3,
-          max: 5
-        }
       }
     },
 
@@ -88,7 +69,6 @@ export const visionJetG2Career = {
   },
   reward: {
     base: 1950, // base reward for a flight
-    perFlightHour: 16.5, // per flight hour
     perDistance: 6.8, // per nautical mile
     bonus: {
       min: 100, // minimum total
