@@ -53,7 +53,7 @@ export default function FinancialSummary({
                 <div className="min-w-0">
                   <p className="text-xs sm:text-sm text-gray-400">Base Pay</p>
                   <p className="text-xs text-gray-500 hidden sm:block">
-                    Base + Flight Hours + Distance
+                    Flight Hours + Distance + Level Multipliers
                   </p>
                 </div>
               </div>
@@ -90,7 +90,7 @@ export default function FinancialSummary({
                 </div>
               </div>
               <p className="text-lg sm:text-2xl font-bold text-purple-400 flex-shrink-0">
-                +€{bonus.toLocaleString()}
+                €{bonus.toLocaleString()}
               </p>
             </div>
           </div>

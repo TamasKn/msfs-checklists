@@ -32,7 +32,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
   const [newFlight, setNewFlight] = useState({
     startTime: getCurrentTime(),
-    jobType: JobType.Cargo,
+    jobType: JobType.Charter,
     departure: '',
     departureName: '',
     destination: '',
@@ -227,6 +227,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     )
 
     const bonus = calculateBonus(
+      basePay,
       newFlight.aircraft,
       newFlight.jobType,
       range,
