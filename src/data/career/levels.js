@@ -111,130 +111,126 @@ export const ReputationTitles = {
 }
 
 /**
- * XP thresholds for each level (1-100)
+ * XP required for each level (1-100)
+ * Each level requires earning this amount of XP from zero
+ * XP resets after leveling up
  * Levels 1-39: Formula baseXP * (level ^ 1.5) * 1.43 (Base XP = 143)
- * Levels 40-100: Linear progression with ~1,900 XP increments to reach 150,000 at level 100
+ * Levels 40-100: Linear progression with ~1,900 XP increments
  */
 export const LevelThresholds = {
   1: 0,
   2: 405,
-  3: 887,
-  4: 1430,
-  5: 2022,
-  6: 2656,
-  7: 3323,
-  8: 4023,
-  9: 4748,
-  10: 5500,
-  11: 6276,
-  12: 7076,
-  13: 7896,
-  14: 8737,
-  15: 9598,
-  16: 10478,
-  17: 11376,
-  18: 12291,
-  19: 13223,
-  20: 14171,
-  21: 15135,
-  22: 16115,
-  23: 17109,
-  24: 18117,
-  25: 19139,
-  26: 20174,
-  27: 21223,
-  28: 22284,
-  29: 23358,
-  30: 24444,
-  31: 25544,
-  32: 26655,
-  33: 27779,
-  34: 28915,
-  35: 30061,
-  36: 31221,
-  37: 32392,
-  38: 33575,
-  39: 34769,
-  40: 35975,
-  41: 37875,
-  42: 39775,
-  43: 41675,
-  44: 43575,
-  45: 45475,
-  46: 47375,
-  47: 49275,
-  48: 51175,
-  49: 53075,
-  50: 54975,
-  51: 56875,
-  52: 58775,
-  53: 60675,
-  54: 62575,
-  55: 64475,
-  56: 66375,
-  57: 68275,
-  58: 70175,
-  59: 72075,
-  60: 73975,
-  61: 75875,
-  62: 77775,
-  63: 79675,
-  64: 81575,
-  65: 83475,
-  66: 85375,
-  67: 87275,
-  68: 89175,
-  69: 91075,
-  70: 92975,
-  71: 94875,
-  72: 96775,
-  73: 98675,
-  74: 100575,
-  75: 102475,
-  76: 104375,
-  77: 106275,
-  78: 108175,
-  79: 110075,
-  80: 111975,
-  81: 113875,
-  82: 115775,
-  83: 117675,
-  84: 119575,
-  85: 121475,
-  86: 123375,
-  87: 125275,
-  88: 127175,
-  89: 129075,
-  90: 130975,
-  91: 132875,
-  92: 134775,
-  93: 136675,
-  94: 138575,
-  95: 140475,
-  96: 142375,
-  97: 144275,
-  98: 146175,
-  99: 148075,
-  100: 150000
+  3: 482,
+  4: 543,
+  5: 592,
+  6: 634,
+  7: 667,
+  8: 700,
+  9: 725,
+  10: 752,
+  11: 776,
+  12: 800,
+  13: 820,
+  14: 841,
+  15: 861,
+  16: 880,
+  17: 898,
+  18: 915,
+  19: 932,
+  20: 948,
+  21: 964,
+  22: 980,
+  23: 994,
+  24: 1008,
+  25: 1022,
+  26: 1035,
+  27: 1049,
+  28: 1061,
+  29: 1074,
+  30: 1086,
+  31: 1100,
+  32: 1111,
+  33: 1124,
+  34: 1136,
+  35: 1146,
+  36: 1160,
+  37: 1171,
+  38: 1183,
+  39: 1194,
+  40: 1206,
+  41: 1900,
+  42: 1900,
+  43: 1900,
+  44: 1900,
+  45: 1900,
+  46: 1900,
+  47: 1900,
+  48: 1900,
+  49: 1900,
+  50: 1900,
+  51: 1900,
+  52: 1900,
+  53: 1900,
+  54: 1900,
+  55: 1900,
+  56: 1900,
+  57: 1900,
+  58: 1900,
+  59: 1900,
+  60: 1900,
+  61: 1900,
+  62: 1900,
+  63: 1900,
+  64: 1900,
+  65: 1900,
+  66: 1900,
+  67: 1900,
+  68: 1900,
+  69: 1900,
+  70: 1900,
+  71: 1900,
+  72: 1900,
+  73: 1900,
+  74: 1900,
+  75: 1900,
+  76: 1900,
+  77: 1900,
+  78: 1900,
+  79: 1900,
+  80: 1900,
+  81: 1900,
+  82: 1900,
+  83: 1900,
+  84: 1900,
+  85: 1900,
+  86: 1900,
+  87: 1900,
+  88: 1900,
+  89: 1900,
+  90: 1900,
+  91: 1900,
+  92: 1900,
+  93: 1900,
+  94: 1900,
+  95: 1900,
+  96: 1900,
+  97: 1900,
+  98: 1900,
+  99: 1900,
+  100: 1925
 }
 
 /**
- * Gets the current level based on XP
- * @param {number} xp - Current XP amount
+ * Gets the current level based on current XP in level
+ * Note: This function is no longer used with the new reset system
+ * Level is now stored directly in user data
+ * @param {number} currentXP - Current XP in the current level
+ * @param {number} currentLevel - Current level
  * @returns {number} Current level (1-100)
+ * @deprecated Use user data level directly
  */
-export const getLevelFromXP = (xp) => {
-  if (xp < 0) return 1
-
-  let level = 1
-  for (let i = 100; i >= 1; i--) {
-    if (xp >= LevelThresholds[i]) {
-      level = i
-      break
-    }
-  }
-
-  return level
+export const getLevelFromXP = (currentXP, currentLevel = 1) => {
+  return currentLevel
 }
 
 /**
@@ -248,34 +244,67 @@ export const getReputationTitle = (level) => {
 
 /**
  * Gets XP progress information for current level
- * @param {number} xp - Current XP amount
+ * @param {number} currentXP - Current XP in the current level (resets to 0 after level up)
+ * @param {number} currentLevel - Current level (1-100)
  * @returns {Object} Object containing level, title, current XP, next level XP, and progress percentage
  */
-export const getLevelProgress = (xp) => {
-  const currentLevel = getLevelFromXP(xp)
-  const currentLevelXP = LevelThresholds[currentLevel]
-  const nextLevel = Math.min(currentLevel + 1, 100)
-  const nextLevelXP = LevelThresholds[nextLevel]
-  const reputationTitle = getReputationTitle(currentLevel)
+export const getLevelProgress = (currentXP, currentLevel = 1) => {
+  const level = Math.max(1, Math.min(100, currentLevel))
+  const nextLevel = Math.min(level + 1, 100)
+  const xpNeededForNextLevel = LevelThresholds[nextLevel]
+  const reputationTitle = getReputationTitle(level)
 
   // Calculate progress percentage
-  const xpInCurrentLevel = xp - currentLevelXP
-  const xpNeededForNextLevel = nextLevelXP - currentLevelXP
   const progressPercentage =
-    currentLevel === 100
+    level === 100
       ? 100
-      : Math.min(100, (xpInCurrentLevel / xpNeededForNextLevel) * 100)
+      : Math.min(100, (currentXP / xpNeededForNextLevel) * 100)
 
   return {
-    level: currentLevel,
+    level,
     title: reputationTitle,
-    currentXP: xp,
-    currentLevelXP,
-    nextLevelXP,
-    xpInCurrentLevel,
+    currentXP,
+    currentLevelXP: 0, // Always starts from 0 in new system
+    nextLevelXP: xpNeededForNextLevel,
+    xpInCurrentLevel: currentXP,
     xpNeededForNextLevel,
     progressPercentage: Math.round(progressPercentage * 100) / 100,
-    isMaxLevel: currentLevel === 100
+    isMaxLevel: level === 100
+  }
+}
+
+/**
+ * Calculates level ups and remaining XP after earning XP
+ * @param {number} currentXP - Current XP in the current level
+ * @param {number} currentLevel - Current level
+ * @param {number} earnedXP - XP earned from flight
+ * @returns {Object} Object containing new level, new XP, and whether leveled up
+ */
+export const calculateLevelUp = (currentXP, currentLevel, earnedXP) => {
+  let level = Math.max(1, Math.min(100, currentLevel))
+  let xp = currentXP + earnedXP
+  let leveledUp = false
+  let levelsGained = 0
+
+  // Keep leveling up until XP is less than required for next level
+  while (level < 100 && xp >= LevelThresholds[level + 1]) {
+    xp -= LevelThresholds[level + 1]
+    level++
+    leveledUp = true
+    levelsGained++
+  }
+
+  // If at max level, cap XP at the requirement
+  if (level === 100) {
+    xp = Math.min(xp, LevelThresholds[100])
+  }
+
+  return {
+    newLevel: level,
+    newXP: xp,
+    leveledUp,
+    levelsGained,
+    previousLevel: currentLevel
   }
 }
 

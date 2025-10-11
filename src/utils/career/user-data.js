@@ -2,24 +2,30 @@
  * User data management utilities for career mode
  */
 
-import { getLevelProgress } from '@/data/career/levels'
+import { getLevelProgress, calculateLevelUp } from '@/data/career/levels'
 
 const USER_DATA_KEY = 'user_data'
 
 /**
  * Gets user data from localStorage
- * @returns {Object} User data object with name, funds, xp, and leasedAircraft
+ * @returns {Object} User data object with name, funds, xp, level, and leasedAircraft
  */
 export const getUserData = () => {
   try {
     const data = localStorage.getItem(USER_DATA_KEY)
     if (data) {
-      return JSON.parse(data)
+      const parsed = JSON.parse(data)
+      // Ensure level exists (for backward compatibility)
+      if (!parsed.level) {
+        parsed.level = 1
+      }
+      return parsed
     }
     return {
       name: '',
       funds: 0,
       xp: 0,
+      level: 1,
       leasedAircraft: []
     }
   } catch (error) {
@@ -28,6 +34,7 @@ export const getUserData = () => {
       name: '',
       funds: 0,
       xp: 0,
+      level: 1,
       leasedAircraft: []
     }
   }
@@ -47,30 +54,43 @@ export const saveUserData = (userData) => {
 
 /**
  * Updates user funds and XP after a flight
+ * Handles level ups and XP reset
  * @param {number} reward - Total reward from flight
- * @param {number} xp - XP earned from flight
- * @returns {Object} Updated user data
+ * @param {number} earnedXP - XP earned from flight
+ * @returns {Object} Updated user data with level up information
  */
-export const updateUserAfterFlight = (reward, xp) => {
+export const updateUserAfterFlight = (reward, earnedXP) => {
   const userData = getUserData()
-  
-  // Update funds and XP
+
+  // Update funds
   userData.funds = (userData.funds || 0) + reward
-  userData.xp = (userData.xp || 0) + xp
-  
+
+  // Calculate level up
+  const currentXP = userData.xp || 0
+  const currentLevel = userData.level || 1
+  const levelUpResult = calculateLevelUp(currentXP, currentLevel, earnedXP)
+
+  // Update XP and level
+  userData.xp = levelUpResult.newXP
+  userData.level = levelUpResult.newLevel
+
   // Save updated data
   saveUserData(userData)
-  
-  return userData
+
+  return {
+    ...userData,
+    levelUpInfo: levelUpResult
+  }
 }
 
 /**
- * Resets user funds and XP (keeps name and leased aircraft)
+ * Resets user funds, XP, and level (keeps name and leased aircraft)
  */
 export const resetUserProgress = () => {
   const userData = getUserData()
   userData.funds = 0
   userData.xp = 0
+  userData.level = 1
   saveUserData(userData)
   return userData
 }
@@ -129,11 +149,10 @@ export const getLeasedAircraft = () => {
  */
 export const getUserDataWithLevel = () => {
   const userData = getUserData()
-  const levelInfo = getLevelProgress(userData.xp || 0)
+  const levelInfo = getLevelProgress(userData.xp || 0, userData.level || 1)
 
   return {
     ...userData,
-    level: levelInfo.level,
     reputationTitle: levelInfo.title,
     levelProgress: levelInfo
   }

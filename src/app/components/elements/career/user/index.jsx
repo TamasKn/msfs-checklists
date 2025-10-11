@@ -12,6 +12,7 @@ const UserComponent = forwardRef((props, ref) => {
     name: '',
     funds: 0,
     xp: 0,
+    level: 1,
     leasedAircraft: []
   })
   const [levelInfo, setLevelInfo] = useState(null)
@@ -34,8 +35,8 @@ const UserComponent = forwardRef((props, ref) => {
     const data = getUserData()
     setUserData(data)
 
-    // Calculate level information
-    const levelData = getLevelProgress(data.xp || 0)
+    // Calculate level information with new system
+    const levelData = getLevelProgress(data.xp || 0, data.level || 1)
     setLevelInfo(levelData)
   }
 

@@ -5,6 +5,7 @@ import AddFlight from '@/app/components/elements/career/add-flight'
 import FlightHistory from '@/app/components/elements/career/history'
 import UserComponent from '@/app/components/elements/career/user'
 import LeaseAircraft from '@/app/components/elements/career/lease-aircraft'
+import LevelUpNotification from '@/app/components/elements/career/level-up-notification'
 import { updateUserAfterFlight } from '@/utils/career/user-data'
 
 const STORAGE_KEY = 'career_flight_history'
@@ -19,6 +20,7 @@ export default function CareerComponent() {
   const [flights, setFlights] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [userDataKey, setUserDataKey] = useState(0) // Key to force UserComponent re-render
+  const [levelUpInfo, setLevelUpInfo] = useState(null)
   const userComponentRef = useRef(null)
 
   // Load flights from localStorage on mount
@@ -58,8 +60,13 @@ export default function CareerComponent() {
     // Add flight to history
     setFlights((prev) => [...prev, { id: newId, ...newFlight }])
 
-    // Update user funds and XP
-    updateUserAfterFlight(newFlight.totalReward, newFlight.xp)
+    // Update user funds and XP (returns level up info)
+    const result = updateUserAfterFlight(newFlight.totalReward, newFlight.xp)
+
+    // Show level up notification if leveled up
+    if (result.levelUpInfo && result.levelUpInfo.leveledUp) {
+      setLevelUpInfo(result.levelUpInfo)
+    }
 
     // Force UserComponent to re-render by updating key
     setUserDataKey((prev) => prev + 1)
@@ -220,6 +227,14 @@ export default function CareerComponent() {
 
         {/* Flight History Section */}
         <FlightHistory flights={flights} />
+
+        {/* Level Up Notification */}
+        {levelUpInfo && levelUpInfo.leveledUp && (
+          <LevelUpNotification
+            levelUpInfo={levelUpInfo}
+            onClose={() => setLevelUpInfo(null)}
+          />
+        )}
       </div>
     </div>
   )
