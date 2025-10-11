@@ -2,9 +2,10 @@
 
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { getUserData } from '@/utils/career/user-data'
+import { getLevelProgress } from '@/data/career/levels'
 
 /**
- * UserComponent - Displays user profile with name, funds, and XP
+ * UserComponent - Displays user profile with name, funds, XP, level, and reputation
  */
 const UserComponent = forwardRef((props, ref) => {
   const [userData, setUserData] = useState({
@@ -13,6 +14,7 @@ const UserComponent = forwardRef((props, ref) => {
     xp: 0,
     leasedAircraft: []
   })
+  const [levelInfo, setLevelInfo] = useState(null)
 
   useEffect(() => {
     loadUserData()
@@ -31,6 +33,10 @@ const UserComponent = forwardRef((props, ref) => {
   const loadUserData = () => {
     const data = getUserData()
     setUserData(data)
+
+    // Calculate level information
+    const levelData = getLevelProgress(data.xp || 0)
+    setLevelInfo(levelData)
   }
 
   /**
@@ -66,10 +72,21 @@ const UserComponent = forwardRef((props, ref) => {
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="text-2xl font-bold text-white">
-            {userData.name || 'Pilot'}
-          </h2>
-          <p className="text-sm text-gray-400">Career Pilot</p>
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-white">
+              {userData.name || 'Pilot'}
+            </h2>
+            {levelInfo && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-yellow-600/30 to-amber-600/30 text-yellow-300 border border-yellow-500/50">
+                Level {levelInfo.level}
+              </span>
+            )}
+          </div>
+          {levelInfo && (
+            <p className="text-sm text-purple-400 font-medium mt-1">
+              {levelInfo.title}
+            </p>
+          )}
         </div>
       </div>
 
@@ -138,7 +155,30 @@ const UserComponent = forwardRef((props, ref) => {
           <p className="text-2xl font-bold text-indigo-400">
             {userData.xp.toLocaleString()} XP
           </p>
-          <p className="text-xs text-gray-500 mt-1">Total experience earned</p>
+          {levelInfo && !levelInfo.isMaxLevel && (
+            <div className="mt-3">
+              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <span>Level {levelInfo.level}</span>
+                <span>Level {levelInfo.level + 1}</span>
+              </div>
+              <div className="w-full bg-gray-700/50 rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${levelInfo.progressPercentage}%` }}
+                />
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                {levelInfo.xpInCurrentLevel.toLocaleString()} /{' '}
+                {levelInfo.xpNeededForNextLevel.toLocaleString()} XP (
+                {levelInfo.progressPercentage.toFixed(1)}%)
+              </p>
+            </div>
+          )}
+          {levelInfo && levelInfo.isMaxLevel && (
+            <p className="text-xs text-yellow-400 mt-1 font-semibold">
+              ⭐ Max Level Reached!
+            </p>
+          )}
         </div>
 
         {/* Leased Aircraft */}

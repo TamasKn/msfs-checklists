@@ -2,6 +2,8 @@
  * User data management utilities for career mode
  */
 
+import { getLevelProgress } from '@/data/career/levels'
+
 const USER_DATA_KEY = 'user_data'
 
 /**
@@ -121,3 +123,18 @@ export const getLeasedAircraft = () => {
   return userData.leasedAircraft || []
 }
 
+/**
+ * Gets user data with level information
+ * @returns {Object} User data object with level info included
+ */
+export const getUserDataWithLevel = () => {
+  const userData = getUserData()
+  const levelInfo = getLevelProgress(userData.xp || 0)
+
+  return {
+    ...userData,
+    level: levelInfo.level,
+    reputationTitle: levelInfo.title,
+    levelProgress: levelInfo
+  }
+}
