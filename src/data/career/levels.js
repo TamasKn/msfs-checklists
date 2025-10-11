@@ -221,16 +221,15 @@ export const LevelThresholds = {
 }
 
 /**
- * Gets the current level based on current XP in level
- * Note: This function is no longer used with the new reset system
- * Level is now stored directly in user data
- * @param {number} currentXP - Current XP in the current level
+ * Gets the current level and calculates the bonus multiplier
  * @param {number} currentLevel - Current level
  * @returns {number} Current level (1-100)
- * @deprecated Use user data level directly
  */
-export const getLevelFromXP = (currentXP, currentLevel = 1) => {
-  return currentLevel
+export const calculateLevelBonus = (currentLevel = 1) => {
+  const levelThreshold = LevelThresholds[currentLevel]
+  const bonus = currentLevel > 1 ? levelThreshold / 1e4 : 0
+
+  return Math.round(bonus * 1e4) / 1e4
 }
 
 /**

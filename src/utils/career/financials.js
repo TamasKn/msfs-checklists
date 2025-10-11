@@ -8,6 +8,8 @@ import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { WeatherBonus } from '@/data/career/weather'
 import { JobBonusMultiplier } from '@/data/career/jobs'
+import { getUserData } from '@/utils/career/user-data'
+import { calculateLevelBonus } from '@/data/career/levels'
 
 /**
  * Get career data for a specific aircraft
@@ -45,17 +47,21 @@ const getAircraftCareerData = (aircraftName) => {
  */
 export const calculateBasePay = (aircraft, jobType, range, duration) => {
   const careerData = getAircraftCareerData(aircraft)
+  const userData = getUserData()
   const flightHours = duration / 60
+  const levelMultiplier = calculateLevelBonus(userData.level)
 
   // Base reward per hour + (per flight hour * hours) + (per distance * range)
   const basePay = careerData.reward.base * flightHours
   const distancePay = careerData.reward.perDistance * range
+  const levelPay = basePay * levelMultiplier
 
-  return Math.round((basePay + distancePay) * 100) / 100
+  return Math.round((basePay + distancePay + levelPay) * 100) / 100
 }
 
 /**
  * Calculates bonus for a flight (randomized, for entire flight)
+ * @param {number} base - calculated base pay
  * @param {string} aircraft - Aircraft name
  * @param {string} jobType - Job type (Cargo, Charter, Airline)
  * @param {number} range - Flight range in nautical miles
@@ -63,13 +69,23 @@ export const calculateBasePay = (aircraft, jobType, range, duration) => {
  * @param {string} weather - Weather type
  * @returns {number} Bonus amount
  */
-export const calculateBonus = (aircraft, jobType, range, duration, weather) => {
+export const calculateBonus = (
+  base,
+  aircraft,
+  jobType,
+  range,
+  duration,
+  weather
+) => {
   const careerData = getAircraftCareerData(aircraft)
 
   // Random bonus for the entire flight (not multiplied by hours)
   const minBonus = careerData.reward.bonus.min
   const maxBonus = careerData.reward.bonus.max
+  // Random bonus divided base on base pay, either fix amount (below 50k) or percentage
   const randomBonus = Math.random() * (maxBonus - minBonus) + minBonus
+  const bonusMultiplier =
+    base > 50000 ? base * (randomBonus / 1e5) : randomBonus
 
   // Apply weather multiplier
   const weatherMultiplier = WeatherBonus[weather] || 1
@@ -77,7 +93,7 @@ export const calculateBonus = (aircraft, jobType, range, duration, weather) => {
   // Apply job type multiplier
   const jobMultiplier = JobBonusMultiplier[jobType] || 1
 
-  const totalBonus = randomBonus * weatherMultiplier * jobMultiplier
+  const totalBonus = bonusMultiplier * weatherMultiplier * jobMultiplier
 
   return Math.round(totalBonus * 100) / 100
 }

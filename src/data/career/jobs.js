@@ -1,11 +1,11 @@
 export const JobType = {
-  Cargo: 'Cargo',
   Charter: 'Charter',
+  Cargo: 'Cargo',
   Airline: 'Airline'
 }
 
 export const JobBonusMultiplier = {
-  Cargo: 1.017,
-  Charter: 1.021,
-  Airline: 1.027
+  Cargo: 1.043,
+  Charter: 1.051,
+  Airline: 1.062
 }
