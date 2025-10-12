@@ -150,14 +150,14 @@ export const calculateXP = (aircraft, jobType, range, duration, weather) => {
 /**
  * Calculates maintenance issue cost for a flight (randomized based on occurrence chance)
  * @param {string} aircraft - Aircraft name
- * @param {boolean} forceIssue - If true, forces issues to occur at 100% chance (for testing purposes). Default is true.
- *                                Set to false to use actual 30% occurrence chance.
- * @returns {Object} Object containing total cost and breakdown of issues (max 4 issues)
+ * @param {boolean} forceIssue - If true, forces issues to occur at 100% chance (for testing purposes). Default is false.
+ *                                Set to false to use actual 27% occurrence chance.
+ * @returns {Object} Object containing total cost and breakdown of issues (1 to 5 issues)
  * @example
  * // For testing (100% chance of issues occurring)
  * calculateMaintenanceIssueCost('A320NEO', true)
  *
- * // For production (30% chance that any issue will occur)
+ * // For production (27% chance that any issue will occur)
  * calculateMaintenanceIssueCost('A320NEO', false)
  */
 
@@ -181,14 +181,38 @@ const issueSeverityMultiplier = {
   }
 }
 
+/**
+ * Finds the closest matching issue based on a random number and issue chances
+ * @param {Array} allIssues - Array of [issueType, issueData] entries
+ * @param {number} randomNumber - Random number between 0 and 1
+ * @returns {Array|null} The closest matching issue entry or null
+ */
+const findClosestIssue = (allIssues, randomNumber) => {
+  let closestIssue = null
+  let smallestDifference = Infinity
+
+  allIssues.forEach((issue) => {
+    const [issueType, issueData] = issue
+    const difference = Math.abs(issueData.chance - randomNumber)
+
+    if (difference < smallestDifference) {
+      smallestDifference = difference
+      closestIssue = issue
+    }
+  })
+
+  return closestIssue
+}
+
 export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
   const careerData = getAircraftCareerData(aircraft)
   const maintenanceIssues = careerData.costs.maintenance.issues
   const severityMultipliers = issueSeverityMultiplier
 
-  // First check: 27% chance that ANY maintenance issue will occur (or 100% if forceIssue is true)
-  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.27
-  const hasMaintenanceIssue = Math.random() < maintenanceOccurrenceChance
+  // Step 1: Check if ANY maintenance issue will occur (17% chance or 100% if forced)
+  const maintenanceOccurrenceChance = forceIssue ? 1 : 0.17
+  const occurrenceRandom = Math.random()
+  const hasMaintenanceIssue = occurrenceRandom < maintenanceOccurrenceChance
 
   // If no maintenance issue occurs, return empty
   if (!hasMaintenanceIssue) {
@@ -198,63 +222,62 @@ export const calculateMaintenanceIssueCost = (aircraft, forceIssue = false) => {
     }
   }
 
-  // If maintenance issue occurs, randomly decide how many issues (1 to 5)
+  // Step 2: Determine how many issues will occur (1 to 5)
   const numberOfIssues = Math.floor(Math.random() * 5) + 1
 
-  // Get all available issue types
+  // Step 3: Get all available issue types
   const allIssueTypes = Object.entries(maintenanceIssues)
 
-  // Filter issues based on their individual occurrence chance
-  let eligibleIssues = allIssueTypes.filter(([issueType, issueData]) => {
-    return Math.random() < issueData.chance
-  })
+  // Step 4: Generate random numbers and find closest matching issues
+  const selectedIssues = []
+  const usedIssueTypes = new Set() // Track used issues to avoid duplicates
 
-  // If no issues are eligible after filtering, return empty
-  if (eligibleIssues.length === 0) {
-    return {
-      totalCost: 0,
-      issues: []
+  for (let i = 0; i < numberOfIssues; i++) {
+    const randomNumber = Math.random()
+
+    // Filter out already used issues
+    const availableIssues = allIssueTypes.filter(
+      ([issueType]) => !usedIssueTypes.has(issueType)
+    )
+
+    // If no more available issues, break
+    if (availableIssues.length === 0) {
+      break
+    }
+
+    // Find the closest matching issue based on the random number
+    const closestIssue = findClosestIssue(availableIssues, randomNumber)
+
+    if (closestIssue) {
+      const [issueType, issueData] = closestIssue
+      usedIssueTypes.add(issueType)
+
+      // Randomly select severity level
+      const severityLevels = Object.keys(severityMultipliers)
+      const randomSeverity =
+        severityLevels[Math.floor(Math.random() * severityLevels.length)]
+      const severityRange = severityMultipliers[randomSeverity]
+
+      // Calculate random multiplier within severity range
+      const multiplier =
+        Math.random() * (severityRange.max - severityRange.min) +
+        severityRange.min
+
+      // Calculate final cost for this issue
+      const issueCost = issueData.base * multiplier
+
+      selectedIssues.push({
+        type: issueType,
+        severity: randomSeverity,
+        baseCost: issueData.base,
+        multiplier: Math.round(multiplier * 100) / 100,
+        cost: Math.round(issueCost * 100) / 100
+      })
     }
   }
 
-  // Randomly select up to numberOfIssues from eligible issues
-  const selectedIssues = []
-  const issuesToSelect = Math.min(numberOfIssues, eligibleIssues.length)
-
-  // Shuffle and select random issues
-  const shuffledIssues = [...eligibleIssues].sort(() => Math.random() - 0.5)
-  const finalSelectedIssues = shuffledIssues.slice(0, issuesToSelect)
-
-  let totalCost = 0
-
-  // Calculate cost for each selected issue
-  finalSelectedIssues.forEach(([issueType, issueData]) => {
-    const { base } = issueData
-
-    // Randomly select severity level
-    const severityLevels = Object.keys(severityMultipliers)
-    const randomSeverity =
-      severityLevels[Math.floor(Math.random() * severityLevels.length)]
-    const severityRange = severityMultipliers[randomSeverity]
-
-    // Calculate random multiplier within severity range
-    const multiplier =
-      Math.random() * (severityRange.max - severityRange.min) +
-      severityRange.min
-
-    // Calculate final cost for this issue
-    const issueCost = base * multiplier
-
-    totalCost += issueCost
-
-    selectedIssues.push({
-      type: issueType,
-      severity: randomSeverity,
-      baseCost: base,
-      multiplier: Math.round(multiplier * 100) / 100,
-      cost: Math.round(issueCost * 100) / 100
-    })
-  })
+  // Calculate total cost
+  const totalCost = selectedIssues.reduce((sum, issue) => sum + issue.cost, 0)
 
   return {
     totalCost: Math.round(totalCost * 100) / 100,
