@@ -18,6 +18,9 @@ import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
 import FinancialSummary from '@/app/components/elements/career/financial-summary'
 import { getLeasedAircraft } from '@/utils/career/user-data'
 
+const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
+const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
+
 /**
  * AddFlight - Modal component for adding new flight entries
  * @param {Function} onAddFlight - Callback when flight is added
@@ -30,18 +33,37 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     return now.toTimeString().slice(0, 5)
   }
 
-  const [newFlight, setNewFlight] = useState({
-    startTime: getCurrentTime(),
-    jobType: JobType.Charter,
-    departure: '',
-    departureName: '',
-    destination: '',
-    destinationName: '',
-    aircraft: AircraftName.Cessna172,
-    range: 1,
-    duration: 60,
-    weather: WeatherType.Clear
-  })
+  let initFlight = {}
+
+  if (isTest) {
+    initFlight = {
+      startTime: getCurrentTime(),
+      jobType: JobType.Charter,
+      departure: 'EHAM',
+      departureName: 'AMSTERDAM',
+      destination: 'KLAX',
+      destinationName: 'LA',
+      aircraft: AircraftName.CessnaLongitude,
+      range: 2500,
+      duration: 182,
+      weather: WeatherType.Clear
+    }
+  } else {
+    initFlight = {
+      startTime: getCurrentTime(),
+      jobType: JobType.Charter,
+      departure: '',
+      departureName: '',
+      destination: '',
+      destinationName: '',
+      aircraft: AircraftName.Cessna172,
+      range: 1,
+      duration: 60,
+      weather: WeatherType.Clear
+    }
+  }
+
+  const [newFlight, setNewFlight] = useState(initFlight)
 
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -239,7 +261,8 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     // Calculate maintenance issues (hidden cost)
     const maintenanceIssueResult = calculateMaintenanceIssueCost(
-      newFlight.aircraft
+      newFlight.aircraft,
+      isIssueForced
     )
     const maintenanceIssueCost = maintenanceIssueResult.totalCost
 
