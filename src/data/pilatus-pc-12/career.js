@@ -11,7 +11,7 @@ export const pilatusPc12Career = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 8500,
-          chance: 0.18
+          chance: 0.008
         },
         landingGear: {
           base: 2800,

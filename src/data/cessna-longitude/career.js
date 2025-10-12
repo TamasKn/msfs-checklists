@@ -11,7 +11,7 @@ export const cessnaLongitudeCareer = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 18000,
-          chance: 0.16
+          chance: 0.008
         },
         landingGear: {
           base: 5200,

@@ -11,7 +11,7 @@ export const diamondDA62Career = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 5500,
-          chance: 0.19
+          chance: 0.018
         },
         landingGear: {
           base: 1800,

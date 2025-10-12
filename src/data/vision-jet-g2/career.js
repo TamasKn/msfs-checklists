@@ -11,7 +11,7 @@ export const visionJetG2Career = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 12000,
-          chance: 0.17
+          chance: 0.007
         },
         landingGear: {
           base: 3500,

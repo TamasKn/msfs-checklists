@@ -11,7 +11,7 @@ export const boeing737MaxCareer = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 32000,
-          chance: 0.14
+          chance: 0.008
         },
         landingGear: {
           base: 9500,

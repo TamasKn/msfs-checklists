@@ -11,7 +11,7 @@ export const airbusA320neoCareer = {
         // possible issues, cost and chance of occurring
         engine: {
           base: 28000,
-          chance: 0.15
+          chance: 0.007
         },
         landingGear: {
           base: 8200,
