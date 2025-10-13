@@ -13,6 +13,13 @@ export default function LevelUpNotification({ levelUpInfo, onClose }) {
   const [mounted, setMounted] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
+  const handleClose = () => {
+    setIsVisible(false)
+    setTimeout(() => {
+      onClose()
+    }, 300)
+  }
+
   useEffect(() => {
     setMounted(true)
     // Trigger slide-in animation after mount
@@ -35,13 +42,6 @@ export default function LevelUpNotification({ levelUpInfo, onClose }) {
 
   const { newLevel, levelsGained } = levelUpInfo
   const reputationTitle = getReputationTitle(newLevel)
-
-  const handleClose = () => {
-    setIsVisible(false)
-    setTimeout(() => {
-      onClose()
-    }, 300)
-  }
 
   return createPortal(
     <div
