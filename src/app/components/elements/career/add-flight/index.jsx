@@ -21,6 +21,7 @@ import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
 import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import FinancialSummary from '@/app/components/elements/career/financial-summary'
 import { getLeasedAircraft } from '@/utils/career/user-data'
+import { Aircrafts } from '@/data/aircrafts/aircrafts'
 
 const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
 const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
@@ -59,8 +60,8 @@ export default function AddFlight({ onAddFlight, onCancel }) {
       destination: 'KLAX',
       destinationName: 'LA',
       aircraft: AircraftName.CessnaLongitude,
-      range: 2500,
-      duration: 182,
+      range: 7555,
+      duration: 1455,
       weather: WeatherType.Clear
     }
   } else {
@@ -106,24 +107,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
    * Get aircraft career data
    */
   const getAircraftCareerData = (aircraftName) => {
-    switch (aircraftName) {
-      case AircraftName.CessnaLongitude:
-        return cessnaLongitudeCareer
-      case AircraftName.Cessna172:
-        return cessna172Career
-      case AircraftName.PilatusPC12:
-        return pilatusPc12Career
-      case AircraftName.DiamondDA62:
-        return diamondDA62Career
-      case AircraftName.VisionJetG2:
-        return visionJetG2Career
-      case AircraftName.AirbusA320neo:
-        return airbusA320neoCareer
-      case AircraftName.Boeing737Max:
-        return boeing737MaxCareer
-      default:
-        return cessnaLongitudeCareer
-    }
+    return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.career
   }
 
   /**
