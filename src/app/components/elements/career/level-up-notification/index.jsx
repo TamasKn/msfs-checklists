@@ -77,9 +77,9 @@ export default function LevelUpNotification({ levelUpInfo, onClose }) {
           <div className="flex-shrink-0">
             <div className="relative">
               <div className="absolute inset-0 bg-blue-500 rounded-full blur-md opacity-50" />
-              <div className="relative bg-gradient-to-br from-gray-700 to-gray-800 p-3 rounded-full">
+              <div className="relative p-3 bg-indigo-500/20 p-2 rounded-lg">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-7 h-7 text-indigo-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -88,7 +88,7 @@ export default function LevelUpNotification({ levelUpInfo, onClose }) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
               </div>
