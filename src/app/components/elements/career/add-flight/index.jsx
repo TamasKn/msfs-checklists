@@ -767,7 +767,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
                       d="M12 4v16m8-8H4"
                     />
                   </svg>
-                  Add Flight
+                  Confirm Flight
                 </span>
               )}
             </button>
