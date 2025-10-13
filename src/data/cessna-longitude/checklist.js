@@ -4,6 +4,10 @@ export const cessnaLongitudeChecklist = {
   name: AircraftName.CessnaLongitude,
   checklist: [
     {
+      title: 'MISC',
+      items: [{ 'Flight Plan': 'Imported & Sent' }, { 'Timer': 'STARTED' }]
+    },
+    {
       title: 'Pre-Flight',
       items: [
         { 'Battery Master': 'ON' },
@@ -27,33 +31,30 @@ export const cessnaLongitudeChecklist = {
         { 'Throttles': 'IDLE' },
         { 'Engine Start Switch': 'ENG 1 (Monitor N2)' },
         { 'N2 Above 20%': 'Move ENG 1 to RUN' },
-        { 'Repeat for ENG 2': '' },
+        { 'Repeat for ENG 2': 'CHECK' },
         { 'Generators': 'ON' },
         { 'APU': 'OFF (if used)' }
       ]
     },
     {
-      title: 'G5000 PERF',
+      title: 'Takeoff PERF (G5000)',
       items: [
         { 'Weight and Fuel': 'TAKEOFF FOB sync' },
         { 'FLAP Speeds': 'CHECK' },
         { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
         { 'Takeoff Config': 'SET displayed Flap' },
         { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
-        { 'Speed Bugs': 'ALL, IF NOT DISPLAYED' }
-      ]
-    },
-    {
-      title: 'G5000 INIT',
-      items: [
-        { 'Flight Initialization': 'All Checked' },
-        { 'INIT': 'ACCEPTED' }
+        { 'INIT': 'ALL CHECKED & ACCEPTED' },
+        {
+          'Altimeter Transition': 'SET to Regional',
+          'info': 'BARO transitions: Utilities/Setup/Avionics/Alerts'
+        }
       ]
     },
     {
       title: 'Before Taxi',
       items: [
-        { 'Flight Plan': 'VERIFIED' },
+        { 'Flight Plan': 'DEPARTURE VERIFIED' },
         { 'Trim': 'SET for Takeoff (~ +40%)' },
         { 'Flaps': 'SET for Takeoff' },
         { 'Altitude': 'SET -> FLC' },
@@ -64,35 +65,36 @@ export const cessnaLongitudeChecklist = {
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
-        { 'Lights (Taxi, Rec, AC, WI, TF, PS/SB, EM)': 'ON' }
+        { 'EMERGENCY Light': 'ARMED' },
+        { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
       ]
     },
     {
       title: 'Taxi',
       items: [
-        { 'Parking Brake': 'RELEASE' },
         { 'Taxi Clearance': 'OBTAINED' },
+        { 'Parking Brake': 'RELEASE' },
         { 'Brakes & Steering': 'CHECK' },
         { 'Flight Controls': 'CHECK' }
       ]
     },
     {
-      title: 'Before Takeoff',
+      title: 'Before Takeoff (Hold Short)',
       items: [
         { 'Runway Clearance': 'OBTAINED' },
-        { 'Runway Alignment': 'CONFIRM' },
         { 'Flaps': 'CHECK' },
         { 'Trim': 'CHECK' },
-        { 'Heading Bug': 'SET' },
         { 'Speed Indicators': 'CHECK' },
         { 'LDG, Pulse Lights': 'ON' },
         { 'Taxi, WI Lights': 'OFF' }
       ]
     },
     {
-      title: 'Takeoff',
+      title: 'Takeoff (Runway)',
       items: [
-        { 'Clearance': 'OBTAINED' },
+        { 'Departure Clearance': 'OBTAINED' },
+        { 'Runway Alignment': 'CONFIRM' },
+        { 'Heading Bug': 'SET' },
         { 'Throttles': 'TOGA' },
         { 'Positive Rate': 'GEAR UP' },
         { 'Climb Power': 'SET' },
@@ -106,7 +108,7 @@ export const cessnaLongitudeChecklist = {
         { 'Landing Lights': 'OFF' },
         { 'Autopilot': 'MONITOR' },
         { 'Cruise Altitude': 'SET' },
-        { 'BARO (see regional alt)': 'SET to STD' }
+        { 'BARO': 'SET to STD' }
       ]
     },
     {
@@ -116,6 +118,10 @@ export const cessnaLongitudeChecklist = {
         { 'Power Settings': 'CHECK' },
         { 'Fuel Balance': 'MONITOR' },
         { 'BARO': 'SET destination value' },
+        {
+          'Flight Plan': 'APPROACH VERIFIED / SET',
+          'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
+        },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
         { 'Speed Constraints': 'IAF (~200 KTS) to FAF (~140 KTS)' },
         { 'Altitude Constraints': 'FIX FAF to Signal altitude' },
@@ -123,11 +129,10 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'G5000 PERF',
+      title: 'Landing PERF (G5000)',
       items: [
         { 'Landing Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'FLAP Speeds': 'CHECK' },
-        { 'Landing Config': 'SET displayed Flap' },
+        { 'Landing Config': 'CHECK' },
         { 'Landing Data': 'ACCEPT Landing Speeds' }
       ]
     },
@@ -138,8 +143,7 @@ export const cessnaLongitudeChecklist = {
         { 'ATIS & Weather': 'CHECK' },
         { 'Landing PERF': 'SET' },
         { 'SPD KNOB': 'FMS' },
-        { 'BARO (see regional alt)': 'ARM destination value' },
-        { 'Approach': 'APPR (GS) stdby' },
+        { 'BARO': 'SET destination' },
         { 'WI, PS/SB Lights': 'ON' }
       ]
     },
@@ -147,12 +151,14 @@ export const cessnaLongitudeChecklist = {
       title: 'Approach (BOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
+
         { 'Landing Lights': 'ON' },
         { 'Altitude': 'MONITOR' },
         { 'Flaps': 'AS REQUIRED' },
         { 'Speed': 'MANAGE' },
+        { 'Approach': 'APPR (GP) stdby at IAF' },
         { 'CDI Source': 'CONFIRM FMS/LOC' },
-        { 'Approach': 'GS armed at BOD' },
+        { 'GLIDEPATH': 'ARMED at FAF' },
         { 'Gear': 'DOWN at FAF' }
       ]
     },
@@ -164,9 +170,9 @@ export const cessnaLongitudeChecklist = {
         { 'Speed': 'VREF' },
         { 'AP & AT': 'DISCONNECT' },
         { 'Throttles': 'IDLE at 50 ft' },
-        { 'Touchdown': 'MAIN GEARS FIRST' },
-        { 'Braking': 'APPLY' },
-        { 'Reverse Thrust': 'AS NEEDED' }
+        { 'Touchdown': 'RETARD at 10 ft' },
+        { 'Reverse Thrust': 'AS NEEDED' },
+        { 'Braking': 'APPLY' }
       ]
     },
     {
