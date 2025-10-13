@@ -12,6 +12,8 @@ import { airbusA320neoSpecs } from '@/data/airbus-a320neo/specs'
 import { airbusA320neoChecklist } from '@/data/airbus-a320neo/checklist'
 import { boeing737MaxSpecs } from '@/data/boeing-737-max/specs'
 import { boeing737MaxChecklist } from '@/data/boeing-737-max/checklist'
+import { beechcraftKingAir350Specs } from '@/data/beechcraft-king-air-350/specs'
+import { beechcraftKingAir350Checklist } from '@/data/beechcraft-king-air-350/checklist'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { cessna172Career } from '@/data/cessna-172/career'
 import { diamondDA62Career } from '@/data/diamond-da62/career'
@@ -20,6 +22,7 @@ import { visionJetG2Career } from '@/data/vision-jet-g2/career'
 import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
 import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
+import { beechcraftKingAir350Career } from '@/data/beechcraft-king-air-350/career'
 
 export const Aircrafts = [
   {
@@ -63,5 +66,11 @@ export const Aircrafts = [
     specs: boeing737MaxSpecs,
     checklist: boeing737MaxChecklist,
     career: boeing737MaxCareer
+  },
+  {
+    name: AircraftName.BeechcraftKingAir350,
+    specs: beechcraftKingAir350Specs,
+    checklist: beechcraftKingAir350Checklist,
+    career: beechcraftKingAir350Career
   }
 ]
