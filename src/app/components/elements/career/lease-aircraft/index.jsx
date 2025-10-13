@@ -2,13 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
-import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
-import { cessna172Career } from '@/data/cessna-172/career'
-import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
-import { diamondDA62Career } from '@/data/diamond-da62/career'
-import { visionJetG2Career } from '@/data/vision-jet-g2/career'
-import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
-import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs'
 import { cessna172Specs } from '@/data/cessna-172/specs'
 import { pilatusPc12Specs } from '@/data/pilatus-pc-12/specs'
@@ -21,6 +14,7 @@ import {
   leaseAircraft,
   hasLeasedAircraft
 } from '@/utils/career/user-data'
+import { Aircrafts } from '@/data/aircrafts/aircrafts'
 
 /**
  * LeaseAircraft - Component for leasing aircraft
@@ -37,52 +31,20 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
     setUserData(data)
   }, [])
 
+  const aircraftList = Aircrafts.map((aircraft) => aircraft.name)
+
   /**
    * Gets aircraft career data
    */
   const getAircraftCareerData = (aircraftName) => {
-    switch (aircraftName) {
-      case AircraftName.Cessna172:
-        return cessna172Career
-      case AircraftName.DiamondDA62:
-        return diamondDA62Career
-      case AircraftName.PilatusPC12:
-        return pilatusPc12Career
-      case AircraftName.VisionJetG2:
-        return visionJetG2Career
-      case AircraftName.CessnaLongitude:
-        return cessnaLongitudeCareer
-      case AircraftName.AirbusA320neo:
-        return airbusA320neoCareer
-      case AircraftName.Boeing737Max:
-        return boeing737MaxCareer
-      default:
-        return null
-    }
+    return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.career
   }
 
   /**
    * Gets aircraft specs data
    */
   const getAircraftSpecs = (aircraftName) => {
-    switch (aircraftName) {
-      case AircraftName.Cessna172:
-        return cessna172Specs
-      case AircraftName.DiamondDA62:
-        return diamondDA62Specs
-      case AircraftName.PilatusPC12:
-        return pilatusPc12Specs
-      case AircraftName.VisionJetG2:
-        return visionJetG2Specs
-      case AircraftName.CessnaLongitude:
-        return cessnaLongitudeSpecs
-      case AircraftName.AirbusA320neo:
-        return airbusA320neoSpecs
-      case AircraftName.Boeing737Max:
-        return boeing737MaxSpecs
-      default:
-        return null
-    }
+    return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.specs
   }
 
   /**
@@ -122,16 +84,6 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
     setShowConfirmation(false)
     setSelectedAircraft(null)
   }
-
-  const aircraftList = [
-    AircraftName.Cessna172,
-    AircraftName.DiamondDA62,
-    AircraftName.PilatusPC12,
-    AircraftName.VisionJetG2,
-    AircraftName.CessnaLongitude,
-    AircraftName.AirbusA320neo,
-    AircraftName.Boeing737Max
-  ]
 
   if (!userData) {
     return null
