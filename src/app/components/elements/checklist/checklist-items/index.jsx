@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Tooltip from '@/app/components/micro/info-hover'
 
 const CheckmarkIcon = () => (
   <svg
@@ -176,6 +177,7 @@ export default function ChecklistItems({ checklist }) {
                     {section.items.map((item, itemIndex) => {
                       const [key, value] = Object.entries(item)[0]
                       const checkboxId = `${index}-${itemIndex}`
+                      const info = item?.info
                       return (
                         <li key={itemIndex} className="flex items-center">
                           <input
@@ -191,8 +193,9 @@ export default function ChecklistItems({ checklist }) {
                             htmlFor={checkboxId}
                             className="ml-3 flex-1 text-sm sm:text-base md:text-lg flex justify-between text-gray-700 dark:text-gray-300 gap-2"
                           >
-                            <span className="font-medium uppercase text-left break-words">
-                              {key}
+                            <span className="font-medium uppercase flex items-center text-left break-words">
+                              {key}{' '}
+                              <span>{info && <Tooltip text={info} />}</span>
                             </span>
                             <span className="font-medium text-gray-900 dark:text-white text-right break-words">
                               {value}
