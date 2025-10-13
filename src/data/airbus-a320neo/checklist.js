@@ -19,7 +19,7 @@ export const airbusA320neoChecklist = {
       ]
     },
     {
-      title: 'Before Start',
+      title: 'Before Engine Start',
       items: [
         { 'Beacon': 'ON' },
         { 'Doors': 'CLOSED' },
@@ -193,4 +193,3 @@ export const airbusA320neoChecklist = {
     }
   ]
 }
-

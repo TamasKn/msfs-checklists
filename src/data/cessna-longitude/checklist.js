@@ -8,32 +8,47 @@ export const cessnaLongitudeChecklist = {
       items: [{ 'Flight Plan': 'Imported & Sent' }, { 'Timer': 'STARTED' }]
     },
     {
-      title: 'Pre-Flight',
+      title: 'Cold & Dark',
       items: [
-        { 'Battery Master': 'ON' },
-        { 'External Power': 'CONNECT (if needed)' },
-        { 'Avionics Master': 'ON' },
-        { 'Fuel Quantity': 'CHECK' },
-        { 'IRS Alignment': 'CONFIRM' },
-        { 'FMS Flight Plan': 'LOAD' },
-        { 'NAV Radios': 'SET' },
-        { 'Altimeter': 'SET (BARO)' },
-        { 'Flaps': 'CHECK & SET for Takeoff' },
-        { 'Flight Controls': 'FREE & CORRECT' }
+        { 'STBY PWR': 'TEST and Hold (Green light for min 10 sec)' },
+        { 'STBY PWR': 'ON' },
+        { 'EMER LTS': 'ARM' },
+        { 'LANDING GEAR Handle': 'DOWN' },
+        { 'L BATT & R BATT': 'ON, Check Volts' },
+        { 'EIS/CAS': 'CHECK' },
+        { 'Power Source': 'As Desired (one of the following)' },
+        { 'Option A: External Power': '' },
+        { '--- EXT PWR Button (if AVAIL)': 'ON' },
+        { '--- BATT Amps (both)': '0 or Charging' },
+        { 'Option B: APU': '' },
+        { '--- APU Knob': 'START for 1 sec & ON' },
+        { '--- APU Bleed': 'NORM' },
+        { '--- APU GEN ON': 'CHECK' },
+        { '--- External Power': 'Disconnected' },
+        { '--- BATT Amps (both)': '0 or Charging' },
+        { 'Exterior/Interior Lights': 'As Required' }
       ]
     },
     {
-      title: 'Engine Start',
+      title: 'Before Engine Start',
       items: [
-        { 'Beacon Light': 'ON' },
-        { 'Parking Brake': 'SET' },
-        { 'Fuel Pumps': 'AUTO' },
+        { 'START CLEARANCE': 'OBTAINED' },
         { 'Throttles': 'IDLE' },
-        { 'Engine Start Switch': 'ENG 1 (Monitor N2)' },
-        { 'N2 Above 20%': 'Move ENG 1 to RUN' },
-        { 'Repeat for ENG 2': 'CHECK' },
-        { 'Generators': 'ON' },
-        { 'APU': 'OFF (if used)' }
+        { 'PARKING BRAKE': 'SET' },
+        { 'CABIN DOOR': 'CLOSED' },
+        { 'EIS/CAS': 'Check' }
+      ]
+    },
+    {
+      title: 'Engine Start (APU)',
+      items: [
+        { 'R ENGINE RUN/STOP Button': 'RUN' },
+        { 'R ENGINE STARTER Button': 'PUSH & HOLD until illuminated' },
+        { 'Engine Instruments': 'Monitor (N1, ITT, N2, FUEL OIL)' },
+        { 'START Pressure': 'Verify >= 32 PSI' },
+        { 'R ENGINE': 'Repeat Steps 1 thru 3' },
+        { 'EIS/CAS': 'CHECK' },
+        { 'APU MAIN Switch': 'OFF' }
       ]
     },
     {
@@ -65,7 +80,7 @@ export const cessnaLongitudeChecklist = {
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
-        { 'EMERGENCY Light': 'ARMED' },
+        { 'EMER LTS': 'ARMED' },
         { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
       ]
     },

@@ -4,7 +4,7 @@ export const boeing737MaxChecklist = {
   name: AircraftName.Boeing737Max,
   checklist: [
     {
-      title: 'Preflight',
+      title: 'Pre-Flight',
       items: [
         { 'Battery Switch': 'ON' },
         { 'Standby Power': 'AUTO' },
@@ -196,4 +196,3 @@ export const boeing737MaxChecklist = {
     }
   ]
 }
-

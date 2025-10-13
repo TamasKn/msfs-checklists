@@ -23,6 +23,12 @@ import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 
 export const Aircrafts = [
   {
+    name: AircraftName.CessnaLongitude,
+    specs: cessnaLongitudeSpecs,
+    checklist: cessnaLongitudeChecklist,
+    career: cessnaLongitudeCareer
+  },
+  {
     name: AircraftName.Cessna172,
     specs: cessna172Specs,
     checklist: cessna172Checklist,
@@ -45,12 +51,6 @@ export const Aircrafts = [
     specs: visionJetG2Specs,
     checklist: visionJetG2Checklist,
     career: visionJetG2Career
-  },
-  {
-    name: AircraftName.CessnaLongitude,
-    specs: cessnaLongitudeSpecs,
-    checklist: cessnaLongitudeChecklist,
-    career: cessnaLongitudeCareer
   },
   {
     name: AircraftName.AirbusA320neo,
