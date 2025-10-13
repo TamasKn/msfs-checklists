@@ -78,6 +78,9 @@ export default function FlightHistory({ flights }) {
                 Time
               </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                Date
+              </th>
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Job
               </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
@@ -123,6 +126,13 @@ export default function FlightHistory({ flights }) {
               >
                 <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
                   {flight.startTime}
+                </td>
+                <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
+                  {flight.startDate ? (
+                    flight.startDate
+                  ) : (
+                    <span className="text-gray-600 text-xs">N/A</span>
+                  )}
                 </td>
                 <td className="px-4 py-4 text-center whitespace-nowrap text-sm">
                   <span

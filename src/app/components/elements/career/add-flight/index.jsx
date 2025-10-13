@@ -37,11 +37,22 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     return now.toTimeString().slice(0, 5)
   }
 
+  const getCurrentDate = () => {
+    const now = new Date()
+    return now.toLocaleDateString('en-GB', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    })
+  }
+
   let initFlight = {}
 
   if (isTest) {
     initFlight = {
       startTime: getCurrentTime(),
+      startDate: getCurrentDate(),
       jobType: JobType.Charter,
       departure: 'EHAM',
       departureName: 'AMSTERDAM',
@@ -55,6 +66,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   } else {
     initFlight = {
       startTime: getCurrentTime(),
+      startDate: getCurrentDate(),
       jobType: JobType.Charter,
       departure: '',
       departureName: '',
@@ -612,16 +624,16 @@ export default function AddFlight({ onAddFlight, onCancel }) {
             {/* Start Time - Auto-filled, read-only */}
             <div>
               <label className="block text-sm font-semibold text-gray-200 mb-2">
-                Start Time (Auto-filled)
+                Start Date and Time (Auto-filled)
               </label>
-              <div className="relative">
+              <div className="relative flex items-center gap-2">
                 <input
                   type="text"
                   value={newFlight.startTime}
                   readOnly
-                  className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+                  className="block w-[6rem] bg-gray-900/50 border pl-8 border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
                 />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
                   <svg
                     className="w-5 h-5 text-gray-500"
                     fill="none"
@@ -636,9 +648,15 @@ export default function AddFlight({ onAddFlight, onCancel }) {
                     />
                   </svg>
                 </div>
+                <input
+                  type="text"
+                  value={newFlight.startDate}
+                  readOnly
+                  className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+                />
               </div>
               <p className="mt-1.5 text-xs text-gray-500">
-                Current time is automatically recorded
+                Current date and time is automatically recorded
               </p>
             </div>
 
