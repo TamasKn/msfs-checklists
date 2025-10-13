@@ -4,7 +4,7 @@ export const beechcraftKingAir350Checklist = {
   name: AircraftName.BeechcraftKingAir350,
   checklist: [
     {
-      title: 'Pre-Flight / Before Engine Start',
+      title: 'Before Engine Start',
       items: [
         { 'Preflight Inspection': 'COMPLETE' },
         { 'Parking Brake': 'SET' },
@@ -64,7 +64,11 @@ export const beechcraftKingAir350Checklist = {
     },
     {
       title: 'After Takeoff',
-      items: [{ 'Landing Gear': 'UP' }, { Flaps: 'UP' }, { 'Climb Power': 'SET' }]
+      items: [
+        { 'Landing Gear': 'UP' },
+        { Flaps: 'UP' },
+        { 'Climb Power': 'SET' }
+      ]
     },
     {
       title: 'Climb',
