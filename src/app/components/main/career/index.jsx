@@ -49,6 +49,18 @@ export default function CareerComponent() {
     }
   }, [flights, isLoading])
 
+  // Add/remove modal-open class to body when modals are open
+  useEffect(() => {
+    if (showAddFlight || showLeaseAircraft) {
+      document.body.classList.add('modal-open')
+    } else {
+      document.body.classList.remove('modal-open')
+    }
+    return () => {
+      document.body.classList.remove('modal-open')
+    }
+  }, [showAddFlight, showLeaseAircraft])
+
   /**
    * Adds a new flight to the history and updates user data
    * @param {Object} newFlight - Flight data to add
@@ -215,7 +227,7 @@ export default function CareerComponent() {
 
         {/* Modal for Add Flight */}
         {showAddFlight && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+          <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-4">
             <AddFlight
               onAddFlight={handleAddFlight}
               onCancel={() => setShowAddFlight(false)}

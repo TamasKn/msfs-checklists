@@ -17,7 +17,7 @@ export default function FinancialSummary({
     financials
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex justify-center items-center z-50 p-2 sm:p-4 animate-fadeIn overflow-y-auto">
+    <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-2 sm:p-4 animate-fadeIn">
       <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-2xl w-full my-4 sm:my-8 max-h-[95vh] flex flex-col animate-slideUp">
         {/* Header with shine effect - Sticky */}
         <div className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-4 sm:p-6 overflow-hidden flex-shrink-0 rounded-t-2xl">

@@ -23,6 +23,13 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
     setUserData(data)
   }, [])
 
+  useEffect(() => {
+    document.body.classList.add('modal-open')
+    return () => {
+      document.body.classList.remove('modal-open')
+    }
+  }, [])
+
   const aircraftList = [...Aircrafts]
     .sort(
       (a, b) => a.career.costs.leasePriceBase - b.career.costs.leasePriceBase
@@ -92,8 +99,8 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex justify-center items-center z-50 p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-6xl w-full my-4 sm:my-8 max-h-[95vh] flex flex-col">
+    <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-2 sm:p-4 nimate-fadeIn">
+      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-6xl w-full my-4 sm:my-8 max-h-[95vh] flex flex-col animate-slideUp">
         {/* Header - Sticky */}
         <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-4 sm:p-6 border-b border-gray-700/50 rounded-t-2xl flex-shrink-0 z-10">
           <div className="flex items-center justify-between gap-2">
@@ -244,7 +251,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
       {/* Confirmation Modal */}
       {showConfirmation && selectedAircraft && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-[60] p-4">
+        <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-[60] p-4">
           <div className="bg-gray-800 rounded-xl border border-indigo-500/50 shadow-2xl max-w-md w-full p-4 sm:p-6">
             <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
               Confirm Aircraft Lease
