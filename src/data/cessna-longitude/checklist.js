@@ -8,7 +8,7 @@ export const cessnaLongitudeChecklist = {
       items: [{ 'Flight Plan': 'Imported & Sent' }, { 'Timer': 'STARTED' }]
     },
     {
-      title: 'Cold & Dark',
+      title: 'Cockpit Preparation',
       items: [
         { 'STBY PWR': 'TEST and Hold (Green light for min 10 sec)' },
         { 'STBY PWR': 'ON' },
@@ -40,7 +40,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Engine Start (APU)',
+      title: 'Engine Start',
       items: [
         { 'R ENGINE RUN/STOP Button': 'RUN' },
         { 'R ENGINE STARTER Button': 'PUSH & HOLD until illuminated' },
@@ -57,7 +57,7 @@ export const cessnaLongitudeChecklist = {
         { 'Weight and Fuel': 'TAKEOFF FOB sync' },
         { 'FLAP Speeds': 'CHECK' },
         { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Takeoff Config': 'SET displayed Flap' },
+        { 'Takeoff Config': 'SET recommended Flap' },
         { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
         { 'INIT': 'ALL CHECKED & ACCEPTED' },
         {
@@ -70,8 +70,7 @@ export const cessnaLongitudeChecklist = {
       title: 'Before Taxi',
       items: [
         { 'Flight Plan': 'DEPARTURE VERIFIED' },
-        { 'Trim': 'SET for Takeoff (~ +40%)' },
-        { 'Flaps': 'SET for Takeoff' },
+        { 'Trim': 'SET for Takeoff (STAB green)' },
         { 'Altitude': 'SET -> FLC' },
         { 'Navigation': 'SET -> NAV/HDG' },
         { 'SPD KNOB': 'FMS' },
@@ -101,7 +100,7 @@ export const cessnaLongitudeChecklist = {
         { 'Trim': 'CHECK' },
         { 'Speed Indicators': 'CHECK' },
         { 'LDG, Pulse Lights': 'ON' },
-        { 'Taxi, WI Lights': 'OFF' }
+        { 'Taxi Lights': 'OFF' }
       ]
     },
     {
@@ -112,7 +111,6 @@ export const cessnaLongitudeChecklist = {
         { 'Heading Bug': 'SET' },
         { 'Throttles': 'TOGA' },
         { 'Positive Rate': 'GEAR UP' },
-        { 'Climb Power': 'SET' },
         { 'AP & AT': 'ENGAGE, AS REQ' },
         { 'Flaps': 'RETRACT at Safe Speed' }
       ]
@@ -138,7 +136,7 @@ export const cessnaLongitudeChecklist = {
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
-        { 'Speed Constraints': 'IAF (~200 KTS) to FAF (~140 KTS)' },
+        { 'Speed Constraints': 'IAF (~175 KTS) to FAF (~130 KTS)' },
         { 'Altitude Constraints': 'FIX FAF to Signal altitude' },
         { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' }
       ]
@@ -156,10 +154,9 @@ export const cessnaLongitudeChecklist = {
       items: [
         { 'Clearance': 'OBTAINED' },
         { 'ATIS & Weather': 'CHECK' },
-        { 'Landing PERF': 'SET' },
         { 'SPD KNOB': 'FMS' },
-        { 'BARO': 'SET destination' },
-        { 'WI, PS/SB Lights': 'ON' }
+        { 'BARO': 'ARM destination' },
+        { 'PS/SB Lights': 'ON' }
       ]
     },
     {
@@ -174,7 +171,7 @@ export const cessnaLongitudeChecklist = {
         { 'Approach': 'APPR (GP) stdby at IAF' },
         { 'CDI Source': 'CONFIRM FMS/LOC' },
         { 'GLIDEPATH': 'ARMED at FAF' },
-        { 'Gear': 'DOWN at FAF' }
+        { 'Gear': 'DOWN by FAF' }
       ]
     },
     {
@@ -203,12 +200,15 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Shutdown',
       items: [
+        { 'Throttles': 'IDLE' },
         { 'Parking Brake': 'SET' },
-        { 'Avionics Master': 'OFF' },
-        { 'Fuel Pumps': 'OFF' },
-        { 'Throttles': 'CUTOFF' },
-        { 'Lights': 'OFF' },
-        { 'Battery Master': 'OFF' }
+        { 'Engine Ice Protection': 'OFF' },
+        { 'L & R Engine': 'STOP' },
+        { 'EM LTS': 'OFF' },
+        { 'STBY PWR': 'OFF' },
+        { 'APU MAIN': 'OFF' },
+        { 'Exterior Lights': 'OFF' },
+        { 'L & R BATT': 'OFF' }
       ]
     }
   ]

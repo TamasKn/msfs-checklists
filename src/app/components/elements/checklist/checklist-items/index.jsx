@@ -40,12 +40,10 @@ export default function ChecklistItems({ checklist }) {
 
   // List of sections to skip when auto engine start/shutdown checked
   const autoEngineStartSkipList = [
-    'Cold & Dark',
     'Cockpit Preparation',
     'Pre-Flight',
     'Before Engine Start',
     'Engine Start',
-    'Engine Start (APU)',
     'Shutdown'
   ]
 
