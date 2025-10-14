@@ -23,7 +23,11 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
     setUserData(data)
   }, [])
 
-  const aircraftList = Aircrafts.map((aircraft) => aircraft.name)
+  const aircraftList = [...Aircrafts]
+    .sort(
+      (a, b) => a.career.costs.leasePriceBase - b.career.costs.leasePriceBase
+    )
+    .map((aircraft) => aircraft.name)
 
   /**
    * Gets aircraft career data
