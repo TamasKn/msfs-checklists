@@ -7,10 +7,10 @@ export const cessnaLongitudeSpecs = {
       title: 'Limits & Specs',
       items: [
         {
-          'Maximum Operating Altitude': '45,000 ft'
+          'Max Operating Altitude': '45,000 ft'
         },
         {
-          'Maximum Takeoff and Landing Altitude Limit': '14,000 ft'
+          'Max Takeoff and Landing Altitude Limit': '14,000 ft'
         },
         {
           'Cruise Speed': '320 KIAS'
@@ -25,19 +25,19 @@ export const cessnaLongitudeSpecs = {
         { 'VFE (Flaps 2)': '230 KIAS' },
         { 'VFE (Flaps Full)': '180 KIAS' },
         {
-          'Maximum Landing Sink Rate': '600 ft/min'
+          'Max Landing Sink Rate': '600 ft/min'
         },
         {
-          'Maximum Tire Groundspeed': '195 KNT'
+          'Max Tire Groundspeed': '195 KNT'
         },
         {
           'Payload': '4,000 lb | 1814 kg'
         },
         {
-          'Maximum Takeoff Weight': '39,500 lb | 17915 kg'
+          'Max Takeoff Weight': '39,500 lb | 17915 kg'
         },
         {
-          'Maximum Landing Weight': '33,500 lb | 15195 kg'
+          'Max Landing Weight': '33,500 lb | 15195 kg'
         },
         {
           'Fuel Capacity': '14,593 lb | 6619 kg'

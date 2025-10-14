@@ -8,7 +8,7 @@ export const diamondDA62Specs = {
       items: [
         { 'Cruise Speed': '192 KIAS' },
         { 'Range': '1,285 NM' },
-        { 'Maximum Operating Altitude': '20,000 ft' },
+        { 'Max Operating Altitude': '20,000 ft' },
         { 'Rate of Climb': '1,350 ft/min' },
         { 'VMO': '188 KIAS' },
         { 'MMO': '0' },
@@ -23,4 +23,3 @@ export const diamondDA62Specs = {
     }
   ]
 }
-

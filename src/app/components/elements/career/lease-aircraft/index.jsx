@@ -7,7 +7,6 @@ import {
   hasLeasedAircraft
 } from '@/utils/career/user-data'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
-import { fillCacheWithNewSubTreeDataButOnlyLoading } from 'next/dist/client/components/router-reducer/fill-cache-with-new-subtree-data'
 
 /**
  * LeaseAircraft - Component for leasing aircraft

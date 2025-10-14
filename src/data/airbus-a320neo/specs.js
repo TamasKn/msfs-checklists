@@ -6,7 +6,7 @@ export const airbusA320neoSpecs = {
     {
       title: 'Limits & Specs',
       items: [
-        { 'Maximum Operating Altitude': '39,800 ft' },
+        { 'Max Operating Altitude': '39,800 ft' },
         { 'Cruise Speed': '450 KIAS' },
         { 'Range': '3,400 NM' },
         { 'Rate of Climb': '2,500 ft/min' },
@@ -17,7 +17,7 @@ export const airbusA320neoSpecs = {
         { 'VFE (Config 2)': '200 KIAS' },
         { 'VFE (Config 3)': '185 KIAS' },
         { 'VFE (Config Full)': '177 KIAS' },
-        { 'Maximum Landing Sink Rate': '600 ft/min' },
+        { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '164,000 lb' },
         { 'Fuel Capacity': '6,400 gal (usable)' },
         { 'Stall Speed': '108 KCAS' }
@@ -25,4 +25,3 @@ export const airbusA320neoSpecs = {
     }
   ]
 }
-

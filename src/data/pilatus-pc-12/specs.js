@@ -8,7 +8,7 @@ export const pilatusPc12Specs = {
       items: [
         { 'Cruise Speed': '290 KIAS' },
         { 'Range': '1,845 NM' },
-        { 'Maximum Operating Altitude': '30,000 ft' },
+        { 'Max Operating Altitude': '30,000 ft' },
         { 'Rate of Climb': '1,920 ft/min' },
         { 'VMO': '0 KTAS' },
         { 'MMO': '0' },

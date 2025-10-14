@@ -8,7 +8,7 @@ export const cessna172Specs = {
       items: [
         { 'Cruise Speed': '124 KIAS' },
         { 'Range': '640 NM' },
-        { 'Maximum Operating Altitude': '14,000 ft' },
+        { 'Max Operating Altitude': '14,000 ft' },
         { 'Rate of Climb': '730 ft/min' },
         { 'VMO': '0 KTAS' },
         { 'MMO': '0' },

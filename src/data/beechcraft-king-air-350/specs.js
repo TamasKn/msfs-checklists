@@ -18,7 +18,7 @@ export const beechcraftKingAir350Specs = {
         { 'Service Ceiling': '35,000 ft' },
         { 'Engine Type': 'Turboprop' },
         { 'Thrust': '1,050 shp per engine' },
-        { 'Maximum Takeoff Weight': '15,000 lbs' },
+        { 'Max Takeoff Weight': '15,000 lbs' },
         { 'Payload': '2,545 lbs' }
       ]
     }

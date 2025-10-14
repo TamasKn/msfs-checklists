@@ -6,7 +6,7 @@ export const boeing737MaxSpecs = {
     {
       title: 'Limits & Specs',
       items: [
-        { 'Maximum Operating Altitude': '41,000 ft' },
+        { 'Max Operating Altitude': '41,000 ft' },
         { 'Cruise Speed': '453 KIAS' },
         { 'Range': '3,550 NM' },
         { 'Rate of Climb': '3,000 ft/min' },
@@ -19,7 +19,7 @@ export const boeing737MaxSpecs = {
         { 'VFE (Flaps 15)': '200 KIAS' },
         { 'VFE (Flaps 25)': '190 KIAS' },
         { 'VFE (Flaps 30/40)': '170 KIAS' },
-        { 'Maximum Landing Sink Rate': '600 ft/min' },
+        { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '172,000 lb' },
         { 'Fuel Capacity': '6,820 gal (usable)' },
         { 'Stall Speed': '112 KCAS' }
@@ -27,4 +27,3 @@ export const boeing737MaxSpecs = {
     }
   ]
 }
-
