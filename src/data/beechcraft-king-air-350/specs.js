@@ -6,7 +6,7 @@ export const beechcraftKingAir350Specs = {
     {
       title: 'Limits & Specs',
       items: [
-        { 'Cruise Speed': '312 kt' },
+        { 'Cruise Speed': '312 KIAS' },
         {
           'Max Operating Altitude': '35,000 ft'
         },

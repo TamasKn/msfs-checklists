@@ -11,7 +11,6 @@ export const diamondDA62Specs = {
         { 'Max Operating Altitude': '20,000 ft' },
         { 'Rate of Climb': '1,350 ft/min' },
         { 'VMO': '205 KIAS' },
-        { 'MMO': '0' },
         { 'VLE': '140 KIAS' },
         { 'VFE': '140 KIAS' },
         { 'VFE (Full)': '122 KIAS' },
