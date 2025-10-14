@@ -1,20 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AircraftName } from '@/data/aircrafts/aircraft-names'
-import { cessnaLongitudeSpecs } from '@/data/cessna-longitude/specs'
-import { cessna172Specs } from '@/data/cessna-172/specs'
-import { pilatusPc12Specs } from '@/data/pilatus-pc-12/specs'
-import { diamondDA62Specs } from '@/data/diamond-da62/specs'
-import { visionJetG2Specs } from '@/data/vision-jet-g2/specs'
-import { airbusA320neoSpecs } from '@/data/airbus-a320neo/specs'
-import { boeing737MaxSpecs } from '@/data/boeing-737-max/specs'
 import {
   getUserData,
   leaseAircraft,
   hasLeasedAircraft
 } from '@/utils/career/user-data'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
+import { fillCacheWithNewSubTreeDataButOnlyLoading } from 'next/dist/client/components/router-reducer/fill-cache-with-new-subtree-data'
 
 /**
  * LeaseAircraft - Component for leasing aircraft
@@ -46,12 +39,18 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
   const getAircraftSpecs = (aircraftName) => {
     return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.specs
   }
+  const displayedSpecs = [
+    'Range',
+    'Max Operating Altitude',
+    'Cruise Speed',
+    'VMO'
+  ]
 
   /**
    * Calculates one-time lease fee (0.011% of buy price)
    */
   const calculateLeaseFee = (careerData) => {
-    return Math.round(careerData.costs.buyPriceBase * 0.011)
+    return Math.round(careerData.costs.buyPriceBase * 0.017)
   }
 
   /**
@@ -171,14 +170,21 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
                   {/* Specs */}
                   <div className="p-3 sm:p-4 space-y-1.5 sm:space-y-2 flex-1">
-                    {specsData.specs[0].items.slice(0, 4).map((spec, idx) => {
-                      const [key, value] = Object.entries(spec)[0]
+                    {displayedSpecs.map((specName, idx) => {
+                      const specItem = specsData.specs[0].items.find(
+                        (item) => Object.keys(item)[0] === specName
+                      )
+                      const value = specItem
+                        ? Object.values(specItem)[0]
+                        : 'N/A'
                       return (
                         <div
                           key={idx}
                           className="flex justify-between text-xs sm:text-sm gap-2"
                         >
-                          <span className="text-gray-400 truncate">{key}:</span>
+                          <span className="text-gray-400 truncate">
+                            {specName}:
+                          </span>
                           <span className="text-gray-200 font-medium flex-shrink-0">
                             {value}
                           </span>
@@ -199,15 +205,10 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm gap-2">
                       <span className="text-gray-400 truncate">
-                        Hourly Cost:
+                        Lease Cost:
                       </span>
                       <span className="text-red-400 font-mono flex-shrink-0">
-                        €
-                        {(
-                          careerData.costs.leasePriceBase +
-                          careerData.costs.insuranceBase +
-                          careerData.costs.maintenance.base
-                        ).toLocaleString()}
+                        €{careerData.costs.leasePriceBase.toLocaleString()}
                         /hr
                       </span>
                     </div>
