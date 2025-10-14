@@ -7,7 +7,7 @@ export const visionJetG2Specs = {
       title: 'Limits & Specs',
       items: [
         { 'Max Operating Altitude': '31,000 ft' },
-        { 'Cruise Speed': '311 KIAS' },
+        { 'Cruise Speed': '311 KTAS' },
         { 'Range': '1,275 NM' },
         { 'Rate of Climb': '1,900 ft/min' },
         { 'VMO': '250 KIAS' },

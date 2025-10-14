@@ -50,6 +50,12 @@ export const Aircrafts = [
     career: pilatusPc12Career
   },
   {
+    name: AircraftName.BeechcraftKingAir350,
+    specs: beechcraftKingAir350Specs,
+    checklist: beechcraftKingAir350Checklist,
+    career: beechcraftKingAir350Career
+  },
+  {
     name: AircraftName.VisionJetG2,
     specs: visionJetG2Specs,
     checklist: visionJetG2Checklist,
@@ -66,11 +72,5 @@ export const Aircrafts = [
     specs: boeing737MaxSpecs,
     checklist: boeing737MaxChecklist,
     career: boeing737MaxCareer
-  },
-  {
-    name: AircraftName.BeechcraftKingAir350,
-    specs: beechcraftKingAir350Specs,
-    checklist: beechcraftKingAir350Checklist,
-    career: beechcraftKingAir350Career
   }
 ]

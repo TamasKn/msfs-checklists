@@ -28,7 +28,7 @@ export const cessnaLongitudeSpecs = {
           'Max Landing Sink Rate': '600 ft/min'
         },
         {
-          'Max Tire Groundspeed': '195 KNT'
+          'Max Tire Groundspeed': '195 kt'
         },
         {
           'Payload': '4,000 lb | 1814 kg'

@@ -6,16 +6,18 @@ export const beechcraftKingAir350Specs = {
     {
       title: 'Limits & Specs',
       items: [
-        { 'Cruise Speed': '312 knots' },
+        { 'Cruise Speed': '312 kt' },
+        {
+          'Max Operating Altitude': '35,000 ft'
+        },
         { 'Range': '1,806 NM' },
         { 'Rate of Climb': '2,731 ft/min' },
-        { 'VMO': ' KIAS' },
-        { 'MMO': 'M' },
+        { 'VMO': '263 KIAS' },
+        { 'MMO': 'M0.58' },
         { 'VLE': ' KIAS' },
         { 'VFE (%)': ' KIAS' },
         { 'VFE (%)': ' KIAS' },
         { 'Fuel Capacity': '3,611 lbs' },
-        { 'Service Ceiling': '35,000 ft' },
         { 'Engine Type': 'Turboprop' },
         { 'Thrust': '1,050 shp per engine' },
         { 'Max Takeoff Weight': '15,000 lbs' },

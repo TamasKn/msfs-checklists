@@ -7,7 +7,7 @@ export const boeing737MaxSpecs = {
       title: 'Limits & Specs',
       items: [
         { 'Max Operating Altitude': '41,000 ft' },
-        { 'Cruise Speed': '453 KIAS' },
+        { 'Cruise Speed': '453 KTAS' },
         { 'Range': '3,550 NM' },
         { 'Rate of Climb': '3,000 ft/min' },
         { 'VMO': '340 KIAS' },
@@ -22,7 +22,7 @@ export const boeing737MaxSpecs = {
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '172,000 lb' },
         { 'Fuel Capacity': '6,820 gal (usable)' },
-        { 'Stall Speed': '112 KCAS' }
+        { 'Stall Speed': '112 KIAS' }
       ]
     }
   ]
