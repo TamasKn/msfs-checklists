@@ -75,10 +75,7 @@ export default function FlightHistory({ flights }) {
           <thead className="bg-gray-900/50">
             <tr>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Time
-              </th>
-              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                Date
+                Time & Date
               </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Job
@@ -124,15 +121,17 @@ export default function FlightHistory({ flights }) {
                 key={flight.id}
                 className="hover:bg-gray-700/20 transition-colors duration-150"
               >
-                <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
-                  {flight.startTime}
-                </td>
-                <td className="px-4 py-4 text-center whitespace-nowrap text-sm text-gray-300">
-                  {flight.startDate ? (
-                    flight.startDate
-                  ) : (
-                    <span className="text-gray-600 text-xs">N/A</span>
-                  )}
+                <td className="px-4 py-4 text-center text-sm text-gray-300">
+                  <div className="flex flex-col gap-1">
+                    <p>{flight.startTime}</p>
+                    {flight.startDate ? (
+                      <p className="text-gray-500 text-sm min-w-[6rem]">
+                        {flight.startDate}{' '}
+                      </p>
+                    ) : (
+                      <p className="text-gray-600 text-xs">N/A</p>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-4 text-center whitespace-nowrap text-sm">
                   <span
