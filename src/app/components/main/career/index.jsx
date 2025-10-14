@@ -227,7 +227,7 @@ export default function CareerComponent() {
 
         {/* Modal for Add Flight */}
         {showAddFlight && (
-          <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-4">
+          <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-4 animate-fadeIn">
             <AddFlight
               onAddFlight={handleAddFlight}
               onCancel={() => setShowAddFlight(false)}

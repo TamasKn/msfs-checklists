@@ -99,7 +99,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-2 sm:p-4 nimate-fadeIn">
+    <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-2 sm:p-4 animate-fadeIn">
       <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl border-2 border-indigo-500/50 shadow-2xl max-w-6xl w-full my-4 sm:my-8 max-h-[95vh] flex flex-col animate-slideUp">
         {/* Header - Sticky */}
         <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-4 sm:p-6 border-b border-gray-700/50 rounded-t-2xl flex-shrink-0 z-10">
@@ -251,8 +251,8 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
       {/* Confirmation Modal */}
       {showConfirmation && selectedAircraft && (
-        <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-[60] p-4">
-          <div className="bg-gray-800 rounded-xl border border-indigo-500/50 shadow-2xl max-w-md w-full p-4 sm:p-6">
+        <div className="fixed inset-0 bg-opacity-20 backdrop-blur-xs flex justify-center items-center z-[60] p-4 animate-fadeIn">
+          <div className="bg-gray-800 rounded-xl border border-indigo-500/50 shadow-2xl max-w-md w-full p-4 sm:p-6 animate-slideUp">
             <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">
               Confirm Aircraft Lease
             </h3>
