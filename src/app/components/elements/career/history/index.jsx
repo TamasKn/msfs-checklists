@@ -122,10 +122,10 @@ export default function FlightHistory({ flights }) {
                 className="hover:bg-gray-700/20 transition-colors duration-150"
               >
                 <td className="px-4 py-4 text-center text-sm text-gray-300">
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1 min-w-[3rem] max-w-[5rem]">
                     <p>{flight.startTime}</p>
                     {flight.startDate ? (
-                      <p className="text-gray-500 text-sm min-w-[6rem]">
+                      <p className="text-gray-500 text-sm">
                         {flight.startDate}{' '}
                       </p>
                     ) : (
