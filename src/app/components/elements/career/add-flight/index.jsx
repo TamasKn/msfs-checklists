@@ -173,7 +173,6 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       [field]: icao.toUpperCase(),
       [`${field}Name`]: 'Custom ICAO'
     }))
-    console.log(newFlight)
   }
 
   /**
@@ -494,9 +493,8 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Flight Information Section */}
-          <div className="col-span-full">
+        <div className="flex flex-col gap-6">
+          <div>
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <svg
                 className="w-5 h-5 text-indigo-400"
@@ -515,133 +513,162 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
             </h3>
           </div>
 
-          {/* Start Time - Auto-filled, read-only */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-200 mb-2">
-              Start Date and Time (Auto-filled)
-            </label>
-            <div className="relative flex items-center gap-2">
-              <input
-                type="text"
-                value={newFlight.startTime}
-                readOnly
-                className="block w-[6rem] bg-gray-900/50 border pl-8 border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
-              />
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                <svg
-                  className="w-5 h-5 text-gray-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          {/* Row 1 */}
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Start Time */}
+            <div className="flex-1">
+              <label className="block text-sm font-semibold text-gray-200 mb-2">
+                Start Date and Time (Auto-filled)
+              </label>
+              <div className="relative flex items-center gap-2">
+                <input
+                  type="text"
+                  value={newFlight.startTime}
+                  readOnly
+                  className="block w-[6rem] bg-gray-900/50 border pl-8 border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+                />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                  <svg
+                    className="w-5 h-5 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  value={newFlight.startDate}
+                  readOnly
+                  className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+                />
+              </div>
+              <p className="mt-1.5 text-xs text-gray-500">
+                Current date and time is automatically recorded
+              </p>
+            </div>
+            {/* Aircraft */}
+            <div className="flex-1">
+              <label
+                htmlFor="aircraft"
+                className="block text-sm font-semibold text-gray-200 mb-2"
+              >
+                Aircraft
+              </label>
+              {leasedAircraft.length > 0 ? (
+                <select
+                  id="aircraft"
+                  name="aircraft"
+                  value={newFlight.aircraft}
+                  onChange={handleInputChange}
+                  className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                value={newFlight.startDate}
-                readOnly
-                className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
-              />
+                  {leasedAircraft.map((aircraft) => (
+                    <option key={aircraft} value={aircraft}>
+                      {aircraft}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div className="block w-full bg-gray-900/50 border border-yellow-600 rounded-lg shadow-sm py-2.5 px-4 text-yellow-400">
+                  No aircraft leased. Please lease an aircraft first.
+                </div>
+              )}
             </div>
-            <p className="mt-1.5 text-xs text-gray-500">
-              Current date and time is automatically recorded
-            </p>
+            {/* Job Type */}
+            <div className="flex-1">
+              {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
+            </div>
           </div>
 
-          {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
-          {renderAirportField('departure', 'Departure (ICAO)')}
-
-          {/* Departure Runway Selection */}
-          {runways.departure.length > 0 && (
-            <div>
-              <label
-                htmlFor="departureRunway"
-                className="block text-sm font-semibold text-gray-200 mb-2"
-              >
-                Departure Runway
-              </label>
-              <select
-                id="departureRunway"
-                name="departureRunway"
-                value={newFlight.departureRunway || ''}
-                onChange={handleInputChange}
-                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-              >
-                {runways.departure.map((runway) => (
-                  <option key={runway} value={runway}>
-                    {runway}
-                  </option>
-                ))}
-              </select>
+          {/* Departure/Destination Row */}
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              {renderAirportField('departure', 'Departure (ICAO)')}
             </div>
-          )}
-
-          {renderAirportField('destination', 'Destination (ICAO)')}
-
-          {/* Destination Runway Selection */}
-          {runways.destination.length > 0 && (
-            <div>
-              <label
-                htmlFor="destinationRunway"
-                className="block text-sm font-semibold text-gray-200 mb-2"
-              >
-                Destination Runway
-              </label>
-              <select
-                id="destinationRunway"
-                name="destinationRunway"
-                value={newFlight.destinationRunway || ''}
-                onChange={handleInputChange}
-                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-              >
-                {runways.destination.map((runway) => (
-                  <option key={runway} value={runway}>
-                    {runway}
-                  </option>
-                ))}
-              </select>
+            <div className="flex-1">
+              {runways.departure.length > 0 && (
+                <div>
+                  <label
+                    htmlFor="departureRunway"
+                    className="block text-sm font-semibold text-gray-200 mb-2"
+                  >
+                    Departure Runway
+                  </label>
+                  <select
+                    id="departureRunway"
+                    name="departureRunway"
+                    value={newFlight.departureRunway || ''}
+                    onChange={handleInputChange}
+                    className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                  >
+                    {runways.departure.map((runway) => (
+                      <option key={runway} value={runway}>
+                        {runway}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
-          )}
-
-          {/* Aircraft - Only show leased aircraft */}
-          <div>
-            <label
-              htmlFor="aircraft"
-              className="block text-sm font-semibold text-gray-200 mb-2"
-            >
-              Aircraft
-            </label>
-            {leasedAircraft.length > 0 ? (
-              <select
-                id="aircraft"
-                name="aircraft"
-                value={newFlight.aircraft}
-                onChange={handleInputChange}
-                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-              >
-                {leasedAircraft.map((aircraft) => (
-                  <option key={aircraft} value={aircraft}>
-                    {aircraft}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <div className="block w-full bg-gray-900/50 border border-yellow-600 rounded-lg shadow-sm py-2.5 px-4 text-yellow-400">
-                No aircraft leased. Please lease an aircraft first.
-              </div>
-            )}
+            <div className="flex-1">
+              {renderAirportField('destination', 'Destination (ICAO)')}
+            </div>
+            <div className="flex-1">
+              {runways.destination.length > 0 && (
+                <div>
+                  <label
+                    htmlFor="destinationRunway"
+                    className="block text-sm font-semibold text-gray-200 mb-2"
+                  >
+                    Destination Runway
+                  </label>
+                  <select
+                    id="destinationRunway"
+                    name="destinationRunway"
+                    value={newFlight.destinationRunway || ''}
+                    onChange={handleInputChange}
+                    className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                  >
+                    {runways.destination.map((runway) => (
+                      <option key={runway} value={runway}>
+                        {runway}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
           </div>
-          {renderInputField('range', 'Range (Nautical Mile)', 'number', '0', {
-            min: 1,
-            step: 1
-          })}
-          {renderSelectField('weather', 'Weather', Object.values(WeatherType))}
+
+          {/* Row 4 */}
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              {renderInputField(
+                'range',
+                'Range (Nautical Mile)',
+                'number',
+                '0',
+                {
+                  min: 1,
+                  step: 1
+                }
+              )}
+            </div>
+            <div className="flex-1">
+              {renderSelectField(
+                'weather',
+                'Weather',
+                Object.values(WeatherType)
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Action Buttons */}
