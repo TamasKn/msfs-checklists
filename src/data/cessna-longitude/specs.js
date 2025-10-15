@@ -19,11 +19,11 @@ export const cessnaLongitudeSpecs = {
           'Range': '3,500 NM'
         },
         { 'VMO': '483 KTAS' },
-        { 'MMO': 'M0.840' },
+        { 'MMO': 'M.840' },
         { 'VLE': '230 KIAS' },
-        { 'VFE (Flaps 1)': '250 KIAS' },
-        { 'VFE (Flaps 2)': '230 KIAS' },
-        { 'VFE (Flaps Full)': '180 KIAS' },
+        { 'VFE (1)': '250 KIAS' },
+        { 'VFE (2)': '230 KIAS' },
+        { 'VFE (Full)': '180 KIAS' },
         {
           'Max Landing Sink Rate': '600 ft/min'
         },
