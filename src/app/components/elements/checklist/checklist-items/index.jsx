@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Tooltip from '@/app/components/micro/info-hover'
+import { useChecklistContext } from '@/app/context/checklist-context'
 
 const CheckmarkIcon = () => (
   <svg
@@ -20,15 +21,35 @@ const CheckmarkIcon = () => (
   </svg>
 )
 
-export default function ChecklistItems({ checklist }) {
+export default function ChecklistItems({ checklist, aircraftName }) {
+  const { getAircraftState, updateAircraftState, resetAircraftState, isHydrated } = useChecklistContext()
+
   const [openSections, setOpenSections] = useState([])
   const [checkedItems, setCheckedItems] = useState({})
   const [autoEngineStartUsed, setAutoEngineStartUsed] = useState(false)
 
+  // Load state from context when aircraft changes or hydration completes
   useEffect(() => {
-    setOpenSections([])
-    setCheckedItems({})
-  }, [checklist])
+    if (isHydrated) {
+      const state = getAircraftState(aircraftName)
+      setOpenSections(state.openSections)
+      setCheckedItems(state.checkedItems)
+      setAutoEngineStartUsed(state.autoEngineStartUsed)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [aircraftName, isHydrated])
+
+  // Persist state changes to context
+  useEffect(() => {
+    if (isHydrated) {
+      updateAircraftState(aircraftName, {
+        openSections,
+        checkedItems,
+        autoEngineStartUsed
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openSections, checkedItems, autoEngineStartUsed, aircraftName, isHydrated])
 
   const toggleSection = (index) => {
     setOpenSections((prevOpenSections) =>
@@ -107,6 +128,8 @@ export default function ChecklistItems({ checklist }) {
 
   const handleReset = () => {
     setCheckedItems({})
+    setOpenSections([])
+    resetAircraftState(aircraftName)
   }
 
   if (!checklist) {

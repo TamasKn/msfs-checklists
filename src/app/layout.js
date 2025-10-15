@@ -2,6 +2,7 @@ import { Geist_Mono, Funnel_Sans } from 'next/font/google'
 import './globals.css'
 import Footer from './components/main/footer'
 import Navbar from './components/main/navbar'
+import { ChecklistProvider } from './context/checklist-context'
 
 const funnelSans = Funnel_Sans({
   variable: '--font-funnel-sans',
@@ -24,9 +25,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${funnelSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
       >
-        <Navbar />
-        <div className="w-full min-h-screen flex flex-col">{children}</div>
-        <Footer />
+        <ChecklistProvider>
+          <Navbar />
+          <div className="w-full min-h-screen flex flex-col">{children}</div>
+          <Footer />
+        </ChecklistProvider>
       </body>
     </html>
   )

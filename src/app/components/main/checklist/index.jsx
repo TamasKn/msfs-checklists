@@ -35,7 +35,10 @@ export default function ChecklistComponent() {
         <>
           <AircraftInfo specs={selectedAircraft.specs} />
           <TodCalculator />
-          <ChecklistItems checklist={selectedAircraft.checklist} />
+          <ChecklistItems
+            checklist={selectedAircraft.checklist}
+            aircraftName={selectedAircraft.name}
+          />
         </>
       )}
     </div>
