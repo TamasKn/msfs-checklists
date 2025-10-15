@@ -14,15 +14,23 @@ export default function UserTokenInput({ onTokenSaved }) {
   const [userToken, setUserToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-
-  const existingUser = JSON.parse(localStorage.getItem('user_data'))
+  const [existingUser, setExistingUser] = useState(null)
 
   useEffect(() => {
     setMounted(true)
 
-    if (existingUser) {
-      setUserName(existingUser.name)
+    // Load existing user data from localStorage
+    try {
+      const userData = localStorage.getItem('user_data')
+      if (userData) {
+        const parsed = JSON.parse(userData)
+        setExistingUser(parsed)
+        setUserName(parsed.name)
+      }
+    } catch (error) {
+      console.error('Failed to load user data:', error)
     }
+
     // Check if user has already saved token
     const token = localStorage.getItem('user_token')
     if (!token) {
@@ -31,12 +39,16 @@ export default function UserTokenInput({ onTokenSaved }) {
   }, [])
 
   const handleTokenSave = () => {
+    // Save the token to localStorage
+    localStorage.setItem('user_token', userToken)
+
     if (!existingUser) {
-      // Initialize user data with name, funds, XP, and leased aircraft
+      // Initialize user data with name, funds, XP, level, and leased aircraft
       const userData = {
         name: userName,
         funds: 0,
         xp: 0,
+        level: 1,
         leasedAircraft: []
       }
       localStorage.setItem('user_data', JSON.stringify(userData))
