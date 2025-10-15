@@ -11,7 +11,13 @@ const AIRPORT_DATABASE = {
     name: 'London Heathrow Airport',
     country: {
       name: 'United Kingdom'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   EHAM: {
     ident: 'EHAM',
@@ -19,7 +25,13 @@ const AIRPORT_DATABASE = {
     name: 'Amsterdam Airport Schiphol',
     country: {
       name: 'Netherlands'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   KJFK: {
     ident: 'KJFK',
@@ -27,7 +39,13 @@ const AIRPORT_DATABASE = {
     name: 'John F Kennedy International Airport',
     country: {
       name: 'United States'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   KLAX: {
     ident: 'KLAX',
@@ -35,7 +53,25 @@ const AIRPORT_DATABASE = {
     name: 'Los Angeles International Airport',
     country: {
       name: 'United States'
-    }
+    },
+    runways: [
+      {
+        le_ident: '06L',
+        he_ident: '24R'
+      },
+      {
+        le_ident: '06R',
+        he_ident: '24L'
+      },
+      {
+        le_ident: '07L',
+        he_ident: '25R'
+      },
+      {
+        le_ident: '07R',
+        he_ident: '25L'
+      }
+    ]
   },
   LFPG: {
     ident: 'LFPG',
@@ -43,7 +79,13 @@ const AIRPORT_DATABASE = {
     name: 'Paris Charles de Gaulle Airport',
     country: {
       name: 'France'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   EDDF: {
     ident: 'EDDF',
@@ -51,7 +93,13 @@ const AIRPORT_DATABASE = {
     name: 'Frankfurt Airport',
     country: {
       name: 'Germany'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   LEMD: {
     ident: 'LEMD',
@@ -59,15 +107,13 @@ const AIRPORT_DATABASE = {
     name: 'Adolfo Suárez Madrid–Barajas Airport',
     country: {
       name: 'Spain'
-    }
-  },
-  LIRF: {
-    ident: 'LIRF',
-    type: 'large_airport',
-    name: 'Leonardo da Vinci–Fiumicino Airport',
-    country: {
-      name: 'Italy'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   },
   OMDB: {
     ident: 'OMDB',
@@ -75,31 +121,13 @@ const AIRPORT_DATABASE = {
     name: 'Dubai International Airport',
     country: {
       name: 'United Arab Emirates'
-    }
-  },
-  WSSS: {
-    ident: 'WSSS',
-    type: 'large_airport',
-    name: 'Singapore Changi Airport',
-    country: {
-      name: 'Singapore'
-    }
-  },
-  RJTT: {
-    ident: 'RJTT',
-    type: 'large_airport',
-    name: 'Tokyo Haneda Airport',
-    country: {
-      name: 'Japan'
-    }
-  },
-  YSSY: {
-    ident: 'YSSY',
-    type: 'large_airport',
-    name: 'Sydney Kingsford Smith International Airport',
-    country: {
-      name: 'Australia'
-    }
+    },
+    runways: [
+      {
+        le_ident: '09',
+        he_ident: '27'
+      }
+    ]
   }
 }
 
