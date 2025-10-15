@@ -12,13 +12,6 @@ import {
   calculateXP,
   calculateMaintenanceIssueCost
 } from '@/utils/career/financials'
-import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
-import { cessna172Career } from '@/data/cessna-172/career'
-import { pilatusPc12Career } from '@/data/pilatus-pc-12/career'
-import { diamondDA62Career } from '@/data/diamond-da62/career'
-import { visionJetG2Career } from '@/data/vision-jet-g2/career'
-import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
-import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import FinancialSummary from '@/app/components/elements/career/financial-summary'
 import { getLeasedAircraft } from '@/utils/career/user-data'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
