@@ -29,12 +29,33 @@ const getJobTypeColors = (jobType) => {
 export default function FlightHistory({ flights }) {
   const [selectedFlight, setSelectedFlight] = useState(null)
   const [mounted, setMounted] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   // Ensure component is mounted before using portal
   useEffect(() => {
     setMounted(true)
     return () => setMounted(false)
   }, [])
+
+  // Sort flights by ID to show the latest on top
+  const sortedFlights = [...flights].sort((a, b) => {
+    if (typeof a.id === 'number' && typeof b.id === 'number') {
+      return b.id - a.id
+    }
+    // Fallback for string IDs or mixed types
+    const idA = String(a.id)
+    const idB = String(b.id)
+    if (idA < idB) return 1
+    if (idA > idB) return -1
+    return 0
+  })
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentFlights = sortedFlights.slice(indexOfFirstItem, indexOfLastItem)
+  const totalPages = Math.ceil(sortedFlights.length / itemsPerPage)
 
   if (!flights || flights.length === 0) {
     return (
@@ -74,6 +95,9 @@ export default function FlightHistory({ flights }) {
         <table className="min-w-full divide-y divide-gray-700/50">
           <thead className="bg-gray-900/50">
             <tr>
+              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                #
+              </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Time & Date
               </th>
@@ -116,11 +140,14 @@ export default function FlightHistory({ flights }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-700/30">
-            {flights.map((flight, index) => (
+            {currentFlights.map((flight, index) => (
               <tr
                 key={flight.id}
                 className="hover:bg-gray-700/20 transition-colors duration-150"
               >
+                <td className="px-4 py-4 text-center text-sm text-gray-300">
+                  {flight.id}
+                </td>
                 <td className="px-4 py-4 text-center text-sm text-gray-300">
                   <div className="flex flex-col gap-1 min-w-[3rem] max-w-[5rem]">
                     <p>{flight.startTime}</p>
@@ -243,6 +270,62 @@ export default function FlightHistory({ flights }) {
           </tbody>
         </table>
       </div>
+
+      {flights.length > 10 && (
+        <div className="flex items-center justify-between px-6 py-4 border-t border-gray-700/50">
+          <div className="text-sm text-gray-400">
+            Showing{' '}
+            <span className="font-semibold text-white">
+              {Math.min(indexOfFirstItem + 1, sortedFlights.length)}
+            </span>{' '}
+            to{' '}
+            <span className="font-semibold text-white">
+              {Math.min(indexOfLastItem, sortedFlights.length)}
+            </span>{' '}
+            of{' '}
+            <span className="font-semibold text-white">
+              {sortedFlights.length}
+            </span>{' '}
+            flights
+          </div>
+          <div className="flex items-center gap-4 text-base">
+            <select
+              value={itemsPerPage}
+              onChange={(e) => {
+                setItemsPerPage(Number(e.target.value))
+                setCurrentPage(1)
+              }}
+              className="bg-gray-700/50 border border-gray-600 rounded-lg py-1.5 px-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+            >
+              <option value={10}>10 / page</option>
+              <option value={25}>25 / page</option>
+              <option value={50}>50 / page</option>
+              <option value={100}>100 / page</option>
+            </select>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                hidden={currentPage === 1}
+                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+              >
+                Previous
+              </button>
+              <span className="text-sm text-gray-400">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                hidden={currentPage === totalPages || totalPages === 0}
+                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Financial Summary Modal - Rendered via Portal */}
       {mounted &&
