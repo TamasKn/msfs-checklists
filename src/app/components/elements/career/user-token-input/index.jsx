@@ -15,9 +15,14 @@ export default function UserTokenInput({ onTokenSaved }) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const existingUser = JSON.parse(localStorage.getItem('user_data'))
+
   useEffect(() => {
     setMounted(true)
 
+    if (existingUser) {
+      setUserName(existingUser.name)
+    }
     // Check if user has already saved token
     const token = localStorage.getItem('user_token')
     if (!token) {
@@ -26,16 +31,16 @@ export default function UserTokenInput({ onTokenSaved }) {
   }, [])
 
   const handleTokenSave = () => {
-    localStorage.setItem('user_token', userToken)
-
-    // Initialize user data with name, funds, XP, and leased aircraft
-    const userData = {
-      name: userName,
-      funds: 0,
-      xp: 0,
-      leasedAircraft: []
+    if (!existingUser) {
+      // Initialize user data with name, funds, XP, and leased aircraft
+      const userData = {
+        name: userName,
+        funds: 0,
+        xp: 0,
+        leasedAircraft: []
+      }
+      localStorage.setItem('user_data', JSON.stringify(userData))
     }
-    localStorage.setItem('user_data', JSON.stringify(userData))
 
     setShowTokenInput(false)
     onTokenSaved?.()
@@ -107,14 +112,21 @@ export default function UserTokenInput({ onTokenSaved }) {
             type="text"
             id="userName"
             name="userName"
-            value={userName}
+            value={existingUser ? existingUser.name : userName}
             onChange={handleInputChange}
+            disabled={existingUser}
             placeholder="Enter your pilot name"
-            className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+            className={`block w-full ${
+              existingUser
+                ? 'cursor-not-allowed'
+                : 'bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm'
+            }   py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 `}
             autoFocus
           />
           <p className="mt-2.5 text-xs text-gray-500">
-            This name will be displayed in your career profile.
+            {existingUser
+              ? 'We found an existing user with this name.'
+              : 'This name will be displayed in your career profile.'}
           </p>
         </div>
 
@@ -136,7 +148,8 @@ export default function UserTokenInput({ onTokenSaved }) {
             className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
           />
           <p className="mt-2.5 text-xs text-gray-500">
-            Your token is required to access career mode features and sync your flight data.
+            Your token is required to access career mode features and sync your
+            flight data.
           </p>
         </div>
 
