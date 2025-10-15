@@ -5,26 +5,17 @@ import axios from 'axios'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
 import { JobType } from '@/data/career/jobs'
 import { WeatherType } from '@/data/career/weather'
-import {
-  calculateBasePay,
-  calculateBonus,
-  calculateOperationCost,
-  calculateXP,
-  calculateMaintenanceIssueCost
-} from '@/utils/career/financials'
-import FinancialSummary from '@/app/components/elements/career/financial-summary'
 import { getLeasedAircraft } from '@/utils/career/user-data'
-import { Aircrafts } from '@/data/aircrafts/aircrafts'
 
 const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
 const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
 
 /**
  * AddFlight - Modal component for adding new flight entries
- * @param {Function} onAddFlight - Callback when flight is added
+ * @param {Function} onSaveDraft - Callback when flight draft is saved
  * @param {Function} onCancel - Callback when modal is cancelled
  */
-export default function AddFlight({ onAddFlight, onCancel }) {
+export default function AddFlight({ onSaveDraft, onCancel }) {
   // Get current time in HH:MM format
   const getCurrentTime = () => {
     const now = new Date()
@@ -81,8 +72,6 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     departure: false,
     destination: false
   })
-  const [showFinancialSummary, setShowFinancialSummary] = useState(false)
-  const [calculatedFinancials, setCalculatedFinancials] = useState(null)
   const [leasedAircraft, setLeasedAircraft] = useState([])
 
   // Load leased aircraft on mount
@@ -95,13 +84,6 @@ export default function AddFlight({ onAddFlight, onCancel }) {
       setNewFlight((prev) => ({ ...prev, aircraft: leased[0] }))
     }
   }, [])
-
-  /**
-   * Get aircraft career data
-   */
-  const getAircraftCareerData = (aircraftName) => {
-    return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.career
-  }
 
   /**
    * Looks up airport information by ICAO code
@@ -171,7 +153,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   }
 
   /**
-   * Validates form fields
+   * Validates form fields (without duration for draft)
    * @returns {boolean} - True if form is valid
    */
   const validateForm = () => {
@@ -195,10 +177,6 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     if (!newFlight.range || newFlight.range <= 0) {
       newErrors.range = 'Range must be greater than 0'
-    }
-
-    if (!newFlight.duration || newFlight.duration <= 0) {
-      newErrors.duration = 'Duration must be greater than 0'
     }
 
     setErrors(newErrors)
@@ -236,7 +214,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   }
 
   /**
-   * Handles form submission - calculates financials and shows summary
+   * Handles form submission - saves draft flight
    */
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -247,115 +225,23 @@ export default function AddFlight({ onAddFlight, onCancel }) {
 
     setIsSubmitting(true)
 
-    // Calculate financials
-    const range = parseFloat(newFlight.range)
-    const duration = parseFloat(newFlight.duration)
-
-    const basePay = calculateBasePay(
-      newFlight.aircraft,
-      newFlight.jobType,
-      range,
-      duration
-    )
-
-    const bonus = calculateBonus(
-      basePay,
-      newFlight.aircraft,
-      newFlight.jobType,
-      range,
-      duration,
-      newFlight.weather
-    )
-
-    const operationCost = calculateOperationCost(newFlight.aircraft, duration)
-
-    // Calculate maintenance issues (hidden cost)
-    const maintenanceIssueResult = calculateMaintenanceIssueCost(
-      newFlight.aircraft,
-      isIssueForced
-    )
-    const maintenanceIssueCost = maintenanceIssueResult.totalCost
-
-    const xp = calculateXP(
-      newFlight.aircraft,
-      newFlight.jobType,
-      range,
-      duration,
-      newFlight.weather
-    )
-
-    // Total operation cost includes maintenance issues
-    const totalOperationCost = operationCost + maintenanceIssueCost
-    const totalReward = basePay + bonus - totalOperationCost
-
-    // Get cost breakdown - round each component and adjust to match total
-    const careerData = getAircraftCareerData(newFlight.aircraft)
-    const flightHours = duration / 60
-
-    // Calculate raw breakdown values
-    const rawLease = careerData.costs.leasePriceBase * flightHours
-    const rawInsurance = careerData.costs.insuranceBase * flightHours
-    const rawMaintenance = careerData.costs.maintenance.base * flightHours
-
-    // Round each component
-    const roundedLease = Math.round(rawLease * 100) / 100
-    const roundedInsurance = Math.round(rawInsurance * 100) / 100
-    const roundedMaintenance = Math.round(rawMaintenance * 100) / 100
-
-    // Calculate the difference between sum of rounded components and actual total
-    const roundedSum = roundedLease + roundedInsurance + roundedMaintenance
-    const difference = Math.round((operationCost - roundedSum) * 100) / 100
-
-    // Adjust the largest component to match the total exactly
-    const breakdown = {
-      lease: roundedLease,
-      insurance: roundedInsurance,
-      maintenance: roundedMaintenance + difference,
-      maintenanceIssues: maintenanceIssueCost,
-      maintenanceIssueDetails: maintenanceIssueResult.issues
-    }
-
-    // Set calculated financials
-    setCalculatedFinancials({
-      basePay,
-      bonus,
-      operationCost: totalOperationCost,
-      totalReward,
-      xp,
-      breakdown
-    })
-
-    // Show financial summary popup
-    setShowFinancialSummary(true)
-    setIsSubmitting(false)
-  }
-
-  /**
-   * Confirms the flight and adds it to history
-   */
-  const handleConfirmFlight = () => {
-    const flightData = {
-      ...newFlight,
+    // Prepare draft flight data (without duration)
+    const draftData = {
+      startTime: newFlight.startTime,
+      startDate: newFlight.startDate,
+      jobType: newFlight.jobType,
+      departure: newFlight.departure,
+      departureName: newFlight.departureName,
+      destination: newFlight.destination,
+      destinationName: newFlight.destinationName,
+      aircraft: newFlight.aircraft,
       range: parseFloat(newFlight.range),
-      duration: parseFloat(newFlight.duration),
-      base: calculatedFinancials.basePay,
-      bonus: calculatedFinancials.bonus,
-      operationCost: calculatedFinancials.operationCost,
-      totalReward: calculatedFinancials.totalReward,
-      xp: calculatedFinancials.xp,
-      // Save complete financial breakdown for viewing later
-      financialBreakdown: {
-        basePay: calculatedFinancials.basePay,
-        bonus: calculatedFinancials.bonus,
-        operationCost: calculatedFinancials.operationCost,
-        totalReward: calculatedFinancials.totalReward,
-        xp: calculatedFinancials.xp,
-        breakdown: calculatedFinancials.breakdown
-      }
+      weather: newFlight.weather
     }
 
-    onAddFlight(flightData)
-    setShowFinancialSummary(false)
+    // Call parent callback to save draft
+    onSaveDraft(draftData)
+    setIsSubmitting(false)
   }
 
   /**
@@ -548,17 +434,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
   )
 
   return (
-    <>
-      {/* Financial Summary Popup */}
-      {showFinancialSummary && calculatedFinancials && (
-        <FinancialSummary
-          financials={calculatedFinancials}
-          onConfirm={handleConfirmFlight}
-        />
-      )}
-
-      {/* Add Flight Form */}
-      <div className="bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-5xl max-h-[90vh] overflow-y-auto animate-slideUp">
+    <div className="bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-5xl max-h-[90vh] overflow-y-auto animate-slideUp">
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm px-6 py-5 border-b border-gray-700/50 rounded-t-2xl">
           <div className="flex items-center justify-between">
@@ -688,17 +564,6 @@ export default function AddFlight({ onAddFlight, onCancel }) {
               min: 1,
               step: 1
             })}
-            {renderInputField(
-              'duration',
-              'Duration (minutes)',
-              'number',
-              '0',
-              {
-                min: 60,
-                step: 1
-              },
-              'The minimum for a flight is 60 minutes.'
-            )}
             {renderSelectField(
               'weather',
               'Weather',
@@ -766,6 +631,5 @@ export default function AddFlight({ onAddFlight, onCancel }) {
           </div>
         </form>
       </div>
-    </>
   )
 }

@@ -2,13 +2,30 @@
 
 import { useState, useEffect, useRef } from 'react'
 import AddFlight from '@/app/components/elements/career/add-flight'
+import FlightProgress from '@/app/components/elements/career/flight-progress'
+import FinancialSummary from '@/app/components/elements/career/financial-summary'
 import FlightHistory from '@/app/components/elements/career/history'
+import DraftFlights from '@/app/components/elements/career/draft-flights'
 import UserComponent from '@/app/components/elements/career/user'
 import LeaseAircraft from '@/app/components/elements/career/lease-aircraft'
 import LevelUpNotification from '@/app/components/elements/career/level-up-notification'
 import { updateUserAfterFlight } from '@/utils/career/user-data'
+import {
+  getDraftFlights,
+  saveDraftFlight,
+  deleteDraftFlight
+} from '@/utils/career/draft-flights'
+import {
+  calculateBasePay,
+  calculateBonus,
+  calculateOperationCost,
+  calculateXP,
+  calculateMaintenanceIssueCost
+} from '@/utils/career/financials'
+import { Aircrafts } from '@/data/aircrafts/aircrafts'
 
 const STORAGE_KEY = 'career_flight_history'
+const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
 
 /**
  * CareerComponent - Main component for career mode
@@ -17,13 +34,18 @@ const STORAGE_KEY = 'career_flight_history'
 export default function CareerComponent() {
   const [showAddFlight, setShowAddFlight] = useState(false)
   const [showLeaseAircraft, setShowLeaseAircraft] = useState(false)
+  const [showFlightProgress, setShowFlightProgress] = useState(false)
+  const [showFinancialSummary, setShowFinancialSummary] = useState(false)
+  const [currentDraft, setCurrentDraft] = useState(null)
+  const [calculatedFinancials, setCalculatedFinancials] = useState(null)
   const [flights, setFlights] = useState([])
+  const [draftFlights, setDraftFlights] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [userDataKey, setUserDataKey] = useState(0) // Key to force UserComponent re-render
   const [levelUpInfo, setLevelUpInfo] = useState(null)
   const userComponentRef = useRef(null)
 
-  // Load flights from localStorage on mount
+  // Load flights and drafts from localStorage on mount
   useEffect(() => {
     try {
       const savedFlights = localStorage.getItem(STORAGE_KEY)
@@ -31,6 +53,10 @@ export default function CareerComponent() {
         const parsedFlights = JSON.parse(savedFlights)
         setFlights(parsedFlights)
       }
+
+      // Load draft flights
+      const drafts = getDraftFlights()
+      setDraftFlights(drafts)
     } catch (error) {
       console.error('Failed to load flight history:', error)
     } finally {
@@ -51,7 +77,7 @@ export default function CareerComponent() {
 
   // Add/remove modal-open class to body when modals are open
   useEffect(() => {
-    if (showAddFlight || showLeaseAircraft) {
+    if (showAddFlight || showLeaseAircraft || showFlightProgress || showFinancialSummary) {
       document.body.classList.add('modal-open')
     } else {
       document.body.classList.remove('modal-open')
@@ -59,21 +85,176 @@ export default function CareerComponent() {
     return () => {
       document.body.classList.remove('modal-open')
     }
-  }, [showAddFlight, showLeaseAircraft])
+  }, [showAddFlight, showLeaseAircraft, showFlightProgress, showFinancialSummary])
 
   /**
-   * Adds a new flight to the history and updates user data
-   * @param {Object} newFlight - Flight data to add
+   * Get aircraft career data
    */
-  const handleAddFlight = (newFlight) => {
+  const getAircraftCareerData = (aircraftName) => {
+    return Aircrafts.find((aircraft) => aircraft.name === aircraftName)?.career
+  }
+
+  /**
+   * Saves draft flight and shows flight progress popup
+   * @param {Object} draftData - Draft flight data
+   */
+  const handleSaveDraft = (draftData) => {
+    const savedDraft = saveDraftFlight(draftData)
+    setDraftFlights(getDraftFlights())
+    setCurrentDraft(savedDraft)
+    setShowAddFlight(false)
+    setShowFlightProgress(true)
+  }
+
+  /**
+   * Continues a draft flight
+   * @param {Object} draft - Draft flight to continue
+   */
+  const handleContinueDraft = (draft) => {
+    setCurrentDraft(draft)
+    setShowFlightProgress(true)
+  }
+
+  /**
+   * Deletes a draft flight
+   * @param {number} draftId - ID of draft to delete
+   */
+  const handleDeleteDraft = (draftId) => {
+    deleteDraftFlight(draftId)
+    setDraftFlights(getDraftFlights())
+  }
+
+  /**
+   * Finishes a flight in progress and shows financial summary
+   * @param {number} duration - Flight duration in minutes
+   */
+  const handleFinishFlight = (duration) => {
+    if (!currentDraft) return
+
+    // Update current draft with duration
+    const updatedDraft = {
+      ...currentDraft,
+      duration: parseFloat(duration)
+    }
+    setCurrentDraft(updatedDraft)
+
+    const range = parseFloat(currentDraft.range)
+    const durationNum = parseFloat(duration)
+
+    // Calculate financials
+    const basePay = calculateBasePay(
+      currentDraft.aircraft,
+      currentDraft.jobType,
+      range,
+      durationNum
+    )
+
+    const bonus = calculateBonus(
+      basePay,
+      currentDraft.aircraft,
+      currentDraft.jobType,
+      range,
+      durationNum,
+      currentDraft.weather
+    )
+
+    const operationCost = calculateOperationCost(currentDraft.aircraft, durationNum)
+
+    // Calculate maintenance issues (hidden cost)
+    const maintenanceIssueResult = calculateMaintenanceIssueCost(
+      currentDraft.aircraft,
+      isIssueForced
+    )
+    const maintenanceIssueCost = maintenanceIssueResult.totalCost
+
+    const xp = calculateXP(
+      currentDraft.aircraft,
+      currentDraft.jobType,
+      range,
+      durationNum,
+      currentDraft.weather
+    )
+
+    // Total operation cost includes maintenance issues
+    const totalOperationCost = operationCost + maintenanceIssueCost
+    const totalReward = basePay + bonus - totalOperationCost
+
+    // Get cost breakdown
+    const careerData = getAircraftCareerData(currentDraft.aircraft)
+    const flightHours = durationNum / 60
+
+    // Calculate raw breakdown values
+    const rawLease = careerData.costs.leasePriceBase * flightHours
+    const rawInsurance = careerData.costs.insuranceBase * flightHours
+    const rawMaintenance = careerData.costs.maintenance.base * flightHours
+
+    // Round each component
+    const roundedLease = Math.round(rawLease * 100) / 100
+    const roundedInsurance = Math.round(rawInsurance * 100) / 100
+    const roundedMaintenance = Math.round(rawMaintenance * 100) / 100
+
+    // Calculate the difference between sum of rounded components and actual total
+    const roundedSum = roundedLease + roundedInsurance + roundedMaintenance
+    const difference = Math.round((operationCost - roundedSum) * 100) / 100
+
+    // Adjust the largest component to match the total exactly
+    const breakdown = {
+      lease: roundedLease,
+      insurance: roundedInsurance,
+      maintenance: roundedMaintenance + difference,
+      maintenanceIssues: maintenanceIssueCost,
+      maintenanceIssueDetails: maintenanceIssueResult.issues
+    }
+
+    // Set calculated financials
+    setCalculatedFinancials({
+      basePay,
+      bonus,
+      operationCost: totalOperationCost,
+      totalReward,
+      xp,
+      breakdown
+    })
+
+    // Show financial summary
+    setShowFlightProgress(false)
+    setShowFinancialSummary(true)
+  }
+
+  /**
+   * Confirms the flight and adds it to history
+   */
+  const handleConfirmFlight = () => {
+    if (!currentDraft || !calculatedFinancials) return
+
+    const flightData = {
+      ...currentDraft,
+      range: parseFloat(currentDraft.range),
+      duration: parseFloat(currentDraft.duration),
+      base: calculatedFinancials.basePay,
+      bonus: calculatedFinancials.bonus,
+      operationCost: calculatedFinancials.operationCost,
+      totalReward: calculatedFinancials.totalReward,
+      xp: calculatedFinancials.xp,
+      // Save complete financial breakdown for viewing later
+      financialBreakdown: {
+        basePay: calculatedFinancials.basePay,
+        bonus: calculatedFinancials.bonus,
+        operationCost: calculatedFinancials.operationCost,
+        totalReward: calculatedFinancials.totalReward,
+        xp: calculatedFinancials.xp,
+        breakdown: calculatedFinancials.breakdown
+      }
+    }
+
     const newId =
       flights.length > 0 ? Math.max(...flights.map((f) => f.id)) + 1 : 1
 
     // Add flight to history
-    setFlights((prev) => [...prev, { id: newId, ...newFlight }])
+    setFlights((prev) => [...prev, { id: newId, ...flightData }])
 
     // Update user funds and XP (returns level up info)
-    const result = updateUserAfterFlight(newFlight.totalReward, newFlight.xp)
+    const result = updateUserAfterFlight(flightData.totalReward, flightData.xp)
 
     // Show level up notification if leveled up
     if (result.levelUpInfo && result.levelUpInfo.leveledUp) {
@@ -83,7 +264,14 @@ export default function CareerComponent() {
     // Force UserComponent to re-render by updating key
     setUserDataKey((prev) => prev + 1)
 
-    setShowAddFlight(false)
+    // Delete draft from localStorage
+    deleteDraftFlight(currentDraft.id)
+    setDraftFlights(getDraftFlights())
+
+    // Close modals and reset state
+    setShowFinancialSummary(false)
+    setCurrentDraft(null)
+    setCalculatedFinancials(null)
   }
 
   /**
@@ -229,11 +417,40 @@ export default function CareerComponent() {
         {showAddFlight && (
           <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-4 animate-fadeIn">
             <AddFlight
-              onAddFlight={handleAddFlight}
+              onSaveDraft={handleSaveDraft}
               onCancel={() => setShowAddFlight(false)}
             />
           </div>
         )}
+
+        {/* Modal for Flight Progress */}
+        {showFlightProgress && currentDraft && (
+          <div className="fixed inset-0 bg-opacity-20 backdrop-blur-lg flex justify-center items-center z-50 p-4 animate-fadeIn">
+            <FlightProgress
+              draftFlight={currentDraft}
+              onFinishFlight={handleFinishFlight}
+              onCancel={() => {
+                setShowFlightProgress(false)
+                setCurrentDraft(null)
+              }}
+            />
+          </div>
+        )}
+
+        {/* Modal for Financial Summary */}
+        {showFinancialSummary && calculatedFinancials && (
+          <FinancialSummary
+            financials={calculatedFinancials}
+            onConfirm={handleConfirmFlight}
+          />
+        )}
+
+        {/* Draft Flights Section */}
+        <DraftFlights
+          draftFlights={draftFlights}
+          onContinue={handleContinueDraft}
+          onDelete={handleDeleteDraft}
+        />
 
         {/* Flight History Section */}
         <FlightHistory flights={flights} />
