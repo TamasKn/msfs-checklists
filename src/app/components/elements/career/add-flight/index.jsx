@@ -136,7 +136,7 @@ export default function AddFlight({ onAddFlight, onCancel }) {
         setNewFlight((prev) => ({
           ...prev,
           [field]: airportData.ident,
-          [`${field}Name`]: airportData.name
+          [`${field}Name`]: `${airportData.name}, ${airportData.country.name}`
         }))
       } else {
         // Handle error response from API
@@ -159,6 +159,15 @@ export default function AddFlight({ onAddFlight, onCancel }) {
     } finally {
       setLookupLoading((prev) => ({ ...prev, [field]: false }))
     }
+  }
+
+  const addCustomICAO = (icao, field) => {
+    setNewFlight((prev) => ({
+      ...prev,
+      [field]: icao.toUpperCase(),
+      [`${field}Name`]: 'Custom ICAO'
+    }))
+    console.log(newFlight)
   }
 
   /**
@@ -453,6 +462,12 @@ export default function AddFlight({ onAddFlight, onCancel }) {
               />
             </svg>
             <span className="font-medium">{errors[name]}</span>
+            <span
+              className="text-xs text-gray-400 underline cursor-pointer"
+              onClick={() => addCustomICAO(newFlight[name], name)}
+            >
+              Add anyway
+            </span>
           </p>
         )}
       </div>

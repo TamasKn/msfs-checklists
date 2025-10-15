@@ -8,62 +8,98 @@ const AIRPORT_DATABASE = {
   EGLL: {
     ident: 'EGLL',
     type: 'large_airport',
-    name: 'London Heathrow Airport'
+    name: 'London Heathrow Airport',
+    country: {
+      name: 'United Kingdom'
+    }
   },
   EHAM: {
     ident: 'EHAM',
     type: 'large_airport',
-    name: 'Amsterdam Airport Schiphol'
+    name: 'Amsterdam Airport Schiphol',
+    country: {
+      name: 'Netherlands'
+    }
   },
   KJFK: {
     ident: 'KJFK',
     type: 'large_airport',
-    name: 'John F Kennedy International Airport'
+    name: 'John F Kennedy International Airport',
+    country: {
+      name: 'United States'
+    }
   },
   KLAX: {
     ident: 'KLAX',
     type: 'large_airport',
-    name: 'Los Angeles International Airport'
+    name: 'Los Angeles International Airport',
+    country: {
+      name: 'United States'
+    }
   },
   LFPG: {
     ident: 'LFPG',
     type: 'large_airport',
-    name: 'Paris Charles de Gaulle Airport'
+    name: 'Paris Charles de Gaulle Airport',
+    country: {
+      name: 'France'
+    }
   },
   EDDF: {
     ident: 'EDDF',
     type: 'large_airport',
-    name: 'Frankfurt Airport'
+    name: 'Frankfurt Airport',
+    country: {
+      name: 'Germany'
+    }
   },
   LEMD: {
     ident: 'LEMD',
     type: 'large_airport',
-    name: 'Adolfo Suárez Madrid–Barajas Airport'
+    name: 'Adolfo Suárez Madrid–Barajas Airport',
+    country: {
+      name: 'Spain'
+    }
   },
   LIRF: {
     ident: 'LIRF',
     type: 'large_airport',
-    name: 'Leonardo da Vinci–Fiumicino Airport'
+    name: 'Leonardo da Vinci–Fiumicino Airport',
+    country: {
+      name: 'Italy'
+    }
   },
   OMDB: {
     ident: 'OMDB',
     type: 'large_airport',
-    name: 'Dubai International Airport'
+    name: 'Dubai International Airport',
+    country: {
+      name: 'United Arab Emirates'
+    }
   },
   WSSS: {
     ident: 'WSSS',
     type: 'large_airport',
-    name: 'Singapore Changi Airport'
+    name: 'Singapore Changi Airport',
+    country: {
+      name: 'Singapore'
+    }
   },
   RJTT: {
     ident: 'RJTT',
     type: 'large_airport',
-    name: 'Tokyo Haneda Airport'
+    name: 'Tokyo Haneda Airport',
+    country: {
+      name: 'Japan'
+    }
   },
   YSSY: {
     ident: 'YSSY',
     type: 'large_airport',
-    name: 'Sydney Kingsford Smith International Airport'
+    name: 'Sydney Kingsford Smith International Airport',
+    country: {
+      name: 'Australia'
+    }
   }
 }
 
