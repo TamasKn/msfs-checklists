@@ -5,7 +5,7 @@ import { explanations } from '@/data/infos/infos'
 import Tooltip from '@/app/components/micro/info-hover'
 
 export default function AircraftInfo({ specs }) {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const findExplanation = (specTitle) => {
     const acronym = Object.keys(explanations).find((key) =>
