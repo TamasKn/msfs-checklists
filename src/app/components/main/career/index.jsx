@@ -227,8 +227,11 @@ export default function CareerComponent() {
   const handleConfirmFlight = () => {
     if (!currentDraft || !calculatedFinancials) return
 
+    // Destructure to exclude draft id and other temporary fields
+    const { id: draftId, createdAt, updatedAt, departureRunway, destinationRunway, ...draftFlightData } = currentDraft
+
     const flightData = {
-      ...currentDraft,
+      ...draftFlightData,
       range: parseFloat(currentDraft.range),
       duration: parseFloat(currentDraft.duration),
       base: calculatedFinancials.basePay,
@@ -250,7 +253,7 @@ export default function CareerComponent() {
     const newId =
       flights.length > 0 ? Math.max(...flights.map((f) => f.id)) + 1 : 1
 
-    // Add flight to history
+    // Add flight to history with new ID
     setFlights((prev) => [...prev, { id: newId, ...flightData }])
 
     // Update user funds and XP (returns level up info)

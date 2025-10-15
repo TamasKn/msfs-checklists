@@ -40,9 +40,11 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       startDate: getCurrentDate(),
       jobType: JobType.Charter,
       departure: 'EHAM',
-      departureName: 'AMSTERDAM',
+      departureName: 'Schiphol Airport, NL',
+      departureRunway: '09',
       destination: 'KLAX',
-      destinationName: 'LA',
+      destinationName: 'Los Angeles International Airport, US',
+      destinationRunway: '27L',
       aircraft: AircraftName.CessnaLongitude,
       range: 7555,
       duration: 1455,
@@ -55,8 +57,10 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       jobType: JobType.Charter,
       departure: '',
       departureName: '',
+      departureRunway: '',
       destination: '',
       destinationName: '',
+      destinationRunway: '',
       aircraft: AircraftName.Cessna172,
       range: 1,
       duration: 60,
@@ -73,6 +77,10 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
     destination: false
   })
   const [leasedAircraft, setLeasedAircraft] = useState([])
+  const [runways, setRunways] = useState({
+    departure: [],
+    destination: []
+  })
 
   // Load leased aircraft on mount
   useEffect(() => {
@@ -115,10 +123,26 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
 
       if (response.data.status === 'success') {
         const airportData = response.data.data
+
+        // Extract runways and create options
+        const runwayOptions = []
+        if (airportData.runways && airportData.runways.length > 0) {
+          airportData.runways.forEach((runway) => {
+            if (runway.le_ident) runwayOptions.push(runway.le_ident)
+            if (runway.he_ident) runwayOptions.push(runway.he_ident)
+          })
+        }
+
+        setRunways((prev) => ({
+          ...prev,
+          [field]: runwayOptions
+        }))
+
         setNewFlight((prev) => ({
           ...prev,
           [field]: airportData.ident,
-          [`${field}Name`]: `${airportData.name}, ${airportData.country.name}`
+          [`${field}Name`]: `${airportData.name}, ${airportData.country.name}`,
+          [`${field}Runway`]: runwayOptions.length > 0 ? runwayOptions[0] : ''
         }))
       } else {
         // Handle error response from API
@@ -225,15 +249,17 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
 
     setIsSubmitting(true)
 
-    // Prepare draft flight data (without duration)
+    // Prepare draft flight data (without duration, includes runway data for display)
     const draftData = {
       startTime: newFlight.startTime,
       startDate: newFlight.startDate,
       jobType: newFlight.jobType,
       departure: newFlight.departure,
       departureName: newFlight.departureName,
+      departureRunway: newFlight.departureRunway || '',
       destination: newFlight.destination,
       destinationName: newFlight.destinationName,
+      destinationRunway: newFlight.destinationRunway || '',
       aircraft: newFlight.aircraft,
       range: parseFloat(newFlight.range),
       weather: newFlight.weather
@@ -435,22 +461,45 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
 
   return (
     <div className="bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-5xl max-h-[90vh] overflow-y-auto animate-slideUp">
-        {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm px-6 py-5 border-b border-gray-700/50 rounded-t-2xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-white">Add New Flight</h2>
-              <p className="text-sm text-gray-300 mt-1">
-                Enter your flight details below
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={onCancel}
-              className="text-gray-400 hover:text-white transition-colors duration-200"
+      {/* Header */}
+      <div className="sticky top-0 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm px-6 py-5 border-b border-gray-700/50 rounded-t-2xl">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-white">Add New Flight</h2>
+            <p className="text-sm text-gray-300 mt-1">
+              Enter your flight details below
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="text-gray-400 hover:text-white transition-colors duration-200"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Flight Information Section */}
+          <div className="col-span-full">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 text-indigo-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -459,21 +508,28 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-            </button>
+              Flight Information
+            </h3>
           </div>
-        </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Flight Information Section */}
-            <div className="col-span-full">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          {/* Start Time - Auto-filled, read-only */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-200 mb-2">
+              Start Date and Time (Auto-filled)
+            </label>
+            <div className="relative flex items-center gap-2">
+              <input
+                type="text"
+                value={newFlight.startTime}
+                readOnly
+                className="block w-[6rem] bg-gray-900/50 border pl-8 border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+              />
+              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-indigo-400"
+                  className="w-5 h-5 text-gray-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -482,154 +538,171 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Flight Information
-              </h3>
-            </div>
-
-            {/* Start Time - Auto-filled, read-only */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-200 mb-2">
-                Start Date and Time (Auto-filled)
-              </label>
-              <div className="relative flex items-center gap-2">
-                <input
-                  type="text"
-                  value={newFlight.startTime}
-                  readOnly
-                  className="block w-[6rem] bg-gray-900/50 border pl-8 border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
-                />
-                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                  <svg
-                    className="w-5 h-5 text-gray-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  value={newFlight.startDate}
-                  readOnly
-                  className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
-                />
               </div>
-              <p className="mt-1.5 text-xs text-gray-500">
-                Current date and time is automatically recorded
-              </p>
+              <input
+                type="text"
+                value={newFlight.startDate}
+                readOnly
+                className="block w-full bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-gray-400 cursor-not-allowed"
+              />
             </div>
+            <p className="mt-1.5 text-xs text-gray-500">
+              Current date and time is automatically recorded
+            </p>
+          </div>
 
-            {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
-            {renderAirportField('departure', 'Departure (ICAO)')}
-            {renderAirportField('destination', 'Destination (ICAO)')}
+          {renderSelectField('jobType', 'Job Type', Object.values(JobType))}
+          {renderAirportField('departure', 'Departure (ICAO)')}
 
-            {/* Aircraft - Only show leased aircraft */}
+          {/* Departure Runway Selection */}
+          {runways.departure.length > 0 && (
             <div>
               <label
-                htmlFor="aircraft"
+                htmlFor="departureRunway"
                 className="block text-sm font-semibold text-gray-200 mb-2"
               >
-                Aircraft
+                Departure Runway
               </label>
-              {leasedAircraft.length > 0 ? (
-                <select
-                  id="aircraft"
-                  name="aircraft"
-                  value={newFlight.aircraft}
-                  onChange={handleInputChange}
-                  className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-                >
-                  {leasedAircraft.map((aircraft) => (
-                    <option key={aircraft} value={aircraft}>
-                      {aircraft}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <div className="block w-full bg-gray-900/50 border border-yellow-600 rounded-lg shadow-sm py-2.5 px-4 text-yellow-400">
-                  No aircraft leased. Please lease an aircraft first.
-                </div>
-              )}
+              <select
+                id="departureRunway"
+                name="departureRunway"
+                value={newFlight.departureRunway || ''}
+                onChange={handleInputChange}
+                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              >
+                {runways.departure.map((runway) => (
+                  <option key={runway} value={runway}>
+                    {runway}
+                  </option>
+                ))}
+              </select>
             </div>
-            {renderInputField('range', 'Range (Nautical Mile)', 'number', '0', {
-              min: 1,
-              step: 1
-            })}
-            {renderSelectField(
-              'weather',
-              'Weather',
-              Object.values(WeatherType)
+          )}
+
+          {renderAirportField('destination', 'Destination (ICAO)')}
+
+          {/* Destination Runway Selection */}
+          {runways.destination.length > 0 && (
+            <div>
+              <label
+                htmlFor="destinationRunway"
+                className="block text-sm font-semibold text-gray-200 mb-2"
+              >
+                Destination Runway
+              </label>
+              <select
+                id="destinationRunway"
+                name="destinationRunway"
+                value={newFlight.destinationRunway || ''}
+                onChange={handleInputChange}
+                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              >
+                {runways.destination.map((runway) => (
+                  <option key={runway} value={runway}>
+                    {runway}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Aircraft - Only show leased aircraft */}
+          <div>
+            <label
+              htmlFor="aircraft"
+              className="block text-sm font-semibold text-gray-200 mb-2"
+            >
+              Aircraft
+            </label>
+            {leasedAircraft.length > 0 ? (
+              <select
+                id="aircraft"
+                name="aircraft"
+                value={newFlight.aircraft}
+                onChange={handleInputChange}
+                className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              >
+                {leasedAircraft.map((aircraft) => (
+                  <option key={aircraft} value={aircraft}>
+                    {aircraft}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className="block w-full bg-gray-900/50 border border-yellow-600 rounded-lg shadow-sm py-2.5 px-4 text-yellow-400">
+                No aircraft leased. Please lease an aircraft first.
+              </div>
             )}
           </div>
+          {renderInputField('range', 'Range (Nautical Mile)', 'number', '0', {
+            min: 1,
+            step: 1
+          })}
+          {renderSelectField('weather', 'Weather', Object.values(WeatherType))}
+        </div>
 
-          {/* Action Buttons */}
-          <div className="mt-8 pt-6 border-t border-gray-700/50 flex flex-col sm:flex-row justify-end gap-3">
-            <button
-              type="button"
-              onClick={onCancel}
-              disabled={isSubmitting}
-              className="w-full sm:w-auto py-2.5 px-6 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full sm:w-auto py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
-            >
-              {isSubmitting ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                  Adding Flight...
-                </span>
-              ) : (
-                <span className="flex items-center justify-center gap-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
+        {/* Action Buttons */}
+        <div className="mt-8 pt-6 border-t border-gray-700/50 flex flex-col sm:flex-row justify-end gap-3">
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={isSubmitting}
+            className="w-full sm:w-auto py-2.5 px-6 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full sm:w-auto py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="animate-spin h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  Confirm Flight
-                </span>
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Adding Flight...
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                Confirm Flight
+              </span>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }

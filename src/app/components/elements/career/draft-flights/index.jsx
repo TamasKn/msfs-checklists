@@ -49,16 +49,15 @@ export default function DraftFlights({ draftFlights, onContinue, onDelete }) {
           Flights in Progress
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          {draftFlights.length} {draftFlights.length === 1 ? 'flight' : 'flights'} waiting to be completed
+          {draftFlights.length}{' '}
+          {draftFlights.length === 1 ? 'flight' : 'flights'} waiting to be
+          completed
         </p>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700/50">
           <thead className="bg-gray-900/50">
             <tr>
-              <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                #
-              </th>
               <th className="px-4 py-3 text-center text-xs font-semibold text-gray-300 uppercase tracking-wider">
                 Time & Date
               </th>
@@ -89,10 +88,7 @@ export default function DraftFlights({ draftFlights, onContinue, onDelete }) {
                 className="hover:bg-gray-700/20 transition-colors duration-150"
               >
                 <td className="px-4 py-4 text-center text-sm text-gray-300">
-                  {draft.id}
-                </td>
-                <td className="px-4 py-4 text-center text-sm text-gray-300">
-                  <div className="flex flex-col gap-1 min-w-[3rem] max-w-[5rem]">
+                  <div className="flex flex-col gap-1 min-w-[3rem]">
                     <p>{draft.startTime}</p>
                     {draft.startDate ? (
                       <p className="text-gray-500 text-sm">{draft.startDate}</p>
@@ -204,4 +200,3 @@ export default function DraftFlights({ draftFlights, onContinue, onDelete }) {
     </div>
   )
 }
-
