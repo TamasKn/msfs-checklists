@@ -8,7 +8,6 @@ import { WeatherType } from '@/data/career/weather'
 import { getLeasedAircraft } from '@/utils/career/user-data'
 
 const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
-const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
 
 /**
  * AddFlight - Modal component for adding new flight entries
@@ -40,10 +39,10 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       startDate: getCurrentDate(),
       jobType: JobType.Charter,
       departure: 'EHAM',
-      departureName: 'Schiphol Airport, NL',
+      departureName: 'Schiphol Airport, Netherlands',
       departureRunway: '09',
       destination: 'KLAX',
-      destinationName: 'Los Angeles International Airport, US',
+      destinationName: 'Los Angeles International Airport, United States',
       destinationRunway: '27L',
       aircraft: AircraftName.CessnaLongitude,
       range: 7555,
@@ -478,7 +477,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
           >
             <svg
               className="w-6 h-6"
@@ -730,7 +729,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                     d="M12 4v16m8-8H4"
                   />
                 </svg>
-                Confirm Flight
+                Start Flight
               </span>
             )}
           </button>

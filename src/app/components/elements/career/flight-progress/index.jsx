@@ -173,7 +173,7 @@ export default function FlightProgress({
               Flight in Progress...
             </h2>
             <p className="text-sm text-orange-200 mt-1">
-              Complete your flight by entering the duration
+              Complete your flight or Pause to save your progress
             </p>
           </div>
           <button

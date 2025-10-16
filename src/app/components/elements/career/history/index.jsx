@@ -306,7 +306,7 @@ export default function FlightHistory({ flights }) {
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 hidden={currentPage === 1}
-                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer"
               >
                 Previous
               </button>
@@ -318,7 +318,7 @@ export default function FlightHistory({ flights }) {
                   setCurrentPage((p) => Math.min(totalPages, p + 1))
                 }
                 hidden={currentPage === totalPages || totalPages === 0}
-                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer"
               >
                 Next
               </button>
