@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { updateDraftFlight } from '@/utils/career/draft-flights'
 
 /**
  * FlightProgress - Modal component for completing a flight in progress
@@ -16,16 +17,77 @@ export default function FlightProgress({
   const [duration, setDuration] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [elapsedSeconds, setElapsedSeconds] = useState(
+    draftFlight.elapsedSeconds || 0
+  )
+  const [isTimerRunning, setIsTimerRunning] = useState(true)
+  const [useManualInput, setUseManualInput] = useState(false)
+  const timerIntervalRef = useRef(null)
+
+  /**
+   * Initialize elapsed seconds from draft flight when component mounts or draft changes
+   */
+  useEffect(() => {
+    setElapsedSeconds(draftFlight.elapsedSeconds || 0)
+  }, [draftFlight.id])
+
+  /**
+   * Start/resume timer
+   */
+  useEffect(() => {
+    if (isTimerRunning) {
+      timerIntervalRef.current = setInterval(() => {
+        setElapsedSeconds((prev) => prev + 1)
+      }, 1000)
+    } else {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current)
+      }
+    }
+
+    return () => {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current)
+      }
+    }
+  }, [isTimerRunning])
+
+  /**
+   * Format seconds to HH:MM:SS
+   * @param {number} totalSeconds - Total seconds
+   * @returns {string} Formatted time string
+   */
+  const formatTime = (totalSeconds) => {
+    const hours = Math.floor(totalSeconds / 3600)
+    const minutes = Math.floor((totalSeconds % 3600) / 60)
+    const seconds = totalSeconds % 60
+
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  }
+
+  /**
+   * Convert seconds to minutes (rounded up to minimum 60)
+   * @param {number} totalSeconds - Total seconds
+   * @returns {number} Minutes (minimum 60)
+   */
+  const secondsToMinutes = (totalSeconds) => {
+    const minutes = Math.round(totalSeconds / 60)
+    return Math.max(minutes, 60) // Ensure minimum 60 minutes
+  }
 
   /**
    * Validates duration input
    * @returns {boolean} - True if valid
    */
   const validateDuration = () => {
-    if (!duration || duration < 60) {
-      setError('Duration must be at least 60 minutes')
-      return false
+    // If using manual input, validate the manual duration
+    if (useManualInput) {
+      if (!duration || duration < 60) {
+        setError('Duration must be at least 60 minutes')
+        return false
+      }
     }
+    // Timer mode always valid (will be rounded up to 60 if needed)
     setError('')
     return true
   }
@@ -39,7 +101,31 @@ export default function FlightProgress({
     }
 
     setIsSubmitting(true)
-    onFinishFlight(duration)
+
+    // Pause timer
+    setIsTimerRunning(false)
+
+    // Use manual input if provided, otherwise use timer
+    const finalDuration =
+      useManualInput && duration ? duration : secondsToMinutes(elapsedSeconds)
+
+    onFinishFlight(finalDuration)
+  }
+
+  /**
+   * Handles save button click (pauses timer and saves to draft)
+   */
+  const handleSave = () => {
+    // Pause timer
+    setIsTimerRunning(false)
+
+    // Update draft with current elapsed time
+    updateDraftFlight(draftFlight.id, {
+      elapsedSeconds: elapsedSeconds
+    })
+
+    // Call original onCancel to close modal
+    onCancel()
   }
 
   /**
@@ -51,6 +137,14 @@ export default function FlightProgress({
     if (error && value >= 60) {
       setError('')
     }
+  }
+
+  /**
+   * Toggle between timer and manual input
+   */
+  const handleToggleManualInput = () => {
+    setUseManualInput(!useManualInput)
+    setError('')
   }
 
   return (
@@ -81,8 +175,8 @@ export default function FlightProgress({
           </div>
           <button
             type="button"
-            onClick={onCancel}
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            onClick={handleSave}
+            className="text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer"
           >
             <svg
               className="w-6 h-6"
@@ -245,27 +339,72 @@ export default function FlightProgress({
 
         {/* Duration Input and Action Buttons */}
         <div className="flex items-center justify-between gap-4 pt-6 border-t border-gray-700/50">
-          {/* Duration Input */}
+          {/* Timer / Duration Input */}
           <div className="max-w-[22rem] flex-1">
             <label
               htmlFor="duration"
               className="block text-sm font-semibold text-gray-200 mb-2"
             >
-              Flight Duration (minutes) *
+              Flight Duration *
             </label>
-            <input
-              type="number"
-              id="duration"
-              name="duration"
-              value={duration}
-              onChange={handleDurationChange}
-              placeholder="60"
-              min={60}
-              step={1}
-              className={`block w-full bg-gray-700/50 border ${
-                error ? 'border-red-500' : 'border-gray-600'
-              } rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
-            />
+
+            {!useManualInput ? (
+              <>
+                {/* Timer Display */}
+                <div className="flex flex-col gap-2">
+                  <div className="bg-gray-900/50 border border-gray-600 rounded-lg shadow-sm py-4 px-4 text-center">
+                    <div className="text-4xl font-mono font-bold text-orange-400 tracking-wider">
+                      {formatTime(elapsedSeconds)}
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">
+                      {elapsedSeconds < 3600 ? 'Rounding up to 60 min' : ''}
+                    </div>
+                  </div>
+                  {!error && !useManualInput && (
+                    <p className="mt-1.5 text-xs text-gray-500">
+                      Timer will be rounded up to 60 min if below
+                    </p>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleToggleManualInput}
+                    className="text-xs text-justify text-orange-400 hover:text-orange-300 underline cursor-pointer transition-colors duration-200"
+                  >
+                    Enter manually
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Manual Input */}
+                <input
+                  type="number"
+                  id="duration"
+                  name="duration"
+                  value={duration}
+                  onChange={handleDurationChange}
+                  placeholder="60"
+                  min={60}
+                  step={1}
+                  className={`block w-full bg-gray-700/50 border ${
+                    error ? 'border-red-500' : 'border-gray-600'
+                  } rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+                />
+                {!error && useManualInput && (
+                  <p className="mt-1.5 text-xs text-gray-500">
+                    Minimum 60 minutes required
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={handleToggleManualInput}
+                  className="mt-2 text-xs text-orange-400 hover:text-orange-300 underline cursor-pointer transition-colors duration-200"
+                >
+                  Use timer
+                </button>
+              </>
+            )}
+
             {error && (
               <p className="mt-1.5 text-sm text-red-400 flex items-center gap-1">
                 <svg
@@ -282,22 +421,17 @@ export default function FlightProgress({
                 {error}
               </p>
             )}
-            {!error && (
-              <p className="mt-1.5 text-xs text-gray-500">
-                Minimum 60 minutes required
-              </p>
-            )}
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3 pt-[0.45rem]">
+          <div className="flex gap-3 self-end">
             <button
               type="button"
-              onClick={onCancel}
+              onClick={handleSave}
               disabled={isSubmitting}
               className="py-2.5 px-6 text-base bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
-              Save
+              Pause & Save
             </button>
             <button
               type="button"
