@@ -124,6 +124,9 @@ export default function FlightProgress({
       elapsedSeconds: elapsedSeconds
     })
 
+    // reload the current page
+    window.location.reload()
+
     // Call original onCancel to close modal
     onCancel()
   }
