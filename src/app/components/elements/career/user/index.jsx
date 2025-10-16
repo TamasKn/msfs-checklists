@@ -13,7 +13,8 @@ const UserComponent = forwardRef((props, ref) => {
     funds: 0,
     xp: 0,
     level: 1,
-    leasedAircraft: []
+    leasedAircraft: [],
+    flightMinutes: 0
   })
   const [levelInfo, setLevelInfo] = useState(null)
 
@@ -53,6 +54,14 @@ const UserComponent = forwardRef((props, ref) => {
       : `-€${Math.abs(amount).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }
 
+  /**
+   * Converts flight minutes to hours with one decimal place
+   */
+  const formatFlightHours = (minutes) => {
+    const hours = minutes / 60
+    return hours.toFixed(1)
+  }
+
   return (
     <div className="bg-gradient-to-br from-gray-800/90 via-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-700/50 shadow-xl p-6">
       {/* Header */}
@@ -88,6 +97,25 @@ const UserComponent = forwardRef((props, ref) => {
               {levelInfo.title}
             </p>
           )}
+          <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+            <svg
+              className="w-3.5 h-3.5 text-blue-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="text-blue-400 font-semibold">
+              {formatFlightHours(userData.flightMinutes || 0)} hrs
+            </span>
+            <span className="text-gray-500">total flight time</span>
+          </p>
         </div>
       </div>
 

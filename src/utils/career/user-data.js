@@ -8,7 +8,7 @@ const USER_DATA_KEY = 'user_data'
 
 /**
  * Gets user data from localStorage
- * @returns {Object} User data object with name, funds, xp, level, and leasedAircraft
+ * @returns {Object} User data object with name, funds, xp, level, leasedAircraft, and flightMinutes
  */
 export const getUserData = () => {
   try {
@@ -19,6 +19,10 @@ export const getUserData = () => {
       if (!parsed.level) {
         parsed.level = 1
       }
+      // Ensure flightMinutes exists (for backward compatibility)
+      if (!parsed.flightMinutes) {
+        parsed.flightMinutes = 0
+      }
       return parsed
     }
     return {
@@ -26,7 +30,8 @@ export const getUserData = () => {
       funds: 0,
       xp: 0,
       level: 1,
-      leasedAircraft: []
+      leasedAircraft: [],
+      flightMinutes: 0
     }
   } catch (error) {
     console.error('Failed to get user data:', error)
@@ -35,7 +40,8 @@ export const getUserData = () => {
       funds: 0,
       xp: 0,
       level: 1,
-      leasedAircraft: []
+      leasedAircraft: [],
+      flightMinutes: 0
     }
   }
 }
@@ -53,13 +59,14 @@ export const saveUserData = (userData) => {
 }
 
 /**
- * Updates user funds and XP after a flight
+ * Updates user funds, XP, and flight minutes after a flight
  * Handles level ups and XP reset
  * @param {number} reward - Total reward from flight
  * @param {number} earnedXP - XP earned from flight
+ * @param {number} flightDuration - Flight duration in minutes
  * @returns {Object} Updated user data with level up information
  */
-export const updateUserAfterFlight = (reward, earnedXP) => {
+export const updateUserAfterFlight = (reward, earnedXP, flightDuration = 0) => {
   const userData = getUserData()
 
   // Update funds
@@ -74,6 +81,9 @@ export const updateUserAfterFlight = (reward, earnedXP) => {
   userData.xp = levelUpResult.newXP
   userData.level = levelUpResult.newLevel
 
+  // Update flight minutes
+  userData.flightMinutes = (userData.flightMinutes || 0) + flightDuration
+
   // Save updated data
   saveUserData(userData)
 
@@ -84,13 +94,14 @@ export const updateUserAfterFlight = (reward, earnedXP) => {
 }
 
 /**
- * Resets user funds, XP, and level (keeps name and leased aircraft)
+ * Resets user funds, XP, level, and flight minutes (keeps name and leased aircraft)
  */
 export const resetUserProgress = () => {
   const userData = getUserData()
   userData.funds = 0
   userData.xp = 0
   userData.level = 1
+  userData.flightMinutes = 0
   saveUserData(userData)
   return userData
 }

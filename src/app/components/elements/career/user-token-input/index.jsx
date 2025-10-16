@@ -43,13 +43,14 @@ export default function UserTokenInput({ onTokenSaved }) {
     localStorage.setItem('user_token', userToken)
 
     if (!existingUser) {
-      // Initialize user data with name, funds, XP, level, and leased aircraft
+      // Initialize user data with name, funds, XP, level, leased aircraft, and flight minutes
       const userData = {
         name: userName,
         funds: 0,
         xp: 0,
         level: 1,
-        leasedAircraft: []
+        leasedAircraft: [],
+        flightMinutes: 0
       }
       localStorage.setItem('user_data', JSON.stringify(userData))
     }

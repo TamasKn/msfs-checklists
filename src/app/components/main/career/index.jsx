@@ -256,8 +256,8 @@ export default function CareerComponent() {
     // Add flight to history with new ID
     setFlights((prev) => [...prev, { id: newId, ...flightData }])
 
-    // Update user funds and XP (returns level up info)
-    const result = updateUserAfterFlight(flightData.totalReward, flightData.xp)
+    // Update user funds, XP, and flight minutes (returns level up info)
+    const result = updateUserAfterFlight(flightData.totalReward, flightData.xp, flightData.duration)
 
     // Show level up notification if leveled up
     if (result.levelUpInfo && result.levelUpInfo.leveledUp) {
