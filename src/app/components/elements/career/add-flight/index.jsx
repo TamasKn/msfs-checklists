@@ -45,8 +45,8 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       destinationName: 'Los Angeles International Airport, United States',
       destinationRunway: '27L',
       aircraft: AircraftName.CessnaLongitude,
-      range: 7555,
-      duration: 1455,
+      range: 555,
+      duration: 60,
       weather: WeatherType.Clear
     }
   } else {

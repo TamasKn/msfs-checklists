@@ -114,7 +114,7 @@ const UserComponent = forwardRef((props, ref) => {
             <span className="text-blue-400 font-semibold">
               {formatFlightHours(userData.flightMinutes || 0)} hrs
             </span>
-            <span className="text-gray-500">total flight time</span>
+            <span className="text-gray-500">flight time</span>
           </p>
         </div>
       </div>
@@ -122,7 +122,9 @@ const UserComponent = forwardRef((props, ref) => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Funds */}
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-green-500/50 transition-all duration-300">
+        <div
+          className={`bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 ${userData.funds >= 0 ? 'hover:border-green-500/50' : 'hover:border-red-500/50'} transition-all duration-300`}
+        >
           <div className="flex items-center gap-3 mb-2">
             <div
               className={`${userData.funds >= 0 ? 'bg-green-500/20' : 'bg-red-500/20'} p-2 rounded-lg`}
