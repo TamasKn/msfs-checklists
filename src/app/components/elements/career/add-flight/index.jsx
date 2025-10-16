@@ -171,8 +171,14 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
     setNewFlight((prev) => ({
       ...prev,
       [field]: icao.toUpperCase(),
-      [`${field}Name`]: 'Custom ICAO'
+      [`${field}Name`]: `Custom ${field}`,
+      [`${field}Runway`]: 'N/A'
     }))
+    setErrors((prev) => {
+      const newErrors = { ...prev }
+      delete newErrors[field]
+      return newErrors
+    })
   }
 
   /**
