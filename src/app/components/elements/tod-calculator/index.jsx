@@ -82,7 +82,7 @@ export default function TodCalculator() {
       <div className="flex justify-center">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-1/4 flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg"
+          className="w-full md:w-1/4 flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg"
         >
           <span>TOD Calculator</span>
           <svg
@@ -105,7 +105,7 @@ export default function TodCalculator() {
       </div>
       {isOpen && (
         <div className="mt-2 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col md:flex-row gap-6">
             {renderInputField(
               'currentAltitude',
               'Current Altitude (ft)',
