@@ -209,13 +209,25 @@ export default function FlightHistory({ flights }) {
                   {flight.weather}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-300 text-right font-mono">
-                  €{flight.base.toLocaleString()}
+                  €
+                  {flight.base.toLocaleString('en-GB', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-emerald-400 text-right font-mono">
-                  +€{flight.bonus.toLocaleString()}
+                  +€
+                  {flight.bonus.toLocaleString('en-GB', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-red-400 text-right font-mono">
-                  -€{flight.operationCost.toLocaleString()}
+                  -€
+                  {flight.operationCost.toLocaleString('en-GB', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-base font-bold text-center">
                   <span
@@ -226,7 +238,10 @@ export default function FlightHistory({ flights }) {
                     }`}
                   >
                     {flight.totalReward >= 0 ? '€' : '-€'}
-                    {Math.abs(flight.totalReward).toLocaleString()}
+                    {Math.abs(flight.totalReward).toLocaleString('en-GB', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                    })}
                   </span>
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-center">

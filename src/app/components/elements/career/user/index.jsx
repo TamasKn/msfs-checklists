@@ -44,13 +44,13 @@ const UserComponent = forwardRef((props, ref) => {
    * Formats funds with color based on positive/negative
    */
   const formatFunds = (amount) => {
-    const formatted = amount.toLocaleString('en-US', {
+    const formatted = amount.toLocaleString('en-GB', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     })
     return amount >= 0
       ? `€${formatted}`
-      : `-€${Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      : `-€${Math.abs(amount).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }
 
   return (

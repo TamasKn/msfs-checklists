@@ -52,7 +52,11 @@ export default function FinancialSummary({
                 </div>
               </div>
               <p className="text-lg sm:text-2xl font-bold text-blue-400 flex-shrink-0">
-                €{basePay.toLocaleString()}
+                €
+                {basePay.toLocaleString('en-GB', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}
               </p>
             </div>
           </div>
@@ -88,7 +92,11 @@ export default function FinancialSummary({
                 </div>
               </div>
               <p className="text-lg sm:text-2xl font-bold text-purple-400 flex-shrink-0">
-                €{bonus.toLocaleString()}
+                €
+                {bonus.toLocaleString('en-GB', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}
               </p>
             </div>
           </div>
@@ -120,7 +128,11 @@ export default function FinancialSummary({
                 </div>
               </div>
               <p className="text-lg sm:text-2xl font-bold text-red-400 flex-shrink-0">
-                -€{operationCost.toLocaleString()}
+                -€
+                {operationCost.toLocaleString('en-GB', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}
               </p>
             </div>
             {/* Cost Breakdown */}
@@ -130,7 +142,7 @@ export default function FinancialSummary({
                   <span>• Lease Cost:</span>
                   <span>
                     €
-                    {breakdown.lease.toLocaleString('en-US', {
+                    {breakdown.lease.toLocaleString('en-GB', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2
                     })}
@@ -140,7 +152,7 @@ export default function FinancialSummary({
                   <span>• Insurance:</span>
                   <span>
                     €
-                    {breakdown.insurance.toLocaleString('en-US', {
+                    {breakdown.insurance.toLocaleString('en-GB', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2
                     })}
@@ -150,7 +162,7 @@ export default function FinancialSummary({
                   <span>• Regular Maintenance:</span>
                   <span>
                     €
-                    {breakdown.maintenance.toLocaleString('en-US', {
+                    {breakdown.maintenance.toLocaleString('en-GB', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2
                     })}
@@ -205,7 +217,7 @@ export default function FinancialSummary({
                         </span>
                         <span className="flex-shrink-0">
                           €
-                          {issue.cost.toLocaleString('en-US', {
+                          {issue.cost.toLocaleString('en-GB', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           })}
@@ -285,7 +297,10 @@ export default function FinancialSummary({
                 }`}
               >
                 {totalReward >= 0 ? '€' : '-€'}
-                {Math.abs(totalReward).toLocaleString()}
+                {Math.abs(totalReward).toLocaleString('en-GB', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}
               </p>
             </div>
           </div>
