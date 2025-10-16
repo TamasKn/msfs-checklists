@@ -77,7 +77,12 @@ export default function CareerComponent() {
 
   // Add/remove modal-open class to body when modals are open
   useEffect(() => {
-    if (showAddFlight || showLeaseAircraft || showFlightProgress || showFinancialSummary) {
+    if (
+      showAddFlight ||
+      showLeaseAircraft ||
+      showFlightProgress ||
+      showFinancialSummary
+    ) {
       document.body.classList.add('modal-open')
     } else {
       document.body.classList.remove('modal-open')
@@ -85,7 +90,12 @@ export default function CareerComponent() {
     return () => {
       document.body.classList.remove('modal-open')
     }
-  }, [showAddFlight, showLeaseAircraft, showFlightProgress, showFinancialSummary])
+  }, [
+    showAddFlight,
+    showLeaseAircraft,
+    showFlightProgress,
+    showFinancialSummary
+  ])
 
   /**
    * Get aircraft career data
@@ -158,7 +168,10 @@ export default function CareerComponent() {
       currentDraft.weather
     )
 
-    const operationCost = calculateOperationCost(currentDraft.aircraft, durationNum)
+    const operationCost = calculateOperationCost(
+      currentDraft.aircraft,
+      durationNum
+    )
 
     // Calculate maintenance issues (hidden cost)
     const maintenanceIssueResult = calculateMaintenanceIssueCost(
@@ -183,25 +196,32 @@ export default function CareerComponent() {
     const careerData = getAircraftCareerData(currentDraft.aircraft)
     const flightHours = durationNum / 60
 
-    // Calculate raw breakdown values
+    // Calculate raw values (unrounded)
     const rawLease = careerData.costs.leasePriceBase * flightHours
     const rawInsurance = careerData.costs.insuranceBase * flightHours
     const rawMaintenance = careerData.costs.maintenance.base * flightHours
 
-    // Round each component
-    const roundedLease = Math.round(rawLease * 100) / 100
-    const roundedInsurance = Math.round(rawInsurance * 100) / 100
-    const roundedMaintenance = Math.round(rawMaintenance * 100) / 100
+    // Round each component individually
+    const leaseCost = Math.round(rawLease * 100) / 100
+    const insuranceCost = Math.round(rawInsurance * 100) / 100
+    const maintenanceCost = Math.round(rawMaintenance * 100) / 100
 
-    // Calculate the difference between sum of rounded components and actual total
-    const roundedSum = roundedLease + roundedInsurance + roundedMaintenance
-    const difference = Math.round((operationCost - roundedSum) * 100) / 100
+    // Calculate the sum of rounded components (don't round the sum itself)
+    const breakdownSum = leaseCost + insuranceCost + maintenanceCost
 
-    // Adjust the largest component to match the total exactly
+    // Calculate the difference between the operation cost and the sum of rounded components
+    // The operationCost is calculated as: Math.round((lease + insurance + maintenance) * 100) / 100
+    // So there may be a small rounding difference
+    const difference = Math.round((operationCost - breakdownSum) * 100) / 100
+
+    // Adjust maintenance to account for any rounding difference
+    const adjustedMaintenance =
+      Math.round((maintenanceCost + difference) * 100) / 100
+
     const breakdown = {
-      lease: roundedLease,
-      insurance: roundedInsurance,
-      maintenance: roundedMaintenance + difference,
+      lease: leaseCost,
+      insurance: insuranceCost,
+      maintenance: adjustedMaintenance,
       maintenanceIssues: maintenanceIssueCost,
       maintenanceIssueDetails: maintenanceIssueResult.issues
     }
@@ -228,7 +248,14 @@ export default function CareerComponent() {
     if (!currentDraft || !calculatedFinancials) return
 
     // Destructure to exclude draft id and other temporary fields
-    const { id: draftId, createdAt, updatedAt, departureRunway, destinationRunway, ...draftFlightData } = currentDraft
+    const {
+      id: draftId,
+      createdAt,
+      updatedAt,
+      departureRunway,
+      destinationRunway,
+      ...draftFlightData
+    } = currentDraft
 
     const flightData = {
       ...draftFlightData,
@@ -257,7 +284,11 @@ export default function CareerComponent() {
     setFlights((prev) => [...prev, { id: newId, ...flightData }])
 
     // Update user funds, XP, and flight minutes (returns level up info)
-    const result = updateUserAfterFlight(flightData.totalReward, flightData.xp, flightData.duration)
+    const result = updateUserAfterFlight(
+      flightData.totalReward,
+      flightData.xp,
+      flightData.duration
+    )
 
     // Show level up notification if leveled up
     if (result.levelUpInfo && result.levelUpInfo.leveledUp) {
