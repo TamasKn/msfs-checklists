@@ -225,13 +225,6 @@ export default function FlightProgress({
             <div className="flex flex-col items-center gap-2">
               <div className="relative flex items-center">
                 <div className="h-0.5 w-72 bg-gradient-to-r from-blue-500 via-orange-400 to-purple-500"></div>
-                {/*<svg*/}
-                {/*  className="w-8 h-8 text-orange-400 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 rotate-90"*/}
-                {/*  fill="currentColor"*/}
-                {/*  viewBox="0 0 20 20"*/}
-                {/*>*/}
-                {/*  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />*/}
-                {/*</svg>*/}
                 <svg
                   className="w-14 h-14 text-orange-400 absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 rotate-90"
                   fill="currentColor"
@@ -348,7 +341,7 @@ export default function FlightProgress({
               htmlFor="duration"
               className="block text-sm font-semibold text-gray-200 mb-2"
             >
-              Flight Duration *
+              {useManualInput ? 'Flight Duration* (minutes)' : 'Elapsed Time'}
             </label>
 
             {!useManualInput ? (
