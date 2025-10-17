@@ -26,33 +26,31 @@ export default function FuelCalculator({
   const unit = isTabbed ? propUnit : localUnit
   const setUnit = isTabbed ? propSetUnit : setLocalUnit
 
-  const calculateFuel = () => {
-    if (
-      !aircraft ||
-      !aircraft.specs ||
-      !aircraft.specs.specs ||
-      !aircraft.specs.specs[0] ||
-      !aircraft.specs.specs[0].items
-    ) {
-      setResult(
-        'Aircraft data is not available or has an invalid structure. Please select an aircraft.'
-      )
-      return
-    }
-
-    const specsItems = aircraft.specs.specs[0].items
-    const vmoItem = specsItems.find((item) => item['VMO'])
-    const fuelConsumptionItem = specsItems.find(
-      (item) => item['Fuel Consumption (L/hr)']
+  if (
+    !aircraft ||
+    !aircraft.specs ||
+    !aircraft.specs.specs ||
+    !aircraft.specs.specs[0] ||
+    !aircraft.specs.specs[0].items
+  ) {
+    setResult(
+      'Aircraft data is not available or has an invalid structure. Please select an aircraft.'
     )
+    return
+  }
 
-    if (!vmoItem || !fuelConsumptionItem) {
-      setResult(
-        'Aircraft performance data (VMO or Fuel Consumption) is missing.'
-      )
-      return
-    }
+  const specsItems = aircraft.specs.specs[0].items
+  const vmoItem = specsItems.find((item) => item['VMO'])
+  const fuelConsumptionItem = specsItems.find(
+    (item) => item['Fuel Consumption (L/hr)']
+  )
 
+  if (!vmoItem || !fuelConsumptionItem) {
+    setResult('Aircraft performance data (VMO or Fuel Consumption) is missing.')
+    return
+  }
+
+  const calculateFuel = () => {
     const distance = parseInt(range, 10)
     if (isNaN(distance) || distance <= 0) {
       setResult('Invalid input. Please provide a valid range.')
@@ -169,7 +167,7 @@ export default function FuelCalculator({
           </button>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-6 justify-between items-end">
+      <div className="flex flex-col md:flex-row gap-6 justify-between md:items-end">
         {renderInputField(
           'range',
           'Route Distance (NM)',
@@ -178,9 +176,14 @@ export default function FuelCalculator({
           'e.g., 1500',
           { step: 50, min: 0 }
         )}
+        <div className="w-1/2 bg-gray-700/50 border border-gray-700/50 rounded-lg shadow-sm py-3 px-2 text-gray-400 text-xs md:text-sm lg:text-base self-center md:self-end">
+          Fuel Consumption:{' '}
+          {convertFuel(fuelConsumptionItem['Fuel Consumption (L/hr)'])} {unit}
+          /hr
+        </div>
         <button
           onClick={calculateFuel}
-          className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 self-center md:self-end"
         >
           Calculate
         </button>

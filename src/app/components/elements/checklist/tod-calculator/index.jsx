@@ -145,116 +145,114 @@ export default function TodCalculator({
   // Render content only (for tabbed mode)
   const renderContent = () => (
     <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
-          <div className="flex flex-col md:flex-row gap-6">
-            {renderInputField(
-              'currentAltitude',
-              'Cruise Altitude (ft)',
-              input.currentAltitude,
-              handleInputChange,
-              'e.g., 35000',
-              { step: 100, min: 0 }
-            )}
-            {renderInputField(
-              'destinationElevation',
-              'Runway Elevation (ft)',
-              input.destinationElevation,
-              handleInputChange,
-              'e.g., 500'
-            )}
-            {renderInputField(
-              'verticalSpeed',
-              'Descent VS (fpm)',
-              input.verticalSpeed,
-              handleInputChange,
-              'e.g., 1800',
-              { step: 100, min: 0 }
-            )}
-            {renderInputField(
-              'groundSpeed',
-              'Groundspeed for Descent',
-              input.groundSpeed,
-              handleInputChange,
-              'e.g., 450',
-              { step: 10, min: 0 }
-            )}
-          </div>
-          <div className="flex flex-col md:flex-row gap-6 mt-4 justify-between items-end">
-            {renderInputField(
-              'approachSpeed',
-              'Groundspeed for Approach',
-              input.approachSpeed,
-              handleInputChange,
-              'e.g., 122',
-              { step: 1, min: 0 }
-            )}
-            {renderInputField(
-              'approachAngle',
-              'Approach Angle (default: 3°)',
-              input.approachAngle,
-              handleInputChange,
-              'e.g., 3°',
-              { step: 1, min: 2, max: 5 }
-            )}
-            <button
-              onClick={calculateTod}
-              className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-            >
-              Calculate
-            </button>
-          </div>
-          {result && typeof result === 'object' && (
-            <div className="mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
-                  <h4 className="text-lg font-semibold text-indigo-400 mb-3">
-                    Top of Descent (TOD)
-                  </h4>
-                  <p className="text-gray-300 text-sm">
-                    Start to descent at{' '}
-                    <strong className="text-indigo-300 text-base font-bold">
-                      {result.todResults.todDistance.toFixed(2)} NM
-                    </strong>{' '}
-                    or{' '}
-                    <strong className="text-indigo-300 text-base font-bold">
-                      {Math.ceil(result.todResults.todTimeInMinutes)} minutes
-                    </strong>{' '}
-                    from RWY.
-                  </p>
-                </div>
-                <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
-                  <h4 className="text-lg font-semibold text-purple-400 mb-3">
-                    Approach
-                  </h4>
-                  <p className="text-gray-300 text-sm">
-                    Final ({result.approachResults.finalAltitude} ft) approach
-                    is{' '}
-                    <strong className="text-purple-300 text-base font-bold">
-                      {result.approachResults.apprDistance.toFixed(2)} NM
-                    </strong>{' '}
-                    or{' '}
-                    <strong className="text-purple-300 text-base font-bold">
-                      {Math.ceil(result.approachResults.apprTimeInMinutes)}{' '}
-                      minutes
-                    </strong>{' '}
-                    to Runway at{' '}
-                    <strong className="text-purple-300 text-base font-bold">
-                      {Math.round(
-                        result.approachResults.rateOfDescent.toFixed(0) / 100
-                      ) * 100}{' '}
-                      fpm
-                    </strong>
-                    .
-                  </p>
-                </div>
-              </div>
+      <div className="flex flex-col md:flex-row gap-6">
+        {renderInputField(
+          'currentAltitude',
+          'Cruise Altitude (ft)',
+          input.currentAltitude,
+          handleInputChange,
+          'e.g., 35000',
+          { step: 100, min: 0 }
+        )}
+        {renderInputField(
+          'destinationElevation',
+          'Runway Elevation (ft)',
+          input.destinationElevation,
+          handleInputChange,
+          'e.g., 500'
+        )}
+        {renderInputField(
+          'verticalSpeed',
+          'Descent VS (fpm)',
+          input.verticalSpeed,
+          handleInputChange,
+          'e.g., 1800',
+          { step: 100, min: 0 }
+        )}
+        {renderInputField(
+          'groundSpeed',
+          'Groundspeed for Descent',
+          input.groundSpeed,
+          handleInputChange,
+          'e.g., 450',
+          { step: 10, min: 0 }
+        )}
+      </div>
+      <div className="flex flex-col md:flex-row gap-6 mt-4 justify-between md:items-end">
+        {renderInputField(
+          'approachSpeed',
+          'Groundspeed for Approach',
+          input.approachSpeed,
+          handleInputChange,
+          'e.g., 122',
+          { step: 1, min: 0 }
+        )}
+        {renderInputField(
+          'approachAngle',
+          'Approach Angle (default: 3°)',
+          input.approachAngle,
+          handleInputChange,
+          'e.g., 3°',
+          { step: 1, min: 2, max: 5 }
+        )}
+        <button
+          onClick={calculateTod}
+          className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 self-center md:self-end"
+        >
+          Calculate
+        </button>
+      </div>
+      {result && typeof result === 'object' && (
+        <div className="mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
+              <h4 className="text-lg font-semibold text-indigo-400 mb-3">
+                Top of Descent (TOD)
+              </h4>
+              <p className="text-gray-300 text-sm">
+                Start to descent at{' '}
+                <strong className="text-indigo-300 text-base font-bold">
+                  {result.todResults.todDistance.toFixed(2)} NM
+                </strong>{' '}
+                or{' '}
+                <strong className="text-indigo-300 text-base font-bold">
+                  {Math.ceil(result.todResults.todTimeInMinutes)} minutes
+                </strong>{' '}
+                from RWY.
+              </p>
             </div>
-          )}
-          {result && typeof result === 'string' && (
-            <div className="mt-6 p-4 bg-red-900/50 border border-red-700 rounded-lg text-center">
-              <p className="text-red-300">{result}</p>
+            <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
+              <h4 className="text-lg font-semibold text-purple-400 mb-3">
+                Approach
+              </h4>
+              <p className="text-gray-300 text-sm">
+                Final ({result.approachResults.finalAltitude} ft) approach is{' '}
+                <strong className="text-purple-300 text-base font-bold">
+                  {result.approachResults.apprDistance.toFixed(2)} NM
+                </strong>{' '}
+                or{' '}
+                <strong className="text-purple-300 text-base font-bold">
+                  {Math.ceil(result.approachResults.apprTimeInMinutes)} minutes
+                </strong>{' '}
+                to Runway at{' '}
+                <strong className="text-purple-300 text-base font-bold">
+                  {Math.round(
+                    result.approachResults.rateOfDescent.toFixed(0) / 100
+                  ) * 100}{' '}
+                  fpm
+                </strong>
+                .
+              </p>
             </div>
-          )}
+          </div>
         </div>
+      )}
+      {result && typeof result === 'string' && (
+        <div className="mt-6 p-4 bg-red-900/50 border border-red-700 rounded-lg text-center">
+          <p className="text-red-300">{result}</p>
+        </div>
+      )}
+    </div>
   )
 
   // If in tabbed mode, return only the content
