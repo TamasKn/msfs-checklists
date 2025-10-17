@@ -226,14 +226,7 @@ export default function LeaseAircraft({ onClose, onLeaseComplete }) {
 
                   {/* Action Button */}
                   <div className="p-3 sm:p-4 pt-0">
-                    {isLeased ? (
-                      <button
-                        disabled
-                        className="w-full py-2.5 px-4 bg-green-600/20 border border-green-500/50 text-green-400 font-semibold rounded-lg cursor-not-allowed"
-                      >
-                        Already Leased
-                      </button>
-                    ) : (
+                    {!isLeased && (
                       <button
                         onClick={() => handleSelectAircraft(aircraftName)}
                         className="w-full py-2.5 px-4 font-semibold rounded-lg transition-all duration-200 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white cursor-pointer"
