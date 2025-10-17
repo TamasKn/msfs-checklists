@@ -5,7 +5,7 @@ import ChecklistItems from '@/app/components/elements/checklist/checklist-items'
 import AircraftInfo from '@/app/components/elements/checklist/aircraft-info'
 import AircraftSelector from '@/app/components/elements/checklist/aircraft-selector'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
-import TodCalculator from '@/app/components/elements/tod-calculator'
+import TodCalculator from '@/app/components/elements/checklist/tod-calculator'
 
 export default function ChecklistComponent() {
   const [selectedAircraft, setSelectedAircraft] = useState(Aircrafts[0])
