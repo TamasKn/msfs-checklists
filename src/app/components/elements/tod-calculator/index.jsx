@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 
+const AGL = 1000
+
 export default function TodCalculator() {
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState({
@@ -39,15 +41,29 @@ export default function TodCalculator() {
       todDistance
     }
 
-    const finalApproach = parseInt(destinationElevation, 10) + 1000
+    /**
+     * Common Approach Angles
+     *
+     * 2°	- 212 ft/NM	Shallow descent
+     * 2.5° -	264 ft/NM
+     * 3° -	318 ft/NM	Standard glidepath
+     * 3.5° -	373 ft/NM	Steeper
+     * 4°	- 425 ft/NM	Very steep
+     * 5° -	531 ft/NM	Uncommon
+     *
+     * For simplicity, approach angle is multiplied by 100
+     * **/
+
+    const finalAltitude = parseInt(destinationElevation, 10) + AGL
 
     const calculatedApproachAngle = parseInt(approachAngle, 10) * 100
     const rateOfDescent =
       (parseInt(approachSpeed, 10) / 60) * calculatedApproachAngle
-    const apprDistance = finalApproach / calculatedApproachAngle
-    const apprTimeInMinutes = finalApproach / rateOfDescent
+    const apprDistance = finalAltitude / calculatedApproachAngle
+    const apprTimeInMinutes = finalAltitude / rateOfDescent
 
     const approachResults = {
+      finalAltitude,
       calculatedApproachAngle,
       rateOfDescent,
       apprDistance,
@@ -218,7 +234,8 @@ export default function TodCalculator() {
                     Approach
                   </h4>
                   <p className="text-gray-300 text-sm">
-                    Final (1000 ft AGL) approach is{' '}
+                    Final ({result.approachResults.finalAltitude} ft) approach
+                    is{' '}
                     <strong className="text-purple-300 text-base font-bold">
                       {result.approachResults.apprDistance.toFixed(2)} NM
                     </strong>{' '}
