@@ -25,7 +25,7 @@ export const boeing737MaxSpecs = {
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '172,000 lb' },
         { 'Fuel Capacity': '6,820 gal (usable)' },
-        { 'Stall Speed': '112 KIAS' }
+        { 'Stall Speed': '112 KCAS' }
       ]
     }
   ]

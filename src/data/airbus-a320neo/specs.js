@@ -25,7 +25,7 @@ export const airbusA320neoSpecs = {
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '164,000 lb' },
         { 'Fuel Capacity': '6,400 gal (usable)' },
-        { 'Stall Speed': '108 KIAS' }
+        { 'Stall Speed': '108 KCAS' }
       ]
     }
   ]

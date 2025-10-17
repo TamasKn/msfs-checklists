@@ -21,7 +21,7 @@ export const visionJetG2Specs = {
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '6,000 lb' },
         { 'Fuel Capacity': '202 gal (usable)' },
-        { 'Stall Speed': '67 KIAS' }
+        { 'Stall Speed': '67 KCAS' }
       ]
     }
   ]

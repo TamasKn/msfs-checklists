@@ -19,7 +19,7 @@ export const cessna172Specs = {
         },
         { 'Payload': '2,550 lb' },
         { 'Fuel Capacity': '53 gal (usable)' },
-        { 'Stall Speed': '48 KIAS' }
+        { 'Stall Speed': '48 KCAS' }
       ]
     }
   ]

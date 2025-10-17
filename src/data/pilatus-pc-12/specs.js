@@ -20,7 +20,7 @@ export const pilatusPc12Specs = {
         },
         { 'Payload': '10,450 lb' },
         { 'Fuel Capacity': '402 gal (usable)' },
-        { 'Stall Speed': '67 KIAS' }
+        { 'Stall Speed': '67 KCAS' }
       ]
     }
   ]

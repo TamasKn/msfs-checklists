@@ -19,7 +19,7 @@ export const diamondDA62Specs = {
         },
         { 'Payload': '7,000 lb' },
         { 'Fuel Capacity': '100 gal (usable)' },
-        { 'Stall Speed': '67 KIAS' }
+        { 'Stall Speed': '67 KCAS' }
       ]
     }
   ]

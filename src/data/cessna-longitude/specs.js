@@ -46,7 +46,7 @@ export const cessnaLongitudeSpecs = {
           'Fuel Consumption': '816.50 L/hr'
         },
         {
-          'Stall Speed': '85-120 KIAS'
+          'Stall Speed': '85-120 KCAS'
         }
       ]
     }

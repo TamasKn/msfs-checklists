@@ -22,7 +22,8 @@ export const beechcraftKingAir350Specs = {
         },
         { 'Fuel Capacity': '3,611 lbs' },
         { 'Max Takeoff Weight': '15,000 lbs' },
-        { 'Payload': '2,545 lbs' }
+        { 'Payload': '2,545 lbs' },
+        { 'Stall Speed': '82 KCAS' }
       ]
     }
   ]
