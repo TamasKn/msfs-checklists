@@ -62,8 +62,8 @@ export default function FuelCalculator({ aircraft }) {
     const descentTime = 10 / 60 // 10 minutes
     const descentFuel = descentFuelFlow * descentTime
 
-    // 4. Taxi
-    const taxiFuel = 50 // Constant 50L
+    // 4. Taxi: 25% fuel consumption L/hr for approx 15 minutes
+    const taxiFuel = fuelConsumption * (15 / 60) * 0.25
 
     // 5. Reserves
     const ifrReserve = fuelConsumption * (45 / 60) // 45 minutes
