@@ -1,37 +1,40 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function FuelCalculator({ aircraft }) {
   const [isOpen, setIsOpen] = useState(false)
   const [range, setRange] = useState('')
   const [result, setResult] = useState(null)
-
-  if (
-    !aircraft ||
-    !aircraft.specs ||
-    !aircraft.specs.specs ||
-    !aircraft.specs.specs[0] ||
-    !aircraft.specs.specs[0].items
-  ) {
-    setResult(
-      'Aircraft data is not available or has an invalid structure. Please select an aircraft.'
-    )
-    return
-  }
-
-  const specsItems = aircraft.specs.specs[0].items
-  const vmoItem = specsItems.find((item) => item['VMO'])
-  const fuelConsumptionItem = specsItems.find(
-    (item) => item['Fuel Consumption (L/hr)']
-  )
-
-  if (!vmoItem || !fuelConsumptionItem) {
-    setResult('Aircraft performance data (VMO or Fuel Consumption) is missing.')
-    return
-  }
+  const [unit, setUnit] = useState('L')
 
   const calculateFuel = () => {
+    if (
+      !aircraft ||
+      !aircraft.specs ||
+      !aircraft.specs.specs ||
+      !aircraft.specs.specs[0] ||
+      !aircraft.specs.specs[0].items
+    ) {
+      setResult(
+        'Aircraft data is not available or has an invalid structure. Please select an aircraft.'
+      )
+      return
+    }
+
+    const specsItems = aircraft.specs.specs[0].items
+    const vmoItem = specsItems.find((item) => item['VMO'])
+    const fuelConsumptionItem = specsItems.find(
+      (item) => item['Fuel Consumption (L/hr)']
+    )
+
+    if (!vmoItem || !fuelConsumptionItem) {
+      setResult(
+        'Aircraft performance data (VMO or Fuel Consumption) is missing.'
+      )
+      return
+    }
+
     const distance = parseInt(range, 10)
     if (isNaN(distance) || distance <= 0) {
       setResult('Invalid input. Please provide a valid range.')
@@ -82,6 +85,13 @@ export default function FuelCalculator({ aircraft }) {
       contingencyFuel,
       totalFuel
     })
+  }
+
+  const convertFuel = (liters) => {
+    if (unit === 'KG') {
+      return liters * 0.8
+    }
+    return liters
   }
 
   const renderInputField = (
@@ -142,6 +152,30 @@ export default function FuelCalculator({ aircraft }) {
       </div>
       {isOpen && (
         <div className="mt-2 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="flex justify-center mb-4">
+            <div className="flex items-center bg-gray-800 rounded-lg p-1">
+              <button
+                onClick={() => setUnit('L')}
+                className={`px-4 py-1 text-sm font-medium rounded-md ${
+                  unit === 'L'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                Liters
+              </button>
+              <button
+                onClick={() => setUnit('KG')}
+                className={`px-4 py-1 text-sm font-medium rounded-md ${
+                  unit === 'KG'
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                Kilograms
+              </button>
+            </div>
+          </div>
           <div className="flex flex-col md:flex-row gap-6 justify-between items-end">
             {renderInputField(
               'range',
@@ -151,10 +185,6 @@ export default function FuelCalculator({ aircraft }) {
               'e.g., 1500',
               { step: 50, min: 0 }
             )}
-            <div className="w-1/2 bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-2 text-gray-400 text-base">
-              Listed Fuel Consumption:{' '}
-              {fuelConsumptionItem['Fuel Consumption (L/hr)']} L/hr
-            </div>
             <button
               onClick={calculateFuel}
               className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
@@ -165,43 +195,43 @@ export default function FuelCalculator({ aircraft }) {
           {result && typeof result === 'object' && (
             <div className="mt-6 p-6 bg-gray-900/50 border border-gray-700 rounded-lg">
               <h3 className="text-xl font-bold text-white mb-4 text-center tracking-wide">
-                Required Fuel (L)
+                Required Fuel ({unit === 'L' ? 'L' : 'KG'})
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">Climb:</p>
                   <p className="font-bold text-white">
-                    {result.climbFuel.toFixed(0)} L
+                    {convertFuel(result.climbFuel).toFixed(0)} {unit}
                   </p>
                 </div>
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">Cruise:</p>
                   <p className="font-bold text-white">
-                    {result.cruiseFuel.toFixed(0)} L
+                    {convertFuel(result.cruiseFuel).toFixed(0)} {unit}
                   </p>
                 </div>
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">Descent:</p>
                   <p className="font-bold text-white">
-                    {result.descentFuel.toFixed(0)} L
+                    {convertFuel(result.descentFuel).toFixed(0)} {unit}
                   </p>
                 </div>
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">Taxi:</p>
                   <p className="font-bold text-white">
-                    {result.taxiFuel.toFixed(0)} L
+                    {convertFuel(result.taxiFuel).toFixed(0)} {unit}
                   </p>
                 </div>
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">IFR Reserve:</p>
                   <p className="font-bold text-white">
-                    {result.ifrReserve.toFixed(0)} L
+                    {convertFuel(result.ifrReserve).toFixed(0)} {unit}
                   </p>
                 </div>
                 <div className="bg-gray-800/60 p-3 rounded-lg">
                   <p className="text-gray-400">Contingency (5%):</p>
                   <p className="font-bold text-white">
-                    {result.contingencyFuel.toFixed(0)} L
+                    {convertFuel(result.contingencyFuel).toFixed(0)} {unit}
                   </p>
                 </div>
               </div>
@@ -210,7 +240,7 @@ export default function FuelCalculator({ aircraft }) {
                   Total Fuel Required
                 </p>
                 <p className="text-2xl font-bold text-green-400">
-                  {result.totalFuel.toFixed(0)} L
+                  {convertFuel(result.totalFuel).toFixed(0)} {unit}
                 </p>
               </div>
             </div>
