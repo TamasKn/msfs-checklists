@@ -30,10 +30,34 @@ export default function TodCalculator() {
       approachSpeed
     } = input
 
-    const altitudeToLose =
-      parseInt(currentAltitude, 10) - parseInt(destinationElevation, 10)
-    const todTimeInMinutes = altitudeToLose / parseInt(verticalSpeed, 10)
-    const todDistance = (parseInt(groundSpeed, 10) * todTimeInMinutes) / 60
+    const currentAltitudeInt = parseInt(currentAltitude, 10)
+    const verticalSpeedInt = parseInt(verticalSpeed, 10)
+    const groundSpeedInt = parseInt(groundSpeed, 10)
+    const destinationElevationInt = parseInt(destinationElevation, 10)
+    const approachAngleInt = parseInt(approachAngle, 10)
+    const approachSpeedInt = parseInt(approachSpeed, 10)
+
+    if (
+      isNaN(currentAltitudeInt) ||
+      currentAltitudeInt <= 0 ||
+      isNaN(verticalSpeedInt) ||
+      verticalSpeedInt <= 0 ||
+      isNaN(groundSpeedInt) ||
+      groundSpeedInt <= 0 ||
+      isNaN(destinationElevationInt) ||
+      isNaN(approachAngleInt) ||
+      approachAngleInt < 2 ||
+      approachAngleInt > 5 ||
+      isNaN(approachSpeedInt) ||
+      approachSpeedInt <= 0
+    ) {
+      setResult('Invalid input. Please provide valid figures for all fields.')
+      return
+    }
+
+    const altitudeToLose = currentAltitudeInt - destinationElevationInt
+    const todTimeInMinutes = altitudeToLose / verticalSpeedInt
+    const todDistance = (groundSpeedInt * todTimeInMinutes) / 60
 
     const todResults = {
       altitudeToLose,
@@ -54,11 +78,10 @@ export default function TodCalculator() {
      * For simplicity, approach angle is multiplied by 100
      * **/
 
-    const finalAltitude = parseInt(destinationElevation, 10) + AGL
+    const finalAltitude = destinationElevationInt + AGL
 
-    const calculatedApproachAngle = parseInt(approachAngle, 10) * 100
-    const rateOfDescent =
-      (parseInt(approachSpeed, 10) / 60) * calculatedApproachAngle
+    const calculatedApproachAngle = approachAngleInt * 100
+    const rateOfDescent = (approachSpeedInt / 60) * calculatedApproachAngle
     const apprDistance = finalAltitude / calculatedApproachAngle
     const apprTimeInMinutes = finalAltitude / rateOfDescent
 
@@ -70,27 +93,10 @@ export default function TodCalculator() {
       apprTimeInMinutes
     }
 
-    if (
-      isNaN(currentAltitude) ||
-      currentAltitude <= 0 ||
-      isNaN(verticalSpeed) ||
-      verticalSpeed <= 0 ||
-      isNaN(groundSpeed) ||
-      groundSpeed <= 0 ||
-      isNaN(destinationElevation) ||
-      isNaN(approachAngle) ||
-      approachAngle < 2 ||
-      approachAngle > 5 ||
-      isNaN(approachSpeed) ||
-      approachSpeed <= 0
-    ) {
-      setResult('Invalid input. Please provide valid figures.')
-    } else {
-      setResult({
-        todResults,
-        approachResults
-      })
-    }
+    setResult({
+      todResults,
+      approachResults
+    })
   }
 
   const renderInputField = (
@@ -184,7 +190,7 @@ export default function TodCalculator() {
               { step: 10, min: 0 }
             )}
           </div>
-          <div className="flex flex-col md:flex-row gap-6 mt-4">
+          <div className="flex flex-col md:flex-row gap-6 mt-4 justify-between items-end">
             {renderInputField(
               'approachSpeed',
               'Groundspeed for Approach',
@@ -195,14 +201,12 @@ export default function TodCalculator() {
             )}
             {renderInputField(
               'approachAngle',
-              'Approach Angle (standard: 3°)',
+              'Approach Angle (default: 3°)',
               input.approachAngle,
               handleInputChange,
               'e.g., 3°',
               { step: 1, min: 2, max: 5 }
             )}
-          </div>
-          <div className="mt-6">
             <button
               onClick={calculateTod}
               className="w-1/3 py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
@@ -210,7 +214,7 @@ export default function TodCalculator() {
               Calculate
             </button>
           </div>
-          {result && (
+          {result && typeof result === 'object' && (
             <div className="mt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
@@ -255,6 +259,11 @@ export default function TodCalculator() {
                   </p>
                 </div>
               </div>
+            </div>
+          )}
+          {result && typeof result === 'string' && (
+            <div className="mt-6 p-4 bg-red-900/50 border border-red-700 rounded-lg text-center">
+              <p className="text-red-300">{result}</p>
             </div>
           )}
         </div>
