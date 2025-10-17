@@ -16,7 +16,7 @@ export const pilatusPc12Specs = {
         { 'VFE (15)': '165 KIAS' },
         { 'VFE (Full)': '130 KIAS' },
         {
-          'Fuel Consumption': '156 L/hr'
+          'Fuel Consumption (L/hr)': 156
         },
         { 'Payload': '10,450 lb' },
         { 'Fuel Capacity': '402 gal (usable)' },

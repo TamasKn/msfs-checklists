@@ -20,7 +20,7 @@ export const airbusA320neoSpecs = {
         { 'VFE (3)': '185 KIAS' },
         { 'VFE (Full)': '177 KIAS' },
         {
-          'Fuel Consumption': '1134 L/hr'
+          'Fuel Consumption (L/hr)': 1134
         },
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '164,000 lb' },

@@ -18,7 +18,7 @@ export const beechcraftKingAir350Specs = {
         { 'VFE (20)': '202 KIAS' },
         { 'VFE (Full)': '158 KIAS' },
         {
-          'Fuel Consumption': '204.1 L/hr'
+          'Fuel Consumption (L/hr)': 204.1
         },
         { 'Fuel Capacity': '3,611 lbs' },
         { 'Max Takeoff Weight': '15,000 lbs' },

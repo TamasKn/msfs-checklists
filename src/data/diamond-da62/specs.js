@@ -15,7 +15,7 @@ export const diamondDA62Specs = {
         { 'VFE (20)': '140 KIAS' },
         { 'VFE (Full)': '122 KIAS' },
         {
-          'Fuel Consumption': '35.80 L/hr'
+          'Fuel Consumption (L/hr)': 35.8
         },
         { 'Payload': '7,000 lb' },
         { 'Fuel Capacity': '100 gal (usable)' },

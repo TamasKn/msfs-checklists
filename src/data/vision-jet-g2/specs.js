@@ -16,7 +16,7 @@ export const visionJetG2Specs = {
         { 'VFE (15)': '190 KIAS' },
         { 'VFE (Full)': '150 KIAS' },
         {
-          'Fuel Consumption': '181.4 L/hr'
+          'Fuel Consumption (L/hr)': 181.4
         },
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '6,000 lb' },

@@ -20,7 +20,7 @@ export const boeing737MaxSpecs = {
         { 'VFE (30)': '175 KIAS' },
         { 'VFE (40)': '166 KIAS' },
         {
-          'Fuel Consumption': '2268 L/hr'
+          'Fuel Consumption (L/hr)': 2268
         },
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '172,000 lb' },

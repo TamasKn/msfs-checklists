@@ -15,7 +15,7 @@ export const cessna172Specs = {
         { 'VFE (10)': '110 KIAS' },
         { 'VFE (Full)': '85 KIAS' },
         {
-          'Fuel Consumption': '24.50 L/hr'
+          'Fuel Consumption (L/hr)': 24.5
         },
         { 'Payload': '2,550 lb' },
         { 'Fuel Capacity': '53 gal (usable)' },

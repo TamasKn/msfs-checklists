@@ -43,7 +43,7 @@ export const cessnaLongitudeSpecs = {
           'Fuel Capacity': '14,593 lb | 6619 kg'
         },
         {
-          'Fuel Consumption': '816.50 L/hr'
+          'Fuel Consumption (L/hr)': 816.5
         },
         {
           'Stall Speed': '85-120 KCAS'
