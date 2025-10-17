@@ -8,7 +8,9 @@ export default function TodCalculator() {
     currentAltitude: '',
     verticalSpeed: '',
     groundSpeed: '',
-    destinationElevation: ''
+    destinationElevation: '',
+    approachAngle: '',
+    approachSpeed: ''
   })
   const [result, setResult] = useState(null)
 
@@ -21,29 +23,56 @@ export default function TodCalculator() {
       currentAltitude,
       verticalSpeed,
       groundSpeed,
-      destinationElevation
+      destinationElevation,
+      approachAngle,
+      approachSpeed
     } = input
-    const altitudeToLose =
-      parseInt(currentAltitude, 10) - parseInt(destinationElevation, 10)
-    const timeInMinutes = altitudeToLose / parseInt(verticalSpeed, 10)
-    const distance = (parseInt(groundSpeed, 10) * timeInMinutes) / 60
+
+    const finalApproach = parseInt(destinationElevation, 10) + 1000
+
+    const altitudeToLose = parseInt(currentAltitude, 10) - finalApproach
+    const todTimeInMinutes = altitudeToLose / parseInt(verticalSpeed, 10)
+    const todDistance = (parseInt(groundSpeed, 10) * todTimeInMinutes) / 60
+
+    const todResults = {
+      altitudeToLose,
+      todTimeInMinutes,
+      todDistance
+    }
+
+    const calculatedApproachAngle = parseInt(approachAngle, 10) * 100
+    const rateOfDescent =
+      (parseInt(approachSpeed, 10) / 60) * calculatedApproachAngle
+    const apprDistance = finalApproach / calculatedApproachAngle
+    const apprTimeInMinutes = finalApproach / rateOfDescent
+
+    const approachResults = {
+      calculatedApproachAngle,
+      rateOfDescent,
+      apprDistance,
+      apprTimeInMinutes
+    }
 
     if (
-      isNaN(altitudeToLose) ||
-      altitudeToLose <= 0 ||
+      isNaN(currentAltitude) ||
+      currentAltitude <= 0 ||
       isNaN(verticalSpeed) ||
       verticalSpeed <= 0 ||
       isNaN(groundSpeed) ||
       groundSpeed <= 0 ||
-      isNaN(destinationElevation)
+      isNaN(destinationElevation) ||
+      isNaN(approachAngle) ||
+      approachAngle < 2 ||
+      approachAngle > 5 ||
+      isNaN(approachSpeed) ||
+      approachSpeed <= 0
     ) {
       setResult('Invalid input. Please provide valid figures.')
     } else {
-      setResult(
-        `You should start your descent ${distance.toFixed(
-          2
-        )} NM from your destination.`
-      )
+      setResult({
+        todResults,
+        approachResults
+      })
     }
   }
 
@@ -82,9 +111,9 @@ export default function TodCalculator() {
       <div className="flex justify-center">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full md:w-1/4 flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg"
+          className="w-full md:w-[20rem] flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg"
         >
-          <span>TOD Calculator</span>
+          <span>TOD & Approach Calculator</span>
           <svg
             className={`w-5 h-5 transform transition-transform ${
               isOpen ? 'rotate-180' : ''
@@ -108,15 +137,22 @@ export default function TodCalculator() {
           <div className="flex flex-col md:flex-row gap-6">
             {renderInputField(
               'currentAltitude',
-              'Current Altitude (ft)',
+              'Cruise Altitude (ft)',
               input.currentAltitude,
               handleInputChange,
               'e.g., 35000',
               { step: 100, min: 0 }
             )}
             {renderInputField(
+              'destinationElevation',
+              'Runway Elevation (ft)',
+              input.destinationElevation,
+              handleInputChange,
+              'e.g., 500'
+            )}
+            {renderInputField(
               'verticalSpeed',
-              'Intended VS (fpm)',
+              'Descent VS (fpm)',
               input.verticalSpeed,
               handleInputChange,
               'e.g., 1800',
@@ -130,12 +166,23 @@ export default function TodCalculator() {
               'e.g., 450',
               { step: 10, min: 0 }
             )}
+          </div>
+          <div className="flex flex-col md:flex-row gap-6 mt-2">
             {renderInputField(
-              'destinationElevation',
-              'Airport Elevation (ft)',
-              input.destinationElevation,
+              'approachSpeed',
+              'Groundspeed for Approach',
+              input.approachSpeed,
               handleInputChange,
-              'e.g., 500'
+              'e.g., 122',
+              { step: 1, min: 0 }
+            )}
+            {renderInputField(
+              'approachAngle',
+              'Approach Angle (standard: 3°)',
+              input.approachAngle,
+              handleInputChange,
+              'e.g., 3°',
+              { step: 1, min: 2, max: 5 }
             )}
           </div>
           <div className="mt-6">
@@ -148,7 +195,20 @@ export default function TodCalculator() {
           </div>
           {result && (
             <div className="mt-6 p-4 bg-gray-800 rounded-lg">
-              <p className="text-white">{result}</p>
+              <p className="text-white">
+                TOD: Start descent at {result.todResults.todDistance.toFixed(2)}{' '}
+                NM or {Math.ceil(result.todResults.todTimeInMinutes)} minutes to
+                Final (1000 ft AGL)
+              </p>
+              <p className="text-white">
+                Approach: {result.approachResults.apprDistance.toFixed(2)} NM or{' '}
+                {Math.ceil(result.approachResults.apprTimeInMinutes)} minutes to
+                Runway at{' '}
+                {Math.round(
+                  result.approachResults.rateOfDescent.toFixed(0) / 100
+                ) * 100}{' '}
+                fpm
+              </p>
             </div>
           )}
         </div>
