@@ -28,9 +28,8 @@ export default function TodCalculator() {
       approachSpeed
     } = input
 
-    const finalApproach = parseInt(destinationElevation, 10) + 1000
-
-    const altitudeToLose = parseInt(currentAltitude, 10) - finalApproach
+    const altitudeToLose =
+      parseInt(currentAltitude, 10) - parseInt(destinationElevation, 10)
     const todTimeInMinutes = altitudeToLose / parseInt(verticalSpeed, 10)
     const todDistance = (parseInt(groundSpeed, 10) * todTimeInMinutes) / 60
 
@@ -39,6 +38,8 @@ export default function TodCalculator() {
       todTimeInMinutes,
       todDistance
     }
+
+    const finalApproach = parseInt(destinationElevation, 10) + 1000
 
     const calculatedApproachAngle = parseInt(approachAngle, 10) * 100
     const rateOfDescent =
@@ -88,7 +89,7 @@ export default function TodCalculator() {
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-semibold text-gray-200 mb-2"
+        className="block text-sm font-semibold text-gray-200 mb-2 text-left"
       >
         {label}
       </label>
@@ -167,7 +168,7 @@ export default function TodCalculator() {
               { step: 10, min: 0 }
             )}
           </div>
-          <div className="flex flex-col md:flex-row gap-6 mt-2">
+          <div className="flex flex-col md:flex-row gap-6 mt-4">
             {renderInputField(
               'approachSpeed',
               'Groundspeed for Approach',
@@ -194,21 +195,49 @@ export default function TodCalculator() {
             </button>
           </div>
           {result && (
-            <div className="mt-6 p-4 bg-gray-800 rounded-lg">
-              <p className="text-white">
-                TOD: Start descent at {result.todResults.todDistance.toFixed(2)}{' '}
-                NM or {Math.ceil(result.todResults.todTimeInMinutes)} minutes to
-                Final (1000 ft AGL)
-              </p>
-              <p className="text-white">
-                Approach: {result.approachResults.apprDistance.toFixed(2)} NM or{' '}
-                {Math.ceil(result.approachResults.apprTimeInMinutes)} minutes to
-                Runway at{' '}
-                {Math.round(
-                  result.approachResults.rateOfDescent.toFixed(0) / 100
-                ) * 100}{' '}
-                fpm
-              </p>
+            <div className="mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
+                  <h4 className="text-lg font-semibold text-indigo-400 mb-3">
+                    Top of Descent (TOD)
+                  </h4>
+                  <p className="text-gray-300 text-sm">
+                    Start to descent at{' '}
+                    <strong className="text-indigo-300 text-base font-bold">
+                      {result.todResults.todDistance.toFixed(2)} NM
+                    </strong>{' '}
+                    or{' '}
+                    <strong className="text-indigo-300 text-base font-bold">
+                      {Math.ceil(result.todResults.todTimeInMinutes)} minutes
+                    </strong>{' '}
+                    from RWY.
+                  </p>
+                </div>
+                <div className="bg-gray-800/60 border border-gray-700 p-4 rounded-lg shadow-lg">
+                  <h4 className="text-lg font-semibold text-purple-400 mb-3">
+                    Approach
+                  </h4>
+                  <p className="text-gray-300 text-sm">
+                    Final (1000 ft AGL) approach is{' '}
+                    <strong className="text-purple-300 text-base font-bold">
+                      {result.approachResults.apprDistance.toFixed(2)} NM
+                    </strong>{' '}
+                    or{' '}
+                    <strong className="text-purple-300 text-base font-bold">
+                      {Math.ceil(result.approachResults.apprTimeInMinutes)}{' '}
+                      minutes
+                    </strong>{' '}
+                    to Runway at{' '}
+                    <strong className="text-purple-300 text-base font-bold">
+                      {Math.round(
+                        result.approachResults.rateOfDescent.toFixed(0) / 100
+                      ) * 100}{' '}
+                      fpm
+                    </strong>
+                    .
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </div>
