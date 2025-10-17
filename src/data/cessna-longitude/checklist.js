@@ -18,7 +18,7 @@ export const cessnaLongitudeChecklist = {
         { 'EIS/CAS': 'CHECK' },
         { 'Power Source': 'As Desired (one of the following)' },
         { 'Option A: External Power': '' },
-        { '--- EXT PWR Button (if AVAIL)': 'ON' },
+        { '--- EXT PWR (if AVAIL)': 'ON' },
         { '--- BATT Amps (both)': '0 or Charging' },
         { 'Option B: APU': '' },
         { '--- APU Knob': 'START for 1 sec & ON' },
@@ -48,7 +48,8 @@ export const cessnaLongitudeChecklist = {
         { 'START Pressure': 'Verify >= 32 PSI' },
         { 'R ENGINE': 'Repeat Steps 1 thru 3' },
         { 'EIS/CAS': 'CHECK' },
-        { 'APU MAIN Switch': 'OFF' }
+        { 'APU MAIN Switch': 'OFF' },
+        { 'EXT PWR (if AVAIL)': 'OFF' }
       ]
     },
     {
@@ -130,7 +131,6 @@ export const cessnaLongitudeChecklist = {
         { 'PS/SB Lights': 'OFF' },
         { 'Power Settings': 'CHECK' },
         { 'Fuel Balance': 'MONITOR' },
-        { 'BARO': 'SET destination value' },
         {
           'Flight Plan': 'APPROACH VERIFIED / SET',
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
@@ -154,7 +154,8 @@ export const cessnaLongitudeChecklist = {
         {
           'Speed Constraints': 'IAF (~150 KTS) to FAF (SET Vapp)',
           'info': 'Set approach speeds from Landing data to FAF'
-        }
+        },
+        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' }
       ]
     },
     {
@@ -176,9 +177,9 @@ export const cessnaLongitudeChecklist = {
         { 'Altitude': 'MONITOR' },
         { 'Flaps': 'AS REQUIRED' },
         { 'Speed': 'MANAGE' },
-        { 'Approach': 'APPR (GP) stdby at IAF' },
+        { 'Approach': 'APPR (GS/GP) stdby at IAF' },
         { 'CDI Source': 'CONFIRM FMS/LOC' },
-        { 'GLIDEPATH': 'ARMED at FAF' },
+        { 'GLIDE': 'ARMED at FAF' },
         { 'Gear': 'DOWN by FAF' }
       ]
     },
@@ -187,6 +188,7 @@ export const cessnaLongitudeChecklist = {
       items: [
         { 'Flaps': 'FULL (IF REQ)' },
         { 'Trim': 'SET for Landing' },
+        { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
         { 'AP & AT': 'DISCONNECT' },
         { 'Throttles': 'IDLE at 50 ft' },
