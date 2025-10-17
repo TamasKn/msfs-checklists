@@ -4,9 +4,17 @@ import { useState } from 'react'
 
 const AGL = 1000
 
-export default function TodCalculator() {
+export default function TodCalculator({
+  isTabbed = false,
+  input: propInput,
+  setInput: propSetInput,
+  result: propResult,
+  setResult: propSetResult
+}) {
   const [isOpen, setIsOpen] = useState(false)
-  const [input, setInput] = useState({
+
+  // Use local state for standalone mode, props for tabbed mode
+  const [localInput, setLocalInput] = useState({
     currentAltitude: '',
     verticalSpeed: '',
     groundSpeed: '',
@@ -14,7 +22,12 @@ export default function TodCalculator() {
     approachAngle: '',
     approachSpeed: ''
   })
-  const [result, setResult] = useState(null)
+  const [localResult, setLocalResult] = useState(null)
+
+  const input = isTabbed ? propInput : localInput
+  const setInput = isTabbed ? propSetInput : setLocalInput
+  const result = isTabbed ? propResult : localResult
+  const setResult = isTabbed ? propSetResult : setLocalResult
 
   const handleInputChange = (name, value) => {
     setInput((prev) => ({ ...prev, [name]: value }))
@@ -129,34 +142,9 @@ export default function TodCalculator() {
     </div>
   )
 
-  return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-      <div className="flex justify-center">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full md:w-[20rem] flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg"
-        >
-          <span>TOD & Approach Calculator</span>
-          <svg
-            className={`w-5 h-5 transform transition-transform ${
-              isOpen ? 'rotate-180' : ''
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      {isOpen && (
-        <div className="mt-2 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
+  // Render content only (for tabbed mode)
+  const renderContent = () => (
+    <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
           <div className="flex flex-col md:flex-row gap-6">
             {renderInputField(
               'currentAltitude',
@@ -267,7 +255,41 @@ export default function TodCalculator() {
             </div>
           )}
         </div>
-      )}
+  )
+
+  // If in tabbed mode, return only the content
+  if (isTabbed) {
+    return renderContent()
+  }
+
+  // Otherwise, return the full component with toggle button
+  return (
+    <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+      <div className="flex justify-center">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full md:w-[20rem] flex justify-between items-center py-2 px-3 text-left font-medium text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none border border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer"
+        >
+          <span>TOD & Approach Calculator</span>
+          <svg
+            className={`w-5 h-5 transform transition-transform ${
+              isOpen ? 'rotate-180' : ''
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      {isOpen && <div className="mt-2">{renderContent()}</div>}
     </div>
   )
 }
