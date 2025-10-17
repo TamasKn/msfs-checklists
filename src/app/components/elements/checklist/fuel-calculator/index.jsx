@@ -178,7 +178,10 @@ export default function FuelCalculator({
         )}
         <div className="w-1/2 bg-gray-700/50 border border-gray-700/50 rounded-lg shadow-sm py-3 px-2 text-gray-400 text-xs md:text-sm lg:text-base self-center md:self-end">
           Fuel Consumption:{' '}
-          {convertFuel(fuelConsumptionItem['Fuel Consumption (L/hr)'])} {unit}
+          {convertFuel(fuelConsumptionItem['Fuel Consumption (L/hr)']).toFixed(
+            1
+          )}{' '}
+          {unit}
           /hr
         </div>
         <button
