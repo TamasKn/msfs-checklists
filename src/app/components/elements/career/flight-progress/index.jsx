@@ -22,35 +22,44 @@ export default function FlightProgress({
   )
   const [isTimerRunning, setIsTimerRunning] = useState(true)
   const [useManualInput, setUseManualInput] = useState(false)
-  const timerIntervalRef = useRef(null)
+  const workerRef = useRef(null)
 
   /**
-   * Initialize elapsed seconds from draft flight when component mounts or draft changes
+   * Initialize Web Worker and start timer when component mounts
    */
   useEffect(() => {
-    setElapsedSeconds(draftFlight.elapsedSeconds || 0)
-  }, [draftFlight.id])
+    // Create Web Worker
+    workerRef.current = new Worker('/workers/timer-worker.js')
 
-  /**
-   * Start/resume timer
-   */
-  useEffect(() => {
-    if (isTimerRunning) {
-      timerIntervalRef.current = setInterval(() => {
-        setElapsedSeconds((prev) => prev + 1)
-      }, 1000)
-    } else {
-      if (timerIntervalRef.current) {
-        clearInterval(timerIntervalRef.current)
+    // Handle messages from worker
+    workerRef.current.onmessage = (e) => {
+      const { type, payload } = e.data
+
+      if (type === 'TIME_UPDATE') {
+        setElapsedSeconds(payload.elapsedSeconds)
+        setIsTimerRunning(payload.isRunning)
       }
     }
 
+    // Handle worker errors
+    workerRef.current.onerror = (error) => {
+      console.error('Timer Worker Error:', error)
+    }
+
+    // Start timer with initial value from draft flight
+    workerRef.current.postMessage({
+      type: 'START',
+      payload: { initialSeconds: draftFlight.elapsedSeconds || 0 }
+    })
+
+    // Cleanup on unmount
     return () => {
-      if (timerIntervalRef.current) {
-        clearInterval(timerIntervalRef.current)
+      if (workerRef.current) {
+        workerRef.current.postMessage({ type: 'STOP' })
+        workerRef.current.terminate()
       }
     }
-  }, [isTimerRunning])
+  }, [draftFlight.id, draftFlight.elapsedSeconds])
 
   /**
    * Format seconds to HH:MM:SS
@@ -102,8 +111,10 @@ export default function FlightProgress({
 
     setIsSubmitting(true)
 
-    // Pause timer
-    setIsTimerRunning(false)
+    // Pause timer via worker
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'PAUSE' })
+    }
 
     // Use manual input if provided, otherwise use timer
     const finalDuration =
@@ -116,8 +127,10 @@ export default function FlightProgress({
    * Handles save button click (pauses timer and saves to draft)
    */
   const handleSave = () => {
-    // Pause timer
-    setIsTimerRunning(false)
+    // Pause timer via worker
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'PAUSE' })
+    }
 
     // Update draft with current elapsed time
     updateDraftFlight(draftFlight.id, {
