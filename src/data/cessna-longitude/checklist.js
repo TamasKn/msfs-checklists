@@ -136,8 +136,12 @@ export const cessnaLongitudeChecklist = {
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
-        { 'Speed Constraints': 'IAF (~175 KTS) to FAF (~130 KTS)' },
-        { 'Altitude Constraints': 'FIX FAF to Signal altitude' },
+
+        {
+          'Altitude Constraints': 'FIX FAF to Signal altitude',
+          'info':
+            'You may set the Final Approach Fix to 20-50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
+        },
         { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' }
       ]
     },
@@ -146,7 +150,11 @@ export const cessnaLongitudeChecklist = {
       items: [
         { 'Landing Data|Weather': 'SET WIND & TEMP, Use RAT' },
         { 'Landing Config': 'CHECK' },
-        { 'Landing Data': 'ACCEPT Landing Speeds' }
+        { 'Landing Data': 'ACCEPT Landing Speeds' },
+        {
+          'Speed Constraints': 'IAF (~150 KTS) to FAF (SET Vapp)',
+          'info': 'Set approach speeds from Landing data to FAF'
+        }
       ]
     },
     {
@@ -155,8 +163,8 @@ export const cessnaLongitudeChecklist = {
         { 'Clearance': 'OBTAINED' },
         { 'ATIS & Weather': 'CHECK' },
         { 'SPD KNOB': 'FMS' },
-        { 'BARO': 'ARM destination' },
-        { 'PS/SB Lights': 'ON' }
+        { 'PS/SB Lights': 'ON' },
+        { 'BARO': 'ARM destination' }
       ]
     },
     {
