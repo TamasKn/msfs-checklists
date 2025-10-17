@@ -21,8 +21,12 @@ export const cessnaLongitudeChecklist = {
         { '--- EXT PWR (if AVAIL)': 'ON' },
         { '--- BATT Amps (both)': '0 or Charging' },
         { 'Option B: APU': '' },
-        { '--- APU Knob': 'START for 1 sec & ON' },
-        { '--- APU Bleed': 'NORM' },
+        { '--- APU MAIN': 'START for 1 sec & ON' },
+        {
+          '--- APU ECS BLEED': 'NORM/OPEN',
+          'info':
+            'Aircraft Systems/Synoptics/AC Bleed: ECS BLEED has to be opened before Engines are started.'
+        },
         { '--- APU GEN ON': 'CHECK' },
         { '--- External Power': 'Disconnected' },
         { '--- BATT Amps (both)': '0 or Charging' },
@@ -48,7 +52,7 @@ export const cessnaLongitudeChecklist = {
         { 'START Pressure': 'Verify >= 32 PSI' },
         { 'R ENGINE': 'Repeat Steps 1 thru 3' },
         { 'EIS/CAS': 'CHECK' },
-        { 'APU MAIN Switch': 'OFF' },
+        { 'APU MAIN': 'OFF' },
         { 'EXT PWR (if AVAIL)': 'OFF' }
       ]
     },
@@ -80,6 +84,10 @@ export const cessnaLongitudeChecklist = {
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
+        {
+          'Pre-Flight Synoptics': 'ALL CHECK',
+          'info': 'Aircraft Systems/Synoptics/Preflight'
+        },
         { 'EMER LTS': 'ARMED' },
         { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
       ]
