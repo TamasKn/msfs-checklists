@@ -50,6 +50,10 @@ export default function FuelCalculator({
     return
   }
 
+  /**
+   * Calculate fuel consumption for jet aircraft
+   * Takes into account climb, cruise, and descent phases with realistic parameters
+   */
   const calculateFuel = () => {
     const distance = parseInt(range, 10)
     if (isNaN(distance) || distance <= 0) {
@@ -57,45 +61,64 @@ export default function FuelCalculator({
       return
     }
 
-    const groundSpeed = parseInt(vmoItem['VMO'], 10)
+    const cruiseSpeed = parseInt(vmoItem['VMO'], 10)
     const fuelConsumption = parseFloat(
       fuelConsumptionItem['Fuel Consumption (L/hr)']
     )
 
-    if (isNaN(groundSpeed) || isNaN(fuelConsumption)) {
+    if (isNaN(cruiseSpeed) || isNaN(fuelConsumption)) {
       setResult('Aircraft performance data is invalid.')
       return
     }
 
-    // 1. Cruise
-    const cruiseTime = distance / groundSpeed
-    const cruiseFuel = fuelConsumption * cruiseTime
-
-    // 2. Climb
-    const climbFuelFlow = 1.3 * fuelConsumption
+    // 1. CLIMB PHASE
+    // - Fuel flow during climb: ~175% of cruise (high thrust, inefficient at lower altitudes)
     const climbTime = 20 / 60 // 20 minutes
+    const climbSpeed = cruiseSpeed * 0.65 // Average climb speed (~65% of cruise)
+    const climbDistance = climbSpeed * climbTime // Distance covered during climb
+    const climbFuelFlow = fuelConsumption * 1.75 // 175% of cruise fuel flow
     const climbFuel = climbFuelFlow * climbTime
 
-    // 3. Descent
-    const descentFuelFlow = 0.5 * fuelConsumption
-    const descentTime = 10 / 60 // 10 minutes
+    // 2. DESCENT PHASE
+    const descentTime = 30 / 60 // 30 minutes
+    const descentSpeed = cruiseSpeed * 0.7 // Average descent speed (70% of cruise)
+    const descentDistance = descentSpeed * descentTime // Distance covered during descent
+    const descentFuelFlow = fuelConsumption * 0.6 // 60% of cruise fuel flow
     const descentFuel = descentFuelFlow * descentTime
 
-    // 4. Taxi: 25% fuel consumption L/hr for approx 15 minutes
-    const taxiFuel = fuelConsumption * (15 / 60) * 0.25
+    // 3. CRUISE PHASE
+    // Remaining distance after subtracting climb and descent distances
+    const cruiseDistance = Math.max(
+      0,
+      distance - climbDistance - descentDistance
+    )
+    const cruiseTime = cruiseDistance / cruiseSpeed
+    const cruiseFuel = fuelConsumption * cruiseTime
 
-    // 5. Reserves
-    const ifrReserve = fuelConsumption * (45 / 60) // 45 minutes
-    const tripFuel = cruiseFuel + climbFuel + descentFuel
-    const contingencyFuel = 0.05 * tripFuel
+    // 4. TAXI
+    // Ground operations: ~15 minutes at idle power (~25% fuel flow)
+    const taxiTime = 15 / 60 // 15 minutes in hours
+    const taxiFuelFlow = fuelConsumption * 0.25 // 25% of cruise fuel flow
+    const taxiFuel = taxiFuelFlow * taxiTime
 
-    // 6. Total
+    // 5. RESERVES
+    // IFR reserve: 45 minutes at cruise fuel flow
+    const ifrReserve = fuelConsumption * (45 / 60)
+
+    // Trip fuel (actual consumption for the flight)
+    const tripFuel = climbFuel + cruiseFuel + descentFuel
+
+    // Contingency fuel: 5% of trip fuel (regulatory requirement)
+    const contingencyFuel = tripFuel * 0.05
+
+    // 6. TOTAL FUEL REQUIRED
     const totalFuel = tripFuel + taxiFuel + ifrReserve + contingencyFuel
 
     setResult({
       climbFuel,
       cruiseFuel,
       descentFuel,
+      tripFuel,
       taxiFuel,
       ifrReserve,
       contingencyFuel,
@@ -196,6 +219,12 @@ export default function FuelCalculator({
           <h3 className="text-xl font-bold text-white mb-4 text-center tracking-wide">
             Required Fuel ({unit === 'L' ? 'L' : 'KG'})
           </h3>
+          <div className="bg-gray-800/60 p-3 rounded-lg mb-4">
+            <p className="text-gray-400">Trip:</p>
+            <p className="font-bold text-white">
+              {convertFuel(result.tripFuel).toFixed(0)} {unit}
+            </p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
             <div className="bg-gray-800/60 p-3 rounded-lg">
               <p className="text-gray-400">Climb:</p>

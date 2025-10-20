@@ -34,6 +34,9 @@ export const cessnaLongitudeSpecs = {
           'Payload': '4,000 lb | 1814 kg'
         },
         {
+          'Empty weight': '23,389 lb | 10,609 kg'
+        },
+        {
           'Max Takeoff Weight': '39,500 lb | 17915 kg'
         },
         {
@@ -43,7 +46,8 @@ export const cessnaLongitudeSpecs = {
           'Fuel Capacity': '14,593 lb | 6619 kg'
         },
         {
-          'Fuel Consumption (L/hr)': 816.5
+          // 1,100 kg for the first hour, 960 kg per hour in cruise at 477 KTAS
+          'Fuel Consumption (L/hr)': 1200
         },
         {
           'Stall Speed': '85-120 KCAS'
