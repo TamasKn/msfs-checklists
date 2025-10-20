@@ -10,55 +10,55 @@ export const visionJetG2Career = {
       issues: {
         // possible issues, cost and chance of occurring
         engine: {
-          base: 12000,
+          base: 13800,
           chance: 0.007
         },
         landingGear: {
-          base: 3500,
+          base: 4025,
           chance: 0.24
         },
         fuselage: {
-          base: 2400,
+          base: 2760,
           chance: 0.32
         },
         wing: {
-          base: 2800,
+          base: 3220,
           chance: 0.27
         },
         empennage: {
-          base: 1600,
+          base: 1840,
           chance: 0.3
         },
         electrical: {
-          base: 1150,
+          base: 1323,
           chance: 0.34
         },
         hydraulic: {
-          base: 980,
+          base: 1127,
           chance: 0.29
         },
         pressurization: {
-          base: 1350,
+          base: 1553,
           chance: 0.27
         },
         avionics: {
-          base: 2100,
+          base: 2415,
           chance: 0.23
         },
         interior: {
-          base: 720,
+          base: 828,
           chance: 0.37
         },
         lights: {
-          base: 420,
+          base: 483,
           chance: 0.39
         },
         navigation: {
-          base: 1250,
+          base: 1438,
           chance: 0.25
         },
         communication: {
-          base: 780,
+          base: 897,
           chance: 0.35
         }
       }

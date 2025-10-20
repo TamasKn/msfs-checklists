@@ -9,55 +9,55 @@ export const beechcraftKingAir350Career = {
       base: 600,
       issues: {
         engine: {
-          base: 12000,
+          base: 13800,
           chance: 0.01
         },
         landingGear: {
-          base: 3500,
+          base: 4025,
           chance: 0.22
         },
         fuselage: {
-          base: 2500,
+          base: 2875,
           chance: 0.28
         },
         wing: {
-          base: 3000,
+          base: 3450,
           chance: 0.25
         },
         empennage: {
-          base: 1800,
+          base: 2070,
           chance: 0.28
         },
         electrical: {
-          base: 1200,
+          base: 1380,
           chance: 0.33
         },
         hydraulic: {
-          base: 1000,
+          base: 1150,
           chance: 0.28
         },
         pressurization: {
-          base: 1500,
+          base: 1725,
           chance: 0.25
         },
         avionics: {
-          base: 2000,
+          base: 2300,
           chance: 0.21
         },
         interior: {
-          base: 700,
+          base: 805,
           chance: 0.35
         },
         lights: {
-          base: 450,
+          base: 518,
           chance: 0.38
         },
         navigation: {
-          base: 1200,
+          base: 1380,
           chance: 0.23
         },
         communication: {
-          base: 800,
+          base: 920,
           chance: 0.33
         }
       }
