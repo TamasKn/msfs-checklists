@@ -93,13 +93,13 @@ const UserComponent = forwardRef((props, ref) => {
               </span>
             )}
           </div>
-          {levelInfo && (
-            <p className="flex items-center gap-1 text-sm text-purple-400 font-medium mt-1">
-              {levelInfo.title.title}
+          {levelInfo && levelInfo.title && (
+            <div className="flex items-center gap-1 text-sm text-purple-400 font-medium mt-1">
+              <p>{levelInfo.title.title}</p>
               <div>
                 <Tooltip text={levelInfo.title.description} />
               </div>
-            </p>
+            </div>
           )}
           <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
             <svg

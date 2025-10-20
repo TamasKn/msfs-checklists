@@ -110,7 +110,7 @@ export default function LevelUpNotification({ levelUpInfo, onClose }) {
                 {newLevel}
               </span>
               <span className="text-sm text-gray-400 font-medium truncate">
-                {reputationTitle}
+                {reputationTitle.title}
               </span>
             </div>
           </div>
