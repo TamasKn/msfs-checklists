@@ -59,8 +59,11 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Takeoff PERF (G5000)',
       items: [
+        {
+          'VNAV Profiles': 'SET / CHECK',
+          'info': 'Flight plan - VNAV - Profile, Climb, Cruise, Descent'
+        },
         { 'Weight and Fuel': 'TAKEOFF FOB sync' },
-        { 'FLAP Speeds': 'CHECK' },
         { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
         { 'Takeoff Config': 'SET recommended Flap' },
         { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
@@ -170,9 +173,9 @@ export const cessnaLongitudeChecklist = {
       title: 'Descent (TOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
+        { 'PS/SB Lights': 'ON' },
         { 'ATIS & Weather': 'CHECK' },
         { 'SPD KNOB': 'FMS' },
-        { 'PS/SB Lights': 'ON' },
         { 'BARO': 'ARM destination' }
       ]
     },
