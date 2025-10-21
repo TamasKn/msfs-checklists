@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
 
-const API_KEY = process.env.AIRPORTDB_API_KEY
-const USER_TOKEN = process.env.USER_TOKEN
-
 // Dummy airport database for testing
 const AIRPORT_DATABASE = {
   EGLL: {
@@ -136,14 +133,7 @@ const AIRPORT_DATABASE = {
  * Finds airport information by ICAO code
  */
 export async function POST(request) {
-  const { ICAO, userToken } = await request.json()
-
-  if (!userToken || userToken !== USER_TOKEN) {
-    return NextResponse.json(
-      { status: 'error', message: 'Unauthorized' },
-      { status: 401 }
-    )
-  }
+  const { ICAO, airportApiKey } = await request.json()
 
   if (!ICAO) {
     return NextResponse.json(
@@ -158,15 +148,21 @@ export async function POST(request) {
     if (process.env.NODE_ENV === 'production') {
       // production API
       const res = await fetch(
-        `https://airportdb.io/api/v1/airport/${ICAO}?apiToken=${API_KEY}`
+        `https://airportdb.io/api/v1/airport/${ICAO}?apiToken=${airportApiKey}`
       )
       data = await res.json()
 
       // Check if the production API returned an error
       if (data.statusCode && data.statusCode !== 200) {
+        if (data.message === 'Unauthorized') {
+          return NextResponse.json(
+            { status: 'error', message: 'Unauthorized' },
+            { status: 401 }
+          )
+        }
         return NextResponse.json(
           { status: 'error', message: 'Airport not found' },
-          { status: data.statusCode }
+          { status: 401 }
         )
       }
     } else {
