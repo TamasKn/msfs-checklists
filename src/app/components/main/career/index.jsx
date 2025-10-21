@@ -312,7 +312,8 @@ export default function CareerComponent() {
    * Logs out the user
    */
   const handleLogout = () => {
-    localStorage.removeItem('user_token')
+    localStorage.removeItem('sb_pilot_id')
+    localStorage.removeItem('airportdb_key')
     window.location.reload()
   }
 
