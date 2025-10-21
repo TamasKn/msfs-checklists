@@ -10,6 +10,18 @@ export const WeatherType = {
   Thunderstorm: 'Light Thunderstorm'
 }
 
+export const WeatherAbbreviations = {
+  Clear: 'SKC',
+  Cloudy: 'FEW',
+  Scattered: 'SCT',
+  Broken: 'BKN',
+  HighClouds: 'HLD',
+  Overcast: 'OVC',
+  Rain: 'RA',
+  Snow: 'SN',
+  Thunderstorm: 'TS'
+}
+
 export const WeatherBonus = {
   Clear: 1,
   Cloudy: 1.05,
