@@ -15,6 +15,7 @@ const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
  * @param {Function} onCancel - Callback when modal is cancelled
  */
 export default function AddFlight({ onSaveDraft, onCancel }) {
+  const simbriefPilotId = localStorage.getItem('sb_pilot_id')
   // Get current time in HH:MM format
   const getCurrentTime = () => {
     const now = new Date()
@@ -114,10 +115,10 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
     })
 
     try {
-      const userToken = localStorage.getItem('user_token')
+      const airportApiKey = localStorage.getItem('airportdb_key')
       const response = await axios.post('/api/airportfinder', {
         ICAO: icao.toUpperCase(),
-        userToken: userToken
+        airportApiKey: airportApiKey
       })
 
       if (response.data.status === 'success') {
