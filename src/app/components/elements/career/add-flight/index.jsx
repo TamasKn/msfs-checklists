@@ -228,14 +228,14 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
         setMode('simbrief')
       } else {
         setErrors({
-          simbrief: response.data.message || 'Failed to fetch from Simbrief'
+          simbrief: response.data.message || 'Failed to fetch from SimBrief'
         })
       }
     } catch (error) {
       setErrors({
         simbrief:
           error.response?.data?.message ||
-          'Failed to fetch flight plan from Simbrief'
+          'Failed to fetch flight plan from SimBrief'
       })
     } finally {
       setSimbriefLoading(false)
@@ -774,10 +774,10 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       />
                     </svg>
-                    Fetching from Simbrief...
+                    Fetching from SimBrief...
                   </span>
                 ) : (
-                  'Fetch from Simbrief'
+                  'Fetch from SimBrief'
                 )}
               </button>
               <button
@@ -929,7 +929,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                   open
                 >
                   <summary className="cursor-pointer text-lg font-semibold text-blue-400 p-6  rounded-xl transition-colors">
-                    Simbrief Flight Plan Details
+                    SimBrief Flight Plan Details
                   </summary>
                   <div className="px-6 pb-6">
                     {/* Aircraft Warning */}
@@ -949,9 +949,9 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
                               clipRule="evenodd"
                             />
                           </svg>
-                          Aircraft mismatch: Simbrief plan is for{' '}
+                          Aircraft mismatch: SimBrief plan is for{' '}
                           {simbriefData.aircraft.icao_code}, but you selected{' '}
-                          {newFlight.aircraft}. You can still continue.
+                          {newFlight.aircraft}.
                         </p>
                       </div>
                     )}

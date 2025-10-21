@@ -86,7 +86,7 @@ export default function UserTokenInput({ onTokenSaved }) {
     }
 
     if (!simbriefPilotId.trim()) {
-      setError('Simbrief Pilot ID is required')
+      setError('SimBrief Pilot ID is required')
       return
     }
 
@@ -105,7 +105,7 @@ export default function UserTokenInput({ onTokenSaved }) {
       })
 
       if (simbriefRes.data.status !== 'success') {
-        setError('Invalid Simbrief Pilot ID. Please try again.')
+        setError('Invalid SimBrief Pilot ID. Please try again.')
         setIsLoading(false)
         return
       }
@@ -169,7 +169,7 @@ export default function UserTokenInput({ onTokenSaved }) {
           <p className="mt-2.5 text-xs text-gray-500">
             {existingUser
               ? 'We found an existing user with this name.'
-              : 'This name will be displayed in your career profile.'}
+              : 'This name will be displayed in your career profile. Can be different than your SimBrief name.'}
           </p>
         </div>
 
@@ -179,7 +179,7 @@ export default function UserTokenInput({ onTokenSaved }) {
             htmlFor="simbriefPilotId"
             className="block text-sm font-semibold text-gray-200 mb-3"
           >
-            Simbrief Pilot ID
+            SimBrief Pilot ID
           </label>
           <input
             type="text"
@@ -187,11 +187,11 @@ export default function UserTokenInput({ onTokenSaved }) {
             name="simbriefPilotId"
             value={simbriefPilotId}
             onChange={handleInputChange}
-            placeholder="Enter your Simbrief Pilot ID"
+            placeholder="Enter your SimBrief Pilot ID"
             className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
           />
           <p className="mt-2.5 text-xs text-gray-500">
-            Don&apos;t have a Simbrief account?{' '}
+            Don&apos;t have a SimBrief account?{' '}
             <a
               href="https://navigraph.com/user-registration?clientId=simbrief"
               target="_blank"

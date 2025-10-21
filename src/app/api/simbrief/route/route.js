@@ -5,7 +5,7 @@ export async function POST(request) {
 
   if (!pilotID) {
     return NextResponse.json(
-      { status: 'error', message: 'Simbrief pilot ID is required' },
+      { status: 'error', message: 'SimBrief pilot ID is required' },
       { status: 400 }
     )
   }

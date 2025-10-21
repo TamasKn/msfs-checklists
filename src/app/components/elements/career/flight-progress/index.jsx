@@ -350,7 +350,7 @@ export default function FlightProgress({
         {draftFlight.simbriefData && (
           <div className="mt-6 p-4 bg-blue-900/10 border border-blue-500/20 rounded-xl">
             <h4 className="text-sm font-semibold text-blue-300 mb-3">
-              Simbrief Flight Plan Info
+              SimBrief Flight Plan Info
             </h4>
             <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
               <div className="p-2  rounded">
