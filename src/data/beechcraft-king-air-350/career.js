@@ -67,7 +67,7 @@ export const beechcraftKingAir350Career = {
   },
   reward: {
     base: 3500,
-    perDistance: 15,
+    perDistance: 12,
     bonus: {
       min: 2500,
       max: 7000,
