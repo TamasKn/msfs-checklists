@@ -129,6 +129,8 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
 
     try {
       const pilotId = localStorage.getItem('sb_pilot_id')
+      const airportApiKey = localStorage.getItem('airportdb_key')
+
       const response = await axios.post('/api/simbrief/route', {
         pilotID: pilotId
       })
@@ -140,14 +142,83 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
         // Parse weather from METAR
         const weather = parseWeatherFromMetar(data.origin.metar)
 
-        // Populate flight data
+        // Fetch airport data for departure
+        let departureAirportData = null
+        let destinationAirportData = null
+
+        try {
+          const departureResponse = await axios.post('/api/airportfinder', {
+            ICAO: data.origin.icao_code,
+            airportApiKey: airportApiKey
+          })
+
+          if (departureResponse.data.status === 'success') {
+            departureAirportData = departureResponse.data.data
+
+            // Extract runways for departure
+            const departureRunways = []
+            if (
+              departureAirportData.runways &&
+              departureAirportData.runways.length > 0
+            ) {
+              departureAirportData.runways.forEach((runway) => {
+                if (runway.le_ident) departureRunways.push(runway.le_ident)
+                if (runway.he_ident) departureRunways.push(runway.he_ident)
+              })
+            }
+
+            setRunways((prev) => ({
+              ...prev,
+              departure: departureRunways
+            }))
+          }
+        } catch (error) {
+          console.error('Failed to fetch departure airport data:', error)
+        }
+
+        // Fetch airport data for destination
+        try {
+          const destinationResponse = await axios.post('/api/airportfinder', {
+            ICAO: data.destination.icao_code,
+            airportApiKey: airportApiKey
+          })
+
+          if (destinationResponse.data.status === 'success') {
+            destinationAirportData = destinationResponse.data.data
+
+            // Extract runways for destination
+            const destinationRunways = []
+            if (
+              destinationAirportData.runways &&
+              destinationAirportData.runways.length > 0
+            ) {
+              destinationAirportData.runways.forEach((runway) => {
+                if (runway.le_ident) destinationRunways.push(runway.le_ident)
+                if (runway.he_ident) destinationRunways.push(runway.he_ident)
+              })
+            }
+
+            setRunways((prev) => ({
+              ...prev,
+              destination: destinationRunways
+            }))
+          }
+        } catch (error) {
+          console.error('Failed to fetch destination airport data:', error)
+        }
+
+        // Populate flight data with airport names from airportfinder if available
         setNewFlight((prev) => ({
           ...prev,
           departure: data.origin.icao_code,
-          departureName: data.origin.name,
+          departureName: departureAirportData
+            ? `${departureAirportData.name}, ${departureAirportData.country.name}`
+            : data.origin.name,
           departureRunway: data.origin.plan_rwy,
           destination: data.destination.icao_code,
-          destinationName: data.destination.name,
+          destinationName: destinationAirportData
+            ? `${destinationAirportData.name}, ${destinationAirportData.country.name}`
+            : data.destination.name,
           destinationRunway: data.destination.plan_rwy,
           range: parseInt(data.general.route_distance),
           weather: weather
@@ -156,12 +227,15 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
         // Set mode to simbrief
         setMode('simbrief')
       } else {
-        setErrors({ simbrief: response.data.message || 'Failed to fetch from Simbrief' })
+        setErrors({
+          simbrief: response.data.message || 'Failed to fetch from Simbrief'
+        })
       }
     } catch (error) {
       setErrors({
         simbrief:
-          error.response?.data?.message || 'Failed to fetch flight plan from Simbrief'
+          error.response?.data?.message ||
+          'Failed to fetch flight plan from Simbrief'
       })
     } finally {
       setSimbriefLoading(false)
@@ -544,7 +618,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
   return (
     <div className="bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-5xl max-h-[90vh] overflow-y-auto animate-slideUp">
       {/* Header */}
-      <div className="sticky top-0 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm px-6 py-5 border-b border-gray-700/50 rounded-t-2xl">
+      <div className="sticky top-0 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm px-6 py-5 border-b border-gray-700/50 rounded-t-2xl z-10">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">Add New Flight</h2>
@@ -741,281 +815,332 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
             <>
               {/* Departure/Destination Row */}
               <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              {renderAirportField('departure', 'Departure (ICAO)')}
-            </div>
-            <div className="flex-1">
-              {runways.departure.length > 0 && (
-                <div>
-                  <label
-                    htmlFor="departureRunway"
-                    className="block text-sm font-semibold text-gray-200 mb-2"
-                  >
-                    Departure Runway
-                  </label>
-                  <select
-                    id="departureRunway"
-                    name="departureRunway"
-                    value={newFlight.departureRunway || ''}
-                    onChange={handleInputChange}
-                    className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-                  >
-                    {runways.departure.map((runway) => (
-                      <option key={runway} value={runway}>
-                        {runway}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex-1">
+                  {renderAirportField('departure', 'Departure (ICAO)')}
                 </div>
-              )}
-            </div>
-            <div className="flex-1">
-              {renderAirportField('destination', 'Destination (ICAO)')}
-            </div>
-            <div className="flex-1">
-              {runways.destination.length > 0 && (
-                <div>
-                  <label
-                    htmlFor="destinationRunway"
-                    className="block text-sm font-semibold text-gray-200 mb-2"
-                  >
-                    Destination Runway
-                  </label>
-                  <select
-                    id="destinationRunway"
-                    name="destinationRunway"
-                    value={newFlight.destinationRunway || ''}
-                    onChange={handleInputChange}
-                    className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-                  >
-                    {runways.destination.map((runway) => (
-                      <option key={runway} value={runway}>
-                        {runway}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex-1">
+                  {(runways.departure.length > 0 ||
+                    (mode === 'simbrief' && newFlight.departureRunway)) && (
+                    <div>
+                      <label
+                        htmlFor="departureRunway"
+                        className="block text-sm font-semibold text-gray-200 mb-2"
+                      >
+                        Departure Runway
+                      </label>
+                      {runways.departure.length > 0 ? (
+                        <select
+                          id="departureRunway"
+                          name="departureRunway"
+                          value={newFlight.departureRunway || ''}
+                          onChange={handleInputChange}
+                          className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                        >
+                          {runways.departure.map((runway) => (
+                            <option key={runway} value={runway}>
+                              {runway}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          id="departureRunway"
+                          name="departureRunway"
+                          value={newFlight.departureRunway || ''}
+                          onChange={handleInputChange}
+                          placeholder="e.g., 09, 27L"
+                          className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Row 4 */}
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              {renderInputField(
-                'range',
-                'Range (Nautical Mile)',
-                'number',
-                '0',
-                {
-                  min: 1,
-                  step: 1
-                }
-              )}
-            </div>
-            <div className="flex-1">
-              {renderSelectField(
-                'weather',
-                'Weather',
-                Object.values(WeatherType)
-              )}
-            </div>
-          </div>
-
-          {/* Simbrief Additional Info */}
-          {mode === 'simbrief' && simbriefData && (
-            <div className="mt-6 p-6 bg-gray-900/50 border border-blue-500/30 rounded-xl">
-              <h4 className="text-lg font-semibold text-blue-400 mb-4">
-                Simbrief Flight Plan Details
-              </h4>
-
-              {/* Aircraft Warning */}
-              {simbriefData.aircraft.icao_code !==
-                Aircrafts.find((a) => a.name === newFlight.aircraft)?.id && (
-                <div className="mb-4 p-3 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
-                  <p className="text-sm text-yellow-400 flex items-center gap-2">
-                    <svg
-                      className="w-5 h-5 flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Aircraft mismatch: Simbrief plan is for{' '}
-                    {simbriefData.aircraft.icao_code}, but you selected{' '}
-                    {newFlight.aircraft}. You can still continue.
-                  </p>
+                <div className="flex-1">
+                  {renderAirportField('destination', 'Destination (ICAO)')}
                 </div>
-              )}
-
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Flight Number</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.general.flight_number}
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Cruise Altitude</p>
-                  <p className="text-sm font-semibold text-white">
-                    FL{simbriefData.general.initial_altitude}
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Passengers</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.general.passengers}
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Weight per Pax</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.weights.pax_weight} kg
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Cargo</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.weights.cargo} kg
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Total Payload</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.weights.payload} kg
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Recommended Fuel</p>
-                  <p className="text-sm font-semibold text-white">
-                    {simbriefData.fuel.plan_ramp} kg
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-800/50 rounded-lg">
-                  <p className="text-xs text-gray-400 mb-1">Est. Duration</p>
-                  <p className="text-sm font-semibold text-white">
-                    {Math.floor(simbriefData.times.est_block / 3600)}h{' '}
-                    {Math.floor((simbriefData.times.est_block % 3600) / 60)}m
-                  </p>
+                <div className="flex-1">
+                  {(runways.destination.length > 0 ||
+                    (mode === 'simbrief' && newFlight.destinationRunway)) && (
+                    <div>
+                      <label
+                        htmlFor="destinationRunway"
+                        className="block text-sm font-semibold text-gray-200 mb-2"
+                      >
+                        Destination Runway
+                      </label>
+                      {runways.destination.length > 0 ? (
+                        <select
+                          id="destinationRunway"
+                          name="destinationRunway"
+                          value={newFlight.destinationRunway || ''}
+                          onChange={handleInputChange}
+                          className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                        >
+                          {runways.destination.map((runway) => (
+                            <option key={runway} value={runway}>
+                              {runway}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          id="destinationRunway"
+                          name="destinationRunway"
+                          value={newFlight.destinationRunway || ''}
+                          onChange={handleInputChange}
+                          placeholder="e.g., 27L, 09"
+                          className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-2.5 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Collapsible Sections */}
-              <details className="mb-3">
-                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
-                  Route String
-                </summary>
-                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
-                  {simbriefData.general.route}
+              {/* Row 4 */}
+              <div className="flex flex-col md:flex-row gap-6">
+                <div className="flex-1">
+                  {renderInputField(
+                    'range',
+                    'Range (Nautical Mile)',
+                    'number',
+                    '0',
+                    {
+                      min: 1,
+                      step: 1
+                    }
+                  )}
                 </div>
-              </details>
-
-              <details className="mb-3">
-                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
-                  Origin METAR
-                </summary>
-                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
-                  {simbriefData.origin.metar}
+                <div className="flex-1">
+                  {renderSelectField(
+                    'weather',
+                    'Weather',
+                    Object.values(WeatherType)
+                  )}
                 </div>
-              </details>
-
-              <details className="mb-4">
-                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
-                  Destination METAR
-                </summary>
-                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
-                  {simbriefData.destination.metar}
-                </div>
-              </details>
-
-              {/* External Links */}
-              <div className="flex gap-3">
-                <a
-                  href={simbriefData.ofp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 text-center py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
-                >
-                  See Full Briefing
-                </a>
-                <a
-                  href={simbriefData.skyvector}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 text-center py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
-                >
-                  Track on Skyvector
-                </a>
               </div>
-            </div>
-          )}
-          </>
+
+              {/* Simbrief Additional Info */}
+              {mode === 'simbrief' && simbriefData && (
+                <details
+                  className="mt-6 bg-gray-900/50 border border-blue-500/30 rounded-xl"
+                  open
+                >
+                  <summary className="cursor-pointer text-lg font-semibold text-blue-400 p-6  rounded-xl transition-colors">
+                    Simbrief Flight Plan Details
+                  </summary>
+                  <div className="px-6 pb-6">
+                    {/* Aircraft Warning */}
+                    {simbriefData.aircraft.icao_code !==
+                      Aircrafts.find((a) => a.name === newFlight.aircraft)
+                        ?.id && (
+                      <div className="mb-4 p-3 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
+                        <p className="text-sm text-yellow-400 flex items-center gap-2">
+                          <svg
+                            className="w-5 h-5 flex-shrink-0"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          Aircraft mismatch: Simbrief plan is for{' '}
+                          {simbriefData.aircraft.icao_code}, but you selected{' '}
+                          {newFlight.aircraft}. You can still continue.
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                      <div className="p-3 bg-gray-800/50 rounded-lg">
+                        <p className="text-xs text-gray-400 mb-1">
+                          Flight Number
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          {simbriefData.general.flight_number}
+                        </p>
+                      </div>
+                      <div className="p-3 bg-gray-800/50 rounded-lg">
+                        <p className="text-xs text-gray-400 mb-1">
+                          Cruise Altitude
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          FL{simbriefData.general.initial_altitude / 100}
+                        </p>
+                      </div>
+                      <div className="p-3 flex justify-between bg-gray-800/50 rounded-lg">
+                        <div>
+                          <p className="text-xs text-gray-400 mb-1">
+                            Passengers
+                          </p>
+                          <p className="text-sm font-semibold text-white">
+                            {simbriefData.general.passengers}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-400 mb-1">
+                            Weight per Pax
+                          </p>
+                          <p className="text-sm font-semibold text-white">
+                            {Math.round(simbriefData.weights.pax_weight)} kg
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-400 mb-1">Cargo</p>
+                          <p className="text-sm font-semibold text-white">
+                            {simbriefData.weights.cargo} kg
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-3 bg-gray-800/50 rounded-lg">
+                        <p className="text-xs text-gray-400 mb-1">
+                          Total Payload
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          {simbriefData.weights.payload} kg
+                        </p>
+                      </div>
+                      <div className="p-3 bg-gray-800/50 rounded-lg">
+                        <p className="text-xs text-gray-400 mb-1">
+                          Rec. Takeoff Fuel
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          {simbriefData.fuel.plan_ramp} kg
+                        </p>
+                      </div>
+                      <div className="p-3 bg-gray-800/50 rounded-lg">
+                        <p className="text-xs text-gray-400 mb-1">
+                          Est. Duration
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          {Math.floor(simbriefData.times.est_block / 3600)}h{' '}
+                          {Math.floor(
+                            (simbriefData.times.est_block % 3600) / 60
+                          )}
+                          m
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Collapsible Sections */}
+                    <details className="mb-3">
+                      <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                        Route
+                      </summary>
+                      <div className="p-4 bg-gray-800/30 rounded text-xs text-gray-300 font-mono break-all">
+                        {simbriefData.general.route}
+                      </div>
+                    </details>
+
+                    <details className="mb-3">
+                      <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                        Origin METAR
+                      </summary>
+                      <div className="p-4 bg-gray-800/30 rounded text-xs text-gray-300 font-mono break-all">
+                        {simbriefData.origin.metar}
+                      </div>
+                    </details>
+
+                    <details className="mb-4">
+                      <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                        Destination METAR
+                      </summary>
+                      <div className="p-4 bg-gray-800/30 rounded text-xs text-gray-300 font-mono break-all">
+                        {simbriefData.destination.metar}
+                      </div>
+                    </details>
+
+                    {/* External Links */}
+                    <div className="flex gap-3">
+                      <a
+                        href={simbriefData.ofp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-center py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                      >
+                        See Full Briefing
+                      </a>
+                      <a
+                        href={simbriefData.skyvector}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-center py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                      >
+                        Track on Skyvector
+                      </a>
+                    </div>
+                  </div>
+                </details>
+              )}
+            </>
           )}
         </div>
 
         {/* Action Buttons */}
         {mode && (
-        <div className="mt-8 pt-6 border-t border-gray-700/50 flex flex-col sm:flex-row justify-end gap-3">
-          <button
-            type="button"
-            onClick={onCancel}
-            disabled={isSubmitting}
-            className="w-full sm:w-auto py-2.5 px-6 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full sm:w-auto py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
-          >
-            {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg
-                  className="animate-spin h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
+          <div className="mt-8 pt-6 border-t border-gray-700/50 flex flex-col sm:flex-row justify-end gap-3">
+            <button
+              type="button"
+              onClick={onCancel}
+              disabled={isSubmitting}
+              className="w-full sm:w-auto py-2.5 px-6 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto py-2.5 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  Adding Flight...
+                </span>
+              ) : (
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
                     stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
-                Adding Flight...
-              </span>
-            ) : (
-              <span className="flex items-center justify-center gap-2">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-                Start Flight
-              </span>
-            )}
-          </button>
-        </div>
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                  Start Flight
+                </span>
+              )}
+            </button>
+          </div>
         )}
       </form>
     </div>

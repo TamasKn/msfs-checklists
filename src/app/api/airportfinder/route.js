@@ -39,8 +39,20 @@ const AIRPORT_DATABASE = {
     },
     runways: [
       {
-        le_ident: '09',
-        he_ident: '27'
+        le_ident: '04L',
+        he_ident: '22R'
+      },
+      {
+        le_ident: '04R',
+        he_ident: '22L'
+      },
+      {
+        le_ident: '13L',
+        he_ident: '31R'
+      },
+      {
+        le_ident: '13R',
+        he_ident: '31L'
       }
     ]
   },
