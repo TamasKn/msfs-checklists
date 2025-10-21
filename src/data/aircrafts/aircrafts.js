@@ -26,48 +26,56 @@ import { beechcraftKingAir350Career } from '@/data/beechcraft-king-air-350/caree
 
 export const Aircrafts = [
   {
+    id: 'C700',
     name: AircraftName.CessnaLongitude,
     specs: cessnaLongitudeSpecs,
     checklist: cessnaLongitudeChecklist,
     career: cessnaLongitudeCareer
   },
   {
+    id: 'C172',
     name: AircraftName.Cessna172,
     specs: cessna172Specs,
     checklist: cessna172Checklist,
     career: cessna172Career
   },
   {
+    id: 'DA62',
     name: AircraftName.DiamondDA62,
     specs: diamondDA62Specs,
     checklist: diamondDA62Checklist,
     career: diamondDA62Career
   },
   {
+    id: 'PC12',
     name: AircraftName.PilatusPC12,
     specs: pilatusPc12Specs,
     checklist: pilatusPc12Checklist,
     career: pilatusPc12Career
   },
   {
+    id: 'B350',
     name: AircraftName.BeechcraftKingAir350,
     specs: beechcraftKingAir350Specs,
     checklist: beechcraftKingAir350Checklist,
     career: beechcraftKingAir350Career
   },
   {
+    id: 'SF50',
     name: AircraftName.VisionJetG2,
     specs: visionJetG2Specs,
     checklist: visionJetG2Checklist,
     career: visionJetG2Career
   },
   {
+    id: 'A320',
     name: AircraftName.AirbusA320neo,
     specs: airbusA320neoSpecs,
     checklist: airbusA320neoChecklist,
     career: airbusA320neoCareer
   },
   {
+    id: 'B38M',
     name: AircraftName.Boeing737Max,
     specs: boeing737MaxSpecs,
     checklist: boeing737MaxChecklist,
