@@ -12,9 +12,10 @@ export default function Career() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user has already saved token
-    const token = localStorage.getItem('user_token')
-    setHasToken(!!token)
+    // Check if user has already saved API keys
+    const sbPilotId = localStorage.getItem('sb_pilot_id')
+    const airportDbKey = localStorage.getItem('airportdb_key')
+    setHasToken(!!(sbPilotId && airportDbKey))
     setIsLoading(false)
   }, [])
 

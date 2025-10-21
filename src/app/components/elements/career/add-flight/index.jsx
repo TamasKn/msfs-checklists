@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { AircraftName } from '@/data/aircrafts/aircraft-names'
+import { Aircrafts } from '@/data/aircrafts/aircrafts'
 import { JobType } from '@/data/career/jobs'
-import { WeatherType } from '@/data/career/weather'
+import { WeatherType, WeatherAbbreviations } from '@/data/career/weather'
 import { getLeasedAircraft } from '@/utils/career/user-data'
 
 const isTest = process.env.NEXT_PUBLIC_IS_TEST === 'true'
@@ -69,7 +70,9 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
   }
 
   const [newFlight, setNewFlight] = useState(initFlight)
-
+  const [mode, setMode] = useState(null) // null, 'manual', or 'simbrief'
+  const [simbriefData, setSimbriefData] = useState(null)
+  const [simbriefLoading, setSimbriefLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [lookupLoading, setLookupLoading] = useState({
@@ -81,6 +84,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
     departure: [],
     destination: []
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   // Load leased aircraft on mount
   useEffect(() => {
@@ -92,6 +96,77 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       setNewFlight((prev) => ({ ...prev, aircraft: leased[0] }))
     }
   }, [])
+
+  /**
+   * Parses weather from METAR string
+   * @param {string} metar - METAR string
+   * @returns {string} Weather type
+   */
+  const parseWeatherFromMetar = (metar) => {
+    if (!metar) return WeatherType.Clear
+
+    const words = metar.split(' ')
+    if (words.length < 6) return WeatherType.Clear
+
+    const weatherWord = words[5]
+
+    // Check against WeatherAbbreviations
+    for (const [key, abbr] of Object.entries(WeatherAbbreviations)) {
+      if (weatherWord.includes(abbr)) {
+        return WeatherType[key]
+      }
+    }
+
+    return WeatherType.Clear
+  }
+
+  /**
+   * Fetches flight plan from Simbrief
+   */
+  const fetchFromSimbrief = async () => {
+    setSimbriefLoading(true)
+    setErrors({})
+
+    try {
+      const pilotId = localStorage.getItem('sb_pilot_id')
+      const response = await axios.post('/api/simbrief/route', {
+        pilotID: pilotId
+      })
+
+      if (response.data.status === 'success') {
+        const data = response.data.data
+        setSimbriefData(data)
+
+        // Parse weather from METAR
+        const weather = parseWeatherFromMetar(data.origin.metar)
+
+        // Populate flight data
+        setNewFlight((prev) => ({
+          ...prev,
+          departure: data.origin.icao_code,
+          departureName: data.origin.name,
+          departureRunway: data.origin.plan_rwy,
+          destination: data.destination.icao_code,
+          destinationName: data.destination.name,
+          destinationRunway: data.destination.plan_rwy,
+          range: parseInt(data.general.route_distance),
+          weather: weather
+        }))
+
+        // Set mode to simbrief
+        setMode('simbrief')
+      } else {
+        setErrors({ simbrief: response.data.message || 'Failed to fetch from Simbrief' })
+      }
+    } catch (error) {
+      setErrors({
+        simbrief:
+          error.response?.data?.message || 'Failed to fetch flight plan from Simbrief'
+      })
+    } finally {
+      setSimbriefLoading(false)
+    }
+  }
 
   /**
    * Looks up airport information by ICAO code
@@ -267,7 +342,9 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
       destinationRunway: newFlight.destinationRunway || '',
       aircraft: newFlight.aircraft,
       range: parseFloat(newFlight.range),
-      weather: newFlight.weather
+      weather: newFlight.weather,
+      // Include Simbrief data if available
+      simbriefData: mode === 'simbrief' ? simbriefData : null
     }
 
     // Call parent callback to save draft
@@ -593,8 +670,77 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
             </div>
           </div>
 
-          {/* Departure/Destination Row */}
-          <div className="flex flex-col md:flex-row gap-6">
+          {/* Mode Selection Buttons */}
+          {!mode && (
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                type="button"
+                onClick={fetchFromSimbrief}
+                disabled={simbriefLoading}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              >
+                {simbriefLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg
+                      className="animate-spin h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Fetching from Simbrief...
+                  </span>
+                ) : (
+                  'Fetch from Simbrief'
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode('manual')}
+                className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              >
+                Add Manually
+              </button>
+            </div>
+          )}
+
+          {/* Simbrief Error */}
+          {errors.simbrief && (
+            <div className="p-4 bg-red-900/20 border border-red-500/50 rounded-lg">
+              <p className="text-sm text-red-400 flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                {errors.simbrief}
+              </p>
+            </div>
+          )}
+
+          {/* Show form fields only when mode is selected */}
+          {mode && (
+            <>
+              {/* Departure/Destination Row */}
+              <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1">
               {renderAirportField('departure', 'Departure (ICAO)')}
             </div>
@@ -675,9 +821,144 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
               )}
             </div>
           </div>
+
+          {/* Simbrief Additional Info */}
+          {mode === 'simbrief' && simbriefData && (
+            <div className="mt-6 p-6 bg-gray-900/50 border border-blue-500/30 rounded-xl">
+              <h4 className="text-lg font-semibold text-blue-400 mb-4">
+                Simbrief Flight Plan Details
+              </h4>
+
+              {/* Aircraft Warning */}
+              {simbriefData.aircraft.icao_code !==
+                Aircrafts.find((a) => a.name === newFlight.aircraft)?.id && (
+                <div className="mb-4 p-3 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
+                  <p className="text-sm text-yellow-400 flex items-center gap-2">
+                    <svg
+                      className="w-5 h-5 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Aircraft mismatch: Simbrief plan is for{' '}
+                    {simbriefData.aircraft.icao_code}, but you selected{' '}
+                    {newFlight.aircraft}. You can still continue.
+                  </p>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Flight Number</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.general.flight_number}
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Cruise Altitude</p>
+                  <p className="text-sm font-semibold text-white">
+                    FL{simbriefData.general.initial_altitude}
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Passengers</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.general.passengers}
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Weight per Pax</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.weights.pax_weight} kg
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Cargo</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.weights.cargo} kg
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Total Payload</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.weights.payload} kg
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Recommended Fuel</p>
+                  <p className="text-sm font-semibold text-white">
+                    {simbriefData.fuel.plan_ramp} kg
+                  </p>
+                </div>
+                <div className="p-3 bg-gray-800/50 rounded-lg">
+                  <p className="text-xs text-gray-400 mb-1">Est. Duration</p>
+                  <p className="text-sm font-semibold text-white">
+                    {Math.floor(simbriefData.times.est_block / 3600)}h{' '}
+                    {Math.floor((simbriefData.times.est_block % 3600) / 60)}m
+                  </p>
+                </div>
+              </div>
+
+              {/* Collapsible Sections */}
+              <details className="mb-3">
+                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                  Route String
+                </summary>
+                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
+                  {simbriefData.general.route}
+                </div>
+              </details>
+
+              <details className="mb-3">
+                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                  Origin METAR
+                </summary>
+                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
+                  {simbriefData.origin.metar}
+                </div>
+              </details>
+
+              <details className="mb-4">
+                <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 p-2 bg-gray-800/30 rounded">
+                  Destination METAR
+                </summary>
+                <div className="mt-2 p-3 bg-gray-800/50 rounded text-xs text-gray-300 font-mono break-all">
+                  {simbriefData.destination.metar}
+                </div>
+              </details>
+
+              {/* External Links */}
+              <div className="flex gap-3">
+                <a
+                  href={simbriefData.ofp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                >
+                  See Full Briefing
+                </a>
+                <a
+                  href={simbriefData.skyvector}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+                >
+                  Track on Skyvector
+                </a>
+              </div>
+            </div>
+          )}
+          </>
+          )}
         </div>
 
         {/* Action Buttons */}
+        {mode && (
         <div className="mt-8 pt-6 border-t border-gray-700/50 flex flex-col sm:flex-row justify-end gap-3">
           <button
             type="button"
@@ -735,6 +1016,7 @@ export default function AddFlight({ onSaveDraft, onCancel }) {
             )}
           </button>
         </div>
+        )}
       </form>
     </div>
   )

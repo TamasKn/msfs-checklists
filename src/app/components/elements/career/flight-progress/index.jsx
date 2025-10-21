@@ -346,6 +346,57 @@ export default function FlightProgress({
           </div>
         </div>
 
+        {/* Simbrief Additional Info */}
+        {draftFlight.simbriefData && (
+          <div className="mt-6 p-4 bg-blue-900/10 border border-blue-500/20 rounded-xl">
+            <h4 className="text-sm font-semibold text-blue-300 mb-3">
+              Simbrief Flight Plan Info
+            </h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Flight Number</p>
+                <p className="font-semibold text-white">
+                  {draftFlight.simbriefData.general.flight_number}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Cruise Alt</p>
+                <p className="font-semibold text-white">
+                  FL{draftFlight.simbriefData.general.initial_altitude}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Passengers</p>
+                <p className="font-semibold text-white">
+                  {draftFlight.simbriefData.general.passengers}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Payload</p>
+                <p className="font-semibold text-white">
+                  {draftFlight.simbriefData.weights.payload} kg
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Fuel</p>
+                <p className="font-semibold text-white">
+                  {draftFlight.simbriefData.fuel.plan_ramp} kg
+                </p>
+              </div>
+              <div className="p-2 bg-gray-800/30 rounded">
+                <p className="text-gray-400 mb-0.5">Est. Duration</p>
+                <p className="font-semibold text-white">
+                  {Math.floor(draftFlight.simbriefData.times.est_block / 3600)}h{' '}
+                  {Math.floor(
+                    (draftFlight.simbriefData.times.est_block % 3600) / 60
+                  )}
+                  m
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Duration Input and Action Buttons */}
         <div className="flex items-center justify-between gap-4 pt-6 border-t border-gray-700/50">
           {/* Timer / Duration Input */}
