@@ -1,5 +1,5 @@
 export const visionJetG2Career = {
-  id: 'SF50G2',
+  id: 'SF50',
   costs: {
     buyPriceBase: 3500000, // base price for a new aircraft
     sellPriceBase: 2100000, // base price for a used aircraft

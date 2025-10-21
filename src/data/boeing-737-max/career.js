@@ -1,5 +1,5 @@
 export const boeing737MaxCareer = {
-  id: 'B737MAX',
+  id: 'B38M',
   costs: {
     buyPriceBase: 121000000, // base price for a new aircraft
     sellPriceBase: 72000000, // base price for a used aircraft

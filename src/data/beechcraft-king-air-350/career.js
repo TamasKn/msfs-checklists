@@ -1,5 +1,5 @@
 export const beechcraftKingAir350Career = {
-  id: 'KingAir350',
+  id: 'B350',
   costs: {
     buyPriceBase: 7500000,
     sellPriceBase: 4500000,
