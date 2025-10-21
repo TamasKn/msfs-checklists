@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 /**
- * UserTokenInput - Component for user authentication token input
- * @param {Function} onTokenSaved - Callback when token is saved
+ * UserTokenInput - Component for API keys input (Simbrief and AirportDB)
+ * @param {Function} onTokenSaved - Callback when keys are saved
  */
 export default function UserTokenInput({ onTokenSaved }) {
   const [showTokenInput, setShowTokenInput] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [userName, setUserName] = useState('')
-  const [userToken, setUserToken] = useState('')
+  const [simbriefPilotId, setSimbriefPilotId] = useState('')
+  const [airportDbKey, setAirportDbKey] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [existingUser, setExistingUser] = useState(null)
@@ -31,16 +32,18 @@ export default function UserTokenInput({ onTokenSaved }) {
       console.error('Failed to load user data:', error)
     }
 
-    // Check if user has already saved token
-    const token = localStorage.getItem('user_token')
-    if (!token) {
+    // Check if user has already saved API keys
+    const sbPilotId = localStorage.getItem('sb_pilot_id')
+    const airportDbApiKey = localStorage.getItem('airportdb_key')
+    if (!sbPilotId || !airportDbApiKey) {
       setShowTokenInput(true)
     }
   }, [])
 
   const handleTokenSave = () => {
-    // Save the token to localStorage
-    localStorage.setItem('user_token', userToken)
+    // Save the API keys to localStorage
+    localStorage.setItem('sb_pilot_id', simbriefPilotId)
+    localStorage.setItem('airportdb_key', airportDbKey)
 
     if (!existingUser) {
       // Initialize user data with name, funds, XP, level, leased aircraft, and flight minutes
@@ -63,8 +66,10 @@ export default function UserTokenInput({ onTokenSaved }) {
     const { name, value } = e.target
     if (name === 'userName') {
       setUserName(value)
-    } else if (name === 'userToken') {
-      setUserToken(value)
+    } else if (name === 'simbriefPilotId') {
+      setSimbriefPilotId(value)
+    } else if (name === 'airportDbKey') {
+      setAirportDbKey(value)
     }
     setError('')
   }
@@ -80,8 +85,13 @@ export default function UserTokenInput({ onTokenSaved }) {
       return
     }
 
-    if (!userToken.trim()) {
-      setError('Token is required')
+    if (!simbriefPilotId.trim()) {
+      setError('Simbrief Pilot ID is required')
+      return
+    }
+
+    if (!airportDbKey.trim()) {
+      setError('AirportDB API Key is required')
       return
     }
 
@@ -89,17 +99,37 @@ export default function UserTokenInput({ onTokenSaved }) {
     setError('')
 
     try {
-      const res = await axios.post('/api/auth', {
-        userToken: userToken
+      // Validate Simbrief Pilot ID
+      const simbriefRes = await axios.post('/api/simbrief/auth', {
+        pilotID: simbriefPilotId
       })
 
-      if (res.data.status === 'success') {
-        handleTokenSave()
-      } else {
-        setError('Invalid token. Please try again.')
+      if (simbriefRes.data.status !== 'success') {
+        setError('Invalid Simbrief Pilot ID. Please try again.')
+        setIsLoading(false)
+        return
       }
+
+      // Validate AirportDB API Key
+      const airportDbRes = await axios.post('/api/airportfinder', {
+        ICAO: 'EGLL',
+        airportApiKey: airportDbKey
+      })
+
+      if (airportDbRes.data.status !== 'success') {
+        setError('Invalid AirportDB API Key. Please try again.')
+        setIsLoading(false)
+        return
+      }
+
+      // Both validations passed
+      handleTokenSave()
     } catch (err) {
-      setError('Authentication failed. Please check your token.')
+      if (err.response?.data?.message === 'Unauthorized') {
+        setError('Invalid AirportDB API Key.')
+      } else {
+        setError('Authentication failed. Please check your credentials.')
+      }
     } finally {
       setIsLoading(false)
     }
@@ -143,26 +173,63 @@ export default function UserTokenInput({ onTokenSaved }) {
           </p>
         </div>
 
-        {/* Token Input */}
+        {/* Simbrief Pilot ID Input */}
         <div>
           <label
-            htmlFor="userToken"
+            htmlFor="simbriefPilotId"
             className="block text-sm font-semibold text-gray-200 mb-3"
           >
-            Authentication Token
+            Simbrief Pilot ID
           </label>
           <input
             type="text"
-            id="userToken"
-            name="userToken"
-            value={userToken}
+            id="simbriefPilotId"
+            name="simbriefPilotId"
+            value={simbriefPilotId}
             onChange={handleInputChange}
-            placeholder="Enter your authentication token"
+            placeholder="Enter your Simbrief Pilot ID"
             className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
           />
           <p className="mt-2.5 text-xs text-gray-500">
-            Your token is required to access career mode features and sync your
-            flight data.
+            Don&apos;t have a Simbrief account?{' '}
+            <a
+              href="https://navigraph.com/user-registration?clientId=simbrief"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-400 hover:text-indigo-300 underline cursor-pointer"
+            >
+              Sign up for free
+            </a>
+          </p>
+        </div>
+
+        {/* AirportDB API Key Input */}
+        <div>
+          <label
+            htmlFor="airportDbKey"
+            className="block text-sm font-semibold text-gray-200 mb-3"
+          >
+            AirportDB API Key
+          </label>
+          <input
+            type="text"
+            id="airportDbKey"
+            name="airportDbKey"
+            value={airportDbKey}
+            onChange={handleInputChange}
+            placeholder="Enter your AirportDB API Key"
+            className="block w-full bg-gray-700/50 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+          />
+          <p className="mt-2.5 text-xs text-gray-500">
+            Get your free API key from{' '}
+            <a
+              href="https://airportdb.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-400 hover:text-indigo-300 underline cursor-pointer"
+            >
+              airportdb.io
+            </a>
           </p>
         </div>
 
@@ -186,7 +253,12 @@ export default function UserTokenInput({ onTokenSaved }) {
 
         <button
           type="submit"
-          disabled={isLoading || !userName.trim() || !userToken.trim()}
+          disabled={
+            isLoading ||
+            !userName.trim() ||
+            !simbriefPilotId.trim() ||
+            !airportDbKey.trim()
+          }
           className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
         >
           {isLoading ? (
