@@ -40,7 +40,8 @@ export const cessnaLongitudeChecklist = {
         { 'Throttles': 'IDLE' },
         { 'PARKING BRAKE': 'SET' },
         { 'CABIN DOOR': 'CLOSED' },
-        { 'EIS/CAS': 'Check' }
+        { 'EIS/CAS': 'Check' },
+        { 'Pulse Lights': 'ON' }
       ]
     },
     {
@@ -85,12 +86,12 @@ export const cessnaLongitudeChecklist = {
         { 'Rudder Trim': 'CENTER' },
         { 'Brakes': 'CHECK & SET & RETRACTED' },
         { 'Transponder': 'ON & SET' },
-        { 'Weather Radar': 'AS REQUIRED' },
-        { 'Ice Protection': 'AS REQUIRED' },
         {
           'Pre-Flight Synoptics': 'ALL CHECK',
           'info': 'Aircraft Systems/Synoptics/Preflight'
         },
+        { 'Weather Radar': 'AS REQUIRED' },
+        { 'Ice Protection': 'AS REQUIRED' },
         { 'EMER LTS': 'ARMED' },
         { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
       ]
@@ -111,7 +112,7 @@ export const cessnaLongitudeChecklist = {
         { 'Flaps': 'CHECK' },
         { 'Trim': 'CHECK' },
         { 'Speed Indicators': 'CHECK' },
-        { 'LDG, Pulse Lights': 'ON' },
+        { 'Landing Lights': 'ON' },
         { 'Taxi Lights': 'OFF' }
       ]
     },
@@ -197,8 +198,12 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Landing',
       items: [
-        { 'Flaps': 'FULL (IF REQ)' },
-        { 'Trim': 'SET for Landing' },
+        { 'Flaps': 'FULL (AT MINIMUMS)' },
+        {
+          'Trim': 'SET for Landing',
+          'info':
+            'If AP armed let it settle the trim after flap (full) extension'
+        },
         { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
         { 'AP & AT': 'DISCONNECT' },
@@ -215,7 +220,7 @@ export const cessnaLongitudeChecklist = {
         { 'Flaps': 'RETRACT' },
         { 'Taxi & Parking Clearance': 'OBTAINED' },
         { 'Taxi Lights': 'ON' },
-        { 'LDG, Rec, Pulse, PS/SB Lights': 'OFF' }
+        { 'LDG, Rec, PS/SB Lights': 'OFF' }
       ]
     },
     {
@@ -225,7 +230,7 @@ export const cessnaLongitudeChecklist = {
         { 'Parking Brake': 'SET' },
         { 'Engine Ice Protection': 'OFF' },
         { 'L & R Engine': 'STOP' },
-        { 'EM LTS': 'OFF' },
+        { 'EM LTS, Pulse': 'OFF' },
         { 'STBY PWR': 'OFF' },
         { 'APU MAIN': 'OFF' },
         { 'Exterior Lights': 'OFF' },
