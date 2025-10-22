@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { updateDraftFlight } from '@/utils/career/draft-flights'
+import SimbriefDetails from '@/app/components/elements/career/simbrief-details'
 
 /**
  * FlightProgress - Modal component for completing a flight in progress
@@ -166,7 +167,7 @@ export default function FlightProgress({
   return (
     <div className="bg-gray-800/95 backdrop-blur-md rounded-2xl shadow-2xl border border-orange-700/50 w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-slideUp">
       {/* Header */}
-      <div className="sticky top-0 bg-gradient-to-r from-orange-900/90 to-amber-900/90 backdrop-blur-sm px-6 py-5 border-b border-orange-700/50 rounded-t-2xl">
+      <div className="sticky top-0 bg-gradient-to-r from-orange-900/90 to-amber-900/90 backdrop-blur-sm px-6 py-5 border-b border-orange-700/50 rounded-t-2xl z-10">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-2">
@@ -303,6 +304,26 @@ export default function FlightProgress({
             </div>
           </div>
         </div>
+        {draftFlight.simbriefData && (
+          <div className="flex justify-between -mt-4">
+            <details className="mb-4">
+              <summary className="cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200 ">
+                METAR
+              </summary>
+              <div className="py-2 text-xs text-gray-300 font-mono break-all">
+                {draftFlight.simbriefData.origin.metar}
+              </div>
+            </details>
+            <details className="mb-4">
+              <summary className="justify-self-end cursor-pointer text-sm font-semibold text-blue-300 hover:text-blue-200">
+                METAR
+              </summary>
+              <div className="py-2 text-xs text-gray-300 font-mono break-all">
+                {draftFlight.simbriefData.destination.metar}
+              </div>
+            </details>
+          </div>
+        )}
 
         {/* Aircraft Information */}
         <div className="mb-6 p-4 bg-gray-900/30 border border-gray-700/50 rounded-xl">
@@ -348,57 +369,15 @@ export default function FlightProgress({
 
         {/* Simbrief Additional Info */}
         {draftFlight.simbriefData && (
-          <div className="mt-6 p-4 bg-blue-900/10 border border-blue-500/20 rounded-xl">
-            <h4 className="text-sm font-semibold text-blue-300 mb-3">
-              SimBrief Flight Plan Info
-            </h4>
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Flight Number</p>
-                <p className="font-semibold text-white">
-                  {draftFlight.simbriefData.general.flight_number}
-                </p>
-              </div>
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Cruise Alt</p>
-                <p className="font-semibold text-white">
-                  FL{draftFlight.simbriefData.general.initial_altitude / 100}
-                </p>
-              </div>
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Passengers</p>
-                <p className="font-semibold text-white">
-                  {draftFlight.simbriefData.general.passengers}
-                </p>
-              </div>
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Payload</p>
-                <p className="font-semibold text-white">
-                  {draftFlight.simbriefData.weights.payload} kg
-                </p>
-              </div>
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Fuel</p>
-                <p className="font-semibold text-white">
-                  {draftFlight.simbriefData.fuel.plan_ramp} kg
-                </p>
-              </div>
-              <div className="p-2  rounded">
-                <p className="text-gray-400 mb-0.5">Est. Duration</p>
-                <p className="font-semibold text-white">
-                  {Math.floor(draftFlight.simbriefData.times.est_block / 3600)}h{' '}
-                  {Math.floor(
-                    (draftFlight.simbriefData.times.est_block % 3600) / 60
-                  )}
-                  m
-                </p>
-              </div>
-            </div>
-          </div>
+          <SimbriefDetails
+            simbriefData={draftFlight.simbriefData}
+            newFlight={draftFlight}
+            modal="in-progress"
+          />
         )}
 
         {/* Duration Input and Action Buttons */}
-        <div className="flex items-center justify-between gap-4 pt-6 border-t border-gray-700/50">
+        <div className="flex items-center justify-between gap-4 pt-6 border-gray-700/50">
           {/* Timer / Duration Input */}
           <div className="max-w-[22rem] flex-1">
             <label
