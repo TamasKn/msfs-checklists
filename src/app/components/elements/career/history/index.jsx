@@ -38,6 +38,17 @@ export default function FlightHistory({ flights }) {
     return () => setMounted(false)
   }, [])
 
+  useEffect(() => {
+    if (selectedFlight) {
+      document.body.classList.add('modal-open')
+    } else {
+      document.body.classList.remove('modal-open')
+    }
+    return () => {
+      document.body.classList.remove('modal-open')
+    }
+  }, [selectedFlight])
+
   // Sort flights by ID to show the latest on top
   const sortedFlights = [...flights].sort((a, b) => {
     if (typeof a.id === 'number' && typeof b.id === 'number') {
