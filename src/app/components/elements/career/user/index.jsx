@@ -232,7 +232,7 @@ const UserComponent = forwardRef((props, ref) => {
               </p>
             </div>
           </div>
-          <div className="text-sm font-semibold text-yellow-400 space-y-1">
+          <div className="scroller text-sm font-semibold text-yellow-400 space-y-[.3rem] max-h-26">
             {userData.leasedAircraft?.length > 0 ? (
               userData.leasedAircraft.map((aircraft, index) => (
                 <div key={index} className="truncate">

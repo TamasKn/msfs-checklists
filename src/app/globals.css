@@ -35,6 +35,12 @@ body.modal-open {
   overflow: hidden;
 }
 
+.scroller {
+    scrollbar-width: thin;
+    scrollbar-color: #d8d8d8 rgba(30, 41, 57, 0.5%);
+    overflow-y: auto;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
