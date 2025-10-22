@@ -26,6 +26,7 @@ export async function POST(request) {
     }
 
     const {
+      icao_airline,
       flight_number,
       costindex,
       initial_altitude,
@@ -41,7 +42,7 @@ export async function POST(request) {
 
     const data = {
       general: {
-        flight_number,
+        flight_number: `${icao_airline}${flight_number}`,
         costindex,
         initial_altitude,
         route_distance,
