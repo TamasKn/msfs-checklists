@@ -24,6 +24,7 @@ export default function FlightProgress({
   const [isTimerRunning, setIsTimerRunning] = useState(true)
   const [useManualInput, setUseManualInput] = useState(false)
   const workerRef = useRef(null)
+  const [confirmFinish, setConfirmFinish] = useState(false)
 
   /**
    * Initialize Web Worker and start timer when component mounts
@@ -105,11 +106,20 @@ export default function FlightProgress({
   /**
    * Handles finish flight button click
    */
+  const onConfirmFinish = () => {
+    setConfirmFinish(true)
+  }
+
+  const onCancelFinish = () => {
+    setConfirmFinish(false)
+  }
+
   const handleFinishFlight = () => {
     if (!validateDuration()) {
       return
     }
 
+    setConfirmFinish(false)
     setIsSubmitting(true)
 
     // Pause timer via worker
@@ -474,7 +484,7 @@ export default function FlightProgress({
             </button>
             <button
               type="button"
-              onClick={handleFinishFlight}
+              onClick={onConfirmFinish}
               disabled={isSubmitting}
               className="py-2.5 px-6 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
@@ -522,6 +532,25 @@ export default function FlightProgress({
             </button>
           </div>
         </div>
+        {confirmFinish && (
+          <div className="flex justify-end gap-4 mt-6">
+            <p className="text-sm text-orange-200 self-center">
+              Are you sure you want to finish this flight?
+            </p>
+            <button
+              className="cursor-pointer text-base text-yellow-400"
+              onClick={handleFinishFlight}
+            >
+              Finish
+            </button>
+            <button
+              className="cursor-pointer text-base"
+              onClick={onCancelFinish}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
