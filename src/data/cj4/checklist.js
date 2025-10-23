@@ -239,7 +239,7 @@ export const CJ4Checklist = {
       ]
     },
     {
-      title: 'Parking / Shutdown',
+      title: 'Shutdown',
       items: [
         { 'Taxi Lights': 'OFF' },
         { 'Parking Brake': 'SET' },
