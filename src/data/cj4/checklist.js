@@ -4,101 +4,95 @@ export const CJ4Checklist = {
   name: AircraftName.CitationCJ4,
   checklist: [
     {
-      title: 'MISC',
-      items: [{ 'Flight Plan': 'Imported & Sent' }, { 'Timer': 'STARTED' }]
-    },
-    {
       title: 'Cockpit Preparation',
       items: [
-        { 'STBY PWR': 'TEST and Hold (Green light for min 10 sec)' },
-        { 'STBY PWR': 'ON' },
-        { 'EMER LTS': 'ARM' },
-        { 'LANDING GEAR Handle': 'DOWN' },
-        { 'L BATT & R BATT': 'ON, Check Volts' },
-        { 'EIS/CAS': 'CHECK' },
-        { 'Power Source': 'As Desired (one of the following)' },
-        { 'Option A: External Power': '' },
-        { '--- EXT PWR (if AVAIL)': 'ON' },
-        { '--- BATT Amps (both)': '0 or Charging' },
-        { 'Option B: APU': '' },
-        { '--- APU MAIN': 'START for 1 sec & ON' },
-        {
-          '--- APU ECS BLEED': 'NORM/OPEN',
-          'info':
-            'Aircraft Systems/Synoptics/AC Bleed: ECS BLEED has to be opened before Engines are started.'
-        },
-        { '--- APU GEN ON': 'CHECK' },
-        { '--- External Power': 'Disconnected' },
-        { '--- BATT Amps (both)': '0 or Charging' },
-        { 'Exterior/Interior Lights': 'As Required' }
+        { 'Parking Brake': 'SET' },
+        { 'Landing Gear': 'DOWN' },
+        { 'Throttle': 'IDLE' },
+        { 'Flaps': 'UP' },
+        { 'Ground Spoilers': 'RETRACTED' },
+        { 'Battery Switch': 'ON' },
+        { 'Emergency Lights Switch': 'ARMED' },
+        { 'Stby Flight Display Switch': 'ON' },
+        { 'Avionics Switch': 'DISPATCH' },
+        { 'Cabin Lights': 'AS REQ' },
+        { 'YD/AP': 'CHECK CONNECTED' },
+        { 'Fuel': 'LOAD' },
+        { 'Pax & Cargo': 'LOAD' },
+        { 'Ground Power Unit': 'ON (if avail)', 'info': 'IDX/NEXT/SETTINGS' },
+        { '--- IF GPU UNAVAILABLE ---': '' },
+        { 'Throttles': 'IDLE' },
+        { 'Engines RUN/STOP Cover': 'OPEN' },
+        { 'Engine Starter Right': 'ON' },
+        { 'Engine RUN/STOP Right': 'RUN' }
       ]
     },
     {
-      title: 'Before Engine Start',
+      title: 'FMS Setup',
       items: [
-        { 'START CLEARANCE': 'OBTAINED' },
-        { 'Throttles': 'IDLE' },
-        { 'PARKING BRAKE': 'SET' },
-        { 'CABIN DOOR': 'CLOSED' },
-        { 'EIS/CAS': 'Check' },
-        { 'Pulse Lights': 'ON' }
+        { 'Radios': 'SET' },
+        { 'ATC Clearance': 'AS REQ' },
+        { 'INIT': 'SET POS TO GNSS', 'info': 'IDX/POS ' },
+        { '--- FPLN (1/2) ---': '' },
+        { 'ORIGIN': 'SET' },
+        { 'DEST': 'SET' },
+        { 'ALTN': 'SET' },
+        { 'FLT NO': 'SET' },
+        { '--- PERF -> PERF INIT ---': '' },
+        { 'CRZ ALT': 'SET' },
+        { 'ZFW (from Simbrief)': 'SET' },
+        { '--- DEP ARR ---': '' },
+        { 'SID & RWY': 'SELECT & EXEC' },
+        { 'LEGS': 'ENTER WAYPOINTS & EXEC' },
+        { '--- PERF -> TAKEOFF ---': '' },
+        { 'WIND/OAT/QNH': 'SET' },
+        { 'RWY COND': 'SELECT' },
+        { '--- PERF -> TAKEOFF -> NEXT ---': '' },
+        { 'ANTI-ICE & FLAPS': 'SELECT' },
+        { 'TOW/GWT/MTOW': 'CHECK' },
+        { 'V1, VR, V2 and VT': 'CHECK & SEND' },
+        { 'Transponder': 'ON & SET' }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'R ENGINE RUN/STOP Button': 'RUN' },
-        { 'R ENGINE STARTER Button': 'PUSH & HOLD until illuminated' },
-        { 'Engine Instruments': 'Monitor (N1, ITT, N2, FUEL OIL)' },
-        { 'START Pressure': 'Verify >= 32 PSI' },
-        { 'R ENGINE': 'Repeat Steps 1 thru 3' },
-        { 'EIS/CAS': 'CHECK' },
-        { 'APU MAIN': 'OFF' },
-        { 'EXT PWR (if AVAIL)': 'OFF' }
-      ]
-    },
-    {
-      title: 'Takeoff PERF (G5000)',
-      items: [
-        {
-          'VNAV Profiles': 'SET / CHECK',
-          'info': 'Flight plan - VNAV - Profile, Climb, Cruise, Descent'
-        },
-        { 'Weight and Fuel': 'TAKEOFF FOB sync' },
-        { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Takeoff Config': 'SET recommended Flap' },
-        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
-        { 'INIT': 'ALL CHECKED & ACCEPTED' },
-        {
-          'Altimeter Transition': 'SET to Regional',
-          'info': 'BARO transitions: Utilities/Setup/Avionics/Alerts'
-        }
+        { 'Exterior Lights': 'BEACON, NAV & LOGO' },
+        { 'EICAS': 'CHECK' },
+        { 'Throttles': 'IDLE' },
+        { 'R Engine Starter': 'ON' },
+        { 'R Engine RUN/STOP': 'RUN' },
+        { 'EICAS': 'CHECK' },
+        { 'L Engine Starter': 'ON' },
+        { 'L Engine RUN/STOP': 'RUN' },
+        { 'EICAS': 'CHECK' },
+        { 'Ground Power Unit': 'OFF' },
+        { 'Electrical System': 'CHECK' }
       ]
     },
     {
       title: 'Before Taxi',
       items: [
-        { 'Flight Plan': 'DEPARTURE VERIFIED' },
-        { 'Trim': 'SET for Takeoff (STAB green)' },
-        { 'Altitude': 'SET -> FLC' },
-        { 'Navigation': 'SET -> NAV/HDG' },
-        { 'SPD KNOB': 'FMS' },
-        { 'Rudder Trim': 'CENTER' },
-        { 'Brakes': 'CHECK & SET & RETRACTED' },
-        { 'Transponder': 'ON & SET' },
-        {
-          'Pre-Flight Synoptics': 'ALL CHECK',
-          'info': 'Aircraft Systems/Synoptics/Preflight'
-        },
-        { 'Weather Radar': 'AS REQUIRED' },
-        { 'Ice Protection': 'AS REQUIRED' },
-        { 'EMER LTS': 'ARMED' },
-        { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
+        { 'Avionics Switch': 'ON' },
+        { 'ATT/HDG ALIGNING': 'CHECK' },
+        { 'Flaps': 'T/O (15°)' },
+        { 'BARO': 'SET' },
+        { 'Altitude': 'SET' },
+        { 'FLC Button': 'PRESS' },
+        { 'Speed': 'SET 240 IAS' },
+        { 'Trims': 'SET FOR T/O' },
+        { 'FRMT': 'AS REQ' },
+        { 'TCAS': 'STBY' },
+        { 'Climate Control Selector': 'NORM' },
+        { 'Flight Controls': 'CHECK' },
+        { 'Ground Spoilers': 'CHECK' },
+        { 'Belt & Safety Buttons': 'ON' }
       ]
     },
     {
       title: 'Taxi',
       items: [
+        { 'Taxi Lights': 'ON' },
         { 'Taxi Clearance': 'OBTAINED' },
         { 'Parking Brake': 'RELEASE' },
         { 'Brakes & Steering': 'CHECK' },
@@ -109,11 +103,15 @@ export const CJ4Checklist = {
       title: 'Before Takeoff (Hold Short)',
       items: [
         { 'Runway Clearance': 'OBTAINED' },
+        { 'Lights (Landing, Strobe)': 'ON' },
+        { 'Trims': 'CHECK' },
         { 'Flaps': 'CHECK' },
-        { 'Trim': 'CHECK' },
-        { 'Speed Indicators': 'CHECK' },
-        { 'Landing Lights': 'ON' },
-        { 'Taxi Lights': 'OFF' }
+        { 'Speed Brakes': '0%' },
+        { 'TCAS': 'TA or RA' },
+        { 'TFC': 'ON' },
+        { 'TERR/WX': 'AS REQ' },
+        { 'Pitot / Static Heat 1&2': 'ON' },
+        { 'Anti-Ice': 'AS REQ' }
       ]
     },
     {
@@ -125,24 +123,27 @@ export const CJ4Checklist = {
         { 'Throttles': 'TOGA' },
         { 'Positive Rate': 'GEAR UP' },
         { 'AP & AT': 'ENGAGE, AS REQ' },
-        { 'Flaps': 'RETRACT at Safe Speed' }
+        { 'Flaps': 'RETRACT at V2+10' },
+        { 'At 1000 ft AGL': 'SET THROTTLE TO CLB' }
       ]
     },
     {
       title: 'Climb',
       items: [
-        { 'Landing Lights': 'OFF' },
-        { 'Autopilot': 'MONITOR' },
-        { 'Cruise Altitude': 'SET' },
-        { 'BARO': 'SET to STD' }
+        { '--- At Transition Altitude ---': '' },
+        { 'BARO': 'STD' },
+        { '--- Below 10000ft / FL100 ---': '' },
+        { 'Max Speed': '250 KIAS' },
+        { '--- Above 10000ft / FL100 ---': '' },
+        { 'Lights (Landing, Logo)': 'OFF' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'PS/SB Lights': 'OFF' },
-        { 'Power Settings': 'CHECK' },
-        { 'Fuel Balance': 'MONITOR' },
+        { 'Belt & Safety Lights': 'AS REQ' },
+        { 'Speed': 'MONITOR' },
+        { 'Monitor Flight, ECAM & Weather': '' },
         {
           'Flight Plan': 'APPROACH VERIFIED / SET',
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
@@ -158,39 +159,39 @@ export const CJ4Checklist = {
       ]
     },
     {
-      title: 'Landing PERF (G5000)',
-      items: [
-        { 'Landing Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Landing Config': 'CHECK' },
-        { 'Landing Data': 'ACCEPT Landing Speeds' },
-        {
-          'Speed Constraints': 'IAF (~150 KTS) to FAF (SET Vapp)',
-          'info': 'Set approach speeds from Landing data to FAF'
-        },
-        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' }
-      ]
-    },
-    {
       title: 'Descent (TOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
-        { 'PS/SB Lights': 'ON' },
-        { 'ATIS & Weather': 'CHECK' },
-        { 'SPD KNOB': 'FMS' },
-        { 'BARO': 'ARM destination' }
+        { 'Belt & Safety Lights': 'ON' },
+        { 'Altitude': 'SET' },
+        { '--- DEP ARR -> DEP / ARR IDX -> ARR ---': '' },
+        { 'STAR & RWY': 'SET & EXEC' },
+        { '--- PERF -> APPROACH ---': '' },
+        { 'WIND/OAT/QNH': 'SET' },
+        { 'RWY COND': 'SELECT' },
+        { '--- PERF -> APPROACH -> NEXT ---': '' },
+        { 'Anti-Ice': 'SELECT (IF REQ)' },
+        { 'LW/GWT/MLW': 'CHECK & SEND' },
+        { 'AP': 'AS REQ' },
+        { 'Fuel Transfer Selector': 'OFF' },
+        { '--- Below 10000ft/FL100 ---': '' },
+        { 'Landing Lights': 'ON' },
+        { 'Logo Lights': 'ON' },
+        { 'Max Speed': '250 KIAS' },
+        { '--- At Transition Level ---': '' },
+        { 'BARO': 'SET DESTINATION QNH' }
       ]
     },
     {
       title: 'Approach (BOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
-
         { 'Landing Lights': 'ON' },
         { 'Altitude': 'MONITOR' },
         { 'Flaps': 'AS REQUIRED' },
         { 'Speed': 'MANAGE' },
         { 'Approach': 'APPR (GS/GP) stdby at IAF' },
-        { 'CDI Source': 'CONFIRM FMS/LOC' },
+        { 'NAV Display': 'CONFIRM FMS/LOC' },
         { 'GLIDE': 'ARMED at FAF' },
         { 'Gear': 'DOWN by FAF' }
       ]
@@ -198,7 +199,7 @@ export const CJ4Checklist = {
     {
       title: 'Landing',
       items: [
-        { 'Flaps': 'FULL (AT MINIMUMS)' },
+        { 'Flaps': 'CHECK FULL' },
         {
           'Trim': 'SET for Landing',
           'info':
@@ -206,35 +207,49 @@ export const CJ4Checklist = {
         },
         { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
-        { 'AP & AT': 'DISCONNECT' },
+        { 'Landing Gear': 'CHECK 3 GREEN' },
+        { '--- Before 800 AGL ---': '' },
+        { 'YD/AP': 'DISCONNECT' },
         { 'Throttles': 'IDLE at 50 ft' },
-        { 'Touchdown': 'RETARD at 10 ft' },
-        { 'Reverse Thrust': 'AS NEEDED' },
-        { 'Braking': 'APPLY' }
+        { 'Touchdown': 'RETARD at 10 ft' }
+      ]
+    },
+    {
+      title: 'Go Around',
+      items: [
+        { 'Throttle': 'TO' },
+        { 'Flaps': 'SET 1' },
+        { 'At Positive Climb': 'GEAR UP' },
+        { 'At Vapp + 10': 'FLAPS UP' },
+        { '--- AUTOPILOT (min. 300 AGL) ---': '' },
+        { 'YD/AP': 'CONNECT' },
+        { 'Flight Controls': 'VNAV, NAV, FLC' },
+        { 'Speed': 'SET 200 KIAS' }
       ]
     },
     {
       title: 'After Landing',
       items: [
-        { 'Speed Below 60 KTS': 'STOW REV THRUST' },
         { 'Flaps': 'RETRACT' },
-        { 'Taxi & Parking Clearance': 'OBTAINED' },
+        { 'Lights (Landing, Strobe)': 'OFF' },
         { 'Taxi Lights': 'ON' },
-        { 'LDG, Rec, PS/SB Lights': 'OFF' }
+        { 'Pitot/Static Heat 1&2': 'OFF' },
+        { 'Anti-Ice': 'AS REQ' },
+        { 'TCAS': 'STBY' }
       ]
     },
     {
-      title: 'Shutdown',
+      title: 'Parking / Shutdown',
       items: [
-        { 'Throttles': 'IDLE' },
+        { 'Taxi Lights': 'OFF' },
         { 'Parking Brake': 'SET' },
-        { 'Engine Ice Protection': 'OFF' },
-        { 'L & R Engine': 'STOP' },
-        { 'EM LTS, Pulse': 'OFF' },
-        { 'STBY PWR': 'OFF' },
-        { 'APU MAIN': 'OFF' },
-        { 'Exterior Lights': 'OFF' },
-        { 'L & R BATT': 'OFF' }
+        { 'Avionics Switch': 'OFF' },
+        { 'Stby Flight Display Switch': 'OFF' },
+        { 'Climate Control Selector': 'OFF' },
+        { 'Throttles': 'IDLE' },
+        { 'L&R Engine RUN / STOP': 'STOP' },
+        { 'Lights (Emergency, Cabin, Belt & Safety, Exterior )': 'OFF' },
+        { 'Battery': 'OFF' }
       ]
     }
   ]
