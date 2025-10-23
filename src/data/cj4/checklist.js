@@ -17,39 +17,43 @@ export const CJ4Checklist = {
         { 'Avionics Switch': 'DISPATCH' },
         { 'Cabin Lights': 'AS REQ' },
         { 'YD/AP': 'CHECK CONNECTED' },
-        { 'Fuel': 'LOAD' },
-        { 'Pax & Cargo': 'LOAD' },
+        { 'Fuel, Pax & Cargo': 'LOAD' },
         { 'Ground Power Unit': 'ON (if avail)', 'info': 'IDX/NEXT/SETTINGS' },
-        { '--- IF GPU UNAVAILABLE ---': '' },
-        { 'Throttles': 'IDLE' },
-        { 'Engines RUN/STOP Cover': 'OPEN' },
-        { 'Engine Starter Right': 'ON' },
-        { 'Engine RUN/STOP Right': 'RUN' }
+        {
+          '--- IF GPU UNAVAILABLE ---': '',
+          'info': 'One engine is enough for Power'
+        },
+        { 'START CLEARANCE': 'OBTAINED' },
+        { 'R Engine Starter': 'ON' },
+        { 'R Engine RUN/STOP': 'RUN' }
       ]
     },
     {
       title: 'FMS Setup',
       items: [
         { 'Radios': 'SET' },
-        { 'ATC Clearance': 'AS REQ' },
+        { 'ATC CLEARANCE': 'AS REQ' },
         { 'INIT': 'SET POS TO GNSS', 'info': 'IDX/POS ' },
-        { '--- FPLN (1/2) ---': '' },
+        { '--- FPLN (1/2)': '' },
         { 'ORIGIN': 'SET' },
         { 'DEST': 'SET' },
         { 'ALTN': 'SET' },
         { 'FLT NO': 'SET' },
-        { '--- PERF -> PERF INIT ---': '' },
-        { 'CRZ ALT': 'SET' },
-        { 'ZFW (from Simbrief)': 'SET' },
-        { '--- DEP ARR ---': '' },
+        { '--- PERF -> PERF INIT': '' },
+        { 'Cruise ALT': 'SET' },
+        { 'ZFW': 'SET' },
+        { '--- DEP ARR': '' },
         { 'SID & RWY': 'SELECT & EXEC' },
-        { 'LEGS': 'ENTER WAYPOINTS & EXEC' },
-        { '--- PERF -> TAKEOFF ---': '' },
-        { 'WIND/OAT/QNH': 'SET' },
+        {
+          'LEGS': 'ENTER WAYPOINTS & EXEC',
+          'info': 'Fetch from EFB / SimBrief'
+        },
+        { '--- PERF -> TAKEOFF': '' },
+        { 'WIND / OAT /QNH': 'SET' },
         { 'RWY COND': 'SELECT' },
-        { '--- PERF -> TAKEOFF -> NEXT ---': '' },
+        { '--- PERF -> TAKEOFF -> NEXT': '' },
         { 'ANTI-ICE & FLAPS': 'SELECT' },
-        { 'TOW/GWT/MTOW': 'CHECK' },
+        { 'TOW / GWT / MTOW': 'CHECK' },
         { 'V1, VR, V2 and VT': 'CHECK & SEND' },
         { 'Transponder': 'ON & SET' }
       ]
@@ -57,7 +61,8 @@ export const CJ4Checklist = {
     {
       title: 'Engine Start',
       items: [
-        { 'Exterior Lights': 'BEACON, NAV & LOGO' },
+        { 'START CLEARANCE': 'OBTAINED' },
+        { 'Lights (Beacon, NAV, LOGO)': 'ON' },
         { 'EICAS': 'CHECK' },
         { 'Throttles': 'IDLE' },
         { 'R Engine Starter': 'ON' },
@@ -74,19 +79,18 @@ export const CJ4Checklist = {
       title: 'Before Taxi',
       items: [
         { 'Avionics Switch': 'ON' },
-        { 'ATT/HDG ALIGNING': 'CHECK' },
-        { 'Flaps': 'T/O (15°)' },
+        { 'Navigation': 'SET -> NAV/HDG' },
+        { 'Flaps': 'T/O (1)' },
         { 'BARO': 'SET' },
-        { 'Altitude': 'SET' },
-        { 'FLC Button': 'PRESS' },
+        { 'Altitude': 'SET -> FLC' },
         { 'Speed': 'SET 240 IAS' },
         { 'Trims': 'SET FOR T/O' },
         { 'FRMT': 'AS REQ' },
         { 'TCAS': 'STBY' },
-        { 'Climate Control Selector': 'NORM' },
+        { 'CCS': 'NORM', 'info': 'Climate Control Selector' },
         { 'Flight Controls': 'CHECK' },
         { 'Ground Spoilers': 'CHECK' },
-        { 'Belt & Safety Buttons': 'ON' }
+        { 'Belt & Safety Lights': 'ON' }
       ]
     },
     {
@@ -109,7 +113,7 @@ export const CJ4Checklist = {
         { 'Speed Brakes': '0%' },
         { 'TCAS': 'TA or RA' },
         { 'TFC': 'ON' },
-        { 'TERR/WX': 'AS REQ' },
+        { 'TERR / WX': 'AS REQ' },
         { 'Pitot / Static Heat 1&2': 'ON' },
         { 'Anti-Ice': 'AS REQ' }
       ]
@@ -130,11 +134,11 @@ export const CJ4Checklist = {
     {
       title: 'Climb',
       items: [
-        { '--- At Transition Altitude ---': '' },
+        { '--- At Transition Altitude': '' },
         { 'BARO': 'STD' },
-        { '--- Below 10000ft / FL100 ---': '' },
+        { '--- Below 10000ft / FL100': '' },
         { 'Max Speed': '250 KIAS' },
-        { '--- Above 10000ft / FL100 ---': '' },
+        { '--- Above 10000ft / FL100': '' },
         { 'Lights (Landing, Logo)': 'OFF' }
       ]
     },
@@ -143,7 +147,7 @@ export const CJ4Checklist = {
       items: [
         { 'Belt & Safety Lights': 'AS REQ' },
         { 'Speed': 'MONITOR' },
-        { 'Monitor Flight, ECAM & Weather': '' },
+        { 'Monitor Flight, ECAM & Weather': 'CHECK' },
         {
           'Flight Plan': 'APPROACH VERIFIED / SET',
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
@@ -164,21 +168,21 @@ export const CJ4Checklist = {
         { 'Clearance': 'OBTAINED' },
         { 'Belt & Safety Lights': 'ON' },
         { 'Altitude': 'SET' },
-        { '--- DEP ARR -> DEP / ARR IDX -> ARR ---': '' },
+        { '--- DEP ARR -> DEP / ARR IDX -> ARR': '' },
         { 'STAR & RWY': 'SET & EXEC' },
-        { '--- PERF -> APPROACH ---': '' },
-        { 'WIND/OAT/QNH': 'SET' },
+        { '--- PERF -> APPROACH': '' },
+        { 'WIND / OAT / QNH': 'SET' },
         { 'RWY COND': 'SELECT' },
-        { '--- PERF -> APPROACH -> NEXT ---': '' },
+        { '--- PERF -> APPROACH -> NEXT': '' },
         { 'Anti-Ice': 'SELECT (IF REQ)' },
-        { 'LW/GWT/MLW': 'CHECK & SEND' },
+        { 'LW / GWT / MLW': 'CHECK & SEND' },
         { 'AP': 'AS REQ' },
         { 'Fuel Transfer Selector': 'OFF' },
-        { '--- Below 10000ft/FL100 ---': '' },
+        { '--- Below 10000ft/FL100': '' },
         { 'Landing Lights': 'ON' },
         { 'Logo Lights': 'ON' },
         { 'Max Speed': '250 KIAS' },
-        { '--- At Transition Level ---': '' },
+        { '--- At Transition Level': '' },
         { 'BARO': 'SET DESTINATION QNH' }
       ]
     },
@@ -208,7 +212,7 @@ export const CJ4Checklist = {
         { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
         { 'Landing Gear': 'CHECK 3 GREEN' },
-        { '--- Before 800 AGL ---': '' },
+        { '--- Before 800 AGL': '' },
         { 'YD/AP': 'DISCONNECT' },
         { 'Throttles': 'IDLE at 50 ft' },
         { 'Touchdown': 'RETARD at 10 ft' }
@@ -221,7 +225,7 @@ export const CJ4Checklist = {
         { 'Flaps': 'SET 1' },
         { 'At Positive Climb': 'GEAR UP' },
         { 'At Vapp + 10': 'FLAPS UP' },
-        { '--- AUTOPILOT (min. 300 AGL) ---': '' },
+        { '--- AUTOPILOT (min. 300 AGL)': '' },
         { 'YD/AP': 'CONNECT' },
         { 'Flight Controls': 'VNAV, NAV, FLC' },
         { 'Speed': 'SET 200 KIAS' }
@@ -233,7 +237,7 @@ export const CJ4Checklist = {
         { 'Flaps': 'RETRACT' },
         { 'Lights (Landing, Strobe)': 'OFF' },
         { 'Taxi Lights': 'ON' },
-        { 'Pitot/Static Heat 1&2': 'OFF' },
+        { 'Pitot / Static Heat 1&2': 'OFF' },
         { 'Anti-Ice': 'AS REQ' },
         { 'TCAS': 'STBY' }
       ]
@@ -245,7 +249,7 @@ export const CJ4Checklist = {
         { 'Parking Brake': 'SET' },
         { 'Avionics Switch': 'OFF' },
         { 'Stby Flight Display Switch': 'OFF' },
-        { 'Climate Control Selector': 'OFF' },
+        { 'CCS': 'OFF', 'info': 'Climate Control Selector' },
         { 'Throttles': 'IDLE' },
         { 'L&R Engine RUN / STOP': 'STOP' },
         { 'Lights (Emergency, Cabin, Belt & Safety, Exterior )': 'OFF' },
