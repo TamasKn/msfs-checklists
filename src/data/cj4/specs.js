@@ -39,7 +39,7 @@ export const CJ4Specs = {
           'Fuel Consumption (L/hr)': 1071
         },
         {
-          'Stall Speed': '85 KCAS'
+          'Stall Speed': '94 KCAS'
         }
       ]
     }
