@@ -23,6 +23,9 @@ import { cessnaLongitudeCareer } from '@/data/cessna-longitude/career'
 import { airbusA320neoCareer } from '@/data/airbus-a320neo/career'
 import { boeing737MaxCareer } from '@/data/boeing-737-max/career'
 import { beechcraftKingAir350Career } from '@/data/beechcraft-king-air-350/career'
+import { CJ4Specs } from '@/data/cj4/specs'
+import { CJ4Checklist } from '@/data/cj4/checklist'
+import { CJ4Career } from '@/data/cj4/career'
 
 export const Aircrafts = [
   {
@@ -52,6 +55,13 @@ export const Aircrafts = [
     specs: pilatusPc12Specs,
     checklist: pilatusPc12Checklist,
     career: pilatusPc12Career
+  },
+  {
+    id: 'C25C',
+    name: AircraftName.CitationCJ4,
+    specs: CJ4Specs,
+    checklist: CJ4Checklist,
+    career: CJ4Career
   },
   {
     id: 'B350',

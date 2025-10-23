@@ -2,6 +2,7 @@ export const AircraftName = {
   Cessna172: 'Cessna 172 Skyhawk',
   PilatusPC12: 'Pilatus PC-12 NGX',
   CessnaLongitude: 'Citation Longitude',
+  CitationCJ4: 'Citation CJ4',
   DiamondDA62: 'Diamond DA62',
   VisionJetG2: 'Cirrus Vision Jet G2',
   AirbusA320neo: 'Airbus A320neo',
