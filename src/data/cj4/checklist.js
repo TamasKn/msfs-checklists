@@ -20,7 +20,7 @@ export const CJ4Checklist = {
         { 'Fuel, Pax & Cargo': 'LOAD' },
         { 'Ground Power Unit': 'ON (if avail)', 'info': 'IDX/NEXT/SETTINGS' },
         {
-          '--- IF GPU UNAVAILABLE ---': '',
+          '--- IF GPU UNAVAILABLE': '',
           'info': 'One engine is enough for Power'
         },
         { 'START CLEARANCE': 'OBTAINED' },
