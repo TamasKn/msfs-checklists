@@ -9,14 +9,12 @@ export const CJ4Checklist = {
         { 'Parking Brake': 'SET' },
         { 'Landing Gear': 'DOWN' },
         { 'Throttle': 'IDLE' },
-        { 'Flaps': 'UP' },
         { 'Ground Spoilers': 'RETRACTED' },
         { 'Battery Switch': 'ON' },
         { 'Emergency Lights Switch': 'ARMED' },
         { 'Stby Flight Display Switch': 'ON' },
         { 'Avionics Switch': 'DISPATCH' },
         { 'Cabin Lights': 'AS REQ' },
-        { 'YD/AP': 'CHECK CONNECTED' },
         { 'Fuel, Pax & Cargo': 'LOAD' },
         { 'Ground Power Unit': 'ON (if avail)', 'info': 'IDX/NEXT/SETTINGS' },
         {
@@ -31,14 +29,12 @@ export const CJ4Checklist = {
     {
       title: 'FMS Setup',
       items: [
-        { 'Radios': 'SET' },
         { 'ATC CLEARANCE': 'AS REQ' },
         { 'INIT': 'SET POS TO GNSS', 'info': 'IDX/POS ' },
         { '--- FPLN (1/2)': '' },
         { 'ORIGIN': 'SET' },
         { 'DEST': 'SET' },
         { 'ALTN': 'SET' },
-        { 'FLT NO': 'SET' },
         { '--- PERF -> PERF INIT': '' },
         { 'Cruise ALT': 'SET' },
         { 'ZFW': 'SET' },
@@ -61,7 +57,6 @@ export const CJ4Checklist = {
     {
       title: 'Engine Start',
       items: [
-        { 'START CLEARANCE': 'OBTAINED' },
         { 'Lights (Beacon, NAV, LOGO)': 'ON' },
         { 'EICAS': 'CHECK' },
         { 'Throttles': 'IDLE' },
@@ -85,8 +80,9 @@ export const CJ4Checklist = {
         { 'Altitude': 'SET -> FLC' },
         { 'Speed': 'SET 240 IAS' },
         { 'Trims': 'SET FOR T/O' },
-        { 'FRMT': 'AS REQ' },
-        { 'TCAS': 'STBY' },
+        { 'Pitot / Static Heat 1&2': 'ON' },
+        { 'FRMT': 'AS REQ', 'info': 'Display Control Panel' },
+        { 'TCAS': 'STBY', 'info': 'TUN -> TCAS MODE' },
         { 'CCS': 'NORM', 'info': 'Climate Control Selector' },
         { 'Flight Controls': 'CHECK' },
         { 'Ground Spoilers': 'CHECK' },
@@ -114,7 +110,6 @@ export const CJ4Checklist = {
         { 'TCAS': 'TA or RA' },
         { 'TFC': 'ON' },
         { 'TERR / WX': 'AS REQ' },
-        { 'Pitot / Static Heat 1&2': 'ON' },
         { 'Anti-Ice': 'AS REQ' }
       ]
     },
