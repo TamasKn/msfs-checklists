@@ -148,7 +148,6 @@ export const cessnaLongitudeChecklist = {
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
-
         {
           'Altitude Constraints': 'FIX FAF to Signal altitude',
           'info':
@@ -184,7 +183,6 @@ export const cessnaLongitudeChecklist = {
       title: 'Approach (BOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
-
         { 'Landing Lights': 'ON' },
         { 'Altitude': 'MONITOR' },
         { 'Flaps': 'AS REQUIRED' },
