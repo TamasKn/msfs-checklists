@@ -130,6 +130,7 @@ export default function ChecklistItems({ checklist, aircraftName }) {
     setCheckedItems({})
     setOpenSections([])
     resetAircraftState(aircraftName)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   if (!checklist) {
