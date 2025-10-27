@@ -68,7 +68,7 @@ export const boeing737MaxCareer = {
     storageBase: 280 // per day
   },
   reward: {
-    base: 19200, // base reward for a flight
+    base: 23200, // base reward for a flight
     perDistance: 19.8, // per nautical mile
     bonus: {
       min: 3000, // minimum total

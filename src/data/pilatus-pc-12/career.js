@@ -68,7 +68,7 @@ export const pilatusPc12Career = {
     storageBase: 60 // per day
   },
   reward: {
-    base: 2800, // base reward for a flight
+    base: 3300, // base reward for a flight
     perDistance: 9.35, // per nautical mile
     bonus: {
       min: 2000, // minimum total

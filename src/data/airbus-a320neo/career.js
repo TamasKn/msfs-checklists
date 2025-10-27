@@ -68,7 +68,7 @@ export const airbusA320neoCareer = {
     storageBase: 250 // per day
   },
   reward: {
-    base: 18500, // base reward for a flight
+    base: 22300, // base reward for a flight
     perDistance: 18.2, // per nautical mile
     bonus: {
       min: 3000, // minimum total

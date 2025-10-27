@@ -64,7 +64,7 @@ export const diamondDA62Career = {
     storageBase: 35 // per day
   },
   reward: {
-    base: 850, // base reward for a flight
+    base: 1000, // base reward for a flight
     perDistance: 4.2, // per nautical mile
     bonus: {
       min: 2500, // minimum total

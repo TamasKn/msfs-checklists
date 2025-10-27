@@ -68,7 +68,7 @@ export const visionJetG2Career = {
     storageBase: 55 // per day
   },
   reward: {
-    base: 1950, // base reward for a flight
+    base: 2300, // base reward for a flight
     perDistance: 6.8, // per nautical mile
     bonus: {
       min: 2700, // minimum total

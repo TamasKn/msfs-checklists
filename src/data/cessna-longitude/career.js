@@ -68,7 +68,7 @@ export const cessnaLongitudeCareer = {
     storageBase: 100 // per day
   },
   reward: {
-    base: 8200, // base reward for a flight
+    base: 9900, // base reward for a flight
     perDistance: 15.55, // per nautical mile
     bonus: {
       min: 2000, // minimum total

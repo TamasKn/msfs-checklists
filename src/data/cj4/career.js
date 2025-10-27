@@ -68,7 +68,7 @@ export const CJ4Career = {
     storageBase: 100 // per day
   },
   reward: {
-    base: 5300, // base reward for a flight
+    base: 6400, // base reward for a flight
     perDistance: 12.5, // per nautical mile
     bonus: {
       min: 2000, // minimum total
