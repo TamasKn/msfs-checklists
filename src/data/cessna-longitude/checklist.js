@@ -34,30 +34,6 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Before Engine Start',
-      items: [
-        { 'START CLEARANCE': 'OBTAINED' },
-        { 'Throttles': 'IDLE' },
-        { 'PARKING BRAKE': 'SET' },
-        { 'CABIN DOOR': 'CLOSED' },
-        { 'EIS/CAS': 'Check' },
-        { 'Pulse Lights': 'ON' }
-      ]
-    },
-    {
-      title: 'Engine Start',
-      items: [
-        { 'R ENGINE RUN/STOP Button': 'RUN' },
-        { 'R ENGINE STARTER Button': 'PUSH & HOLD until illuminated' },
-        { 'Engine Instruments': 'Monitor (N1, ITT, N2, FUEL OIL)' },
-        { 'START Pressure': 'Verify >= 32 PSI' },
-        { 'R ENGINE': 'Repeat Steps 1 thru 3' },
-        { 'EIS/CAS': 'CHECK' },
-        { 'APU MAIN': 'OFF' },
-        { 'EXT PWR (if AVAIL)': 'OFF' }
-      ]
-    },
-    {
       title: 'Takeoff PERF (G5000)',
       items: [
         {
@@ -76,14 +52,38 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
+      title: 'Before Engine Start',
+      items: [
+        { 'START CLEARANCE': 'OBTAINED' },
+        { 'Throttles': 'IDLE' },
+        { 'PARKING BRAKE': 'SET' },
+        { 'CABIN DOOR': 'CLOSED' },
+        { 'EIS/CAS': 'Check' },
+        { 'Anti-Collision Lights': 'ON' }
+      ]
+    },
+    {
+      title: 'Engine Start',
+      items: [
+        { 'R ENGINE RUN/STOP Button': 'RUN' },
+        { 'R ENGINE STARTER Button': 'PUSH & HOLD until illuminated' },
+        { 'Engine Instruments': 'Monitor (N1, ITT, N2, FUEL OIL)' },
+        { 'START Pressure': 'Verify >= 32 PSI' },
+        { 'L ENGINE': 'Repeat Steps 1 thru 3' },
+        { 'EIS/CAS': 'CHECK' },
+        { 'APU MAIN': 'OFF' },
+        { 'EXT PWR (if AVAIL)': 'OFF' }
+      ]
+    },
+    {
       title: 'Before Taxi',
       items: [
         { 'Flight Plan': 'DEPARTURE VERIFIED' },
         { 'Trim': 'SET for Takeoff (STAB green)' },
-        { 'Altitude': 'SET -> FLC' },
+        { 'Altitude': 'SET -> FLC & VNAV' },
         { 'Navigation': 'SET -> NAV/HDG' },
         { 'SPD KNOB': 'FMS' },
-        { 'Rudder Trim': 'CENTER' },
+        { 'Rudder & Aileron Trim': 'CENTER' },
         { 'Brakes': 'CHECK & SET & RETRACTED' },
         { 'Transponder': 'ON & SET' },
         {
@@ -93,7 +93,7 @@ export const cessnaLongitudeChecklist = {
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
         { 'EMER LTS': 'ARMED' },
-        { 'Lights (Taxi, Rec, AC, TF, PS/SB)': 'ON' }
+        { 'Lights (Taxi, TF, PS/SB)': 'ON' }
       ]
     },
     {
@@ -161,13 +161,13 @@ export const cessnaLongitudeChecklist = {
       title: 'Landing PERF (G5000)',
       items: [
         { 'Landing Data|Weather': 'SET WIND & TEMP, Use RAT' },
+        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' },
         { 'Landing Config': 'CHECK' },
         { 'Landing Data': 'ACCEPT Landing Speeds' },
         {
           'Speed Constraints': 'IAF (~150 KTS) to FAF (SET Vapp)',
           'info': 'Set approach speeds from Landing data to FAF'
-        },
-        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' }
+        }
       ]
     },
     {
@@ -220,7 +220,7 @@ export const cessnaLongitudeChecklist = {
         { 'Flaps': 'RETRACT' },
         { 'Taxi & Parking Clearance': 'OBTAINED' },
         { 'Taxi Lights': 'ON' },
-        { 'LDG, Rec, PS/SB Lights': 'OFF' }
+        { 'LDG, PS/SB Lights': 'OFF' }
       ]
     },
     {
@@ -230,11 +230,10 @@ export const cessnaLongitudeChecklist = {
         { 'Parking Brake': 'SET' },
         { 'Engine Ice Protection': 'OFF' },
         { 'L & R Engine': 'STOP' },
-        { 'EM LTS, Pulse': 'OFF' },
-        { 'STBY PWR': 'OFF' },
         { 'APU MAIN': 'OFF' },
-        { 'Exterior Lights': 'OFF' },
-        { 'L & R BATT': 'OFF' }
+        { 'EM LTS, AC': 'OFF' },
+        { 'R & L BATT': 'OFF' },
+        { 'STBY PWR': 'OFF' }
       ]
     }
   ]
