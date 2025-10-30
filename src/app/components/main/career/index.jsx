@@ -9,7 +9,8 @@ import DraftFlights from '@/app/components/elements/career/draft-flights'
 import UserComponent from '@/app/components/elements/career/user'
 import LeaseAircraft from '@/app/components/elements/career/lease-aircraft'
 import LevelUpNotification from '@/app/components/elements/career/level-up-notification'
-import { updateUserAfterFlight } from '@/utils/career/user-data'
+import ExclusiveFlightModal from '@/app/components/elements/career/exclusive-flight-modal'
+import { updateUserAfterFlight, getLeasedAircraft } from '@/utils/career/user-data'
 import {
   getDraftFlights,
   saveDraftFlight,
@@ -23,6 +24,7 @@ import {
   calculateMaintenanceIssueCost
 } from '@/utils/career/financials'
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
+import { ExclusiveFlight } from '@/utils/career/exclusive-flights/exclusive-flights'
 
 const STORAGE_KEY = 'career_flight_history'
 const isIssueForced = process.env.NEXT_PUBLIC_FORCE_ISSUE === 'true'
@@ -36,6 +38,8 @@ export default function CareerComponent() {
   const [showLeaseAircraft, setShowLeaseAircraft] = useState(false)
   const [showFlightProgress, setShowFlightProgress] = useState(false)
   const [showFinancialSummary, setShowFinancialSummary] = useState(false)
+  const [showExclusiveFlight, setShowExclusiveFlight] = useState(false)
+  const [exclusiveFlightData, setExclusiveFlightData] = useState(null)
   const [currentDraft, setCurrentDraft] = useState(null)
   const [calculatedFinancials, setCalculatedFinancials] = useState(null)
   const [flights, setFlights] = useState([])
@@ -81,7 +85,8 @@ export default function CareerComponent() {
       showAddFlight ||
       showLeaseAircraft ||
       showFlightProgress ||
-      showFinancialSummary
+      showFinancialSummary ||
+      showExclusiveFlight
     ) {
       document.body.classList.add('modal-open')
     } else {
@@ -94,7 +99,8 @@ export default function CareerComponent() {
     showAddFlight,
     showLeaseAircraft,
     showFlightProgress,
-    showFinancialSummary
+    showFinancialSummary,
+    showExclusiveFlight
   ])
 
   /**
@@ -152,12 +158,18 @@ export default function CareerComponent() {
     const durationNum = parseFloat(duration)
 
     // Calculate financials
-    const basePay = calculateBasePay(
+    let basePay = calculateBasePay(
       currentDraft.aircraft,
       currentDraft.jobType,
       range,
       durationNum
     )
+
+    // Apply exclusive flight reward markup if applicable
+    if (currentDraft.jobType === 'Exclusive' && currentDraft.rewardMarkup) {
+      const markupAmount = basePay * currentDraft.rewardMarkup
+      basePay = Math.round((basePay + markupAmount) * 100) / 100
+    }
 
     const bonus = calculateBonus(
       basePay,
@@ -325,6 +337,103 @@ export default function CareerComponent() {
     setUserDataKey((prev) => prev + 1)
   }
 
+  /**
+   * Handles New Flight button click - 30% chance of exclusive flight
+   */
+  const handleNewFlightClick = async () => {
+    const leasedAircrafts = getLeasedAircraft()
+
+    // Check if user has at least one leased aircraft
+    if (!leasedAircrafts || leasedAircrafts.length === 0) {
+      setShowAddFlight(true)
+      return
+    }
+
+    // Check for force exclusive flight flag (for testing)
+    const forceExclusive = localStorage.getItem('force_exclusive_flight') === 'true'
+
+    // 30% chance of exclusive flight (or 100% if forced)
+    const shouldShowExclusive = forceExclusive || Math.random() < 0.3
+
+    if (shouldShowExclusive) {
+      try {
+        // Pick a random aircraft from leased aircrafts
+        const randomAircraft = leasedAircrafts[Math.floor(Math.random() * leasedAircrafts.length)]
+
+        // Get aircraft data
+        const aircraftData = Aircrafts.find((a) => a.name === randomAircraft)
+
+        if (!aircraftData) {
+          setShowAddFlight(true)
+          return
+        }
+
+        // Generate exclusive flight
+        const exclusiveFlight = await ExclusiveFlight(aircraftData.specs, randomAircraft)
+
+        setExclusiveFlightData(exclusiveFlight)
+        setShowExclusiveFlight(true)
+      } catch (error) {
+        console.error('Failed to generate exclusive flight:', error)
+        setShowAddFlight(true)
+      }
+    } else {
+      setShowAddFlight(true)
+    }
+  }
+
+  /**
+   * Handles accepting an exclusive flight
+   * @param {string} selectedAircraft - Aircraft selected by user
+   */
+  const handleAcceptExclusiveFlight = (selectedAircraft) => {
+    if (!exclusiveFlightData) return
+
+    // Get current time and date
+    const now = new Date()
+    const startTime = now.toTimeString().slice(0, 5)
+    const startDate = now.toLocaleDateString('en-GB', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    })
+
+    // Create draft flight data with exclusive flight details
+    const draftData = {
+      startTime,
+      startDate,
+      jobType: 'Exclusive',
+      departure: exclusiveFlightData.departure,
+      departureName: exclusiveFlightData.departureName,
+      departureRunway: '',
+      destination: exclusiveFlightData.destination,
+      destinationName: exclusiveFlightData.destinationName,
+      destinationRunway: '',
+      aircraft: selectedAircraft,
+      range: exclusiveFlightData.range,
+      weather: 'Clear',
+      rewardMarkup: exclusiveFlightData.rewardMarkup, // Store the reward markup
+      simbriefData: null
+    }
+
+    // Save draft and show flight progress
+    const savedDraft = saveDraftFlight(draftData)
+    setDraftFlights(getDraftFlights())
+    setCurrentDraft(savedDraft)
+    setShowExclusiveFlight(false)
+    setExclusiveFlightData(null)
+    setShowFlightProgress(true)
+  }
+
+  /**
+   * Handles canceling an exclusive flight
+   */
+  const handleCancelExclusiveFlight = () => {
+    setShowExclusiveFlight(false)
+    setExclusiveFlightData(null)
+  }
+
   if (isLoading) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center">
@@ -392,7 +501,7 @@ export default function CareerComponent() {
               </span>
             </button>
             <button
-              onClick={() => setShowAddFlight(true)}
+              onClick={handleNewFlightClick}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer"
             >
               <span className="flex items-center justify-center gap-2">
@@ -477,6 +586,16 @@ export default function CareerComponent() {
           <FinancialSummary
             financials={calculatedFinancials}
             onConfirm={handleConfirmFlight}
+          />
+        )}
+
+        {/* Modal for Exclusive Flight */}
+        {showExclusiveFlight && exclusiveFlightData && (
+          <ExclusiveFlightModal
+            flightData={exclusiveFlightData}
+            leasedAircrafts={getLeasedAircraft()}
+            onAccept={handleAcceptExclusiveFlight}
+            onCancel={handleCancelExclusiveFlight}
           />
         )}
 

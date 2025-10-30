@@ -1,41 +1,22 @@
-import csv from 'csv-parser'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-// Path to the CSV file
-const csvFilePath = path.join(__dirname, 'icao', 'iata-icao.csv')
-
 /**
- * Load airports from CSV file
+ * Load airports from API
  * @returns {Promise<Array>} Promise that resolves with array of airport objects
  */
-const loadAirports = () => {
-  return new Promise((resolve, reject) => {
-    const airports = []
+const loadAirports = async () => {
+  try {
+    const response = await fetch('/api/airports')
+    const result = await response.json()
 
-    fs.createReadStream(csvFilePath)
-      .pipe(csv())
-      .on('data', (data) => {
-        // Parse latitude and longitude as numbers
-        airports.push({
-          ...data,
-          latitude: parseFloat(data.latitude),
-          longitude: parseFloat(data.longitude)
-        })
-      })
-      .on('end', () => {
-        console.log(`Loaded ${airports.length} airports from CSV`)
-        resolve(airports)
-      })
-      .on('error', (error) => {
-        console.error('Error reading CSV file:', error)
-        reject(error)
-      })
-  })
+    if (result.status === 'success') {
+      console.log(`Loaded ${result.count} airports from API`)
+      return result.data
+    } else {
+      throw new Error(result.message || 'Failed to load airports')
+    }
+  } catch (error) {
+    console.error('Error loading airports:', error)
+    throw error
+  }
 }
 
 /**
@@ -112,31 +93,121 @@ export const findNearbyAirports = async (center, distance) => {
 }
 
 /**
- * Consider given Aircraft's range (min: 15%, max: 80%)
- * Check if nearbyAirports is not null
- * Reward is +30-60%
- * **/
+ * Extract numeric value from spec string (e.g., '3,500 NM' -> 3500)
+ * @param {string} value - Spec value string
+ * @returns {number} Numeric value
+ */
+const extractNumericValue = (value) => {
+  if (typeof value === 'number') return value
+  if (typeof value !== 'string') return 0
 
-export async function ExclusiveFlight(aircraft) {
-  /** --------- **/
+  // Remove commas and extract first number
+  const match = value.replace(/,/g, '').match(/[\d.]+/)
+  return match ? parseFloat(match[0]) : 0
+}
+
+/**
+ * Get aircraft range from specs
+ * @param {Object} aircraftSpecs - Aircraft specs object
+ * @returns {number} Range in nautical miles
+ */
+const getAircraftRange = (aircraftSpecs) => {
+  if (!aircraftSpecs?.specs?.[0]?.items) return 0
+
+  const rangeItem = aircraftSpecs.specs[0].items.find((item) => item['Range'])
+  return rangeItem ? extractNumericValue(rangeItem['Range']) : 0
+}
+
+/**
+ * Get aircraft cruise speed from specs
+ * @param {Object} aircraftSpecs - Aircraft specs object
+ * @returns {number} Cruise speed in knots
+ */
+const getAircraftCruiseSpeed = (aircraftSpecs) => {
+  if (!aircraftSpecs?.specs?.[0]?.items) return 0
+
+  const speedItem = aircraftSpecs.specs[0].items.find(
+    (item) => item['Cruise Speed']
+  )
+  return speedItem ? extractNumericValue(speedItem['Cruise Speed']) : 0
+}
+
+/**
+ * Generate an Exclusive Flight opportunity
+ * @param {Object} aircraftSpecs - Aircraft specs object containing range and cruise speed
+ * @param {string} aircraftName - Name of the aircraft
+ * @returns {Promise<Object>} Exclusive flight details with departure, destination, range, duration, and reward markup
+ *
+ * @example
+ * const flight = await ExclusiveFlight(airbusA320neoSpecs, 'Airbus A320neo')
+ * // Returns:
+ * // {
+ * //   aircraft: 'Airbus A320neo',
+ * //   departure: 'KJFK',
+ * //   departureName: 'John F Kennedy Intl',
+ * //   destination: 'EGLL',
+ * //   destinationName: 'London Heathrow',
+ * //   range: 2850.5,
+ * //   duration: 375.2,
+ * //   rewardMarkup: 0.45 // 45% bonus
+ * // }
+ */
+export async function ExclusiveFlight(aircraftSpecs, aircraftName) {
+  // Get aircraft range and cruise speed
+  const maxRange = getAircraftRange(aircraftSpecs)
+  const cruiseSpeed = getAircraftCruiseSpeed(aircraftSpecs)
+
+  if (maxRange === 0 || cruiseSpeed === 0) {
+    throw new Error('Invalid aircraft specs: missing range or cruise speed')
+  }
+
+  // Calculate distance range (15% to 80% of max range)
+  const minDistance = maxRange * 0.15
+  const maxDistance = maxRange * 0.8
+
+  // Load all airports
   const airports = await loadAirports()
-  const orig = pickRandomAirport(airports)
 
+  // Pick random origin airport
+  const origin = pickRandomAirport(airports)
+
+  // Find airports within the distance range
   const nearbyAirports = await findNearbyAirports(
-    { lat: orig.latitude, lon: orig.longitude },
-    { min: 350, max: 2000 }
-  ).then((res) => res)
+    { lat: origin.latitude, lon: origin.longitude },
+    { min: minDistance, max: maxDistance }
+  )
 
-  const dest = pickRandomAirport(nearbyAirports)
-  console.table(orig)
-  console.table(dest)
+  // Check if we have valid destinations
+  if (!nearbyAirports || nearbyAirports.length === 0) {
+    // Retry with a different origin
+    return ExclusiveFlight(aircraftSpecs, aircraftName)
+  }
 
-  // return {
-  //   aircraft:
-  //   departure:
-  //   destination:
-  //   range:
-  //   duration:
-  //   reward:
-  // }
+  // Pick random destination from nearby airports
+  const destination = pickRandomAirport(nearbyAirports)
+
+  // Calculate actual distance
+  const actualDistance = distanceNauticalMiles(
+    origin.latitude,
+    origin.longitude,
+    destination.latitude,
+    destination.longitude
+  )
+
+  // Calculate duration in minutes (distance / speed * 60)
+  const duration = (actualDistance / cruiseSpeed) * 60
+
+  // Generate random reward markup between 30% and 60%
+  const rewardMarkup = Math.random() * 0.3 + 0.3 // 0.3 to 0.6
+
+  return {
+    aircraft: aircraftName,
+    departure: origin.icao,
+    departureName: origin.name || origin.icao,
+    destination: destination.icao,
+    destinationName: destination.name || destination.icao,
+    range: Math.round(actualDistance * 100) / 100,
+    duration: Math.round(duration * 100) / 100,
+    rewardMarkup: Math.round(rewardMarkup * 100) / 100
+  }
 }
