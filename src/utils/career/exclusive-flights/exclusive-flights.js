@@ -112,20 +112,31 @@ export const findNearbyAirports = async (center, distance) => {
 }
 
 /**
- * Consider given Aircraft's range (min: 10%, max: 80%)
+ * Consider given Aircraft's range (min: 15%, max: 80%)
  * Check if nearbyAirports is not null
  * Reward is +30-60%
  * **/
 
-/** --------- **/
-const airports = await loadAirports()
-const orig = pickRandomAirport(airports)
+export async function ExclusiveFlight(aircraft) {
+  /** --------- **/
+  const airports = await loadAirports()
+  const orig = pickRandomAirport(airports)
 
-const nearbyAirports = await findNearbyAirports(
-  { lat: orig.latitude, lon: orig.longitude },
-  { min: 350, max: 2000 }
-).then((res) => res)
+  const nearbyAirports = await findNearbyAirports(
+    { lat: orig.latitude, lon: orig.longitude },
+    { min: 350, max: 2000 }
+  ).then((res) => res)
 
-const dest = pickRandomAirport(nearbyAirports)
-console.table(orig)
-console.table(dest)
+  const dest = pickRandomAirport(nearbyAirports)
+  console.table(orig)
+  console.table(dest)
+
+  // return {
+  //   aircraft:
+  //   departure:
+  //   destination:
+  //   range:
+  //   duration:
+  //   reward:
+  // }
+}
