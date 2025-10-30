@@ -242,6 +242,11 @@ export default function FlightProgress({
               )}
               <div className="text-sm text-gray-400 mt-1">
                 {draftFlight.departureName}
+                {draftFlight.departureCountry && (
+                  <span className="text-gray-500 ml-1">
+                    ({draftFlight.departureCountry})
+                  </span>
+                )}
               </div>
             </div>
 
@@ -310,6 +315,11 @@ export default function FlightProgress({
               )}
               <div className="text-sm text-gray-400 mt-1">
                 {draftFlight.destinationName}
+                {draftFlight.destinationCountry && (
+                  <span className="text-gray-500 ml-1">
+                    ({draftFlight.destinationCountry})
+                  </span>
+                )}
               </div>
             </div>
           </div>

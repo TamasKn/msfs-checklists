@@ -96,6 +96,11 @@ export default function ExclusiveFlightModal({
                 <p className="text-xs text-gray-400 truncate">
                   {flightData.departureName}
                 </p>
+                {flightData.departureCountry && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    {flightData.departureCountry}
+                  </p>
+                )}
               </div>
               <div className="flex-shrink-0">
                 <svg
@@ -118,6 +123,11 @@ export default function ExclusiveFlightModal({
                 <p className="text-xs text-gray-400 truncate">
                   {flightData.destinationName}
                 </p>
+                {flightData.destinationCountry && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    {flightData.destinationCountry}
+                  </p>
+                )}
               </div>
             </div>
 

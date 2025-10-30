@@ -14,6 +14,7 @@ The Exclusive Flight feature adds special flight opportunities to the Career Mod
 The route is automatically generated using the following criteria:
 - **Distance Range**: Between 15% and 80% of the selected aircraft's maximum range
 - **Random Airports**: Origin and destination are randomly selected from the global airport database
+- **Airport Details**: Includes airport name and country code from CSV database
 - **Duration Calculation**: Automatically calculated based on distance and aircraft cruise speed
 
 ### 3. Reward System
@@ -34,7 +35,7 @@ The route is automatically generated using the following criteria:
 3. 30% chance triggers Exclusive Flight modal (or 100% if force flag is enabled)
 4. Modal displays:
    - Reward bonus percentage (30-60%)
-   - Departure and destination airports
+   - Departure and destination airports with names and country codes
    - Distance and estimated duration
    - Aircraft selection (if multiple leased)
 5. User can either:
@@ -78,14 +79,16 @@ localStorage.getItem('force_exclusive_flight')
    - Helper functions to extract aircraft specs (range, cruise speed)
    - Distance calculation and duration estimation
    - Uses API route to load airports (client-side compatible)
+   - Extracts airport name and country code from CSV data
 
 2. **`src/app/api/airports/route.js`** (NEW)
    - Server-side API route to read CSV file
-   - Parses airport data with latitude/longitude
-   - Returns JSON response with airport list
+   - Parses airport data with latitude/longitude, name, and country code
+   - Returns JSON response with complete airport list
 
 3. **`src/app/components/elements/career/exclusive-flight-modal/index.jsx`**
    - New modal component for presenting exclusive flight opportunities
+   - Displays airport names and country codes
    - Aircraft selection UI for multiple leased aircraft
    - Accept/Decline buttons
 
@@ -97,6 +100,15 @@ localStorage.getItem('force_exclusive_flight')
 
 5. **`src/data/career/jobs.js`**
    - Already contains `Exclusive` job type with 1.55x multiplier
+
+6. **`src/app/components/elements/career/draft-flights/index.jsx`**
+   - Updated to display airport country codes in draft flights table
+
+7. **`src/app/components/elements/career/history/index.jsx`**
+   - Updated to display airport country codes in flight history table
+
+8. **`src/app/components/elements/career/flight-progress/index.jsx`**
+   - Updated to display airport country codes during flight progress
 
 ### Data Flow
 

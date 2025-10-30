@@ -203,9 +203,11 @@ export async function ExclusiveFlight(aircraftSpecs, aircraftName) {
   return {
     aircraft: aircraftName,
     departure: origin.icao,
-    departureName: origin.name || origin.icao,
+    departureName: origin.airport || origin.name || origin.icao,
+    departureCountry: origin.country_code || '',
     destination: destination.icao,
-    destinationName: destination.name || destination.icao,
+    destinationName: destination.airport || destination.name || destination.icao,
+    destinationCountry: destination.country_code || '',
     range: Math.round(actualDistance * 100) / 100,
     duration: Math.round(duration * 100) / 100,
     rewardMarkup: Math.round(rewardMarkup * 100) / 100

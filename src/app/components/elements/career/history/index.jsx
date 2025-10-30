@@ -196,11 +196,21 @@ export default function FlightHistory({ flights }) {
                         {flight.departureName && (
                           <div className="truncate max-w-xs">
                             {flight.departureName}
+                            {flight.departureCountry && (
+                              <span className="text-gray-600 ml-1">
+                                ({flight.departureCountry})
+                              </span>
+                            )}
                           </div>
                         )}
                         {flight.destinationName && (
                           <div className="truncate max-w-xs">
                             {flight.destinationName}
+                            {flight.destinationCountry && (
+                              <span className="text-gray-600 ml-1">
+                                ({flight.destinationCountry})
+                              </span>
+                            )}
                           </div>
                         )}
                       </div>

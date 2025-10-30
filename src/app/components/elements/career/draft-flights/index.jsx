@@ -122,11 +122,21 @@ export default function DraftFlights({ draftFlights, onContinue, onDelete }) {
                         {draft.departureName && (
                           <div className="truncate max-w-xs">
                             {draft.departureName}
+                            {draft.departureCountry && (
+                              <span className="text-gray-600 ml-1">
+                                ({draft.departureCountry})
+                              </span>
+                            )}
                           </div>
                         )}
                         {draft.destinationName && (
                           <div className="truncate max-w-xs">
                             {draft.destinationName}
+                            {draft.destinationCountry && (
+                              <span className="text-gray-600 ml-1">
+                                ({draft.destinationCountry})
+                              </span>
+                            )}
                           </div>
                         )}
                       </div>
