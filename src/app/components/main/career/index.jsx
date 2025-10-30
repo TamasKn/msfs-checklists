@@ -356,8 +356,8 @@ export default function CareerComponent() {
     const forceExclusive =
       process.env.NEXT_PUBLIC_FORCE_EXCLUSIVE_FLIGHT === 'true'
 
-    // 30% chance of exclusive flight (or 100% if forced)
-    const shouldShowExclusive = forceExclusive || Math.random() < 0.3
+    // 27% chance of exclusive flight (or 100% if forced)
+    const shouldShowExclusive = forceExclusive || Math.random() < 0.27
 
     if (shouldShowExclusive) {
       // Show exclusive flight modal (route will be generated after aircraft selection)

@@ -57,7 +57,9 @@ export default function ExclusiveFlightModal({
     onAccept(selectedAircraft)
   }
 
-  const rewardPercentage = flightData ? Math.round(flightData.rewardMarkup * 100) : 0
+  const rewardPercentage = flightData
+    ? Math.round(flightData.rewardMarkup * 100)
+    : 0
 
   return (
     <div className="fixed inset-0 bg-opacity-20 backdrop-blur-xs flex justify-center items-center z-50 p-2 sm:p-4 animate-fadeIn">
@@ -74,7 +76,7 @@ export default function ExclusiveFlightModal({
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white text-center">
-              🌟 Exclusive Flight Opportunity! 🌟
+              Exclusive Flight Opportunity!
             </h2>
           </div>
         </div>
@@ -167,48 +169,52 @@ export default function ExclusiveFlightModal({
                   Flight Details
                 </h3>
 
-            {/* Route */}
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex-1 text-center">
-                <p className="text-xs text-gray-400 mb-1">Departure</p>
-                <p className="text-xl font-bold text-white">{flightData.departure}</p>
-                <p className="text-xs text-gray-400 truncate">
-                  {flightData.departureName}
-                </p>
-                {flightData.departureCountry && (
-                  <p className="text-xs text-gray-500 mt-1">
-                    {flightData.departureCountry}
-                  </p>
-                )}
-              </div>
-              <div className="flex-shrink-0">
-                <svg
-                  className="w-6 h-6 text-yellow-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-              <div className="flex-1 text-center">
-                <p className="text-xs text-gray-400 mb-1">Destination</p>
-                <p className="text-xl font-bold text-white">{flightData.destination}</p>
-                <p className="text-xs text-gray-400 truncate">
-                  {flightData.destinationName}
-                </p>
-                {flightData.destinationCountry && (
-                  <p className="text-xs text-gray-500 mt-1">
-                    {flightData.destinationCountry}
-                  </p>
-                )}
-              </div>
-            </div>
+                {/* Route */}
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex-1 text-center">
+                    <p className="text-xs text-gray-400 mb-1">Departure</p>
+                    <p className="text-xl font-bold text-white">
+                      {flightData.departure}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      {flightData.departureName}
+                    </p>
+                    {flightData.departureCountry && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        {flightData.departureCountry}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="w-6 h-6 text-yellow-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center">
+                    <p className="text-xs text-gray-400 mb-1">Destination</p>
+                    <p className="text-xl font-bold text-white">
+                      {flightData.destination}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      {flightData.destinationName}
+                    </p>
+                    {flightData.destinationCountry && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        {flightData.destinationCountry}
+                      </p>
+                    )}
+                  </div>
+                </div>
 
                 {/* Distance & Duration */}
                 <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-700/50">
@@ -221,7 +227,8 @@ export default function ExclusiveFlightModal({
                   <div className="text-center">
                     <p className="text-xs text-gray-400 mb-1">Est. Duration</p>
                     <p className="text-lg font-semibold text-white">
-                      {Math.floor(flightData.duration / 60)}h {Math.round(flightData.duration % 60)}m
+                      {Math.floor(flightData.duration / 60)}h{' '}
+                      {Math.round(flightData.duration % 60)}m
                     </p>
                   </div>
                 </div>
@@ -249,7 +256,10 @@ export default function ExclusiveFlightModal({
                     Limited Time Offer
                   </p>
                   <p>
-                    Select an aircraft to generate an exclusive flight opportunity with a pre-determined route and enhanced rewards (30-60% bonus). Operation costs, maintenance, and XP are calculated normally.
+                    Select an aircraft to generate an exclusive flight
+                    opportunity with a pre-determined route and enhanced rewards
+                    (30-60% bonus). Operation costs, maintenance, and XP are
+                    calculated normally.
                   </p>
                 </div>
               </div>
@@ -314,4 +324,3 @@ export default function ExclusiveFlightModal({
     </div>
   )
 }
-
