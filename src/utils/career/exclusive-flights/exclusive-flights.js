@@ -8,7 +8,6 @@ const loadAirports = async () => {
     const result = await response.json()
 
     if (result.status === 'success') {
-      console.log(`Loaded ${result.count} airports from API`)
       return result.data
     } else {
       throw new Error(result.message || 'Failed to load airports')
@@ -206,9 +205,10 @@ export async function ExclusiveFlight(aircraftSpecs, aircraftName) {
     departureName: origin.airport || origin.name || origin.icao,
     departureCountry: origin.country_code || '',
     destination: destination.icao,
-    destinationName: destination.airport || destination.name || destination.icao,
+    destinationName:
+      destination.airport || destination.name || destination.icao,
     destinationCountry: destination.country_code || '',
-    range: Math.round(actualDistance * 100) / 100,
+    range: Math.round(actualDistance),
     duration: Math.round(duration * 100) / 100,
     rewardMarkup: Math.round(rewardMarkup * 100) / 100
   }

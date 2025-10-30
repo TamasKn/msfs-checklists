@@ -10,7 +10,10 @@ import UserComponent from '@/app/components/elements/career/user'
 import LeaseAircraft from '@/app/components/elements/career/lease-aircraft'
 import LevelUpNotification from '@/app/components/elements/career/level-up-notification'
 import ExclusiveFlightModal from '@/app/components/elements/career/exclusive-flight-modal'
-import { updateUserAfterFlight, getLeasedAircraft } from '@/utils/career/user-data'
+import {
+  updateUserAfterFlight,
+  getLeasedAircraft
+} from '@/utils/career/user-data'
 import {
   getDraftFlights,
   saveDraftFlight,
@@ -350,7 +353,8 @@ export default function CareerComponent() {
     }
 
     // Check for force exclusive flight flag (for testing)
-    const forceExclusive = localStorage.getItem('force_exclusive_flight') === 'true'
+    const forceExclusive =
+      process.env.NEXT_PUBLIC_FORCE_EXCLUSIVE_FLIGHT === 'true'
 
     // 30% chance of exclusive flight (or 100% if forced)
     const shouldShowExclusive = forceExclusive || Math.random() < 0.3
@@ -378,7 +382,10 @@ export default function CareerComponent() {
       }
 
       // Generate exclusive flight
-      const exclusiveFlight = await ExclusiveFlight(aircraftData.specs, selectedAircraft)
+      const exclusiveFlight = await ExclusiveFlight(
+        aircraftData.specs,
+        selectedAircraft
+      )
 
       setExclusiveFlightData(exclusiveFlight)
     } catch (error) {
