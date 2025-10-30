@@ -340,7 +340,7 @@ export default function CareerComponent() {
   /**
    * Handles New Flight button click - 30% chance of exclusive flight
    */
-  const handleNewFlightClick = async () => {
+  const handleNewFlightClick = () => {
     const leasedAircrafts = getLeasedAircraft()
 
     // Check if user has at least one leased aircraft
@@ -356,29 +356,34 @@ export default function CareerComponent() {
     const shouldShowExclusive = forceExclusive || Math.random() < 0.3
 
     if (shouldShowExclusive) {
-      try {
-        // Pick a random aircraft from leased aircrafts
-        const randomAircraft = leasedAircrafts[Math.floor(Math.random() * leasedAircrafts.length)]
-
-        // Get aircraft data
-        const aircraftData = Aircrafts.find((a) => a.name === randomAircraft)
-
-        if (!aircraftData) {
-          setShowAddFlight(true)
-          return
-        }
-
-        // Generate exclusive flight
-        const exclusiveFlight = await ExclusiveFlight(aircraftData.specs, randomAircraft)
-
-        setExclusiveFlightData(exclusiveFlight)
-        setShowExclusiveFlight(true)
-      } catch (error) {
-        console.error('Failed to generate exclusive flight:', error)
-        setShowAddFlight(true)
-      }
+      // Show exclusive flight modal (route will be generated after aircraft selection)
+      setShowExclusiveFlight(true)
     } else {
       setShowAddFlight(true)
+    }
+  }
+
+  /**
+   * Handles aircraft selection in exclusive flight modal
+   * Generates the exclusive flight route based on selected aircraft
+   * @param {string} selectedAircraft - Aircraft selected by user
+   */
+  const handleGenerateExclusiveFlight = async (selectedAircraft) => {
+    try {
+      // Get aircraft data
+      const aircraftData = Aircrafts.find((a) => a.name === selectedAircraft)
+
+      if (!aircraftData) {
+        throw new Error('Aircraft not found')
+      }
+
+      // Generate exclusive flight
+      const exclusiveFlight = await ExclusiveFlight(aircraftData.specs, selectedAircraft)
+
+      setExclusiveFlightData(exclusiveFlight)
+    } catch (error) {
+      console.error('Failed to generate exclusive flight:', error)
+      throw error
     }
   }
 
@@ -592,10 +597,11 @@ export default function CareerComponent() {
         )}
 
         {/* Modal for Exclusive Flight */}
-        {showExclusiveFlight && exclusiveFlightData && (
+        {showExclusiveFlight && (
           <ExclusiveFlightModal
             flightData={exclusiveFlightData}
             leasedAircrafts={getLeasedAircraft()}
+            onGenerateFlight={handleGenerateExclusiveFlight}
             onAccept={handleAcceptExclusiveFlight}
             onCancel={handleCancelExclusiveFlight}
           />

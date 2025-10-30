@@ -33,15 +33,21 @@ The route is automatically generated using the following criteria:
 1. User clicks "New Flight" button
 2. System checks if user has leased aircraft
 3. 30% chance triggers Exclusive Flight modal (or 100% if force flag is enabled)
-4. Modal displays:
+4. **Aircraft Selection First**:
+   - Modal displays aircraft dropdown at the top
+   - User selects which aircraft to use for the exclusive flight
+   - If only one aircraft is leased, it's auto-selected
+5. **Route Generation**:
+   - System generates exclusive route based on selected aircraft's range
+   - Shows loading indicator while generating
+6. **Flight Details Display**:
    - Reward bonus percentage (30-60%)
    - Departure and destination airports with names and country codes
    - Distance and estimated duration
-   - Aircraft selection (if multiple leased)
-5. User can either:
+7. User can either:
    - **Accept**: Creates a draft flight with the exclusive route and enhanced rewards
    - **Decline**: Closes the modal without creating a flight
-6. If accepted, the flight proceeds through the normal flow:
+8. If accepted, the flight proceeds through the normal flow:
    - Flight Progress tracking
    - Financial Summary with enhanced rewards
    - XP and funds update
@@ -119,9 +125,15 @@ handleNewFlightClick()
     ↓
 30% chance check (or force flag)
     ↓
+Modal opens (no flight data yet)
+    ↓
+User selects aircraft
+    ↓
+handleGenerateExclusiveFlight(aircraft)
+    ↓
 ExclusiveFlight() generates route
     ↓
-Modal displays opportunity
+Modal displays flight details & bonus
     ↓
 User accepts
     ↓
