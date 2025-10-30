@@ -26,6 +26,9 @@ import { beechcraftKingAir350Career } from '@/data/beechcraft-king-air-350/caree
 import { CJ4Specs } from '@/data/cj4/specs'
 import { CJ4Checklist } from '@/data/cj4/checklist'
 import { CJ4Career } from '@/data/cj4/career'
+import { TBM930Specs } from '@/data/daher-tbm-930/specs'
+import { TBM930Checklist } from '@/data/daher-tbm-930/checklist'
+import { TBM930Career } from '@/data/daher-tbm-930/career'
 
 export const Aircrafts = [
   {
@@ -69,6 +72,13 @@ export const Aircrafts = [
     specs: beechcraftKingAir350Specs,
     checklist: beechcraftKingAir350Checklist,
     career: beechcraftKingAir350Career
+  },
+  {
+    id: 'TBM9',
+    name: AircraftName.TBM930,
+    specs: TBM930Specs,
+    checklist: TBM930Checklist,
+    career: TBM930Career
   },
   {
     id: 'SF50',
