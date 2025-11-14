@@ -92,7 +92,7 @@ export const cessnaLongitudeChecklist = {
         },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
-        { 'EMER LTS': 'ARMED' },
+        { 'BARO': 'SET departure value', 'info': 'From ATIS, EFB or METAR' },
         { 'Lights (Taxi, TF, PS/SB)': 'ON' }
       ]
     },
@@ -218,7 +218,7 @@ export const cessnaLongitudeChecklist = {
         { 'Flaps': 'RETRACT' },
         { 'Taxi & Parking Clearance': 'OBTAINED' },
         { 'Taxi Lights': 'ON' },
-        { 'LDG, PS/SB Lights': 'OFF' }
+        { 'LDG, TF, PS/SB Lights': 'OFF' }
       ]
     },
     {
