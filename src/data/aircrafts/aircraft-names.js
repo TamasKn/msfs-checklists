@@ -3,10 +3,19 @@ export const AircraftName = {
   PilatusPC12: 'Pilatus PC-12 NGX',
   CessnaLongitude: 'Citation Longitude',
   CitationCJ4: 'Citation CJ4',
+  DiamondDA42: 'Diamond DA42',
   DiamondDA62: 'Diamond DA62',
   VisionJetG2: 'Cirrus Vision Jet G2',
   AirbusA320neo: 'Airbus A320neo',
   Boeing737Max: 'Boeing 737 MAX 8',
   BeechcraftKingAir350: 'Beechcraft King Air 350i',
-  TBM930: 'Daher TBM 930'
+  TBM930: 'Daher TBM 930',
+  Aerostar600: 'Aerostar 600',
+  BonanzaB36TC: 'Bonanza B36TC',
+  BonanzaB36TP: 'Bonanza B36TP',
+  Baron58: 'Baron 58',
+  Baron58P: 'Baron 58P',
+  DukeB60: 'Duke B60',
+  GrandDuke: 'Grand Duke',
+  TurbineDuke: 'Turbine Duke'
 }
