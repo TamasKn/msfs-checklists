@@ -7,6 +7,7 @@ import AircraftSelector from '@/app/components/elements/checklist/aircraft-selec
 import { Aircrafts } from '@/data/aircrafts/aircrafts'
 import TodCalculator from '@/app/components/elements/checklist/tod-calculator'
 import FuelCalculator from '@/app/components/elements/checklist/fuel-calculator'
+import { FinalizedProcedures } from '@/data/checklist/finalized-procedures'
 
 export default function ChecklistComponent() {
   const [selectedAircraft, setSelectedAircraft] = useState(Aircrafts[0])
@@ -150,6 +151,14 @@ export default function ChecklistComponent() {
               </div>
             )}
           </div>
+
+          {!FinalizedProcedures.includes(selectedAircraft.name) && (
+            <div className="w-full max-w-4xl mx-auto px-6 py-4 sm:px-6 sm:py-4 lg:px-8 lg:py-4">
+              <p className="text-sm text-amber-400">
+                Checklist/Procedures is not FINAL for this Aircraft
+              </p>
+            </div>
+          )}
 
           <ChecklistItems
             checklist={selectedAircraft.checklist}
