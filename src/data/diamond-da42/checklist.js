@@ -6,94 +6,126 @@ export const diamondDa42Checklist = {
     {
       title: 'Cockpit Preparation',
       items: [
+        { 'IFR CLEARANCE': 'OBTAINED' },
         { 'Parking Brake': 'SET' },
         { 'Alternate Static': 'OFF' },
         { 'Gear Lever': 'DOWN' },
         { 'Power Levers': 'IDLE' },
         { 'Avionics Master': 'OFF' },
         { 'Electric Master': 'ON' },
-        { 'Fuel Valves': 'ON' },
-        { 'Canopy': 'CLOSED' }
+        { 'Fuel Selector': 'ON, Guards closed' }
       ]
     },
     {
       title: 'Before Engine Start',
       items: [
-        { 'Seat Belts': 'ON' },
-        { 'Fuel Pumps': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Engine Masters': 'ON' },
-        { 'Glow Plugs': 'ON' }
+        { 'START CLEARANCE': 'OBTAINED' },
+        { 'L & R ECU': 'AUTO' },
+        { 'Alternator': 'ON' },
+        { 'BARO': 'SET' }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Propeller Area': 'CLEAR' },
-        { 'Left Engine': 'START' },
-        { 'Right Engine': 'START' },
+        { 'Strobe Lights': 'ON' },
+        { 'L Engine Master': 'ON' },
+        { 'Glow Plugs': 'OUT' },
+        { 'L Engine': 'START' },
         { 'Oil Pressure': 'CHECK' },
-        { 'Ammeter': 'CHECK' }
+        { 'Voltage/Electrical Load': 'CHECK' },
+        { 'Repeat R Engine': 'COMPLETE' }
       ]
     },
     {
-      title: 'After Start',
+      title: 'After Engine Start',
       items: [
+        { 'Oil Pressure': 'CHECK' },
+        { 'RPM': '710 +/-3' },
+        { 'Fuel Selector': 'CROSSFEED' },
         { 'Avionics Master': 'ON' },
-        { 'FMS': 'SET' },
-        { 'Flaps': 'UP' },
-        { 'Parking Brake': 'RELEASE' }
+        { 'Pitot Heat': 'ON' },
+        { 'STDBY Horizon Cage': 'SET' },
+        { 'Fuel Selector': 'ON' },
+        { 'FMS': 'SET' }
+      ]
+    },
+    {
+      title: 'Before Taxi',
+      items: [
+        { 'Flight Plan': 'DEPARTURE VERIFIED' },
+        { 'Trim': 'SET for Takeoff' },
+        { 'Altitude': 'SET -> FLC & VNV' },
+        { 'Navigation': 'SET -> NAV/HDG' },
+        { 'Transponder': 'ON & SET' },
+        { 'Weather Radar': 'AS REQUIRED' },
+        { 'De-Ice': 'AS REQUIRED' },
+        { 'Taxi Lights': 'ON' }
+      ]
+    },
+    {
+      title: 'Taxi',
+      items: [
+        { 'Taxi Clearance': 'OBTAINED' },
+        { 'Parking Brake': 'RELEASE' },
+        { 'Brakes & Steering': 'CHECK' },
+        { 'Flight Controls': 'CHECK' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Flaps': 'APPROACH' },
-        { 'Flight Controls': 'CHECK' },
-        { 'Trims': 'SET FOR TAKEOFF' },
-        { 'De-Ice': 'AS REQUIRED' },
-        { 'Lights': 'ON' }
+        { 'Runway Clearance': 'OBTAINED' },
+        { 'Fuel Pumps': 'ON' },
+        { 'Flaps': 'CHECK' },
+        { 'Trim': 'CHECK' },
+        { 'Speed Indicators': 'CHECK' },
+        { 'Landing Lights': 'ON' },
+        { 'Taxi Lights': 'OFF' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
-        { 'Power Levers': 'FULL' },
+        { 'Departure Clearance': 'OBTAINED' },
+        { 'Runway Alignment': 'CONFIRM' },
+        { 'Heading Bug': 'SET' },
+        { 'Power': 'FULL' },
         { 'Rotate Speed': '75 KIAS' },
-        { 'Climb Speed': '90 KIAS' },
-        { 'Positive Climb': 'GEAR UP' },
-        { 'Flaps': 'UP' }
+        { 'Positive Rate': 'GEAR UP' },
+        { 'AP & YD': 'ENGAGE, AS REQ' },
+        { 'Flaps': 'RETRACT at Safe Speed' }
       ]
     },
     {
       title: 'Climb',
       items: [
         { 'Power': '92%' },
-        { 'Climb Speed': '120 KIAS' },
-        { 'De-Ice': 'AS REQUIRED' }
+        { 'Landing Lights': 'OFF' },
+        { 'Fuel Pumps': 'OFF' },
+        { 'De-Ice': 'AS REQUIRED' },
+        { 'Autopilot': 'MONITOR' },
+        { 'Cruise Altitude': 'SET' },
+        { 'BARO': 'SET to STD' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'SET (75%)' },
-        { 'Mixture': 'SET' },
-        { 'Autopilot': 'ENGAGED' }
+        { 'Power': 'SET 50-92%' },
+        { 'Fuel Quantity': 'CHECK' },
+        { 'Flight Plan': 'APPROACH VERIFIED' }
       ]
     },
     {
       title: 'Descent',
-      items: [
-        { 'ATIS': 'OBTAIN' },
-        { 'Altimeters': 'SET' },
-        { 'Approach Briefing': 'COMPLETE' }
-      ]
+      items: [{ 'Power': 'SET 40-60%' }, { 'BARO': 'SET' }]
     },
     {
       title: 'Approach',
       items: [
         { 'Power': 'AS REQUIRED' },
+        { 'Fuel Pumps': 'ON' },
         { 'Flaps': 'APPROACH' },
         { 'Gear': 'DOWN' },
         { 'Flaps': 'LANDING' }
@@ -102,17 +134,21 @@ export const diamondDa42Checklist = {
     {
       title: 'Landing',
       items: [
-        { 'Final Approach Speed': '80 KIAS' },
-        { 'Touchdown': 'MAIN WHEELS FIRST' },
-        { 'Brakes': 'AS REQUIRED' }
+        { 'FAF Speed': '80 KIAS' },
+        { 'Touchdown': '65 KIAS' },
+        { 'Brakes': 'AS REQUIRED' },
+        { 'Landing Lights': 'ON' }
       ]
     },
     {
       title: 'After Landing',
       items: [
         { 'Flaps': 'UP' },
-        { 'Strobe Lights': 'OFF' },
-        { 'De-Ice': 'OFF' }
+        { 'Pitot Heat': 'OFF' },
+        { 'De-Ice': 'OFF' },
+        { 'Fuel Pumps': 'OFF' },
+        { 'Landing Lights': 'OFF' },
+        { 'Taxi Lights': 'ON' }
       ]
     },
     {
@@ -121,8 +157,8 @@ export const diamondDa42Checklist = {
         { 'Parking Brake': 'SET' },
         { 'Avionics Master': 'OFF' },
         { 'Engine Masters': 'OFF' },
-        { 'Fuel Valves': 'OFF' },
-        { 'Electric Master': 'OFF' }
+        { 'Electric Master': 'OFF' },
+        { 'Lights': 'OFF' }
       ]
     }
   ]

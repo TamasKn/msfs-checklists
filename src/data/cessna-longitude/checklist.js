@@ -16,6 +16,7 @@ export const cessnaLongitudeChecklist = {
         { 'LANDING GEAR Handle': 'DOWN' },
         { 'L BATT & R BATT': 'ON, Check Volts' },
         { 'EIS/CAS': 'CHECK' },
+        { 'IFR CLEARANCE': 'OBTAINED' },
         { 'Power Source': 'As Desired (one of the following)' },
         { 'Option A: External Power': '' },
         { '--- EXT PWR (if AVAIL)': 'ON' },
