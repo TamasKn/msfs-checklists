@@ -7,254 +7,239 @@ export const TBM930Checklist = {
       title: 'Cockpit Preparation',
       items: [
         { 'Parking Brake': 'ON' },
-        { 'Doors': 'CLOSED & LOCKED (Green)' },
-        { 'Passenger Oxygen': 'STBY' },
-        { 'Oxygen': 'ON' },
-        { 'Internal & External Lights': 'ALL OFF' },
+        { 'Doors': 'LOCKED' },
+        { 'Passenger Oxygen Switch': 'STBY' },
+        { 'Oxygen Master Switch': 'ON' },
+        { 'Crew Oxygen Masks': 'TESTED' },
+        { 'Ext. & Int. Lights': 'OFF' },
         { 'Crash Lever': 'DOWN' },
         { 'Starter': 'OFF' },
         { 'Ignition': 'AUTO' },
         { 'Aux BP': 'OFF' },
         { 'Fuel Sel': 'MAN' },
-        { 'AP/TRIM': 'OFF' },
-        { 'A/C': 'OFF' },
-        { 'CB Light': 'OFF' },
+        { 'AP/Trims': 'OFF' },
+        { 'A/C (Air Conditioning)': 'OFF' },
+        { 'CB Lights': 'OFF' },
         { 'De-Ice Systems': 'ALL OFF' },
         { 'Inert Sep': 'OFF' },
         { 'Landing Gear Lever': 'DOWN' },
-        { 'Dump': 'NORM / GUARDED' },
+        { 'Dump': 'NORM/GUARDED' },
         { 'Bleed': 'OFF' },
-        { 'Hot Air Flow': 'AS REQ' },
-        { 'Man Overhead': 'FULLY BACKWARD' },
+        { 'Hot Air Flow': 'FLOOR' },
+        { 'Man OVRD': 'OFF' },
         { 'Throttle': 'CUT OFF' },
-        { 'Fuel Tank Selector': 'OPEN L or R' },
-        { 'Alternate Static Source': 'PUSHED' },
-        { 'Emergency RAM Air': 'PUSHED' }
-      ]
-    },
-    {
-      title: 'Motoring (if residual ITT > 150°C)',
-      items: [
-        { 'Ignition': 'OFF' },
-        { 'Aux BP': 'ON' },
-        { 'Propeller Area': 'CLEAR' },
-        { 'Starter': 'ON (2 secs then OFF)' },
-        { 'After 30 seconds maximum: Starter': 'ABORT then OFF' },
-        { 'Aux BP': 'OFF' }
-      ]
-    },
-    {
-      title: 'Engine Start',
-      items: [
-        { 'Ignition': 'AUTO' },
-        { 'Aux BP': 'ON' },
-        { 'Prop Area': 'CLEAR' },
-        { 'Starter': 'ON (2 secs then OFF)' },
-        { 'NG 13% -> Throttle': 'LO-IDLE' }
+        { 'Fuel Tank Selector': 'OPEN / L or R' },
+        { 'Alt. Static Source': 'NORMAL (PUSHED)' },
+        { 'Emergency RAM Air': 'CLOSED (PUSHED)' },
+        { 'Ess. Bus Tie Switch': 'NORM/GUARDED' },
+        { 'Circuit Breakers': 'ALL IN' },
+        { 'Emergency Landing Gear Control': 'CHECK' }
       ]
     },
     {
       title: 'Before Engine Start',
       items: [
         { 'Crash Lever': 'UP' },
-        { 'Source': 'BATT or GPU' },
+        { 'Source': 'BAT (or GPU)' },
+        { 'Flight Plan': 'Verified' },
+        { 'ATC Clearance': 'Copied / as required' },
         { 'Generator': 'MAIN' },
-        { 'ELT': 'TEST then ARM' },
-        { 'Internal Lights': 'AS REQ' },
-        { 'NAV Lights': 'ON' },
-        { 'AHRS Alignment': 'CHECK' },
-        { 'LTS TEST': 'PERFORM' },
-        { 'Landing Gear Lights / Check Down': 'TEST' },
-        { 'Multi-Function Display': 'INITIALIZE' },
-        { 'XPDR': 'Standby' },
-        { 'ATC Clearance': 'AS REQ' }
+        { 'Fuel on board': 'CHECK' },
+        { 'BAT Voltage': 'min. 24.5V' },
+        { 'GPU Voltage': '~28V' },
+        { 'Altimeter': 'SET' }
+      ]
+    },
+    {
+      title: 'Takeoff PERF (G5000)',
+      items: [
+        {
+          'VNAV Profiles': 'SET / CHECK',
+          'info': 'Flight plan - VNAV - Profile, Climb, Cruise, Descent'
+        },
+        { 'Weight and Fuel': 'TAKEOFF FOB sync' },
+        { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
+        { 'Takeoff Config': 'SET recommended Flap' },
+        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
+        { 'INIT': 'ALL CHECKED & ACCEPTED' },
+        {
+          'Altimeter Transition': 'SET to Regional',
+          'info': 'BARO transitions: Utilities/Setup/Avionics/Alerts'
+        }
+      ]
+    },
+    {
+      title: 'Engine Start',
+      items: [
+        { 'START CLEARANCE': 'OBTAINED' },
+        { 'Strobe Lights': 'ON' },
+        { 'Ignition': 'AUTO' },
+        { 'Aux BP': 'ON' },
+        { 'CAS MSG "AUX BOOST PMP ON"': 'CHECK' },
+        { 'Throttle': 'IDLE' },
+        { 'Starter': 'ON (2" then OFF)' },
+        {
+          '@NG > 13% -> Throttle': 'LO-IDLE',
+          'info':
+            'Monitor: ITT (Max 870°(20s)/1000°(5s)), NG (30%(<30s)/50%(<1m)), OIL (Press/Temp)'
+        },
+        { '@NG > 52% (±2%) (1min MAX)': 'CAS « STARTER » should be OFF' }
       ]
     },
     {
       title: 'After Engine Start',
       items: [
-        { 'Throttle': 'LO-IDLE → FLIGHT IDLE' },
-        { 'NG': 'CHECK 60% +/-2%' },
-        { 'Oil Press. Temp.': 'CHECK' },
+        { 'Source (if GPU used)': 'BAT' },
+        { 'GPU (if used)': 'DISCONNECT' },
+        { 'CAS « GPU DOOR »': 'OFF' },
+        { 'Throttle': 'LO-IDLE -> HIGH-IDLE' },
+        { 'NG 70% (±2%)': 'CHECK' },
+        { 'Oil Press. / Temp.': 'CHECK' },
         { 'Aux BP': 'AUTO' },
         { 'Fuel Sel': 'AUTO' },
-        { 'Fuel Sel Shift Button': 'TEST' }
+        { 'AP/Trims': 'ON' },
+        { 'Generator': 'MAIN' },
+        { 'De-Ice': 'AS REQUIRED' },
+        { 'A/C': 'AUTO' },
+        { 'Temp / Hot Air Flow': 'AS REQUIRED' },
+        { 'Bleed': 'AUTO (or MAX DIFF)' }
       ]
     },
     {
       title: 'Before Taxi',
       items: [
-        { 'Stand-by instruments': 'CHECK' },
-        { 'De-Ice Systems': 'AS REQ' },
+        { 'Flight Plan': 'DEPARTURE VERIFIED' },
+        { 'Trims': 'SET for Takeoff' },
+        { 'Flaps': 'SET for Takeoff' },
+        { 'Altitude': 'SET -> FLC & VNAV' },
+        { 'Navigation': 'SET -> NAV/HDG' },
+        { 'Rudder & Aileron Trim': 'CENTER' },
+        { 'Brakes': 'CHECK & SET & RETRACTED' },
+        { 'Transponder': 'ON & SET' },
+        { 'Weather Radar': 'AS REQUIRED' },
+        { 'BARO': 'SET departure value', 'info': 'From ATIS, EFB or METAR' },
         { 'Inert Sep': 'ON' },
-        { 'Flight Controls': 'CHECK' },
-        { 'WX RADAR': 'STBY' },
-        { 'Altimeter Setting (QNH)': 'SET' },
-        { 'Standby Altimeter (QNH)': 'SET' },
-        { 'ALT SEL': 'SET' },
-        { 'FLC': 'PRESS & SET 124 KIAS' },
-        { 'PFD ActiveNav': 'AS REQ' },
-        { 'Squawk': 'SET' },
-        { 'Throttle': 'FEATHER TWICE' },
-        { 'Flaps': 'T/O' },
-        { 'Taxi Lights': 'ON' },
-        { 'Parking Brake': 'OFF' }
+        { 'EIS (Engine Indication System)': 'CHECK' },
+        { 'CAS': 'CHECK' },
+        { 'Taxi Light': 'ON' },
+        { 'Nav Lights': 'ON' }
+      ]
+    },
+    {
+      title: 'Taxi',
+      items: [
+        { 'Taxi Clearance': 'OBTAINED' },
+        { 'Parking Brake': 'OFF' },
+        { 'Brakes & Steering': 'CHECK' },
+        { 'Flight Controls': 'CHECK' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { 'Parking Brake': 'ON' },
+        { 'Runway Clearance': 'OBTAIN' },
         { 'Landing Lights': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Ignition': 'CHECK AUTO or ON' },
-        { 'Aux BP': 'CHECK AUTO' },
-        { 'Fuel Sel': 'CHECK AUTO' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'Pitot L HTR / Pitot R & Stall HTR': 'ON' },
-        { 'Inert Sep': 'CHECK ON' },
-        { 'Trims': 'T/O' },
-        { 'Flaps': 'CHECK T/O' },
-        { 'A/C': 'AS REQ' },
-        { 'Bleed': 'CHECK AUTO or MAX DIFF' },
-        { 'Fuel Gauges': 'CHECK IMBALANCE' },
-        { 'BATT': 'CHECK < 50 A' },
-        { 'XPDR': 'ON' }
+        { 'Strobes': 'ON' },
+        { 'Pitot L/Pitot R & Stall HTR': 'ON' },
+        { 'EIS & CAS': 'CHECK' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
-        { 'ADI, HSI, Headings': 'CHECK' },
-        { 'Propeller RPM': 'GREEN SECTOR' },
-        { 'Brakes': 'RELEASED' },
-        { 'Torque': '100%' },
-        { 'Rotation Speed': '(check references)' },
-        { 'Attitude': '10° UP' },
-        { 'Positive Climb': 'BRAKES / GEAR UP' },
-        { 'IAS >115 kts': 'FLAPS UP' }
-      ]
-    },
-    {
-      title: 'After Takeoff',
-      items: [
-        { 'Landing Gear': 'CHECK UP' },
-        { 'Flaps': 'CHECK UP' },
-        { 'Torque Max 100%': 'CHECK' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'Inert Sep': 'OFF' },
-        { 'AUTOPILOT (min. 300 AGL)': 'A/P ON' },
-        { 'AUTOPILOT (min. 300 AGL)': 'NAV or HDG ON' },
-        { 'AUTOPILOT (min. 300 AGL)': 'Y/D ON' }
+        { 'Departure Clearance': 'OBTAINED' },
+        { 'Runway Alignment': 'CONFIRM' },
+        { 'Heading Bug': 'SET' },
+        { 'Throttle': '100% TRQ' },
+        { 'Positive Rate': 'GEAR UP' },
+        { 'AP & YD': 'ENGAGE, AS REQ' },
+        { 'Inert Sep': 'AS REQUIRED' },
+        { 'Flaps': 'RETRACT at Safe Speed' }
       ]
     },
     {
       title: 'Climb',
       items: [
-        { 'ALT SEL': 'CHECK' },
-        { 'At Transition Altitude: Altimeter Setting (QNH)': 'STD' },
-        { 'At Transition Altitude: Autopilot': 'CHECK' },
-        { 'At Transition Altitude: Torque adjustments / ITT /NG': 'CHECK' },
-        { 'At Transition Altitude: WX RADAR': 'AS REQ' },
-        { 'At Transition Altitude: Pressurization': 'CHECK' },
-        { 'At Transition Altitude: Fuel Gauges': 'CHECK' },
-        { 'At Transition Altitude: Amps / Volts': 'CHECK' },
-        { 'At Transition Altitude: De-Ice Systems': 'AS REQ' },
-        { 'At Transition Altitude: Inert Sep': 'AS REQ' },
-        { 'At or above 10000ft/FL100: Landing Lights': 'OFF' },
-        { 'At or above 10000ft/FL100: Speed (accelerate to)': '170 IAS' }
+        { 'Landing Lights': 'OFF after FL100' },
+        { 'Climb Speed': '124 KIAS (Vy) - 170 KIAS' },
+        { 'Autopilot': 'MONITOR' },
+        { 'Cruise Altitude': 'SET' },
+        { 'TRQ/ITT/NG': 'CHECK' },
+        { 'BARO': 'SET to STD' }
       ]
     },
     {
-      title: 'Cruise',
+      title: 'Cruise & Before Descent',
       items: [
-        { 'Autopilot': 'CHECK' },
-        { 'Torque adjustments / ITT / NG': 'CHECK' },
-        { 'Pressurization': 'CHECK' },
-        { 'Fuel Gauges': 'CHECK' },
-        { 'Amps / Volts': 'CHECK' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'TOD (in MFD)': 'CHECK COMPUTED' }
-      ]
-    },
-    {
-      title: 'Before Descent',
-      items: [
-        { 'Altitude': 'SET' },
-        { 'VNV (in glareshield)': 'ON' },
-        { 'Pressurization': 'CHECK' },
-        { 'Fuel Gauges': 'CHECK' },
-        { 'Amps / Volts': 'CHECK' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'Inert Sep': 'AS REQ' }
+        {
+          'Flight Plan': 'APPROACH VERIFIED / SET',
+          'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
+        },
+        { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
+        {
+          'Altitude Constraints': 'FIX FAF to Signal altitude',
+          'info':
+            'You may set the Final Approach Fix to 20-50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
+        },
+        { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' },
+        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' },
+        { 'De-Ice Systems': 'AS REQUIRED' },
+        { 'Inert Sep': 'AS REQUIRED' }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'Below 10000ft/FL100: Landing Lights': 'ON' },
-        { 'Below 10000ft/FL100: Max Speed': '250 KIAS' }
+        { 'Clearance': 'OBTAINED' },
+        { 'Landing Lights': 'ON (below FL100)' },
+        { 'ATIS & Weather': 'CHECK' },
+        { 'BARO': 'SET destination' }
       ]
     },
     {
-      title: 'Approach',
+      title: 'Approach & Landing',
       items: [
-        { 'Altimeter Setting (QNH)': 'SET / CHECK' },
-        { 'COM/NAV / GPS': 'SET / CHECK' },
-        { 'Pressurization': 'CHECK' },
-        { 'Fuel Gauges': 'CHECK' },
-        { 'Amps / Volts': 'CHECK' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'Inert Sep': 'ON' }
-      ]
-    },
-    {
-      title: 'Landing',
-      items: [
-        { '@8nm to go: Landing Gear': 'DOWN' },
-        { '@8nm to go: Flaps': 'LDG' },
-        { 'Before 200 AGL': 'AP/YD DISCONNECT' }
+        { 'AP & YD': 'OFF' },
+        { 'Inert Sep': 'ON' },
+        { 'Flaps': 'FULL (AT MINIMUMS)' },
+        {
+          'Trim': 'SET for Landing',
+          'info':
+            'If AP armed let it settle the trim after flap (full) extension'
+        },
+        { 'WIND': 'CHECK' },
+        { 'Speed': '~65-75 KIAS' },
+        { 'Throttles': 'IDLE at 50 ft' },
+        { 'Touchdown': 'RETARD at 10 ft' },
+        { 'Reverse Thrust': 'If necessary until 40 KIAS' }
       ]
     },
     {
       title: 'After Landing',
       items: [
-        { 'Taxi Lights': 'ON' },
-        { 'Strobe Lights': 'OFF' },
-        { 'De-Ice Systems': 'AS REQ' },
-        { 'Trims': 'RESET TO T/O' },
-        { 'Flaps': 'UP' },
-        { 'A/C': 'AS REQ' },
-        { 'XPDR': 'STBY' },
-        { 'WX RADAR': 'STBY' }
+        { 'Flaps': 'RETRACT' },
+        { 'Taxi & Parking Clearance': 'OBTAINED' },
+        { 'Taxi Lights': 'ON' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
-        { 'Parking Brake': 'ON' },
-        { 'Taxi Lights': 'OFF' },
-        { 'Internal Lights': 'AS REQ' },
+        { 'Parking Brake': 'SET' },
+        { 'Oxygen Master Switch': 'OFF' },
         { 'Fuel Sel': 'MAN' },
-        { 'AP/TRIM': 'OFF' },
+        { 'AP/Trims': 'OFF' },
         { 'A/C': 'OFF' },
         { 'Bleed': 'OFF' },
-        { 'Throttle': 'IDLE FOR 2 MIN' },
-        { 'Throttle': 'LO-IDLE FOR 15 SEC' },
-        { 'Throttle': 'CUTOFF' },
-        { 'Pitot L HTR / Pitot R & Stall HTR': 'OFF' },
+        { 'Throttle': 'IDLE for 2 MIN' },
+        { 'Throttle': 'LO-IDLE for 15 SEC' },
+        { 'Throttle': 'CUT OFF' },
         { 'Inert Sep': 'OFF' },
         { 'Aux BP': 'OFF' },
-        { 'NAV Lights': 'OFF' },
-        { 'Ignition': 'OFF' },
         { 'Generator': 'OFF' },
-        { 'When Inert Sep is retracted, after ~40 sec: Source': 'OFF' },
-        { 'When Inert Sep is retracted, after ~40 sec: Crash Lever': 'DOWN' },
-        {
-          'When Inert Sep is retracted, after ~40 sec: Stand-by instruments':
-            'OFF'
-        },
-        { 'When Inert Sep is retracted, after ~40 sec: Oxygen': 'OFF' }
+        { 'Source': 'OFF' },
+        { 'Crash Lever': 'DOWN' },
+        { 'Lights': 'OFF' }
       ]
     }
   ]

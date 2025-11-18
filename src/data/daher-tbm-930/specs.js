@@ -17,7 +17,7 @@ export const TBM930Specs = {
         },
         { 'VMO': '330 KTAS' },
         { 'VLE': '178 KIAS' },
-        { 'VFE (1)': '150 KIAS' },
+        { 'VFE (1)': '178 KIAS' },
         { 'VFE (Full)': '122 KIAS' },
         {
           'Payload': '1,403 lb | 636 kg'

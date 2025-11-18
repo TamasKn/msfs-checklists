@@ -6,7 +6,7 @@ export const diamondDa42Checklist = {
     {
       title: 'Cockpit Preparation',
       items: [
-        { 'IFR CLEARANCE': 'OBTAINED' },
+        { 'ATC CLEARANCE': 'OBTAINED' },
         { 'Parking Brake': 'SET' },
         { 'Alternate Static': 'OFF' },
         { 'Gear Lever': 'DOWN' },
