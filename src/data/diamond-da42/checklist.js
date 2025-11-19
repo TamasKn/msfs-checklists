@@ -22,7 +22,7 @@ export const diamondDa42Checklist = {
         { 'START CLEARANCE': 'OBTAINED' },
         { 'L & R ECU': 'AUTO' },
         { 'Alternator': 'ON' },
-        { 'BARO': 'SET' }
+        { 'BARO': 'SET PFD & Analog' }
       ]
     },
     {
@@ -30,9 +30,9 @@ export const diamondDa42Checklist = {
       items: [
         { 'Strobe Lights': 'ON' },
         { 'L Engine Master': 'ON' },
-        { 'Glow Plugs': 'OUT' },
+        { 'Glow Plugs': 'Wait for OUT' },
         { 'L Engine': 'START' },
-        { 'Oil Pressure': 'CHECK' },
+        { 'Oil Pressure': 'CHECK (out of RED)' },
         { 'Voltage/Electrical Load': 'CHECK' },
         { 'Repeat R Engine': 'COMPLETE' }
       ]
@@ -46,8 +46,7 @@ export const diamondDa42Checklist = {
         { 'Avionics Master': 'ON' },
         { 'Pitot Heat': 'ON' },
         { 'STDBY Horizon Cage': 'SET' },
-        { 'Fuel Selector': 'ON' },
-        { 'FMS': 'SET' }
+        { 'Fuel Selector': 'ON' }
       ]
     },
     {
@@ -55,7 +54,9 @@ export const diamondDa42Checklist = {
       items: [
         { 'Flight Plan': 'DEPARTURE VERIFIED' },
         { 'Trim': 'SET for Takeoff' },
+        { 'Flaps': 'SET for Takeoff' },
         { 'Altitude': 'SET -> FLC & VNV' },
+        { 'CDI': 'GPS/LOC' },
         { 'Navigation': 'SET -> NAV/HDG' },
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
@@ -103,10 +104,11 @@ export const diamondDa42Checklist = {
         { 'Power': '92%' },
         { 'Landing Lights': 'OFF' },
         { 'Fuel Pumps': 'OFF' },
+        { 'GPS': 'Direct to Waypoint (if applicable)' },
         { 'De-Ice': 'AS REQUIRED' },
         { 'Autopilot': 'MONITOR' },
         { 'Cruise Altitude': 'SET' },
-        { 'BARO': 'SET to STD' }
+        { 'BARO': 'SET to STD (if applicable)' }
       ]
     },
     {
@@ -119,14 +121,18 @@ export const diamondDa42Checklist = {
     },
     {
       title: 'Descent',
-      items: [{ 'Power': 'SET 40-60%' }, { 'BARO': 'SET' }]
+      items: [
+        { 'Power': 'SET 30-60%' },
+        { 'BARO': 'SET for Destination' },
+        { 'Landing Lights': 'ON' }
+      ]
     },
     {
       title: 'Approach',
       items: [
-        { 'Power': 'AS REQUIRED' },
         { 'Fuel Pumps': 'ON' },
         { 'Flaps': 'APPROACH' },
+        { 'Power': 'MANAGE' },
         { 'Gear': 'DOWN' },
         { 'Flaps': 'LANDING' }
       ]
@@ -136,8 +142,7 @@ export const diamondDa42Checklist = {
       items: [
         { 'FAF Speed': '80 KIAS' },
         { 'Touchdown': '65 KIAS' },
-        { 'Brakes': 'AS REQUIRED' },
-        { 'Landing Lights': 'ON' }
+        { 'Brakes': 'AS REQUIRED' }
       ]
     },
     {
