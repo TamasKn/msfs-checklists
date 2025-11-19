@@ -48,7 +48,8 @@ export const cessnaLongitudeChecklist = {
         { 'INIT': 'ALL CHECKED & ACCEPTED' },
         {
           'Altimeter Transition': 'SET to Regional',
-          'info': 'BARO transitions: Utilities/Setup/Avionics/Alerts'
+          'info':
+            'Check flight plan Charts Transition Altitude (TA). Change (Climb & Descent): Utilities/Setup/Avionics/Alerts'
         }
       ]
     },
