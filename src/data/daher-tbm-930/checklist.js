@@ -42,25 +42,17 @@ export const TBM930Checklist = {
         { 'Crash Lever': 'UP' },
         { 'Source': 'BAT (or GPU)' },
         { 'Flight Plan': 'Verified' },
-        { 'ATC Clearance': 'Copied / as required' },
+        { 'IFR Clearance': 'OBTAINED' },
         { 'Generator': 'MAIN' },
         { 'Fuel on board': 'CHECK' },
         { 'BAT Voltage': 'min. 24.5V' },
-        { 'GPU Voltage': '~28V' },
-        { 'Altimeter': 'SET' }
+        { 'GPU Voltage': '~28V' }
       ]
     },
     {
-      title: 'Takeoff PERF (G5000)',
+      title: 'FMS',
       items: [
-        {
-          'VNAV Profiles': 'SET / CHECK',
-          'info': 'Flight plan - VNAV - Profile, Climb, Cruise, Descent'
-        },
         { 'Weight and Fuel': 'TAKEOFF FOB sync' },
-        { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Takeoff Config': 'SET recommended Flap' },
-        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
         { 'INIT': 'ALL CHECKED & ACCEPTED' },
         {
           'Altimeter Transition': 'SET to Regional',
@@ -77,7 +69,7 @@ export const TBM930Checklist = {
         { 'Ignition': 'AUTO' },
         { 'Aux BP': 'ON' },
         { 'CAS MSG "AUX BOOST PMP ON"': 'CHECK' },
-        { 'Throttle': 'IDLE' },
+        { 'Throttle': 'CUT OFF/IDLE' },
         { 'Starter': 'ON (2" then OFF)' },
         {
           '@NG > 13% -> Throttle': 'LO-IDLE',
@@ -90,11 +82,8 @@ export const TBM930Checklist = {
     {
       title: 'After Engine Start',
       items: [
-        { 'Source (if GPU used)': 'BAT' },
-        { 'GPU (if used)': 'DISCONNECT' },
-        { 'CAS « GPU DOOR »': 'OFF' },
-        { 'Throttle': 'LO-IDLE -> HIGH-IDLE' },
-        { 'NG 70% (±2%)': 'CHECK' },
+        { 'Throttle': 'HI-IDLE' },
+        { 'NG 70% (+/-2)': 'CHECK' },
         { 'Oil Press. / Temp.': 'CHECK' },
         { 'Aux BP': 'AUTO' },
         { 'Fuel Sel': 'AUTO' },
@@ -110,7 +99,7 @@ export const TBM930Checklist = {
       title: 'Before Taxi',
       items: [
         { 'Flight Plan': 'DEPARTURE VERIFIED' },
-        { 'Trims': 'SET for Takeoff' },
+        { 'Trims': 'SET for Takeoff (~10%)' },
         { 'Flaps': 'SET for Takeoff' },
         { 'Altitude': 'SET -> FLC & VNAV' },
         { 'Navigation': 'SET -> NAV/HDG' },
@@ -140,7 +129,6 @@ export const TBM930Checklist = {
       items: [
         { 'Runway Clearance': 'OBTAIN' },
         { 'Landing Lights': 'ON' },
-        { 'Strobes': 'ON' },
         { 'Pitot L/Pitot R & Stall HTR': 'ON' },
         { 'EIS & CAS': 'CHECK' }
       ]
@@ -162,7 +150,7 @@ export const TBM930Checklist = {
       title: 'Climb',
       items: [
         { 'Landing Lights': 'OFF after FL100' },
-        { 'Climb Speed': '124 KIAS (Vy) - 170 KIAS' },
+        { 'Speed': '124 KIAS (Vy) - 170 KIAS' },
         { 'Autopilot': 'MONITOR' },
         { 'Cruise Altitude': 'SET' },
         { 'TRQ/ITT/NG': 'CHECK' },
@@ -172,18 +160,13 @@ export const TBM930Checklist = {
     {
       title: 'Cruise & Before Descent',
       items: [
+        { 'Throttle': '70-90% TRQ' },
         {
           'Flight Plan': 'APPROACH VERIFIED / SET',
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
-        {
-          'Altitude Constraints': 'FIX FAF to Signal altitude',
-          'info':
-            'You may set the Final Approach Fix to 20-50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
-        },
         { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' },
-        { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' },
         { 'De-Ice Systems': 'AS REQUIRED' },
         { 'Inert Sep': 'AS REQUIRED' }
       ]
@@ -191,6 +174,8 @@ export const TBM930Checklist = {
     {
       title: 'Descent',
       items: [
+        { 'Throttle': '70-90% TRQ' },
+        { 'Speed': '200 KIAS below FL100' },
         { 'Clearance': 'OBTAINED' },
         { 'Landing Lights': 'ON (below FL100)' },
         { 'ATIS & Weather': 'CHECK' },
@@ -200,18 +185,21 @@ export const TBM930Checklist = {
     {
       title: 'Approach & Landing',
       items: [
-        { 'AP & YD': 'OFF' },
         { 'Inert Sep': 'ON' },
-        { 'Flaps': 'FULL (AT MINIMUMS)' },
+        { 'Flaps': 'APPROACH' },
+        { 'Speed': '90-100 KIAS' },
+        { 'Approach': 'APPR (GP) armed at FAF' },
+        { 'Gear': 'DOWN' },
+        { 'WIND': 'CHECK' },
         {
           'Trim': 'SET for Landing',
           'info':
             'If AP armed let it settle the trim after flap (full) extension'
         },
-        { 'WIND': 'CHECK' },
-        { 'Speed': '~65-75 KIAS' },
+        { 'Flaps': 'LANDING' },
+        { 'AP & YD': 'OFF' },
         { 'Throttles': 'IDLE at 50 ft' },
-        { 'Touchdown': 'RETARD at 10 ft' },
+        { 'Touchdown': '~65-75 KIAS, RETARD at 10 ft' },
         { 'Reverse Thrust': 'If necessary until 40 KIAS' }
       ]
     },
@@ -232,10 +220,11 @@ export const TBM930Checklist = {
         { 'AP/Trims': 'OFF' },
         { 'A/C': 'OFF' },
         { 'Bleed': 'OFF' },
-        { 'Throttle': 'IDLE for 2 MIN' },
-        { 'Throttle': 'LO-IDLE for 15 SEC' },
-        { 'Throttle': 'CUT OFF' },
         { 'Inert Sep': 'OFF' },
+        { 'Pitot L/Pitot R & Stall HTR': 'OFF' },
+        { 'Throttle': 'HI-IDLE' },
+        { 'Throttle': 'LO-IDLE' },
+        { 'Throttle': 'CUT OFF' },
         { 'Aux BP': 'OFF' },
         { 'Generator': 'OFF' },
         { 'Source': 'OFF' },

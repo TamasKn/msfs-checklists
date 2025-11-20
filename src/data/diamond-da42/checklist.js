@@ -116,13 +116,14 @@ export const diamondDa42Checklist = {
       items: [
         { 'Power': 'SET 50-92%' },
         { 'Fuel Quantity': 'CHECK' },
-        { 'Flight Plan': 'APPROACH VERIFIED' }
+        { 'Flight Plan': 'APPROACH VERIFIED' },
+        { 'Altitude': 'SET RWY + 1,000 ft -> VNV' }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'Power': 'SET 30-60%' },
+        { 'Power': 'SET 20-60%' },
         { 'BARO': 'SET for Destination' },
         { 'Landing Lights': 'ON' }
       ]
@@ -133,6 +134,7 @@ export const diamondDa42Checklist = {
         { 'Fuel Pumps': 'ON' },
         { 'Flaps': 'APPROACH' },
         { 'Power': 'MANAGE' },
+        { 'Approach': 'APPR (GP) armed at FAF' },
         { 'Gear': 'DOWN' },
         { 'Flaps': 'LANDING' }
       ]
