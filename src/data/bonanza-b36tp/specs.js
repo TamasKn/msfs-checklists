@@ -8,15 +8,15 @@ export const bonanzaB36TPSpecs = {
       items: [
         { 'Max Operating Altitude': '25,000 ft' },
         { 'Cruise Speed': '200 KTAS' },
-        { 'Range': '900 NM' },
-        { 'Rate of Climb': '1,500 ft/min' },
+        { 'Range': '1200 NM' },
+        { 'Rate of Climb': '1,600 ft/min' },
         { 'VNE': '210 KIAS' },
-        { 'VFE': '153 KIAS' },
+        { 'VFE': '123 KIAS' },
         { 'VLE': '153 KIAS' },
         { 'VLO': '124 KIAS' },
-        { 'Fuel Consumption (G/hr)': 30 },
+        { 'Fuel Consumption (L/hr)': 113.6 },
         { 'Payload': '1,200 lb' },
-        { 'Fuel Capacity': '102 gal' },
+        { 'Fuel Capacity': '611.9 lb | 277.6 kg' },
         { 'Stall Speed': '65 KCAS' }
       ]
     }
