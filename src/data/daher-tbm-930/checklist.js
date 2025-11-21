@@ -66,7 +66,6 @@ export const TBM930Checklist = {
       items: [
         { 'START CLEARANCE': 'OBTAINED' },
         { 'Strobe Lights': 'ON' },
-        { 'Ignition': 'AUTO' },
         { 'Aux BP': 'ON' },
         { 'CAS MSG "AUX BOOST PMP ON"': 'CHECK' },
         { 'Throttle': 'CUT OFF/IDLE' },
@@ -88,7 +87,6 @@ export const TBM930Checklist = {
         { 'Aux BP': 'AUTO' },
         { 'Fuel Sel': 'AUTO' },
         { 'AP/Trims': 'ON' },
-        { 'Generator': 'MAIN' },
         { 'De-Ice': 'AS REQUIRED' },
         { 'A/C': 'AUTO' },
         { 'Temp / Hot Air Flow': 'AS REQUIRED' },
@@ -167,8 +165,7 @@ export const TBM930Checklist = {
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
         { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' },
-        { 'De-Ice Systems': 'AS REQUIRED' },
-        { 'Inert Sep': 'AS REQUIRED' }
+        { 'De-Ice Systems': 'AS REQUIRED' }
       ]
     },
     {
