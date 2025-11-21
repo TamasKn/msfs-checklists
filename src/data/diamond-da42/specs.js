@@ -15,7 +15,7 @@ export const diamondDa42Specs = {
         { 'VFE (Approach)': '92 KIAS' },
         { 'VFE (Landing)': '88 KIAS' },
         {
-          'Fuel Consumption (G/hr)': 10.4
+          'Fuel Consumption (L/hr)': 39.4
         },
         { 'Max Landing Sink Rate': '600 ft/min' },
         { 'Payload': '1,299 lb' },
