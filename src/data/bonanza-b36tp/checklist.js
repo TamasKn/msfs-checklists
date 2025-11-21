@@ -4,119 +4,168 @@ export const bonanzaB36TPChecklist = {
   name: AircraftName.BonanzaB36TP,
   checklist: [
     {
-      title: 'Cockpit Preparation',
-      items: [
-        { 'Parking Brake': 'SET' },
-        { 'Gear Lever': 'DOWN' },
-        { 'Power Lever': 'IDLE' },
-        { 'Condition Lever': 'CUTOFF' },
-        { 'Battery Master': 'ON' }
-      ]
-    },
-    {
       title: 'Before Engine Start',
       items: [
-        { 'Fuel Selector': 'ON' },
-        { 'Fuel Pump': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Beacon': 'ON' }
+        { 'Seats, belts and harnesses': 'Adjusted and fastened' },
+        { 'Passenger briefing': 'Complete' },
+        { 'Parking brake': 'Set' },
+        { 'Electrical switches': 'Off' },
+        { 'Avionics master': 'Off' },
+        { 'Fuel selector': 'On main tank' },
+        { 'Condition levers': 'Cutoff' },
+        { 'Power levers': 'Idle' },
+        { 'Prop levers': 'Full forward' },
+        { 'Inertial separator': 'Closed' },
+        { 'Oil cooler door': 'Open' },
+        { 'Weather and altimeter': 'Set and reviewed' },
+        { 'Area around propeller': 'Clear' }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Propeller Area': 'CLEAR' },
-        { 'Starter': 'ENGAGE' },
-        { 'At 12% N1': 'CONDITION LEVER LOW IDLE' },
-        { 'At 50% N1': 'STARTER DISENGAGE' },
-        { 'Oil Pressure': 'CHECK' }
+        { 'Battery master': 'On' },
+        { 'Ignition switch': 'Start' },
+        { 'Condition lever': 'Low idle at twelve percent NG' },
+        { 'Oil pressure': 'Indicates within thirty seconds' },
+        { 'ITT': 'Monitor, remain within limits' },
+        { 'Starter': 'Disengage at fifty percent NG' },
+        { 'Generator': 'On' },
+        { 'Avionics master': 'On' },
+        { 'Engine instruments': 'Check normal' },
+        { 'Fuel pump': 'Auto or on as required' }
       ]
     },
     {
-      title: 'After Start',
+      title: 'After Engine Start',
       items: [
-        { 'Avionics Master': 'ON' },
-        { 'Flaps': 'UP' },
-        { 'Parking Brake': 'RELEASE' }
+        { 'ITT and torque': 'Within limits' },
+        { 'Generator and ammeter': 'Check charge' },
+        { 'Oil pressure and temperature': 'Normal range' },
+        { 'Avionics and radios': 'Set' },
+        { 'Environmental system': 'Set as required' },
+        { 'Flight instruments': 'Checked and set' },
+        { 'Beta range': 'Check function' }
+      ]
+    },
+    {
+      title: 'Run-Up',
+      items: [
+        { 'Parking brake': 'Set' },
+        { 'Power lever': 'Advance to seventeen hundred RPM' },
+        { 'Propeller governor': 'Cycle check' },
+        { 'Fuel control and torque response': 'Smooth and within limits' },
+        { 'Condition lever': 'High idle' },
+        { 'Inertial separator': 'Operate then closed' },
+        { 'Oil cooler door': 'Set for takeoff' },
+        { 'Annunciator panel': 'Check all out' },
+        { 'Beta range': 'Check engagement' },
+        { 'Flight controls': 'Free and correct' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Flaps': 'APPROACH' },
-        { 'Flight Controls': 'CHECK' },
-        { 'Trims': 'SET FOR TAKEOFF' },
-        { 'Lights': 'ON' }
+        { 'Flight controls': 'Free and correct' },
+        { 'Flight instruments': 'Checked and set' },
+        { 'Trim': 'Set for takeoff' },
+        { 'Flaps': 'Set for takeoff' },
+        { 'Power lever': 'Idle' },
+        { 'Propeller': 'Full forward' },
+        { 'Condition lever': 'High idle' },
+        { 'Inertial separator': 'As required' },
+        { 'Fuel pump': 'On' },
+        { 'Doors and windows': 'Latched' },
+        { 'Takeoff briefing': 'Reviewed' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
-        { 'Power Lever': 'FULL' },
-        { 'Rotate Speed': '80 KIAS' },
-        { 'Climb Speed': '100 KIAS' },
-        { 'Positive Climb': 'GEAR UP' },
-        { 'Flaps': 'UP' }
+        { 'Power lever': 'Advance to takeoff power' },
+        { 'Torque and ITT': 'Within limits' },
+        { 'Airspeed': 'Alive' },
+        { 'Rotate': 'At proper speed' },
+        { 'Positive rate': 'Gear up' },
+        { 'Climb power': 'Set after safe altitude' }
       ]
     },
     {
       title: 'Climb',
       items: [
-        { 'Power': 'SET' },
-        { 'Prop': 'SET' },
-        { 'Condition Lever': 'HIGH IDLE' }
+        { 'Torque': 'Set per climb table' },
+        { 'Propeller': 'Set for climb RPM' },
+        { 'Condition lever': 'High idle' },
+        { 'Inertial separator': 'Closed unless icing' },
+        { 'Oil cooler door': 'As required' },
+        { 'Engine instruments': 'Monitor' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'SET' },
-        { 'Prop': 'SET' },
-        { 'Autopilot': 'ENGAGED' }
+        { 'Power': 'Set for cruise' },
+        { 'Torque and ITT': 'Within limits' },
+        { 'Condition lever': 'Low idle' },
+        { 'Fuel': 'Balance and quantity checked' },
+        { 'Engine instruments': 'Monitor' }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'ATIS': 'OBTAIN' },
-        { 'Altimeters': 'SET' },
-        { 'Approach Briefing': 'COMPLETE' }
+        { 'ATIS and altimeter': 'Obtained and set' },
+        { 'Power': 'As required for descent' },
+        { 'Inertial separator': 'As required' },
+        { 'Fuel pump': 'As required' },
+        { 'Propeller': 'As required' },
+        { 'Engine instruments': 'Monitor' }
       ]
     },
     {
       title: 'Approach',
       items: [
-        { 'Power': 'AS REQUIRED' },
-        { 'Prop': 'FULL FORWARD' },
-        { 'Condition Lever': 'HIGH IDLE' },
-        { 'Gear': 'DOWN' },
-        { 'Flaps': 'AS REQUIRED' }
+        { 'Seats and belts': 'Fastened' },
+        { 'Fuel pump': 'On' },
+        { 'Condition lever': 'High idle' },
+        { 'Propeller': 'Full forward' },
+        { 'Gear': 'Down, three green' },
+        { 'Flaps': 'As required' },
+        { 'Landing light': 'On' }
       ]
     },
     {
       title: 'Landing',
       items: [
-        { 'Final Approach Speed': '85 KIAS' },
-        { 'Touchdown': 'MAIN WHEELS FIRST' },
-        { 'Brakes': 'AS REQUIRED' }
+        { 'Final checks': 'Gear down, flaps set' },
+        { 'Airspeed': 'Stabilized' },
+        { 'Touchdown': 'Main wheels first' },
+        { 'Beta range': 'Engage after touchdown' },
+        { 'Directional control': 'Maintain' }
       ]
     },
     {
       title: 'After Landing',
       items: [
-        { 'Flaps': 'UP' },
-        { 'Strobe Lights': 'OFF' },
-        { 'Transponder': 'ALT OFF' }
+        { 'Flaps': 'Up' },
+        { 'Fuel pump': 'Off' },
+        { 'Inertial separator': 'Closed' },
+        { 'Oil cooler door': 'Open' },
+        { 'Condition lever': 'Low idle' },
+        { 'Lights': 'As required' },
+        { 'Transponder': 'Standby' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Avionics Master': 'OFF' },
-        { 'Condition Lever': 'CUTOFF' },
-        { 'Battery Master': 'OFF' }
+        { 'Avionics master': 'Off' },
+        { 'Power lever': 'Idle' },
+        { 'Condition lever': 'Cutoff' },
+        { 'Ignition': 'Off' },
+        { 'Generator and battery': 'Off' },
+        { 'Control lock': 'Installed' },
+        { 'Chocks and covers': 'As required' }
       ]
     }
   ]
