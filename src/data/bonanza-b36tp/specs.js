@@ -17,7 +17,12 @@ export const bonanzaB36TPSpecs = {
         { 'Fuel Consumption (L/hr)': 113.6 },
         { 'Payload': '1,200 lb' },
         { 'Fuel Capacity': '611.9 lb | 277.6 kg' },
-        { 'Stall Speed': '65 KCAS' }
+        { 'Stall Speed': '65 KCAS' },
+        { 'Propeller (RPM)': 2700 },
+        { 'Cylinder Head Temperature [CHT] (°C)': 238 },
+        { 'Exhaust Gas Temperature [EGT] (°C)': 870 },
+        { 'Engine Oil Temperature (°C)': 116 },
+        { 'Fastest Cooling Cylinder Head (°C/min)': 33 }
       ]
     }
   ]
