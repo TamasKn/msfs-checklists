@@ -90,23 +90,29 @@ export const bonanzaB36TPChecklist = {
           'info': 'STD: 29.92 in / 1013 hPa'
         },
         { 'Prop heat': 'IF REQ' },
-        { 'Engine instruments': 'Monitor' }
+        { 'Engine instruments': 'Monitor' },
+        {
+          'TOD calculation': 'Obtained',
+          'info':
+            'Distance (NM): (Altitude to lose in ft / 1000) * 3, VS (fpm): 5 x Ground Speed (kts)'
+        }
       ]
     },
     {
       title: 'Descent',
       items: [
+        { 'TOD': 'Start descent as calculated' },
         { 'ATIS and Weather': 'Obtained and Checked' },
         { 'Power': 'Reduce for descent' },
-        { 'Fuel': 'Balance and quantity checked' },
         { 'Propeller': 'As required' },
-        { 'Engine instruments': 'Monitor' }
+        { 'Fuel': 'Balance and quantity checked' }
       ]
     },
     {
       title: 'Approach',
       items: [
         { 'Landing lights': 'ON' },
+        { 'Speed': '90-100 KIAS' },
         { 'Ignition': 'AUTO' },
         { 'Prop Heat': 'OFF' },
         { 'BARO': 'Set to destination' },
@@ -116,7 +122,11 @@ export const bonanzaB36TPChecklist = {
     },
     {
       title: 'Landing',
-      items: [{ 'Propeller': 'High' }, { 'Fuel pump': 'PUMP1 ON' }]
+      items: [
+        { 'Propeller': 'High' },
+        { 'Fuel pump': 'PUMP1 ON' },
+        { 'TD Speed': '~75 KIAS' }
+      ]
     },
     {
       title: 'After Landing',
