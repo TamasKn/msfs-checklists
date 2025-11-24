@@ -8,9 +8,9 @@ export const bonanzaB36TCSpecs = {
       items: [
         { 'Max Operating Altitude': '25,000 ft' },
         { 'Cruise Speed': '170 KTAS' },
-        { 'Range': '1,000 NM' },
+        { 'Range': '900 NM' },
         { 'Rate of Climb': '1,165 ft/min' },
-        { 'VNE': '206 KIAS' },
+        { 'VNE': '205 KIAS' },
         { 'VFE': '153 KIAS' },
         { 'VLE': '153 KIAS' },
         { 'VLO': '124 KIAS' },

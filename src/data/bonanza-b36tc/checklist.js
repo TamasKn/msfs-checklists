@@ -7,98 +7,143 @@ export const bonanzaB36TCChecklist = {
       title: 'Cockpit Preparation',
       items: [
         { 'Parking Brake': 'SET' },
-        { 'Gear Lever': 'DOWN' },
+        { 'Control Lock': 'REMOVED' },
         { 'Power Lever': 'IDLE' },
-        { 'Mixture': 'CUTOFF' },
-        { 'Prop': 'FULL FORWARD' },
-        { 'Battery Master': 'ON' }
+        { 'Mixture': 'CUTOFF' }
       ]
     },
     {
       title: 'Before Engine Start',
       items: [
-        { 'Fuel Selector': 'ON' },
-        { 'Fuel Pump': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Beacon': 'ON' }
+        { 'Battery Master': 'ON' },
+        { 'Alternator & STBY Alternator': 'ON' },
+        { 'Bus Volts': 'Min 23V' },
+        { 'Fuel Boost Pump': 'LO, verify operational, then OFF' },
+        { 'Fuel Selectors': 'ON' },
+        { 'ELT Switch': 'ON' },
+        { 'Beacon Lights': 'ON' }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Propeller Area': 'CLEAR' },
+        { 'Clearance': 'OBTAINED' },
+        { '---IF Ambient Temp < 32 C (Normal Start)': '' },
+        { 'Power Lever': 'FULL' },
+        { 'Prop': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
-        { 'Engine': 'START' },
+        { 'Fuel Boost Pump': 'HI, until fuel flow, then OFF' },
+        { 'Power Lever': 'IDLE, then 20%' },
+        { 'Ignition': 'START' },
+        { 'Power Lever': '~1000 RPM' },
+        { 'Oil Pressure': 'CHECK' },
+        { '---IF Ambient Temp > 32 C (Hot Start)': '' },
+        { 'Power Lever': 'CLOSED' },
+        { 'Prop': 'FULL FORWARD' },
+        { 'Mixture': 'CUTOFF' },
+        { 'Fuel Boost Pump': 'HI, for 60 sec, then OFF' },
+        { 'Power Lever': 'FUL' },
+        { 'Mixture': 'RICH' },
+        { 'Fuel Boost Pump': 'HI, until fuel flow, then LO' },
+        { 'Power Lever': 'IDLE, then 20%' },
+        { 'Ignition': 'START' },
+        { 'Power Lever': '~1000 RPM' },
         { 'Oil Pressure': 'CHECK' }
       ]
     },
     {
-      title: 'After Start',
+      title: 'After Engine Start',
       items: [
+        { 'Mixture': 'LEAN' },
         { 'Avionics Master': 'ON' },
-        { 'Flaps': 'UP' },
-        { 'Parking Brake': 'RELEASE' }
+        { 'Bus Volts': '28V' },
+        { 'BARO': 'Set' },
+        { 'Flaps': 'Set for takeoff' },
+        { 'Trims': 'Set for takeoff' },
+        { 'Parking Brake': 'RELEASE' },
+        { 'Flight Controls': 'FREE & CORRECT' },
+        { 'Taxi Lights': 'ON' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Flaps': 'APPROACH' },
-        { 'Flight Controls': 'CHECK' },
-        { 'Trims': 'SET FOR TAKEOFF' },
-        { 'Lights': 'ON' }
+        { 'Runway Clearance': 'OBTAINED' },
+        { 'Runway Alignment': 'CHECK' },
+        { 'Heading Bug': 'SET' },
+        { 'Pitot Heat': 'ON' },
+        { 'Prop': 'FULL FORWARD' },
+        { 'Mixture': 'RICH' },
+        { 'Taxi Lights': 'OFF' },
+        { 'Landing Lights': 'ON' },
+        { 'Strobe Lights': 'ON' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
+        { 'Departure Clearance': 'OBTAINED' },
         { 'Power Lever': 'FULL' },
         { 'Rotate Speed': '80 KIAS' },
         { 'Climb Speed': '100 KIAS' },
-        { 'Positive Climb': 'GEAR UP' },
-        { 'Flaps': 'UP' }
+        { 'Landing Gear': 'UP' },
+        { 'Flaps': 'RETRACT at safe speed' }
       ]
     },
     {
       title: 'Climb',
       items: [
         { 'Power': 'SET' },
-        { 'Prop': 'SET' },
-        { 'Mixture': 'SET' }
+        { 'Prop': '2500 RPM' },
+        {
+          'BARO': 'Set to STD (if applicable)',
+          'info': 'STD: 29.92 in / 1013 hPa'
+        },
+        { 'Landing Lights': 'OFF' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'SET' },
-        { 'Prop': 'SET' },
-        { 'Mixture': 'SET' },
-        { 'Autopilot': 'ENGAGED' }
+        { 'Power': '45 - 75%' },
+        { 'Prop': '2100 - 2500 RPM' },
+        { 'Mixture': 'LEAN' },
+        { 'Fuel': 'CHECK balance and quantity' },
+        {
+          'TOD calculation': 'Obtained',
+          'info':
+            'Distance (NM): (Altitude to lose in ft / 1000) * 3, VS (fpm): 5 x Ground Speed (kts)'
+        }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'ATIS': 'OBTAIN' },
-        { 'Altimeters': 'SET' },
-        { 'Approach Briefing': 'COMPLETE' }
+        { 'TOD': 'Start descent as calculated' },
+        { 'ATIS & Weather': 'OBTAIN' },
+        { 'BARO': 'SET to destination' },
+        { 'Mixture': 'RICH' },
+        { 'Fuel': 'CHECK balance and quantity' }
       ]
     },
     {
       title: 'Approach',
       items: [
+        { 'Landing lights': 'ON' },
+        { 'Approach Speed': '110 KIAS' },
         { 'Power': 'AS REQUIRED' },
         { 'Prop': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
+        { 'Fuel': 'CHECK balance and quantity' },
         { 'Gear': 'DOWN' },
-        { 'Flaps': 'AS REQUIRED' }
+        { 'Flaps': 'AS REQUIRED' },
+        { 'Landing Clearance': 'OBTAINED' }
       ]
     },
     {
       title: 'Landing',
       items: [
-        { 'Final Approach Speed': '85 KIAS' },
+        { 'TD Speed': '75 KIAS' },
         { 'Touchdown': 'MAIN WHEELS FIRST' },
         { 'Brakes': 'AS REQUIRED' }
       ]
@@ -106,19 +151,28 @@ export const bonanzaB36TCChecklist = {
     {
       title: 'After Landing',
       items: [
+        { 'Parking Clearance': 'OBTAINED' },
         { 'Flaps': 'UP' },
         { 'Strobe Lights': 'OFF' },
-        { 'Transponder': 'ALT OFF' }
+        { 'Landing Lights': 'OFF' },
+        { 'Taxi Lights': 'ON' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
         { 'Parking Brake': 'SET' },
+        { 'Taxi Lights': 'OFF' },
         { 'Avionics Master': 'OFF' },
+        { 'Power': '1000 RPM' },
+        { 'Fuel Boost Pump': 'OFF' },
         { 'Mixture': 'CUTOFF' },
-        { 'Magnetos': 'OFF' },
-        { 'Battery Master': 'OFF' }
+        { 'Ignition': 'OFF' },
+        { 'Subpanel Switches': 'OFF' },
+        { 'Alternator & STBY Alternator': 'OFF' },
+        { 'Beacon Lights': 'OFF' },
+        { 'Battery Master': 'OFF' },
+        { 'Control Lock': 'INSTALLED' }
       ]
     }
   ]
