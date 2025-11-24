@@ -6,32 +6,37 @@ export const bonanzaB36TPChecklist = {
     {
       title: 'Before Engine Start',
       items: [
-        { 'Seats, belts and harnesses': 'Adjusted and fastened' },
-        { 'Passenger briefing': 'Complete' },
+        { 'Control locks': 'Removed' },
         { 'Parking brake': 'Set' },
-        { 'Electrical switches': 'Off' },
-        { 'Avionics master': 'Off' },
-        { 'Fuel selector': 'On main tank' },
-        { 'Condition levers': 'Cutoff' },
         { 'Power levers': 'Idle' },
         { 'Prop levers': 'Full forward' },
-        { 'Inertial separator': 'Closed' },
-        { 'Oil cooler door': 'Open' },
-        { 'Weather and altimeter': 'Set and reviewed' },
-        { 'Area around propeller': 'Clear' }
+        { 'Condition lever': 'Cutoff' },
+        { 'Aileron trim': 'Center' },
+        { 'Fuel selector': 'L or R Main' },
+        { 'Battery Master': 'ON' },
+        { 'Beacon light': 'ON' },
+        { 'Volts': 'Min 23V' },
+        { 'STBY Alt': 'ON' },
+        { 'Fuel Pump': 'Audible P1 & P2, then OFF' },
+        { 'Ignition': 'Auto, then ON' },
+        {
+          'STBY Gyro Pump': 'ON, then OFF',
+          'info': 'Wait for Horizon instrument to settle'
+        }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Battery master': 'On' },
-        { 'Ignition switch': 'Start' },
-        { 'Condition lever': 'Low idle at twelve percent NG' },
+        { 'Starter': 'ON' },
+        { 'NG%': 'Wait until 15.0, then Condition Lever forward' },
+        { 'Volts': 'Min 15' },
+        { 'ITT': 'Monitor, less than 1090 C' },
+        { 'Starter': 'OFF at NG% 52' },
+        { 'Ignition': 'OFF' },
+        { 'Generator': 'ON' },
+        { 'Bus Volts (VDC)': '28V' },
         { 'Oil pressure': 'Indicates within thirty seconds' },
-        { 'ITT': 'Monitor, remain within limits' },
-        { 'Starter': 'Disengage at fifty percent NG' },
-        { 'Generator': 'On' },
-        { 'Avionics master': 'On' },
         { 'Engine instruments': 'Check normal' },
         { 'Fuel pump': 'Auto or on as required' }
       ]
@@ -39,75 +44,52 @@ export const bonanzaB36TPChecklist = {
     {
       title: 'After Engine Start',
       items: [
+        { 'Avionics Master': 'ON' },
         { 'ITT and torque': 'Within limits' },
         { 'Generator and ammeter': 'Check charge' },
         { 'Oil pressure and temperature': 'Normal range' },
-        { 'Avionics and radios': 'Set' },
-        { 'Environmental system': 'Set as required' },
+        { 'Avionics': 'Set' },
+        { 'A/C & Cabin heating': 'Set as required' },
         { 'Flight instruments': 'Checked and set' },
-        { 'Beta range': 'Check function' }
-      ]
-    },
-    {
-      title: 'Run-Up',
-      items: [
-        { 'Parking brake': 'Set' },
-        { 'Power lever': 'Advance to seventeen hundred RPM' },
-        { 'Propeller governor': 'Cycle check' },
-        { 'Fuel control and torque response': 'Smooth and within limits' },
-        { 'Condition lever': 'High idle' },
-        { 'Inertial separator': 'Operate then closed' },
-        { 'Oil cooler door': 'Set for takeoff' },
-        { 'Annunciator panel': 'Check all out' },
-        { 'Beta range': 'Check engagement' },
-        { 'Flight controls': 'Free and correct' }
+        { 'Taxi lights': 'ON' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
         { 'Flight controls': 'Free and correct' },
+        { 'BARO': 'Set' },
         { 'Flight instruments': 'Checked and set' },
         { 'Trim': 'Set for takeoff' },
         { 'Flaps': 'Set for takeoff' },
         { 'Power lever': 'Idle' },
         { 'Propeller': 'Full forward' },
         { 'Condition lever': 'High idle' },
-        { 'Inertial separator': 'As required' },
-        { 'Fuel pump': 'On' },
-        { 'Doors and windows': 'Latched' },
-        { 'Takeoff briefing': 'Reviewed' }
-      ]
-    },
-    {
-      title: 'Takeoff',
-      items: [
-        { 'Power lever': 'Advance to takeoff power' },
-        { 'Torque and ITT': 'Within limits' },
-        { 'Airspeed': 'Alive' },
-        { 'Rotate': 'At proper speed' },
-        { 'Positive rate': 'Gear up' },
-        { 'Climb power': 'Set after safe altitude' }
+        { 'Pitot Heat': 'On' },
+        { 'Door Seals Switch': 'ON' },
+        { 'Taxi lights': 'OFF' },
+        { 'Landing lights': 'ON' }
       ]
     },
     {
       title: 'Climb',
       items: [
-        { 'Torque': 'Set per climb table' },
-        { 'Propeller': 'Set for climb RPM' },
-        { 'Condition lever': 'High idle' },
-        { 'Inertial separator': 'Closed unless icing' },
-        { 'Oil cooler door': 'As required' },
+        { 'Propeller': '2200 RPM' },
+        { 'Fuel imbalance': 'Max 15 gal' },
+        { 'Flaps': 'Up at safe speed' },
         { 'Engine instruments': 'Monitor' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'Set for cruise' },
-        { 'Torque and ITT': 'Within limits' },
-        { 'Condition lever': 'Low idle' },
+        { 'Propeller': 'Max 2000 RPM' },
         { 'Fuel': 'Balance and quantity checked' },
+        {
+          'BARO': 'Set to STD (if applicable)',
+          'info': 'STD: 29.92 in / 1013 hPa'
+        },
+        { 'Prop Heat': 'IF REQ' },
         { 'Engine instruments': 'Monitor' }
       ]
     },
@@ -115,9 +97,8 @@ export const bonanzaB36TPChecklist = {
       title: 'Descent',
       items: [
         { 'ATIS and altimeter': 'Obtained and set' },
-        { 'Power': 'As required for descent' },
-        { 'Inertial separator': 'As required' },
-        { 'Fuel pump': 'As required' },
+        { 'Power': 'Reduce for descent' },
+        { 'Fuel': 'Balance and quantity checked' },
         { 'Propeller': 'As required' },
         { 'Engine instruments': 'Monitor' }
       ]
@@ -125,47 +106,44 @@ export const bonanzaB36TPChecklist = {
     {
       title: 'Approach',
       items: [
-        { 'Seats and belts': 'Fastened' },
-        { 'Fuel pump': 'On' },
-        { 'Condition lever': 'High idle' },
-        { 'Propeller': 'Full forward' },
+        { 'Ignition': 'AUTO' },
+        { 'Prop Heat': 'OFF' },
+        { 'BARO': 'Set to destination' },
         { 'Gear': 'Down, three green' },
         { 'Flaps': 'As required' },
-        { 'Landing light': 'On' }
+        { 'Landing lights': 'ON' }
       ]
     },
     {
       title: 'Landing',
-      items: [
-        { 'Final checks': 'Gear down, flaps set' },
-        { 'Airspeed': 'Stabilized' },
-        { 'Touchdown': 'Main wheels first' },
-        { 'Beta range': 'Engage after touchdown' },
-        { 'Directional control': 'Maintain' }
-      ]
+      items: [{ 'Propeller': 'High' }, { 'Fuel pump': 'PUMP1 ON' }]
     },
     {
       title: 'After Landing',
       items: [
+        { 'Ignition': 'OFF' },
+        { 'Pitot Heat': 'OFF' },
         { 'Flaps': 'Up' },
         { 'Fuel pump': 'Off' },
-        { 'Inertial separator': 'Closed' },
-        { 'Oil cooler door': 'Open' },
-        { 'Condition lever': 'Low idle' },
-        { 'Lights': 'As required' },
-        { 'Transponder': 'Standby' }
+        { 'Door Seals Switch': 'OFF' },
+        { 'Taxi lights': 'ON' },
+        { 'Landing lights': 'OFF' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
-        { 'Avionics master': 'Off' },
-        { 'Power lever': 'Idle' },
+        { 'Parking Break': 'Set' },
+        { 'Avionics master': 'OFF' },
+        { 'Power levers': 'Idle' },
+        { 'Propeller levers': 'High idle' },
         { 'Condition lever': 'Cutoff' },
-        { 'Ignition': 'Off' },
-        { 'Generator and battery': 'Off' },
-        { 'Control lock': 'Installed' },
-        { 'Chocks and covers': 'As required' }
+        { 'Generator': 'OFF' },
+        { 'STBY Alt': 'OFF' },
+        { 'Fuel Pumps': 'OFF' },
+        { 'Lights': 'OFF' },
+        { 'Battery Master': 'OFF' },
+        { 'Control lock': 'Installed' }
       ]
     }
   ]
