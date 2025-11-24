@@ -59,13 +59,12 @@ export const bonanzaB36TPChecklist = {
       items: [
         { 'Flight controls': 'Free and correct' },
         { 'BARO': 'Set' },
-        { 'Flight instruments': 'Checked and set' },
         { 'Trim': 'Set for takeoff' },
         { 'Flaps': 'Set for takeoff' },
         { 'Power lever': 'Idle' },
         { 'Propeller': 'Full forward' },
         { 'Condition lever': 'High idle' },
-        { 'Pitot Heat': 'On' },
+        { 'Pitot Heat': 'ON' },
         { 'Door Seals Switch': 'ON' },
         { 'Taxi lights': 'OFF' },
         { 'Landing lights': 'ON' }
@@ -76,8 +75,9 @@ export const bonanzaB36TPChecklist = {
       items: [
         { 'Propeller': '2200 RPM' },
         { 'Fuel imbalance': 'Max 15 gal' },
-        { 'Flaps': 'Up at safe speed' },
-        { 'Engine instruments': 'Monitor' }
+        { 'Flaps': 'Retract at safe speed' },
+        { 'Engine instruments': 'Monitor' },
+        { 'Landing lights': 'OFF' }
       ]
     },
     {
@@ -89,14 +89,14 @@ export const bonanzaB36TPChecklist = {
           'BARO': 'Set to STD (if applicable)',
           'info': 'STD: 29.92 in / 1013 hPa'
         },
-        { 'Prop Heat': 'IF REQ' },
+        { 'Prop heat': 'IF REQ' },
         { 'Engine instruments': 'Monitor' }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'ATIS and altimeter': 'Obtained and set' },
+        { 'ATIS and Weather': 'Obtained and Checked' },
         { 'Power': 'Reduce for descent' },
         { 'Fuel': 'Balance and quantity checked' },
         { 'Propeller': 'As required' },
@@ -106,12 +106,12 @@ export const bonanzaB36TPChecklist = {
     {
       title: 'Approach',
       items: [
+        { 'Landing lights': 'ON' },
         { 'Ignition': 'AUTO' },
         { 'Prop Heat': 'OFF' },
         { 'BARO': 'Set to destination' },
-        { 'Gear': 'Down, three green' },
-        { 'Flaps': 'As required' },
-        { 'Landing lights': 'ON' }
+        { 'Landing gear': 'Down by FAF' },
+        { 'Flaps': 'As required' }
       ]
     },
     {
@@ -123,7 +123,7 @@ export const bonanzaB36TPChecklist = {
       items: [
         { 'Ignition': 'OFF' },
         { 'Pitot Heat': 'OFF' },
-        { 'Flaps': 'Up' },
+        { 'Flaps': 'Retract' },
         { 'Fuel pump': 'Off' },
         { 'Door Seals Switch': 'OFF' },
         { 'Taxi lights': 'ON' },
