@@ -18,9 +18,12 @@ export const bonanzaB36TCChecklist = {
         { 'Battery Master': 'ON' },
         { 'Alternator & STBY Alternator': 'ON' },
         { 'Bus Volts': 'Min 23V' },
-        { 'Fuel Boost Pump': 'LO, verify operational, then OFF' },
-        { 'Fuel Selectors': 'ON' },
-        { 'ELT Switch': 'ON' },
+        { 'Aux Fuel Pump': 'LO, verify operational, then OFF' },
+        { 'Fuel selector': 'L or R Main' },
+        {
+          'STBY Gyro Pump': 'ON, then OFF',
+          'info': 'Wait for Horizon instrument to settle'
+        },
         { 'Beacon Lights': 'ON' }
       ]
     },
@@ -32,8 +35,8 @@ export const bonanzaB36TCChecklist = {
         { 'Power Lever': 'FULL' },
         { 'Prop': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
-        { 'Fuel Boost Pump': 'HI, until fuel flow, then OFF' },
-        { 'Power Lever': 'IDLE, then 20%' },
+        { 'Aux Fuel Pump': 'HI, until fuel flow, then OFF' },
+        { 'Power Lever': '20%' },
         { 'Ignition': 'START' },
         { 'Power Lever': '~1000 RPM' },
         { 'Oil Pressure': 'CHECK' },
@@ -41,11 +44,11 @@ export const bonanzaB36TCChecklist = {
         { 'Power Lever': 'CLOSED' },
         { 'Prop': 'FULL FORWARD' },
         { 'Mixture': 'CUTOFF' },
-        { 'Fuel Boost Pump': 'HI, for 60 sec, then OFF' },
-        { 'Power Lever': 'FUL' },
+        { 'Aux Fuel Pump': 'HI, for 60 sec, then OFF' },
+        { 'Power Lever': 'FULL' },
         { 'Mixture': 'RICH' },
-        { 'Fuel Boost Pump': 'HI, until fuel flow, then LO' },
-        { 'Power Lever': 'IDLE, then 20%' },
+        { 'Aux Fuel Pump': 'HI, until fuel flow, then LO' },
+        { 'Power Lever': '20%' },
         { 'Ignition': 'START' },
         { 'Power Lever': '~1000 RPM' },
         { 'Oil Pressure': 'CHECK' }
@@ -62,6 +65,7 @@ export const bonanzaB36TCChecklist = {
         { 'Trims': 'Set for takeoff' },
         { 'Parking Brake': 'RELEASE' },
         { 'Flight Controls': 'FREE & CORRECT' },
+        { 'A/C & Cabin heating': 'Set as required' },
         { 'Taxi Lights': 'ON' }
       ]
     },
@@ -75,8 +79,7 @@ export const bonanzaB36TCChecklist = {
         { 'Prop': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
         { 'Taxi Lights': 'OFF' },
-        { 'Landing Lights': 'ON' },
-        { 'Strobe Lights': 'ON' }
+        { 'Landing Lights': 'ON' }
       ]
     },
     {
@@ -143,7 +146,7 @@ export const bonanzaB36TCChecklist = {
     {
       title: 'Landing',
       items: [
-        { 'TD Speed': '75 KIAS' },
+        { 'TD Speed': '~75 KIAS' },
         { 'Touchdown': 'MAIN WHEELS FIRST' },
         { 'Brakes': 'AS REQUIRED' }
       ]
@@ -153,7 +156,6 @@ export const bonanzaB36TCChecklist = {
       items: [
         { 'Parking Clearance': 'OBTAINED' },
         { 'Flaps': 'UP' },
-        { 'Strobe Lights': 'OFF' },
         { 'Landing Lights': 'OFF' },
         { 'Taxi Lights': 'ON' }
       ]
@@ -165,7 +167,7 @@ export const bonanzaB36TCChecklist = {
         { 'Taxi Lights': 'OFF' },
         { 'Avionics Master': 'OFF' },
         { 'Power': '1000 RPM' },
-        { 'Fuel Boost Pump': 'OFF' },
+        { 'Aux Fuel Pump': 'OFF' },
         { 'Mixture': 'CUTOFF' },
         { 'Ignition': 'OFF' },
         { 'Subpanel Switches': 'OFF' },
