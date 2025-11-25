@@ -7,72 +7,67 @@ export const aerostar600Checklist = {
       title: 'Cockpit Preparation',
       items: [
         { 'Parking Brake': 'SET' },
-        { 'Gear Lever': 'DOWN' },
-        { 'Power Levers': 'IDLE' },
+        { 'Throttle': 'IDLE' },
         { 'Mixture': 'CUTOFF' },
-        { 'Props': 'FULL FORWARD' },
-        { 'Battery Master': 'ON' }
+        { 'Props': 'FULL FORWARD' }
       ]
     },
     {
       title: 'Before Engine Start',
-      items: [
-        { 'Fuel Selectors': 'ON' },
-        { 'Fuel Pumps': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Beacon': 'ON' }
-      ]
+      items: [{ 'Battery Master': 'ON' }, { 'Beacon': 'ON' }]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Propeller Area': 'CLEAR' },
-        { 'Mixture': 'RICH' },
-        { 'Left Engine': 'START' },
-        { 'Right Engine': 'START' },
-        { 'Oil Pressure': 'CHECK' }
+        { 'L Fuel Selector': 'Cycle, then ON' },
+        { 'L Fuel Boost': 'ON' },
+        { 'L Throttle': '25%', 'info': 'Open Aircraft EFB to monitor Engine' },
+        { 'Mixture': '20%' },
+        { 'L STARTER': 'When fuel flow starts, IGNITE' },
+        { 'Mixture': 'Increase as req to ignite the engine' },
+        { 'L Alternator': 'ON' },
+        { 'L Fuel Boost': 'OFF' },
+        { 'Oil Pressure': 'CHECK' },
+        { 'R Engine': 'Repeat steps' }
       ]
     },
     {
-      title: 'After Start',
+      title: 'Before Taxi',
       items: [
         { 'Avionics Master': 'ON' },
-        { 'Flaps': 'UP' },
+        { 'Flaps': 'SET FOR TAKEOFF' },
+        { 'Trims': 'SET FOR TAKEOFF' },
+        { 'Flight Controls': 'FREE & CORRECT' },
         { 'Parking Brake': 'RELEASE' }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Flaps': '1/2' },
-        { 'Flight Controls': 'CHECK' },
-        { 'Trims': 'SET FOR TAKEOFF' },
-        { 'Lights': 'ON' }
+        { 'BARO': 'SET' },
+        { 'Pitot Heat': 'ON' },
+        { 'Taxi lights': 'OFF' },
+        { 'Landing lights': 'ON' }
       ]
     },
     {
       title: 'Takeoff',
       items: [
-        { 'Power Levers': 'FULL' },
+        { 'Throttle': 'FULL' },
         { 'Rotate Speed': '85 KIAS' },
         { 'Climb Speed': '120 KIAS' },
-        { 'Positive Climb': 'GEAR UP' },
-        { 'Flaps': 'UP' }
+        { 'Landing Gear': 'UP' },
+        { 'Flaps': 'RETRACT at SAFE SPEED' }
       ]
     },
     {
       title: 'Climb',
-      items: [
-        { 'Power': 'SET' },
-        { 'Props': 'SET' },
-        { 'Mixture': 'SET' }
-      ]
+      items: [{ 'Throttle': 'SET' }, { 'Props': 'SET' }, { 'Mixture': 'SET' }]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'SET' },
+        { 'Throttle': 'SET' },
         { 'Props': 'SET' },
         { 'Mixture': 'SET' },
         { 'Autopilot': 'ENGAGED' }
@@ -89,7 +84,7 @@ export const aerostar600Checklist = {
     {
       title: 'Approach',
       items: [
-        { 'Power': 'AS REQUIRED' },
+        { 'Throttle': 'AS REQUIRED' },
         { 'Props': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
         { 'Gear': 'DOWN' },
