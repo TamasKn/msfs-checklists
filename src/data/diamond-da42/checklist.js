@@ -8,10 +8,7 @@ export const diamondDa42Checklist = {
       items: [
         { 'ATC CLEARANCE': 'OBTAINED' },
         { 'Parking Brake': 'SET' },
-        { 'Alternate Static': 'OFF' },
-        { 'Gear Lever': 'DOWN' },
         { 'Power Levers': 'IDLE' },
-        { 'Avionics Master': 'OFF' },
         { 'Electric Master': 'ON' },
         { 'Fuel Selector': 'ON, Guards closed' }
       ]
@@ -34,13 +31,13 @@ export const diamondDa42Checklist = {
         { 'L Engine': 'START' },
         { 'Oil Pressure': 'CHECK (out of RED)' },
         { 'Voltage/Electrical Load': 'CHECK' },
-        { 'Repeat R Engine': 'COMPLETE' }
+        { 'Repeat R Engine': 'COMPLETE' },
+        { 'Oil Pressure': 'CHECK (out of RED)' }
       ]
     },
     {
       title: 'After Engine Start',
       items: [
-        { 'Oil Pressure': 'CHECK' },
         { 'RPM': '710 +/-3' },
         { 'Fuel Selector': 'CROSSFEED' },
         { 'Avionics Master': 'ON' },
@@ -58,6 +55,7 @@ export const diamondDa42Checklist = {
         { 'Altitude': 'SET -> FLC & VNV' },
         { 'CDI': 'GPS/LOC' },
         { 'Navigation': 'SET -> NAV/HDG' },
+        { 'BARO': 'SET to Departure' },
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'De-Ice': 'AS REQUIRED' },
@@ -80,9 +78,8 @@ export const diamondDa42Checklist = {
         { 'Fuel Pumps': 'ON' },
         { 'Flaps': 'CHECK' },
         { 'Trim': 'CHECK' },
-        { 'Speed Indicators': 'CHECK' },
-        { 'Landing Lights': 'ON' },
-        { 'Taxi Lights': 'OFF' }
+        { 'Taxi Lights': 'OFF' },
+        { 'Landing Lights': 'ON' }
       ]
     },
     {
@@ -141,11 +138,7 @@ export const diamondDa42Checklist = {
     },
     {
       title: 'Landing',
-      items: [
-        { 'FAF Speed': '80 KIAS' },
-        { 'Touchdown': '65 KIAS' },
-        { 'Brakes': 'AS REQUIRED' }
-      ]
+      items: [{ 'FAF Speed': '80 KIAS' }, { 'Touchdown': '65 KIAS' }]
     },
     {
       title: 'After Landing',
