@@ -6,10 +6,11 @@ export const aerostar600Checklist = {
     {
       title: 'Cockpit Preparation',
       items: [
+        { 'ATC Clearance': 'OBTAINED' },
         { 'Parking Brake': 'SET' },
         { 'Throttle': 'IDLE' },
-        { 'Mixture': 'CUTOFF' },
-        { 'Props': 'FULL FORWARD' }
+        { 'Props': 'FULL FORWARD' },
+        { 'Mixture': 'CUTOFF' }
       ]
     },
     {
@@ -19,35 +20,44 @@ export const aerostar600Checklist = {
     {
       title: 'Engine Start',
       items: [
-        { 'L Fuel Selector': 'Cycle, then ON' },
-        { 'L Fuel Boost': 'ON' },
-        { 'L Throttle': '25%', 'info': 'Open Aircraft EFB to monitor Engine' },
-        { 'Mixture': '20%' },
-        { 'L STARTER': 'When fuel flow starts, IGNITE' },
+        { 'Start Clearance': 'OBTAINED' },
+        { 'R Fuel Selector': 'Cycle, then ON' },
+        { 'R Throttle': '25%', 'info': 'Open Aircraft EFB to monitor Engine' },
+        { 'Mixture': '25%' },
+        { 'R Fuel Boost': 'ON' },
+        { 'R STARTER': 'When fuel flow starts, IGNITE' },
         { 'Mixture': 'Increase as req to ignite the engine' },
-        { 'L Alternator': 'ON' },
-        { 'L Fuel Boost': 'OFF' },
+        { 'R Alternator': 'ON' },
+        { 'R Fuel Boost': 'OFF' },
         { 'Oil Pressure': 'CHECK' },
-        { 'R Engine': 'Repeat steps' }
+        { 'L Engine': 'Repeat steps' }
       ]
     },
     {
       title: 'Before Taxi',
       items: [
+        { 'Taxi Clearance': 'OBTAINED' },
         { 'Avionics Master': 'ON' },
         { 'Flaps': 'SET FOR TAKEOFF' },
         { 'Trims': 'SET FOR TAKEOFF' },
         { 'Flight Controls': 'FREE & CORRECT' },
-        { 'Parking Brake': 'RELEASE' }
+        { 'Parking Brake': 'RELEASE' },
+        {
+          'Landing Lights': 'ON',
+          'info': 'As no dedicated Taxi lights, use Landing lights for taxiing'
+        }
       ]
     },
     {
       title: 'Before Takeoff',
       items: [
+        { 'Departure Clearance': 'OBTAINED' },
         { 'BARO': 'SET' },
         { 'Pitot Heat': 'ON' },
-        { 'Taxi lights': 'OFF' },
-        { 'Landing lights': 'ON' }
+        { 'Props': 'FULL FORWARD' },
+        { 'Mixture': 'RICH' },
+        { 'Autopilot Switch': 'ON (if req)' },
+        { 'GPSS Switch': 'ON (if req)' }
       ]
     },
     {
@@ -55,48 +65,56 @@ export const aerostar600Checklist = {
       items: [
         { 'Throttle': 'FULL' },
         { 'Rotate Speed': '85 KIAS' },
-        { 'Climb Speed': '120 KIAS' },
         { 'Landing Gear': 'UP' },
-        { 'Flaps': 'RETRACT at SAFE SPEED' }
+        { 'Flaps': 'RETRACT at SAFE SPEED' },
+        { 'Strobe Lights': 'ON' }
       ]
     },
     {
       title: 'Climb',
-      items: [{ 'Throttle': 'SET' }, { 'Props': 'SET' }, { 'Mixture': 'SET' }]
+      items: [
+        { 'Climb Rate': '800 fpm' },
+        { 'Climb Speed': '120 KIAS' },
+        { 'Landing Lights': 'OFF' }
+      ]
     },
     {
       title: 'Cruise',
       items: [
         { 'Throttle': 'SET' },
         { 'Props': 'SET' },
-        { 'Mixture': 'SET' },
-        { 'Autopilot': 'ENGAGED' }
+        { 'Mixture': 'LEAN' },
+        { 'Autopilot': 'ENGAGED (if req)' },
+        { 'Navigation': 'GPS/LOC CHECK' },
+        { 'Approach': 'VERIFIED' },
+        {
+          'TOD Calculation': 'OBTAINED',
+          'info':
+            'Distance (NM): (Altitude to lose in ft / 1000) * 3, VS (fpm): 5 x Ground Speed (kts)'
+        }
       ]
     },
     {
       title: 'Descent',
       items: [
-        { 'ATIS': 'OBTAIN' },
-        { 'Altimeters': 'SET' },
-        { 'Approach Briefing': 'COMPLETE' }
+        { 'TOD': 'Start descent as calculated' },
+        { 'Throttle': 'SET to Descent' },
+        { 'ATIS & Weather': 'CHECK' }
       ]
     },
     {
-      title: 'Approach',
+      title: 'Approach & Landing',
       items: [
+        { 'Clearance': 'OBTAINED' },
+        { 'BARO': 'SET to Destination' },
+        { 'Landing Lights': 'ON' },
+        { 'Approach Speed': '100 KIAS' },
         { 'Throttle': 'AS REQUIRED' },
         { 'Props': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
         { 'Gear': 'DOWN' },
-        { 'Flaps': 'AS REQUIRED' }
-      ]
-    },
-    {
-      title: 'Landing',
-      items: [
-        { 'Final Approach Speed': '95 KIAS' },
-        { 'Touchdown': 'MAIN WHEELS FIRST' },
-        { 'Brakes': 'AS REQUIRED' }
+        { 'Flaps': 'AS REQUIRED' },
+        { 'Touchdown': '90 KIAS' }
       ]
     },
     {
@@ -104,14 +122,17 @@ export const aerostar600Checklist = {
       items: [
         { 'Flaps': 'UP' },
         { 'Strobe Lights': 'OFF' },
-        { 'Transponder': 'ALT OFF' }
+        { 'Mixture': 'LEAN' }
       ]
     },
     {
       title: 'Shutdown',
       items: [
         { 'Parking Brake': 'SET' },
+        { 'Landing Lights': 'OFF' },
         { 'Avionics Master': 'OFF' },
+        { 'Autopilot Switch': 'OFF' },
+        { 'GPSS Switch': 'OFF' },
         { 'Mixture': 'CUTOFF' },
         { 'Magnetos': 'OFF' },
         { 'Battery Master': 'OFF' }
