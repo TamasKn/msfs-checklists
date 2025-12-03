@@ -18,8 +18,7 @@ export const diamondDa42Checklist = {
       items: [
         { 'START CLEARANCE': 'OBTAINED' },
         { 'L & R ECU': 'AUTO' },
-        { 'Alternator': 'ON' },
-        { 'BARO': 'SET PFD & Analog' }
+        { 'Alternator': 'ON' }
       ]
     },
     {
@@ -55,7 +54,7 @@ export const diamondDa42Checklist = {
         { 'Altitude': 'SET -> FLC & VNV' },
         { 'CDI': 'GPS/LOC' },
         { 'Navigation': 'SET -> NAV/HDG' },
-        { 'BARO': 'SET to Departure' },
+        { 'BARO': 'SET to Departure, PFD & Analog' },
         { 'Transponder': 'ON & SET' },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'De-Ice': 'AS REQUIRED' },

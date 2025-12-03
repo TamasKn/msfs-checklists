@@ -25,7 +25,7 @@ export const aerostar600Checklist = {
         { 'R Throttle': '25%', 'info': 'Open Aircraft EFB to monitor Engine' },
         { 'Mixture': '25%' },
         { 'R Fuel Boost': 'ON' },
-        { 'R STARTER': 'When fuel flow starts, IGNITE' },
+        { 'R MAGNETOS': 'When fuel flow starts, START' },
         { 'Mixture': 'Increase as req to ignite the engine' },
         { 'R Alternator': 'ON' },
         { 'R Fuel Boost': 'OFF' },
@@ -121,6 +121,7 @@ export const aerostar600Checklist = {
       title: 'After Landing',
       items: [
         { 'Flaps': 'UP' },
+        { 'Pitot Heat': 'OFF' },
         { 'Strobe Lights': 'OFF' },
         { 'Mixture': 'LEAN' }
       ]
@@ -135,6 +136,9 @@ export const aerostar600Checklist = {
         { 'GPSS Switch': 'OFF' },
         { 'Mixture': 'CUTOFF' },
         { 'Magnetos': 'OFF' },
+        { 'Beacon': 'OFF' },
+        { 'R & L Fuel Selector': 'OFF' },
+        { 'R & L Alternator': 'OFF' },
         { 'Battery Master': 'OFF' }
       ]
     }
