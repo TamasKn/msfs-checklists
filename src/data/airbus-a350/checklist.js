@@ -4,7 +4,7 @@ export const airbusA350Checklist = {
   name: AircraftName.AirbusA350,
   checklist: [
     {
-      title: 'Before Start',
+      title: 'Before Engine Start',
       items: [
         { 'Cockpit Prep': 'COMPLETED (BOTH)' },
         { 'Gear Pins & Covers': 'REMOVED' },
@@ -15,7 +15,7 @@ export const airbusA350Checklist = {
         { 'ADIRS': 'NAV' },
         { 'Doors': 'CLOSED/ARMED (BOTH)' },
         { 'Thrust Levers': 'IDLE' },
-        { 'Park Brk': 'AS RQRD' },
+        { 'Park Brk': 'AS REQ' },
         { 'SURV': 'DEFAULT (BOTH)' },
         { 'Beacon': 'ON' }
       ]
@@ -29,20 +29,20 @@ export const airbusA350Checklist = {
         { 'XBLEED': 'OPEN' },
         { 'APU BLEED': 'OFF' },
         { 'APU': 'OFF' },
-        { 'ANTIICE Running ENG': 'AS RQRD' },
+        { 'ANTIICE Running ENG': 'AS REQ' },
         { 'ECAM Status': 'CHECK' },
         { 'TUG & GND CREW': 'DISCONNECT' },
         { 'ENG Start Selector': 'IGN/START' },
         { 'ENG 2(1)': 'START' },
         { 'CHRONO': 'START' },
         { 'XBLEED': 'AUTO' },
-        { 'ANTI ICE Running ENGS': 'AS RQRD' },
+        { 'ANTI ICE Running ENGS': 'AS REQ' },
         { 'GND Spoilers': 'ARM' },
         { 'Rudder Trim Check': 'ZERO' },
         { 'Flaps': 'SET' },
         { 'Pitch Trim': 'CHECK' },
         { 'ECAM Status': 'CHECK' },
-        { 'A-ICE': 'AS RQRD' },
+        { 'A-ICE': 'AS REQ' },
         { 'ECAM STS': 'CHECK' },
         { 'Rudder Trim': 'NEUTRAL' }
       ]
@@ -107,7 +107,7 @@ export const airbusA350Checklist = {
       items: [
         { 'Cabin Crew': 'ADVISED' },
         { 'A/THR': 'SPEED/OFF' },
-        { 'Auto Brk': 'AS RQRD' },
+        { 'Auto Brk': 'AS REQ' },
         { 'RWY Cond': 'SET' },
         { 'Seat Belts': 'ON' },
         { 'Cabin': 'READY' },
@@ -131,8 +131,8 @@ export const airbusA350Checklist = {
     {
       title: 'Parking',
       items: [
-        { 'EXT LT': 'AS RQRD' },
-        { 'PARK BRK/CHOCKS': 'AS RQRD' },
+        { 'EXT LT': 'AS REQ' },
+        { 'PARK BRK/CHOCKS': 'AS REQ' },
         { 'XPDR': 'STBY' },
         { 'APU BLEED': 'ON' },
         { 'ALL ENGS': 'OFF' },
@@ -149,9 +149,9 @@ export const airbusA350Checklist = {
         { 'Emer Exit LT': 'OFF' },
         { 'Signs': 'OFF' },
         { 'ALL Laptops': 'OFF' },
-        { 'APU': 'AS RQRD' },
+        { 'APU': 'AS REQ' },
         { 'Logbooks': 'COMPLETED' },
-        { 'ALL 4 BATS': 'AS RQRD' }
+        { 'ALL 4 BATS': 'AS REQ' }
       ]
     }
   ]

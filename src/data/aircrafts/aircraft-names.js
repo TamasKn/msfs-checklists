@@ -7,6 +7,7 @@ export const AircraftName = {
   DiamondDA62: 'Diamond DA62',
   VisionJetG2: 'Cirrus Vision Jet G2',
   AirbusA320neo: 'Airbus A320neo',
+  AirbusA350: 'Airbus A350-900',
   Boeing737Max: 'Boeing 737 MAX 8',
   BeechcraftKingAir350: 'Beechcraft King Air 350i',
   TBM930: 'Daher TBM 930',
