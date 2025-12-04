@@ -56,6 +56,9 @@ import { CJ4Career } from '@/data/cj4/career'
 import { TBM930Specs } from '@/data/daher-tbm-930/specs'
 import { TBM930Checklist } from '@/data/daher-tbm-930/checklist'
 import { TBM930Career } from '@/data/daher-tbm-930/career'
+import { airbusA350Specs } from '@/data/airbus-a350/specs'
+import { airbusA350Checklist } from '@/data/airbus-a350/checklist'
+import { airbusA350Career } from '@/data/airbus-a350/career'
 
 export const Aircrafts = [
   {
@@ -120,6 +123,13 @@ export const Aircrafts = [
     specs: airbusA320neoSpecs,
     checklist: airbusA320neoChecklist,
     career: airbusA320neoCareer
+  },
+  {
+    id: 'A359',
+    name: AircraftName.AirbusA350,
+    specs: airbusA350Specs,
+    checklist: airbusA350Checklist,
+    career: airbusA350Career
   },
   {
     id: 'B38M',

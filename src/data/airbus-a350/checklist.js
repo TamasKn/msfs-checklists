@@ -1,0 +1,158 @@
+import { AircraftName } from '@/data/aircrafts/aircraft-names'
+
+export const airbusA350Checklist = {
+  name: AircraftName.AirbusA350,
+  checklist: [
+    {
+      title: 'Before Start',
+      items: [
+        { 'Cockpit Prep': 'COMPLETED (BOTH)' },
+        { 'Gear Pins & Covers': 'REMOVED' },
+        { 'Fuel QTY': '___ KG' },
+        { 'T.O Data': 'SET' },
+        { 'Baro Ref': 'SET (BOTH)' },
+        { 'Seat Belts': 'ON' },
+        { 'ADIRS': 'NAV' },
+        { 'Doors': 'CLOSED/ARMED (BOTH)' },
+        { 'Thrust Levers': 'IDLE' },
+        { 'Park Brk': 'AS RQRD' },
+        { 'SURV': 'DEFAULT (BOTH)' },
+        { 'Beacon': 'ON' }
+      ]
+    },
+    {
+      title: 'Engine Start',
+      items: [
+        { 'Guidance and Considerations': 'REVIEWED' },
+        { 'Engine 1(2)': 'START' },
+        { 'ENG Start Selector': 'NORM' },
+        { 'XBLEED': 'OPEN' },
+        { 'APU BLEED': 'OFF' },
+        { 'APU': 'OFF' },
+        { 'ANTIICE Running ENG': 'AS RQRD' },
+        { 'ECAM Status': 'CHECK' },
+        { 'TUG & GND CREW': 'DISCONNECT' },
+        { 'ENG Start Selector': 'IGN/START' },
+        { 'ENG 2(1)': 'START' },
+        { 'CHRONO': 'START' },
+        { 'XBLEED': 'AUTO' },
+        { 'ANTI ICE Running ENGS': 'AS RQRD' },
+        { 'GND Spoilers': 'ARM' },
+        { 'Rudder Trim Check': 'ZERO' },
+        { 'Flaps': 'SET' },
+        { 'Pitch Trim': 'CHECK' },
+        { 'ECAM Status': 'CHECK' },
+        { 'A-ICE': 'AS RQRD' },
+        { 'ECAM STS': 'CHECK' },
+        { 'Rudder Trim': 'NEUTRAL' }
+      ]
+    },
+    {
+      title: 'Before Takeoff',
+      items: [
+        { 'F/CTL Check': 'COMPLETED (BOTH)' },
+        { 'Flight Instruments': 'CHECKED (BOTH)' },
+        { 'Briefing': 'CONFIRMED' },
+        { 'Flaps Setting': 'CONF SET (BOTH)' },
+        { 'V1/VR/V2/THR Rating': '(BOTH)' },
+        { 'Squawk': 'SET' },
+        { 'Seat Belts': 'ON' },
+        { 'Cabin': 'READY' },
+        { 'GND SPLRS': 'ARM' },
+        { 'Flaps': 'T.O' },
+        { 'Auto Brk': 'RTO' },
+        { 'T.O Config': 'NORMAL' },
+        { 'T.O RWY': 'CONFIRMED (BOTH)' },
+        { 'Cabin Crew': 'ADVISED' },
+        { 'PACKS': 'OFF' }
+      ]
+    },
+    {
+      title: 'After Takeoff / Climb',
+      items: [
+        { 'LDG Gear': 'UP' },
+        { 'Flaps': '0' },
+        { 'PACKS': 'ON' },
+        { 'Baro Ref': 'SET (BOTH)' }
+      ]
+    },
+    {
+      title: 'Cruise',
+      items: [
+        { 'Engine instruments': 'Monitor' },
+        { 'Fuel': 'Balance and quantity checked' },
+        { 'Systems': 'Monitor' }
+      ]
+    },
+    {
+      title: 'Descent',
+      items: [
+        { 'ATIS and Weather': 'Obtained and Checked' },
+        { 'FMS/MCDU': 'Set for arrival' },
+        { 'Barometric reference': 'Set to QNH below transition level' },
+        { 'Seat belts': 'ON' }
+      ]
+    },
+    {
+      title: 'Approach',
+      items: [
+        { 'Briefing': 'CONFIRMED' },
+        { 'Seat Belts': 'ON' },
+        { 'Minimum': 'SET (BOTH)' },
+        { 'Baro Ref': 'SET (BOTH)' }
+      ]
+    },
+    {
+      title: 'Landing',
+      items: [
+        { 'Cabin Crew': 'ADVISED' },
+        { 'A/THR': 'SPEED/OFF' },
+        { 'Auto Brk': 'AS RQRD' },
+        { 'RWY Cond': 'SET' },
+        { 'Seat Belts': 'ON' },
+        { 'Cabin': 'READY' },
+        { 'LDG Gear': 'DOWN' },
+        { 'GND SPLRs': 'ARM' },
+        { 'Flaps': 'LDG' }
+      ]
+    },
+    {
+      title: 'After Landing',
+      items: [
+        { 'GND SPLRS': 'DISARM' },
+        { 'Flaps': '0' },
+        { 'APU': 'START' },
+        { 'Guidance and Considerations': 'REVIEWED' },
+        { 'ECAM Status': 'CHECK' },
+        { 'APU': 'AVAIL' },
+        { 'ENG 1(2)': 'SHUTDOWN' }
+      ]
+    },
+    {
+      title: 'Parking',
+      items: [
+        { 'EXT LT': 'AS RQRD' },
+        { 'PARK BRK/CHOCKS': 'AS RQRD' },
+        { 'XPDR': 'STBY' },
+        { 'APU BLEED': 'ON' },
+        { 'ALL ENGS': 'OFF' },
+        { 'Fuel Pumps': 'OFF' },
+        { 'Seat Belts': 'OFF' }
+      ]
+    },
+    {
+      title: 'Securing the Aircraft',
+      items: [
+        { 'ADIRS': 'OFF' },
+        { 'Oxygen Crew Supply': 'OFF' },
+        { 'APU BLEED': 'OFF' },
+        { 'Emer Exit LT': 'OFF' },
+        { 'Signs': 'OFF' },
+        { 'ALL Laptops': 'OFF' },
+        { 'APU': 'AS RQRD' },
+        { 'Logbooks': 'COMPLETED' },
+        { 'ALL 4 BATS': 'AS RQRD' }
+      ]
+    }
+  ]
+}
