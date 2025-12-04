@@ -52,23 +52,20 @@ export const airbusA350Checklist = {
       items: [
         { 'F/CTL Check': 'COMPLETED (BOTH)' },
         { 'Flight Instruments': 'CHECKED (BOTH)' },
-        { 'Briefing': 'CONFIRMED' },
         { 'Flaps Setting': 'CONF SET (BOTH)' },
         { 'V1/VR/V2/THR Rating': '(BOTH)' },
         { 'Squawk': 'SET' },
         { 'Seat Belts': 'ON' },
-        { 'Cabin': 'READY' },
         { 'GND SPLRS': 'ARM' },
         { 'Flaps': 'T.O' },
         { 'Auto Brk': 'RTO' },
         { 'T.O Config': 'NORMAL' },
         { 'T.O RWY': 'CONFIRMED (BOTH)' },
-        { 'Cabin Crew': 'ADVISED' },
         { 'PACKS': 'OFF' }
       ]
     },
     {
-      title: 'After Takeoff / Climb',
+      title: 'Climb',
       items: [
         { 'LDG Gear': 'UP' },
         { 'Flaps': '0' },
@@ -96,7 +93,6 @@ export const airbusA350Checklist = {
     {
       title: 'Approach',
       items: [
-        { 'Briefing': 'CONFIRMED' },
         { 'Seat Belts': 'ON' },
         { 'Minimum': 'SET (BOTH)' },
         { 'Baro Ref': 'SET (BOTH)' }
@@ -105,12 +101,10 @@ export const airbusA350Checklist = {
     {
       title: 'Landing',
       items: [
-        { 'Cabin Crew': 'ADVISED' },
         { 'A/THR': 'SPEED/OFF' },
         { 'Auto Brk': 'AS REQ' },
         { 'RWY Cond': 'SET' },
         { 'Seat Belts': 'ON' },
-        { 'Cabin': 'READY' },
         { 'LDG Gear': 'DOWN' },
         { 'GND SPLRs': 'ARM' },
         { 'Flaps': 'LDG' }
@@ -122,14 +116,13 @@ export const airbusA350Checklist = {
         { 'GND SPLRS': 'DISARM' },
         { 'Flaps': '0' },
         { 'APU': 'START' },
-        { 'Guidance and Considerations': 'REVIEWED' },
         { 'ECAM Status': 'CHECK' },
         { 'APU': 'AVAIL' },
         { 'ENG 1(2)': 'SHUTDOWN' }
       ]
     },
     {
-      title: 'Parking',
+      title: 'Shutdown',
       items: [
         { 'EXT LT': 'AS REQ' },
         { 'PARK BRK/CHOCKS': 'AS REQ' },
@@ -137,20 +130,13 @@ export const airbusA350Checklist = {
         { 'APU BLEED': 'ON' },
         { 'ALL ENGS': 'OFF' },
         { 'Fuel Pumps': 'OFF' },
-        { 'Seat Belts': 'OFF' }
-      ]
-    },
-    {
-      title: 'Securing the Aircraft',
-      items: [
+        { 'Seat Belts': 'OFF' },
         { 'ADIRS': 'OFF' },
         { 'Oxygen Crew Supply': 'OFF' },
         { 'APU BLEED': 'OFF' },
         { 'Emer Exit LT': 'OFF' },
         { 'Signs': 'OFF' },
-        { 'ALL Laptops': 'OFF' },
         { 'APU': 'AS REQ' },
-        { 'Logbooks': 'COMPLETED' },
         { 'ALL 4 BATS': 'AS REQ' }
       ]
     }
