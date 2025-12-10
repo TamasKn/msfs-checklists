@@ -6,128 +6,108 @@ export const grandDukeChecklist = {
     {
       title: 'Cockpit Preparation',
       items: [
+        { 'Control Locks': 'REMOVE' },
         { 'Parking Brake': 'SET' },
-        { 'Gear Lever': 'DOWN' },
+        { 'Oxygen Pressure': '1550-1850 PSI' },
         { 'Power Levers': 'IDLE' },
-        { 'Mixture': 'CUTOFF' },
-        { 'Props': 'FULL FORWARD' },
-        { 'Pressurization': 'DUMP' },
-        { 'Battery Master': 'ON' }
+        { 'Prop Levers': 'HIGH RPM' },
+        { 'Condition Levers': 'CUTOFF' },
+        { 'Fuel Selectors': 'ON' }
       ]
     },
     {
       title: 'Before Engine Start',
       items: [
-        { 'Fuel Selectors': 'ON' },
-        { 'Fuel Pumps': 'ON' },
-        { 'Strobe Lights': 'ON' },
-        { 'Beacon': 'ON' }
+        { 'Beacon': 'ON' },
+        { 'Battery Master': 'ON' },
+        { 'Fuel Quantity': 'CHECK' },
+        { 'Battery Selector': '#1' },
+        { 'Bus Volts': 'MIN 23V' },
+        { 'Battery Selector': '#2' },
+        { 'Bus Volts': 'MIN 23V' },
+        { 'Battery Selector': 'BOTH' },
+        { 'L Ignition': 'AUTO, THEN ON' },
+        { 'R Ignition': 'AUTO, THEN ON' },
+        { 'L & R Wing Pump': 'CHECK, THEN OFF' },
+        { 'L & R Aux Pump': 'CHECK, THEN OFF' }
       ]
     },
     {
       title: 'Engine Start',
       items: [
-        { 'Propeller Area': 'CLEAR' },
-        { 'Mixture': 'RICH' },
-        { 'Left Engine': 'START' },
-        { 'Right Engine': 'START' },
-        { 'Oil Pressure': 'CHECK' }
+        { 'Right Starter': 'ON' },
+        { 'Bus Volts': 'MIN 15V' },
+        { 'Ng': 'MIN 15%' },
+        { 'Right Condition Lever': 'RUN' },
+        { 'ITT': '< 1090°C' },
+        { 'Right Starter': 'OFF AT 52% NG' },
+        { 'Right Ignition': 'OFF' },
+        { 'Engine Instruments': 'CHECK' },
+        { 'Right Generator': 'ON' },
+        { 'Right Generator Load': '< 60' },
+        { 'Bus Volts': 'MIN 28V' },
+        { 'Battery Temp': '< 48°C' },
+        { 'Left Engine': 'REPEAT' }
       ]
     },
     {
-      title: 'After Start',
-      items: [
-        { 'Avionics Master': 'ON' },
-        { 'Flaps': 'UP' },
-        { 'Pressurization': 'SET' },
-        { 'Parking Brake': 'RELEASE' }
-      ]
-    },
-    {
-      title: 'Before Takeoff',
-      items: [
-        { 'Parking Brake': 'SET' },
-        { 'Flaps': 'APPROACH' },
-        { 'Flight Controls': 'CHECK' },
-        { 'Trims': 'SET FOR TAKEOFF' },
-        { 'Lights': 'ON' }
-      ]
+      title: 'After Engine Start',
+      items: [{ 'Inverter': 'MAIN' }]
     },
     {
       title: 'Takeoff',
-      items: [
-        { 'Power Levers': 'FULL' },
-        { 'Rotate Speed': '85 KIAS' },
-        { 'Climb Speed': '110 KIAS' },
-        { 'Positive Climb': 'GEAR UP' },
-        { 'Flaps': 'UP' }
-      ]
+      items: [{ 'ITT': '< 805°C' }]
     },
     {
       title: 'Climb',
       items: [
-        { 'Power': 'SET' },
-        { 'Props': 'SET' },
-        { 'Mixture': 'SET' },
-        { 'Pressurization': 'MONITOR' }
+        { 'Ignition': 'AUTO/OFF' },
+        { 'Oil Doors': 'OPEN' },
+        { 'Props': '2190 RPM' }
       ]
     },
     {
       title: 'Cruise',
       items: [
-        { 'Power': 'SET' },
-        { 'Props': 'SET' },
-        { 'Mixture': 'SET' },
-        { 'Autopilot': 'ENGAGED' },
-        { 'Pressurization': 'MONITOR' }
+        { 'Recognition Lights': 'OFF' },
+        { 'Oil Doors': 'CLOSED' },
+        { 'Fuel Imbalance': 'MAX 25 GAL' },
+        { 'Props': '2000 RPM' }
       ]
     },
     {
-      title: 'Descent',
+      title: 'Descent/Approach',
       items: [
-        { 'ATIS': 'OBTAIN' },
-        { 'Altimeters': 'SET' },
-        { 'Approach Briefing': 'COMPLETE' },
-        { 'Pressurization': 'SET FOR LANDING' }
-      ]
-    },
-    {
-      title: 'Approach',
-      items: [
-        { 'Power': 'AS REQUIRED' },
-        { 'Props': 'FULL FORWARD' },
-        { 'Mixture': 'RICH' },
-        { 'Gear': 'DOWN' },
-        { 'Flaps': 'AS REQUIRED' }
+        { 'Fuel Selectors': 'ON' },
+        { 'Recognition Lights': 'ON' },
+        { 'Windshield Heat': 'OFF' },
+        { 'Prop Heat': 'OFF' },
+        { 'Ignition': 'AUTO' },
+        { 'Oil Doors': 'OPEN' }
       ]
     },
     {
       title: 'Landing',
-      items: [
-        { 'Final Approach Speed': '95 KIAS' },
-        { 'Touchdown': 'MAIN WHEELS FIRST' },
-        { 'Brakes': 'AS REQUIRED' }
-      ]
+      items: [{ 'Wing Pumps': 'ON' }]
     },
     {
       title: 'After Landing',
-      items: [
-        { 'Flaps': 'UP' },
-        { 'Strobe Lights': 'OFF' },
-        { 'Transponder': 'ALT OFF' }
-      ]
+      items: [{ 'Oil Doors': 'CLOSED' }, { 'Pitot Heat': 'OFF' }]
     },
     {
       title: 'Shutdown',
       items: [
-        { 'Parking Brake': 'SET' },
-        { 'Avionics Master': 'OFF' },
-        { 'Mixture': 'CUTOFF' },
-        { 'Magnetos': 'OFF' },
-        { 'Pressurization': 'DUMP' },
-        { 'Battery Master': 'OFF' }
+        { 'Avionics Switches': 'OFF' },
+        { 'Pitch Trim': 'OFF' },
+        { 'Generators': 'OFF' },
+        { 'Power Levers': 'IDLE' },
+        { 'Prop Levers': 'FEATHER' },
+        { 'Condition Levers': 'CUTOFF' },
+        { 'Wing Pumps': 'OFF AT < 10% NG' },
+        { 'Battery Master': 'OFF' },
+        { 'Battery Selector': '#1' },
+        { 'Control Locks': 'INSTALL' }
       ]
     }
   ]
 }
-
