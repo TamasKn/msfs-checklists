@@ -11,9 +11,9 @@ export const grandDukeSpecs = {
         { 'Range': '1,100 NM' },
         { 'Rate of Climb': '1,950 ft/min' },
         { 'VNE': '235 KIAS' },
-        { 'VFE': '150 KIAS' },
-        { 'VLE': '150 KIAS' },
-        { 'VLO': '130 KIAS' },
+        { 'VFE': '174 KIAS' },
+        { 'VLE': '174 KIAS' },
+        { 'VLO': '174 KIAS' },
         { 'Fuel Consumption (G/hr)': 44 },
         { 'Payload': '2,118 lb' },
         { 'Fuel Capacity': '282 gal' },
@@ -22,4 +22,3 @@ export const grandDukeSpecs = {
     }
   ]
 }
-
