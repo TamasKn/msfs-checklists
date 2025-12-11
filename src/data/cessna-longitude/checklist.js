@@ -13,7 +13,6 @@ export const cessnaLongitudeChecklist = {
         { 'STBY PWR': 'TEST and Hold (Green light for min 10 sec)' },
         { 'STBY PWR': 'ON' },
         { 'EMER LTS': 'ARM' },
-        { 'LANDING GEAR Handle': 'DOWN' },
         { 'L BATT & R BATT': 'ON, Check Volts' },
         { 'EIS/CAS': 'CHECK' },
         { 'IFR CLEARANCE': 'OBTAINED' },
@@ -29,7 +28,6 @@ export const cessnaLongitudeChecklist = {
             'Aircraft Systems/Synoptics/AC Bleed: ECS BLEED has to be opened before Engines are started.'
         },
         { '--- APU GEN ON': 'CHECK' },
-        { '--- External Power': 'Disconnected' },
         { '--- BATT Amps (both)': '0 or Charging' },
         { 'Exterior/Interior Lights': 'As Required' }
       ]
@@ -41,16 +39,16 @@ export const cessnaLongitudeChecklist = {
           'VNAV Profiles': 'SET / CHECK',
           'info': 'Flight plan - VNAV - Profile, Climb, Cruise, Descent'
         },
-        { 'Weight and Fuel': 'TAKEOFF FOB sync' },
-        { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
-        { 'Takeoff Config': 'SET recommended Flap' },
-        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
-        { 'INIT': 'ALL CHECKED & ACCEPTED' },
         {
           'Altimeter Transition': 'SET to Regional',
           'info':
             'Check flight plan Charts Transition Altitude (TA). Change (Climb & Descent): Utilities/Setup/Avionics/Alerts'
-        }
+        },
+        { 'Weight and Fuel': 'TAKEOFF FOB sync' },
+        { 'Takeoff Data|Weather': 'SET WIND & TEMP, Use RAT' },
+        { 'Takeoff Config': 'SET recommended Flap' },
+        { 'Takeoff Data': 'ACCEPT Takeoff Speeds' },
+        { 'INIT': 'ALL CHECKED & ACCEPTED' }
       ]
     },
     {
@@ -92,6 +90,10 @@ export const cessnaLongitudeChecklist = {
           'Pre-Flight Synoptics': 'ALL CHECK',
           'info': 'Aircraft Systems/Synoptics/Preflight'
         },
+        {
+          'Flight Controls': 'ALL OPERATIONAL',
+          'info': 'Aircraft Systems/Synoptics/Flight Controls'
+        },
         { 'Weather Radar': 'AS REQUIRED' },
         { 'Ice Protection': 'AS REQUIRED' },
         { 'BARO': 'SET departure value', 'info': 'From ATIS, EFB or METAR' },
@@ -103,8 +105,7 @@ export const cessnaLongitudeChecklist = {
       items: [
         { 'Taxi Clearance': 'OBTAINED' },
         { 'Parking Brake': 'RELEASE' },
-        { 'Brakes & Steering': 'CHECK' },
-        { 'Flight Controls': 'CHECK' }
+        { 'Brakes & Steering': 'CHECK' }
       ]
     },
     {
@@ -119,7 +120,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Takeoff (Runway)',
+      title: 'Takeoff',
       items: [
         { 'Departure Clearance': 'OBTAINED' },
         { 'Runway Alignment': 'CONFIRM' },
@@ -150,12 +151,12 @@ export const cessnaLongitudeChecklist = {
           'info': 'Verify all Legs to Runway (incl.: RNAV Visual)'
         },
         { 'Navigation': 'SET MINIMUMS / LOC FREQ' },
+        { 'Altitude': 'SET RWY + 1,000 ft (VPATH stby)' },
         {
           'Altitude Constraints': 'FIX FAF to Signal altitude',
           'info':
             'You may set the Final Approach Fix to 20-50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
-        },
-        { 'Altitude': 'SET RWY + 1,000 ft -> VNAV' }
+        }
       ]
     },
     {
@@ -166,7 +167,7 @@ export const cessnaLongitudeChecklist = {
         { 'Landing Config': 'CHECK' },
         { 'Landing Data': 'ACCEPT Landing Speeds' },
         {
-          'Speed Constraints': 'IAF (~150 KTS) to FAF (SET Vapp)',
+          'Speed Constraints': 'IAF (~170 KTS) to FAF (SET Vapp)',
           'info': 'Set approach speeds from Landing data to FAF'
         }
       ]
@@ -177,40 +178,39 @@ export const cessnaLongitudeChecklist = {
         { 'Clearance': 'OBTAINED' },
         { 'PS/SB Lights': 'ON' },
         { 'ATIS & Weather': 'CHECK' },
-        { 'SPD KNOB': 'FMS' },
-        { 'BARO': 'ARM destination' }
+        { 'SPD KNOB': 'FMS' }
       ]
     },
     {
       title: 'Approach (BOD)',
       items: [
         { 'Clearance': 'OBTAINED' },
+        { 'BARO': 'ARM destination' },
         { 'Landing Lights': 'ON' },
         { 'Altitude': 'MONITOR' },
         { 'Flaps': 'AS REQUIRED' },
-        { 'Speed': 'MANAGE' },
-        { 'Approach': 'APPR (GS/GP) stdby at IAF' },
+        { 'Speed': 'MANAGE/MONITOR' },
+        { 'Approach': 'APPR (GS/GP) stby at IAF' },
         { 'CDI Source': 'CONFIRM FMS/LOC' },
+        { 'Gear': 'DOWN by FAF' },
         { 'GLIDE': 'ARMED at FAF' },
-        { 'Gear': 'DOWN by FAF' }
-      ]
-    },
-    {
-      title: 'Landing',
-      items: [
         { 'Flaps': 'FULL (AT MINIMUMS)' },
         {
           'Trim': 'SET for Landing',
           'info':
             'If AP armed let it settle the trim after flap (full) extension'
-        },
+        }
+      ]
+    },
+    {
+      title: 'Landing',
+      items: [
         { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
         { 'AP & AT': 'DISCONNECT' },
         { 'Throttles': 'IDLE at 50 ft' },
         { 'Touchdown': 'RETARD at 10 ft' },
-        { 'Reverse Thrust': 'AS NEEDED' },
-        { 'Braking': 'APPLY' }
+        { 'Reverse Thrust': 'AS NEEDED' }
       ]
     },
     {
@@ -230,10 +230,10 @@ export const cessnaLongitudeChecklist = {
         { 'Parking Brake': 'SET' },
         { 'Engine Ice Protection': 'OFF' },
         { 'L & R Engine': 'STOP' },
-        { 'APU MAIN': 'OFF' },
-        { 'EM LTS, AC': 'OFF' },
+        { 'Anti-Collision Lights': 'OFF' },
         { 'R & L BATT': 'OFF' },
-        { 'STBY PWR': 'OFF' }
+        { 'STBY PWR': 'OFF' },
+        { 'EMER LTS': 'OFF' }
       ]
     }
   ]
