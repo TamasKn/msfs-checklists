@@ -41,7 +41,6 @@ export const TBM930Checklist = {
       items: [
         { 'Crash Lever': 'UP' },
         { 'Source': 'BAT (or GPU)' },
-        { 'Flight Plan': 'Verified' },
         { 'IFR Clearance': 'OBTAINED' },
         { 'Generator': 'MAIN' },
         { 'Fuel on board': 'CHECK' },
