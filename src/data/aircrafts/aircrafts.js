@@ -73,6 +73,13 @@ export const Aircrafts = [
     career: cessna172Career
   },
   {
+    id: 'DA42',
+    name: AircraftName.DiamondDA42,
+    specs: diamondDa42Specs,
+    checklist: diamondDa42Checklist,
+    career: diamondDa42Career
+  },
+  {
     id: 'DA62',
     name: AircraftName.DiamondDA62,
     specs: diamondDA62Specs,
@@ -134,13 +141,6 @@ export const Aircrafts = [
     specs: boeing737MaxSpecs,
     checklist: boeing737MaxChecklist,
     career: boeing737MaxCareer
-  },
-  {
-    id: 'DA42',
-    name: AircraftName.DiamondDA42,
-    specs: diamondDa42Specs,
-    checklist: diamondDa42Checklist,
-    career: diamondDa42Career
   },
   {
     id: 'AEST',
