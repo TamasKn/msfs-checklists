@@ -16,7 +16,6 @@ export const AircraftName = {
   BonanzaB36TP: 'Bonanza B36TP',
   Baron58: 'Baron 58',
   Baron58P: 'Baron 58P',
-  DukeB60: 'Duke B60',
   GrandDuke: 'Grand Duke',
   TurbineDuke: 'Turbine Duke'
 }

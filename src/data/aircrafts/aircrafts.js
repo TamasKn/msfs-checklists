@@ -30,9 +30,6 @@ import { baron58Career } from '@/data/baron-58/career'
 import { baron58PSpecs } from '@/data/baron-58p/specs'
 import { baron58PChecklist } from '@/data/baron-58p/checklist'
 import { baron58PCareer } from '@/data/baron-58p/career'
-import { dukeB60Specs } from '@/data/duke-b60/specs'
-import { dukeB60Checklist } from '@/data/duke-b60/checklist'
-import { dukeB60Career } from '@/data/duke-b60/career'
 import { grandDukeSpecs } from '@/data/grand-duke/specs'
 import { grandDukeChecklist } from '@/data/grand-duke/checklist'
 import { grandDukeCareer } from '@/data/grand-duke/career'
@@ -179,13 +176,6 @@ export const Aircrafts = [
     specs: baron58PSpecs,
     checklist: baron58PChecklist,
     career: baron58PCareer
-  },
-  {
-    id: 'BE60',
-    name: AircraftName.DukeB60,
-    specs: dukeB60Specs,
-    checklist: dukeB60Checklist,
-    career: dukeB60Career
   },
   {
     id: 'BE6G',
