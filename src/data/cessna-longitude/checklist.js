@@ -33,7 +33,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Takeoff PERF (G5000)',
+      title: 'Takeoff PERF',
       items: [
         {
           'VNAV Profiles': 'SET / CHECK',
@@ -109,7 +109,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Before Takeoff (Hold Short)',
+      title: 'Before Takeoff',
       items: [
         { 'Runway Clearance': 'OBTAINED' },
         { 'Flaps': 'CHECK' },
@@ -160,7 +160,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Landing PERF (G5000)',
+      title: 'Landing PERF',
       items: [
         { 'Landing Data|Weather': 'SET WIND & TEMP, Use RAT' },
         { 'BARO': 'SET destination value', 'info': 'From ATIS, EFB or METAR' },
@@ -173,7 +173,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Descent (TOD)',
+      title: 'Descent',
       items: [
         { 'Clearance': 'OBTAINED' },
         { 'PS/SB Lights': 'ON' },
@@ -182,7 +182,7 @@ export const cessnaLongitudeChecklist = {
       ]
     },
     {
-      title: 'Approach (BOD)',
+      title: 'Approach',
       items: [
         { 'Clearance': 'OBTAINED' },
         { 'BARO': 'ARM destination' },
