@@ -74,7 +74,8 @@ export const aerostar600Checklist = {
       title: 'Climb',
       items: [
         { 'Climb Rate': '800 fpm' },
-        { 'Climb Speed': '120 KIAS' },
+        { 'Climb Speed': 'max 122 KIAS' },
+        { 'Props': '2400 RPM' },
         { 'Landing Lights': 'OFF' }
       ]
     },
@@ -82,7 +83,7 @@ export const aerostar600Checklist = {
       title: 'Cruise',
       items: [
         { 'Throttle': 'SET' },
-        { 'Props': 'SET' },
+        { 'Props': '2000 RPM' },
         { 'Mixture': 'LEAN' },
         { 'Autopilot': 'ENGAGED (if req)' },
         { 'Navigation': 'GPS/LOC CHECK' },
@@ -91,7 +92,8 @@ export const aerostar600Checklist = {
           'TOD Calculation': 'OBTAINED',
           'info':
             'Distance (NM): (Altitude to lose in ft / 1000) * 3, VS (fpm): 5 x Ground Speed (kts)'
-        }
+        },
+        { 'Altitude': 'SET RWY + 1,000 ft' }
       ]
     },
     {
@@ -108,21 +110,25 @@ export const aerostar600Checklist = {
         { 'Clearance': 'OBTAINED' },
         { 'BARO': 'SET to Destination' },
         { 'Landing Lights': 'ON' },
-        { 'Approach Speed': '100 KIAS' },
+        { 'L & R Fuel Boost': 'ON' },
+        { 'Flaps': '20 DEG below 175 KIAS' },
+        { 'Approach Speed': '140 KIAS' },
         { 'Throttle': 'AS REQUIRED' },
         { 'Props': 'FULL FORWARD' },
         { 'Mixture': 'RICH' },
-        { 'Gear': 'DOWN' },
-        { 'Flaps': 'AS REQUIRED' },
-        { 'Touchdown': '90 KIAS' }
+        { 'Gear': 'DOWN below 150 KIAS' },
+        { 'Flaps': 'FULL' },
+        { 'Touchdown': '100 KIAS' }
       ]
     },
     {
       title: 'After Landing',
       items: [
         { 'Flaps': 'UP' },
+        { 'L & R Fuel Boost': 'OFF' },
         { 'Pitot Heat': 'OFF' },
         { 'Strobe Lights': 'OFF' },
+        { 'Cabin Heater': 'OFF' },
         { 'Mixture': 'LEAN' }
       ]
     },
