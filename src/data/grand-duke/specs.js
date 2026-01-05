@@ -7,17 +7,17 @@ export const grandDukeSpecs = {
       title: 'Limits & Specs',
       items: [
         { 'Max Operating Altitude': '30,000 ft' },
-        { 'Cruise Speed': '242 KTAS' },
-        { 'Range': '1,100 NM' },
-        { 'Rate of Climb': '1,950 ft/min' },
+        { 'Cruise Speed': '260 KTAS' },
+        { 'Range': '1,250 NM' },
+        { 'Rate of Climb': '2,200 ft/min' },
         { 'VNE': '235 KIAS' },
-        { 'VFE': '174 KIAS' },
-        { 'VLE': '174 KIAS' },
-        { 'VLO': '174 KIAS' },
-        { 'Fuel Consumption (G/hr)': 44 },
-        { 'Payload': '2,118 lb' },
+        { 'VFE': '150 KIAS' },
+        { 'VLE': '150 KIAS' },
+        { 'VLO': '130 KIAS' },
+        { 'Fuel Consumption (G/hr)': 52 },
+        { 'Payload': '2,200 lb' },
         { 'Fuel Capacity': '282 gal' },
-        { 'Stall Speed': '70 KCAS' }
+        { 'Stall Speed': '68 KCAS' }
       ]
     }
   ]

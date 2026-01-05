@@ -73,9 +73,9 @@ export const turbineDukeChecklist = {
         { 'ITT': '< 805°C' },
         { 'Runway Alignment': 'CONFIRM' },
         { 'Heading Bug': 'SET' },
-        { 'Throttles': 'TOGA' },
+        { 'Throttles': '90% (or AS REQ)' },
         { 'Positive Rate': 'GEAR UP' },
-        { 'AP & AT': 'ENGAGE, AS REQ' },
+        { 'AP': 'ENGAGE, AS REQ' },
         { 'Flaps': 'RETRACT at Safe Speed' }
       ]
     },
@@ -102,7 +102,8 @@ export const turbineDukeChecklist = {
           'TOD calculation': 'Obtained',
           'info':
             'Distance (NM): (Altitude to lose in ft / 1000) * 3, VS (fpm): 5 x Ground Speed (kts)'
-        }
+        },
+        { 'Altitude': 'SET RWY + 1,000 ft' }
       ]
     },
     {
@@ -115,7 +116,6 @@ export const turbineDukeChecklist = {
         { 'ATIS & Weather': 'CHECK' },
         { 'Power': 'Reduce for descent' },
         { 'Propeller': 'As required' },
-        { 'Fuel Selectors': 'ON' },
         { 'Windshield Heat': 'OFF' },
         { 'Prop Heat': 'OFF' },
         { 'Ignition': 'AUTO' },

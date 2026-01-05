@@ -11,15 +11,14 @@ export const turbineDukeSpecs = {
         { 'Range': '1,250 NM' },
         { 'Rate of Climb': '2,200 ft/min' },
         { 'VNE': '235 KIAS' },
-        { 'VFE': '150 KIAS' },
-        { 'VLE': '150 KIAS' },
-        { 'VLO': '130 KIAS' },
+        { 'VFE': '174 KIAS' },
+        { 'VLE': '174 KIAS' },
+        { 'VLO': '174 KIAS' },
         { 'Fuel Consumption (G/hr)': 52 },
-        { 'Payload': '2,200 lb' },
+        { 'Payload': '2,118 lb' },
         { 'Fuel Capacity': '282 gal' },
         { 'Stall Speed': '68 KCAS' }
       ]
     }
   ]
 }
-
