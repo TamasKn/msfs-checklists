@@ -126,6 +126,7 @@ export const TBM930Checklist = {
       items: [
         { 'Runway Clearance': 'OBTAIN' },
         { 'Landing Lights': 'ON' },
+        { 'Taxi Light': 'OFF' },
         { 'Pitot L/Pitot R & Stall HTR': 'ON' },
         { 'EIS & CAS': 'CHECK' }
       ]
