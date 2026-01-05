@@ -37,8 +37,7 @@ export const bonanzaB36TPChecklist = {
         { 'Generator': 'ON' },
         { 'Bus Volts (VDC)': '28V' },
         { 'Oil pressure': 'Indicates within thirty seconds' },
-        { 'Engine instruments': 'Check normal' },
-        { 'Fuel pump': 'Auto or on as required' }
+        { 'Engine instruments': 'Check normal' }
       ]
     },
     {
@@ -134,7 +133,7 @@ export const bonanzaB36TPChecklist = {
         { 'Ignition': 'OFF' },
         { 'Pitot Heat': 'OFF' },
         { 'Flaps': 'Retract' },
-        { 'Fuel pump': 'Off' },
+        { 'Fuel Pump': 'Off' },
         { 'Door Seals Switch': 'OFF' },
         { 'Taxi lights': 'ON' },
         { 'Landing lights': 'OFF' }
