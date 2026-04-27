@@ -20,7 +20,7 @@ export default function ChecklistComponent() {
     verticalSpeed: '',
     groundSpeed: '',
     destinationElevation: '',
-    approachAngle: '',
+    approachAngle: '3',
     approachSpeed: ''
   })
   const [todResult, setTodResult] = useState(null)
