@@ -164,13 +164,6 @@ export const Aircrafts = [
     career: bonanzaB36TPCareer
   },
   {
-    id: 'BE58',
-    name: AircraftName.Baron58,
-    specs: baron58Specs,
-    checklist: baron58Checklist,
-    career: baron58Career
-  },
-  {
     id: 'B58T',
     name: AircraftName.Baron58P,
     specs: baron58PSpecs,
