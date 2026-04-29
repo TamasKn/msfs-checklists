@@ -22,7 +22,12 @@ const CheckmarkIcon = () => (
 )
 
 export default function ChecklistItems({ checklist, aircraftName }) {
-  const { getAircraftState, updateAircraftState, resetAircraftState, isHydrated } = useChecklistContext()
+  const {
+    getAircraftState,
+    updateAircraftState,
+    resetAircraftState,
+    isHydrated
+  } = useChecklistContext()
 
   const [openSections, setOpenSections] = useState([])
   const [checkedItems, setCheckedItems] = useState({})
@@ -49,7 +54,13 @@ export default function ChecklistItems({ checklist, aircraftName }) {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openSections, checkedItems, autoEngineStartUsed, aircraftName, isHydrated])
+  }, [
+    openSections,
+    checkedItems,
+    autoEngineStartUsed,
+    aircraftName,
+    isHydrated
+  ])
 
   const toggleSection = (index) => {
     setOpenSections((prevOpenSections) =>
