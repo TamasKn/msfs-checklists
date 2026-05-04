@@ -66,11 +66,11 @@ export const Aircrafts = [
     career: cessnaLongitudeCareer
   },
   {
-    id: 'C172',
-    name: AircraftName.Cessna172,
-    specs: cessna172Specs,
-    checklist: cessna172Checklist,
-    career: cessna172Career
+    id: 'A359',
+    name: AircraftName.AirbusA350,
+    specs: airbusA350Specs,
+    checklist: airbusA350Checklist,
+    career: airbusA350Career
   },
   {
     id: 'DA42',
@@ -80,67 +80,11 @@ export const Aircrafts = [
     career: diamondDa42Career
   },
   {
-    id: 'DA62',
-    name: AircraftName.DiamondDA62,
-    specs: diamondDA62Specs,
-    checklist: diamondDA62Checklist,
-    career: diamondDA62Career
-  },
-  {
-    id: 'PC12',
-    name: AircraftName.PilatusPC12,
-    specs: pilatusPc12Specs,
-    checklist: pilatusPc12Checklist,
-    career: pilatusPc12Career
-  },
-  {
-    id: 'C25C',
-    name: AircraftName.CitationCJ4,
-    specs: CJ4Specs,
-    checklist: CJ4Checklist,
-    career: CJ4Career
-  },
-  {
-    id: 'B350',
-    name: AircraftName.BeechcraftKingAir350,
-    specs: beechcraftKingAir350Specs,
-    checklist: beechcraftKingAir350Checklist,
-    career: beechcraftKingAir350Career
-  },
-  {
     id: 'TBM9',
     name: AircraftName.TBM930,
     specs: TBM930Specs,
     checklist: TBM930Checklist,
     career: TBM930Career
-  },
-  {
-    id: 'SF50',
-    name: AircraftName.VisionJetG2,
-    specs: visionJetG2Specs,
-    checklist: visionJetG2Checklist,
-    career: visionJetG2Career
-  },
-  {
-    id: 'A320',
-    name: AircraftName.AirbusA320neo,
-    specs: airbusA320neoSpecs,
-    checklist: airbusA320neoChecklist,
-    career: airbusA320neoCareer
-  },
-  {
-    id: 'A359',
-    name: AircraftName.AirbusA350,
-    specs: airbusA350Specs,
-    checklist: airbusA350Checklist,
-    career: airbusA350Career
-  },
-  {
-    id: 'B38M',
-    name: AircraftName.Boeing737Max,
-    specs: boeing737MaxSpecs,
-    checklist: boeing737MaxChecklist,
-    career: boeing737MaxCareer
   },
   {
     id: 'AEST',
@@ -183,5 +127,61 @@ export const Aircrafts = [
     specs: turbineDukeSpecs,
     checklist: turbineDukeChecklist,
     career: turbineDukeCareer
+  },
+  {
+    id: 'C172',
+    name: AircraftName.Cessna172,
+    specs: cessna172Specs,
+    checklist: cessna172Checklist,
+    career: cessna172Career
+  },
+  {
+    id: 'DA62',
+    name: AircraftName.DiamondDA62,
+    specs: diamondDA62Specs,
+    checklist: diamondDA62Checklist,
+    career: diamondDA62Career
+  },
+  {
+    id: 'PC12',
+    name: AircraftName.PilatusPC12,
+    specs: pilatusPc12Specs,
+    checklist: pilatusPc12Checklist,
+    career: pilatusPc12Career
+  },
+  {
+    id: 'C25C',
+    name: AircraftName.CitationCJ4,
+    specs: CJ4Specs,
+    checklist: CJ4Checklist,
+    career: CJ4Career
+  },
+  {
+    id: 'B350',
+    name: AircraftName.BeechcraftKingAir350,
+    specs: beechcraftKingAir350Specs,
+    checklist: beechcraftKingAir350Checklist,
+    career: beechcraftKingAir350Career
+  },
+  {
+    id: 'SF50',
+    name: AircraftName.VisionJetG2,
+    specs: visionJetG2Specs,
+    checklist: visionJetG2Checklist,
+    career: visionJetG2Career
+  },
+  {
+    id: 'A320',
+    name: AircraftName.AirbusA320neo,
+    specs: airbusA320neoSpecs,
+    checklist: airbusA320neoChecklist,
+    career: airbusA320neoCareer
+  },
+  {
+    id: 'B38M',
+    name: AircraftName.Boeing737Max,
+    specs: boeing737MaxSpecs,
+    checklist: boeing737MaxChecklist,
+    career: boeing737MaxCareer
   }
 ]
