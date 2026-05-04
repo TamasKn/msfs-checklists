@@ -62,7 +62,7 @@ export const airbusA350Checklist = {
         { 'T.O Perf (EFB)': 'SYNC SIMBRIEF, FMS, CONDITIONS' },
         { 'T.O Speeds': 'COMPUTE & SEND TO FMS' },
         { '--- FMS (ACTIVE/PERF/T.O)': '' },
-        { 'TakeOff Speeds': 'INSERTED' },
+        { 'Takeoff Speeds': 'INSERTED' },
         { 'FLAPS': 'SET RECOMMENDED' },
         { 'ICE Protection': 'AS REQ' },
         { 'ACTIVE/FUEL&LOAD': 'SET FUEL & PAX' },
@@ -79,17 +79,17 @@ export const airbusA350Checklist = {
         { 'START CLEARANCE': 'OBTAINED' },
         { 'Throttles': 'IDLE' },
         { 'PARKING BRAKE': 'SET' },
-        { 'CABIN DOOR': 'CLOSED' },
+        { 'CABIN DOORS': 'CLOSED' },
         { 'ECAM Status': 'CHECK' },
-        { 'Doors': 'CLOSED/ARMED' },
-        { 'Thrust Levers': 'IDLE' },
-        { 'Park Brk': 'AS REQ' },
         { '--- APU': '' },
         { 'MASTER SW': 'ON' },
         { 'START': 'ON (Wait for AVAIL)' },
         { 'APU STARTING': 'MONITOR', 'info': 'PEDESTAL/ECAM/APU' },
         { '--- AIR': '' },
         { 'APU BLEED': 'ON' },
+        { '--- ELEC': '' },
+        { 'EXT 1': 'OFF' },
+        { 'EXT 2': 'OFF' },
         { 'LIGHTS (SB, Beacon)': 'ON' }
       ]
     },
@@ -108,8 +108,7 @@ export const airbusA350Checklist = {
         { 'APU Master SW': 'OFF' },
         { 'GND Spoilers': 'ARM', 'info': 'Pull upward the GND SPLRS stick' },
         { 'Rudder Trim': 'CHECK' },
-        { 'Pitch Trim': 'CHECK', 'info': 'Automatically set' },
-        { 'ECAM STS': 'CHECK' }
+        { 'Pitch Trim': 'CHECK', 'info': 'Automatically set' }
       ]
     },
     {
@@ -120,6 +119,10 @@ export const airbusA350Checklist = {
         { 'Brakes': 'CHECK & SET & RETRACTED' },
         { 'Transponder': 'ON & SET' },
         {
+          'RADIO': 'VHF1 MASTER ON',
+          'info': 'Activate VHF1 on Pedestal (Both) and adjust volume knob'
+        },
+        {
           'Flight Controls': 'ALL OPERATIONAL',
           'info': 'ECAM/F-CTL'
         },
@@ -127,7 +130,10 @@ export const airbusA350Checklist = {
         { 'AP1': 'ON' },
         { 'A/THR': 'ON (IF NOT ACTIVE)' },
         { 'EFIS': 'WX/TERR AS REQ' },
-        { 'BARO': 'SET departure value', 'info': 'From ATIS, EFB or METAR' },
+        {
+          'BARO': 'SET departure value',
+          'info': 'From ATIS, ATC, EFB or METAR'
+        },
         { 'Auto Brk': 'ON' },
         { 'CHOCKS & GPU': 'DISCONNECTED' },
         { 'T.O Config': 'VERIFY NORMAL', 'info': 'ACTIVE/PERF/T.O' },
@@ -141,7 +147,10 @@ export const airbusA350Checklist = {
       items: [
         { 'Taxi Clearance': 'OBTAINED' },
         { 'Parking Brake': 'RELEASE' },
-        { 'Brakes & Steering': 'CHECK' }
+        {
+          'Brakes & Steering': 'CHECK',
+          'info': 'If steering does not work, switch to SLEW mode ON and OFF'
+        }
       ]
     },
     {
@@ -222,9 +231,9 @@ export const airbusA350Checklist = {
           'info': 'Or follow ATC guidance until APPROACH altitude'
         },
         {
-          'Altitude Constraints': 'FIX FAF to Signal altitude',
+          'Altitude Constraints': 'CHECK FAF to Signal altitude',
           'info':
-            'You may set the Final Approach Fix to 20-50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
+            'You may set the Final Approach Fix to 50 ft below the recommended altitude, to make sure the Signal is captured, in case of inaccurate altimeter setting.'
         },
         {
           'Speed Constraints': 'CHECK in Flight Plan',
@@ -250,7 +259,7 @@ export const airbusA350Checklist = {
         { 'ATIS & Weather': 'CHECK' },
         {
           'BARO': 'PRE-SET destination value',
-          'info': 'From ATIS, EFB or METAR'
+          'info': 'From ATC, ATIS, EFB or METAR'
         },
         { 'Instrument Guide (LS)': 'ON' },
         { 'SB Lights': 'ON' },
@@ -267,17 +276,17 @@ export const airbusA350Checklist = {
         { 'Speed': 'MANAGE/MONITOR' },
         { 'GND Spoilers': 'ARM', 'info': 'Pull upward the GND SPLRS stick' },
         { 'Approach': 'APPR (G/S) stby at IAF' },
-        { 'Localizer': 'CONFIRM LOC' },
         { 'Gear': 'DOWN by FAF' },
+        { 'Localizer': 'CONFIRM LOC' },
         { 'G/S': 'ARMED at FAF' },
         { 'Flaps': 'LDG' },
         {
           'Trim': 'SET for Landing',
           'info':
-            'If AP armed let it settle the trim after flap (full) extension'
+            'If AP armed, let it settle the trim after flap (full) extension'
         },
-        { 'Auto Brk & SPLRS': 'SET & ARMED' },
-        { 'RWY Cond': 'SET' }
+        { 'Auto Brk & SPLRS': 'CHECK ARMED' },
+        { 'RWY Cond': 'CHECK SET' }
       ]
     },
     {
@@ -306,8 +315,7 @@ export const airbusA350Checklist = {
         { 'LDG, SB Lights': 'OFF' },
         { 'APU MASTER SW': 'ON' },
         { 'APU START': 'AVAIL' },
-        { 'ENG 1': 'SHUTDOWN' },
-        { 'ECAM Wheel Temps': 'MONITOR' }
+        { 'ENG 1': 'SHUTDOWN' }
       ]
     },
     {
@@ -329,15 +337,18 @@ export const airbusA350Checklist = {
         { 'NAV 3 (R)': 'OFF' },
         { 'NAV 2 (MID)': 'OFF' },
         { 'Transponder': 'STBY' },
+        { 'GROUND (EFB)': 'SET CHOCKS & GPU' },
+        { 'EXT 2': 'ON' },
+        { 'EXT 1': 'ON' },
         { 'APU BLEED': 'OFF' },
         { 'APU MASTER SW': 'OFF' },
         { 'OXYGEN Crew Supply': 'OFF' },
-        { 'EVAC CAPT & PURS': 'OFF' },
+        { 'EVAC CAPT': 'ON' },
         { 'ECAM STATUS': 'CHECK' },
         { '--- ELEC': '' },
-        { 'EXT 1': 'OFF' },
         { 'BAT 2, BAT EMER 2': 'OFF' },
         { 'BAT EMER 1, BAT 1': 'OFF' },
+        { 'EXT 1': 'OFF' },
         { 'EXT 2': 'OFF' }
       ]
     }
