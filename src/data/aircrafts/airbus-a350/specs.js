@@ -8,7 +8,7 @@ export const airbusA350Specs = {
       items: [
         { 'Max Operating Altitude': '43,100 ft' },
         { 'Cruise Speed': '488 KTAS' },
-        { 'Range': '8,500 NM' },
+        { 'Range': '8,500 NM | 9,700 NM (ULR)' },
         { 'Rate of Climb': '2,500 ft/min' },
         { 'MNE': 'Mach 0.89' },
         { 'VFE (Flaps 1)': '255 KIAS' },
