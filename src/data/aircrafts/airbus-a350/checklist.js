@@ -48,7 +48,12 @@ export const airbusA350Checklist = {
         { '--- FMS (ACTIVE/F-PLN)': '' },
         { 'DEPARTURE': 'RWY, VIA, STAR INSERTED' },
         { 'DESTINATION': 'RWY, APPR, VIA, STAR INSERTED' },
-        { 'CONTINUITY': 'CONFIRMED' },
+        {
+          'CONTINUITY': 'CONFIRMED',
+          'info':
+            'If F-PLN shows incorrect fuel consumption (EFOB), remove Departure SID'
+        },
+        { 'ACTIVE/FUEL&LOAD': 'SET FUEL & PAX' },
         { 'T.O Perf (EFB)': 'SYNC SIMBRIEF, FMS, CONDITIONS' },
         { 'T.O Speeds': 'COMPUTE & SEND TO FMS' },
         { '--- FMS (ACTIVE/PERF/T.O)': '' },
@@ -60,13 +65,13 @@ export const airbusA350Checklist = {
         },
         { 'FLAPS': 'SET RECOMMENDED' },
         { 'ICE Protection': 'AS REQ' },
-        { 'ACTIVE/FUEL&LOAD': 'SET FUEL & PAX' },
         { '--- FMS (SURV/CONTROLS)': '' },
         { 'WXR': 'AUTO' },
         { 'TAWS': 'ON' },
         { 'XPDR': 'SQWK SET, AUTO ON' },
         { 'TCAS': 'TA/RA & ADS-B ON' },
-        { 'POSITION/MONITOR': 'SET DISTANCE TO DEST' }
+        { 'POSITION/MONITOR': 'SET DISTANCE TO DEST' },
+        { 'POSITION/TIME': 'SET UTC DIFF TO DEST' }
       ]
     },
     {
@@ -154,7 +159,8 @@ export const airbusA350Checklist = {
         { 'Flaps': 'CHECK' },
         { 'Trim': 'CHECK' },
         { 'Speed Indicators': 'CHECK' },
-        { 'Lights (LDG, Nose T.O, Strobe': 'ON' }
+        { 'Taxi Light': 'OFF' },
+        { 'LDG, Nose T.O, Strobe Lights': 'ON' }
       ]
     },
     {
@@ -179,10 +185,10 @@ export const airbusA350Checklist = {
           'info': 'Pull downward the GND SPLRS stick'
         },
         { 'Autopilot': 'MONITOR' },
+        { 'BARO': 'SET to STD' },
         { 'Landing Lights': 'OFF' },
         { 'Cruise Altitude': 'SET' },
-        { 'CLB Performance': 'MONITOR' },
-        { 'BARO': 'SET to STD' }
+        { 'CLB Performance': 'MONITOR' }
       ]
     },
     {
@@ -216,6 +222,10 @@ export const airbusA350Checklist = {
         { '--- FMS (ACTIVE/PERF/APPR)': '' },
         { 'Approach Method Indicated': 'CONFIRMED' },
         { 'WIND, OAT, QNH': 'SET' },
+        {
+          'BARO': 'PRE-SET destination value',
+          'info': 'From ATC, ATIS or EFB'
+        },
         { 'MINIMUMS': 'SET' },
         { 'Approach Speeds': 'CHECK' },
 
@@ -245,16 +255,13 @@ export const airbusA350Checklist = {
       items: [
         { 'Clearance': 'OBTAINED' },
         {
-          'MANAGED DESCENT': 'ACTIVATE',
+          'MANAGED DESCENT': 'INITIATE',
           'info': 'Once TOD reached, push ALTITUDE knob - verify DES on PMD'
         },
         { 'ATIS & Weather': 'CHECK' },
         { 'EFIS': 'TERR' },
-        {
-          'BARO': 'PRE-SET destination value',
-          'info': 'From ATC, ATIS or EFB'
-        },
-        { 'Lights (LDG, SB)': 'ON' }
+        { 'SB Light': 'ON' },
+        { 'LDG Light': 'ON' }
       ]
     },
     {
@@ -322,8 +329,7 @@ export const airbusA350Checklist = {
         { 'FD & LS': 'OFF' },
         { 'EFIS': 'OFF' },
         { 'APU MASTER SW': 'ON' },
-        { 'APU START': 'AVAIL' },
-        { 'ENG 1': 'SHUTDOWN' }
+        { 'APU START': 'AVAIL' }
       ]
     },
     {
@@ -331,7 +337,7 @@ export const airbusA350Checklist = {
       items: [
         { 'Parking Brake': 'SET' },
         { 'APU BLEED': 'ON' },
-        { 'ENG 2': 'SHUTDOWN' },
+        { 'ENG 1 & 2': 'SHUTDOWN' },
         { 'Lights (ALL)': 'OFF' },
         { 'ICE Protection': 'OFF' },
         { '--- FUEL': '' },
