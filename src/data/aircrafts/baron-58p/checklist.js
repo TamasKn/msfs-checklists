@@ -11,8 +11,7 @@ export const baron58PChecklist = {
         { 'Emergency Gear Handle': 'STOWED' },
         { 'Throttles': 'IDLE' },
         { 'Props': 'FULL FORWARD' },
-        { 'Mixture': 'RICH' },
-        { 'Cowl Flaps': 'OPEN' },
+        { 'Mixture': 'CUTOFF' },
         { 'Aileron & Rudder': 'CENTERED' },
         { 'Fuel Selectors': 'ON' },
         { 'Cabin Pressure Shutoff': 'PUSHED' },
@@ -30,16 +29,21 @@ export const baron58PChecklist = {
         { 'L & R Alternator': 'ON' },
         { 'L Fuel Boost Pump': 'LO, Audible, then OFF' },
         { 'R Fuel Boost Pump': 'LO, Audible, then OFF' },
+        {
+          'Cowl Flaps': 'OPEN (UP)',
+          'info':
+            'If CHT or oil temperatures rise too high, open them to increase airflow.'
+        },
         { 'Strobe Lights': 'ON' }
       ]
     },
     {
-      title: 'Engine Start (COLD)',
+      title: 'Engine Start',
       items: [
         { 'R Throttle': 'FULL' },
         { 'R Prop': 'FULL' },
         { 'R Mixture': 'RICH' },
-        { 'R Fuel Boost Pump': 'OFF' },
+        { 'R Fuel Boost Pump': 'HI for 2-3s' },
         { 'R Throttle': 'LOW' },
         { 'R Starter': 'IGNITE' },
         { 'R Throttle': '1000-1200 RPM' },
@@ -88,6 +92,7 @@ export const baron58PChecklist = {
     {
       title: 'Before Takeoff',
       items: [
+        { 'Mixture': 'RICH' },
         { 'Cabin Pressure Mode': 'PRESS' },
         { 'Door Seal Mode': 'PRESS' },
         { 'Transponder': 'SET' },
@@ -135,7 +140,7 @@ export const baron58PChecklist = {
         { 'Cowl Flaps': 'CLOSED' },
         { 'Fuel Imbalance': 'max 15 Gal' },
         { 'Props': '2200 RPM' },
-        { 'Mixture': 'LEAN' },
+        { 'Mixture': 'LEAN (AS REQ)' },
         {
           'TOD calculation': 'Obtained',
           'info':
@@ -161,13 +166,12 @@ export const baron58PChecklist = {
       title: 'Approach',
       items: [
         { 'Landing Lights': 'ON' },
+        { 'BARO': 'Set to Destination' },
         { 'Speed': '122 KTS' },
         { 'Fuel Imbalance': 'max 15 Gal' },
         { 'Mixture': 'RICH' },
-        { 'BARO': 'Set to Destination' },
-        { 'Gear': 'DOWN' },
-        { 'Flaps': 'APPROACH' },
-        { 'Landing gear': 'Down by FAF' }
+        { 'Landing gear': 'Down by FAF' },
+        { 'Flaps': 'APPROACH' }
       ]
     },
     {
