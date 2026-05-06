@@ -7,5 +7,6 @@ export const FinalizedProcedures = [
   AircraftName.BonanzaB36TP,
   AircraftName.BonanzaB36TC,
   AircraftName.Aerostar600,
-  AircraftName.Baron58P
+  AircraftName.Baron58P,
+  AircraftName.AirbusA350
 ]
