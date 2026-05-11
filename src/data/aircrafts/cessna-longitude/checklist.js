@@ -136,6 +136,7 @@ export const cessnaLongitudeChecklist = {
       items: [
         { 'Landing Lights': 'OFF' },
         { 'Autopilot': 'MONITOR' },
+        { 'BANK MODE': 'ON' },
         { 'Cruise Altitude': 'SET' },
         { 'BARO': 'SET to STD' }
       ]
@@ -205,6 +206,7 @@ export const cessnaLongitudeChecklist = {
     {
       title: 'Landing',
       items: [
+        { 'Clearance': 'OBTAINED' },
         { 'WIND': 'CHECK' },
         { 'Speed': 'VREF' },
         { 'AP & AT': 'DISCONNECT' },
