@@ -291,6 +291,7 @@ export const airbusA350Checklist = {
     {
       title: 'Landing',
       items: [
+        { 'Clearance': 'OBTAINED' },
         { '--- Manual': '' },
         { 'WIND': 'CHECK' },
         { 'A/THR': 'SPEED/OFF' },
