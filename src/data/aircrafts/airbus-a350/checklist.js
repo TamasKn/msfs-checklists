@@ -179,16 +179,16 @@ export const airbusA350Checklist = {
       items: [
         { 'Throttles': 'CLB' },
         { 'Nose T.O': 'OFF' },
-        { 'Flaps': 'RETRACT at Safe Speed' },
         {
           'GND Spoilers': 'DISARM',
           'info': 'Pull downward the GND SPLRS stick'
         },
         { 'Autopilot': 'MONITOR' },
         { 'BARO': 'SET to STD' },
+        { 'Flaps': 'RETRACT at Safe Altitude' },
         { 'Landing Lights': 'OFF' },
-        { 'Cruise Altitude': 'SET' },
-        { 'CLB Performance': 'MONITOR' }
+        { 'CLB Performance': 'MONITOR' },
+        { 'Cruise Altitude': 'SET' }
       ]
     },
     {
